@@ -1,0 +1,64 @@
+<project name="vimdoclet" default="all" basedir=".">
+
+    <property environment="env" />
+
+    <property name="java.src.dir" value="${basedir}/src/java"/>
+    <property name="build.dir" value="${basedir}/build"/>
+
+    <!-- The build classpath -->
+    <path id="build.classpath">
+        <fileset dir="${basedir}/lib/">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="prepare">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.dir}/classes"/>
+        <mkdir dir="${build.dir}/jar"/>
+        <mkdir dir="${build.dir}/${ant.project.name}"/>
+    </target>
+
+    <!-- MUST use JDK 1.5 compiler -->
+    <target name="compile" depends="prepare">
+        <javac destdir="${build.dir}/classes"
+            classpathref="build.classpath"
+            debug="on">
+            <src path="${java.src.dir}"/>
+        </javac>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.dir}" />
+    </target>
+
+    <target name="all">
+        <antcall target="clean" />
+        <antcall target="compile" />
+    </target>
+
+    <target name="run" depends="check.run.properties,compile">
+        <delete dir="${vimdoclet.outputdir}" />
+        <mkdir dir="${vimdoclet.outputdir}" />
+        <javadoc maxmemory="512M" classpath="${build.dir}/classes">
+            <packageset dir="${vimdoclet.source.root}" excludes="com/**, sun/**, sunw/**, org/ietf/**, org/jcp/**, org/relaxng/**" />
+            <doclet 
+                name="com.naildrivin5.applications.vimdoclet.Main"
+                path="${build.dir}/classes">
+                <param name="-outputDir" value="${vimdoclet.outputdir}" />
+            </doclet>
+        </javadoc>
+        <delete>
+            <fileset dir="${vimdoclet.outputdir}" includes="java.awt.List.txt, java.awt.List.*.txt" />
+        </delete>
+    </target>
+
+    <target name="check.run.properties" depends="check.run.properties.source.root, check.run.properties.outputdir" />
+    <target name="check.run.properties.source.root" unless="vimdoclet.source.root">
+        <fail message="You must set vimdoclet.source.root to the root of the sources you wish to process" />
+    </target>
+    <target name="check.run.properties.outputdir" unless="vimdoclet.outputdir">
+        <fail message="You must set vimdoclet.outputdir to the directory where you want the files to go" />
+    </target>
+    
+</project>
