@@ -4,6 +4,8 @@
 
     <property name="java.src.dir" value="${basedir}/src/java"/>
     <property name="build.dir" value="${basedir}/build"/>
+    <property name="release.dir" value="${basedir}/release" />
+    <property name="tar.root.dir" value="${release.dir}/${ant.project.name}"/>
 
     <!-- The build classpath -->
     <path id="build.classpath">
@@ -15,7 +17,6 @@
     <target name="prepare">
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.dir}/classes"/>
-        <mkdir dir="${build.dir}/jar"/>
         <mkdir dir="${build.dir}/${ant.project.name}"/>
     </target>
 
@@ -30,11 +31,39 @@
 
     <target name="clean">
         <delete dir="${build.dir}" />
+        <delete dir="${release.dir}" />
     </target>
 
     <target name="all">
         <antcall target="clean" />
         <antcall target="compile" />
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${tar.root.dir}/bin/" />
+        <jar destfile="${tar.root.dir}/bin/${ant.project.name}.jar"
+            basedir="${build.dir}/classes">
+        </jar>
+    </target>
+
+    <target name="release" depends="check.release.properties,clean,jar"
+        description="Creates a release tarball">
+        <copy todir="${tar.root.dir}/src">
+            <fileset dir="${java.src.dir}" />
+        </copy>
+        <copy todir="${tar.root.dir}/doc">
+            <fileset dir="${basedir}/doc" />
+        </copy>
+        <copy todir="${tar.root.dir}">
+            <fileset dir="${basedir}" includes="build.xml"/>
+        </copy>
+        <tar tarfile="${release.dir}/${ant.project.name}.tar"
+            basedir="${tar.root.dir}"/>
+        <gzip zipfile="${release.dir}/${ant.project.name}-${release.version.number}.tgz" src="${release.dir}/${ant.project.name}.tar" />
+    </target>
+
+    <target name="check.release.properties" unless="release.version.number">
+        <fail message="You must set release.version.number" />
     </target>
 
     <target name="run" depends="check.run.properties,compile">
