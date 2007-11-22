@@ -1,0 +1,17 @@
+vimdoclet - A doclet that generates vim help files
+
+ant     - this will compile all code
+ant jar - this will create a jar file, if you wish to more easily move the
+          class files around
+ant run - this will run the doclet on the Java source (or any source really
+          but the excludes are set up to run on the JDK source)
+          You must set two command line properties:
+          vimdoclet.source.root 
+            to point to your java source root (which is not the actual
+            root of the jdk src package, but the root of the source
+            of the jre classes themselves).  You must
+          vimdoclet.output.dir
+            The output directory where you want your helpfiles to
+            go.  I suggest ~/.vim/doc
+
+

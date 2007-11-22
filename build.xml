@@ -14,14 +14,12 @@
         </fileset>
     </path>
 
-    <target name="prepare">
+    <!-- MUST use JDK 1.5 compiler -->
+    <target name="compile" depends="prepare"
+	description="Compiles all code">
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.dir}/classes"/>
         <mkdir dir="${build.dir}/${ant.project.name}"/>
-    </target>
-
-    <!-- MUST use JDK 1.5 compiler -->
-    <target name="compile" depends="prepare">
         <javac destdir="${build.dir}/classes"
             classpathref="build.classpath"
             debug="on">
@@ -29,7 +27,8 @@
         </javac>
     </target>
 
-    <target name="clean">
+    <target name="clean"
+	description="Removes all build artifacts">
         <delete dir="${build.dir}" />
         <delete dir="${release.dir}" />
     </target>
@@ -39,7 +38,8 @@
         <antcall target="compile" />
     </target>
 
-    <target name="jar" depends="compile">
+    <target name="jar" depends="compile"
+	description="packages code in a jar file">
         <mkdir dir="${tar.root.dir}/bin/" />
         <jar destfile="${tar.root.dir}/bin/${ant.project.name}.jar"
             basedir="${build.dir}/classes">
@@ -66,7 +66,8 @@
         <fail message="You must set release.version.number" />
     </target>
 
-    <target name="run" depends="check.run.properties,compile">
+    <target name="run" depends="check.run.properties,compile"
+	description="Runs the doclet on the java source.  See README">
         <delete dir="${vimdoclet.outputdir}" />
         <mkdir dir="${vimdoclet.outputdir}" />
         <javadoc maxmemory="512M" classpath="${build.dir}/classes">
