@@ -51,9 +51,6 @@
         <copy todir="${tar.root.dir}/src">
             <fileset dir="${java.src.dir}" />
         </copy>
-        <copy todir="${tar.root.dir}/doc">
-            <fileset dir="${basedir}/doc" />
-        </copy>
         <copy todir="${tar.root.dir}">
             <fileset dir="${basedir}" includes="build.xml"/>
         </copy>
