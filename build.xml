@@ -15,7 +15,7 @@
     </path>
 
     <!-- MUST use JDK 1.5 compiler -->
-    <target name="compile" depends="prepare"
+    <target name="compile" 
 	description="Compiles all code">
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.dir}/classes"/>
@@ -60,6 +60,12 @@
         <tar tarfile="${release.dir}/${ant.project.name}.tar"
             basedir="${tar.root.dir}"/>
         <gzip zipfile="${release.dir}/${ant.project.name}-${release.version.number}.tgz" src="${release.dir}/${ant.project.name}.tar" />
+    </target>
+
+    <target name="sample"
+        description="Packages some sample help files">
+        <zip destfile="vimdoclet_samples.zip"
+        basedir="sample" />
     </target>
 
     <target name="check.release.properties" unless="release.version.number">
