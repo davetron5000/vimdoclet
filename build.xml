@@ -1,25 +1,23 @@
-<project name="vimdoclet" default="all" basedir=".">
+<project name="vimdoclet" default="jar" basedir=".">
 
     <property environment="env" />
 
-    <property name="java.src.dir" value="${basedir}/src/java"/>
+    <property name="src.dir" value="${basedir}/src"/>
+    <property name="lib.dir" value="${basedir}/lib"/>
+    <property name="java.src.dir" value="${src.dir}/java"/>
     <property name="build.dir" value="${basedir}/build"/>
-    <property name="release.dir" value="${basedir}/release" />
-    <property name="tar.root.dir" value="${release.dir}/${ant.project.name}"/>
+    <property name="jar" value="${build.dir}/${ant.project.name}.jar"/>
 
-    <!-- The build classpath -->
     <path id="build.classpath">
-        <fileset dir="${basedir}/lib/">
+        <fileset dir="${lib.dir}">
             <include name="*.jar"/>
         </fileset>
     </path>
 
-    <!-- MUST use JDK 1.5 compiler -->
     <target name="compile" 
-	description="Compiles all code">
+        description="Compiles all code">
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.dir}/classes"/>
-        <mkdir dir="${build.dir}/${ant.project.name}"/>
         <javac destdir="${build.dir}/classes"
             classpathref="build.classpath"
             debug="on">
@@ -28,70 +26,14 @@
     </target>
 
     <target name="clean"
-	description="Removes all build artifacts">
+        description="Removes all build artifacts">
         <delete dir="${build.dir}" />
-        <delete dir="${release.dir}" />
-    </target>
-
-    <target name="all">
-        <antcall target="clean" />
-        <antcall target="compile" />
     </target>
 
     <target name="jar" depends="compile"
-	description="packages code in a jar file">
-        <mkdir dir="${tar.root.dir}/bin/" />
-        <jar destfile="${tar.root.dir}/bin/${ant.project.name}.jar"
+        description="packages code in a jar file">
+        <jar destfile="${jar}"
             basedir="${build.dir}/classes">
         </jar>
     </target>
-
-    <target name="release" depends="check.release.properties,clean,jar"
-        description="Creates a release tarball">
-        <copy todir="${tar.root.dir}/src">
-            <fileset dir="${java.src.dir}" />
-        </copy>
-        <copy todir="${tar.root.dir}">
-            <fileset dir="${basedir}" includes="build.xml"/>
-        </copy>
-        <tar tarfile="${release.dir}/${ant.project.name}.tar"
-            basedir="${tar.root.dir}"/>
-        <gzip zipfile="${release.dir}/${ant.project.name}-${release.version.number}.tgz" src="${release.dir}/${ant.project.name}.tar" />
-    </target>
-
-    <target name="sample"
-        description="Packages some sample help files">
-        <zip destfile="vimdoclet_samples.zip"
-        basedir="sample" />
-    </target>
-
-    <target name="check.release.properties" unless="release.version.number">
-        <fail message="You must set release.version.number" />
-    </target>
-
-    <target name="run" depends="check.run.properties,compile"
-	description="Runs the doclet on the java source.  See README">
-        <delete dir="${vimdoclet.outputdir}" />
-        <mkdir dir="${vimdoclet.outputdir}" />
-        <javadoc maxmemory="512M" classpath="${build.dir}/classes">
-            <packageset dir="${vimdoclet.source.root}" excludes="com/**, sun/**, sunw/**, org/ietf/**, org/jcp/**, org/relaxng/**" />
-            <doclet 
-                name="com.naildrivin5.applications.vimdoclet.Main"
-                path="${build.dir}/classes">
-                <param name="-outputDir" value="${vimdoclet.outputdir}" />
-            </doclet>
-        </javadoc>
-        <delete>
-            <fileset dir="${vimdoclet.outputdir}" includes="java.awt.List.txt, java.awt.List.*.txt" />
-        </delete>
-    </target>
-
-    <target name="check.run.properties" depends="check.run.properties.source.root, check.run.properties.outputdir" />
-    <target name="check.run.properties.source.root" unless="vimdoclet.source.root">
-        <fail message="You must set vimdoclet.source.root to the root of the sources you wish to process" />
-    </target>
-    <target name="check.run.properties.outputdir" unless="vimdoclet.outputdir">
-        <fail message="You must set vimdoclet.outputdir to the directory where you want the files to go" />
-    </target>
-    
 </project>

@@ -1,0 +1,44 @@
+<project name="vimdoclet-release" default="release" basedir=".">
+
+    <import file="build.xml" />
+
+    <loadfile property="release.number" srcFile="${src.dir}/release.txt">
+        <filterchain>
+            <striplinebreaks />
+        </filterchain>
+    </loadfile>
+
+    <property name="release.name" value="vimdoclet-${release.number}" />
+    <property name="release.base.dir" value="${basedir}" />
+    <property name="release.dir.name" value="${release.name}" />
+    <property name="release.build.dir" value="${release.base.dir}/${release.dir.name}" />
+
+
+    <target name="release" depends="clean-release,jar"
+        description="Creates a release tarball and zip">
+        <mkdir dir="${release.build.dir}" />
+        <mkdir dir="${release.build.dir}/bin" />
+
+        <copy todir="${release.build.dir}/bin" file="${jar}" />
+        <copy todir="${release.build.dir}/src">
+            <fileset dir="${src.dir}" excludes="release.txt" />
+        </copy> 
+        <copy todir="${release.build.dir}/lib">
+            <fileset dir="${lib.dir}" excludes="release.txt" />
+        </copy> 
+        <copy todir="${release.build.dir}" file="build.xml" />
+        <copy todir="${release.build.dir}" file="run.xml" />
+        <copy todir="${release.build.dir}" file="README" />
+        <tar destfile="${basedir}/${release.name}.tar.gz" basedir="${release.base.dir}"
+            includes="${release.dir.name}/**" 
+            compression="gzip" />
+        <zip destfile="${basedir}/${release.name}.zip" basedir="${release.base.dir}"
+            includes="${release.dir.name}/**" /> 
+    </target>
+
+    <target name="clean-release">
+        <delete file="${release.name}.zip" />
+        <delete file="${release.name}.tar.gz" />
+        <delete dir="${release.build.dir}" />
+    </target>
+</project>

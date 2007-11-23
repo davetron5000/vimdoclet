@@ -1,8 +1,13 @@
 vimdoclet - A doclet that generates vim help files
 
-ant     - this will compile all code
-ant jar - this will create a jar file, if you wish to more easily move the
-          class files around
-ant run - this will run the doclet on the Java source (or any source really
-          but the excludes are set up to run on the JDK source)
-          See the wiki for more details
+Contents:
+
+README    - This file
+build.xml - compiles all code into a jar
+lib       - libraries (currently empty)
+run.xml   - example ant file to run the doclet
+src       - source for the doclet
+
+Usage:
+
+See the wiki at http://vimdoclet.sf.net
