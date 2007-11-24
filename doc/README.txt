@@ -1,5 +1,5 @@
 = Vim Helpfile Doclet =
-David Copeland <davetron5000@gmail.com>
+David Copeland <davetron5000@NOSPAM.gmail.com>
 v1.0, Nov 2007
 
 The Vim Doclet is a Doclet for Java 1.4 and above that generates documentation in the VIM Help File format. This format is a very rudimentary form of hypertext and allows a vim user to call up the documentation on a Java class in the same manner as searching the VIM help. This allows the developer to read documentation without exiting VIM.
