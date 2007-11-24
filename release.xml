@@ -28,7 +28,13 @@
         </copy> 
         <copy todir="${release.build.dir}" file="build.xml" />
         <copy todir="${release.build.dir}" file="run.xml" />
-        <copy todir="${release.build.dir}" file="README" />
+        <mkdir dir="${release.build.dir}/doc" />
+        <copy todir="${release.build.dir}/doc">
+            <fileset dir="${basedir}/doc" includes="*.txt,*.png" />
+        </copy>
+        <exec executable="asciidoc">
+            <arg line="-a toc -a numbered ${release.build.dir}/doc/README.txt" />
+        </exec>
         <tar destfile="${basedir}/${release.name}.tar.gz" basedir="${release.base.dir}"
             includes="${release.dir.name}/**" 
             compression="gzip" />
