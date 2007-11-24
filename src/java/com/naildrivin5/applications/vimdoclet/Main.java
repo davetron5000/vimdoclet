@@ -1,3 +1,10 @@
+/*
+ *  Copyright (C) 2007 David Copeland, All Rights Reserved
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ */
 package com.naildrivin5.applications.vimdoclet;
 
 import java.io.*;
