@@ -37,7 +37,7 @@ The `run.xml` file included in the distribution has a target called `run` that w
 
 Once you've generated the documentation, you need to generate Vim's tag index. If you've put your documents in `+++~/.vim/doc+++`, you can just do `:helptags +++~/.vim/doc+++` from within vim and, after a very long time of indexing your documentation is ready for use. Try it by doing `:help String` in vim.
 
-If you've never used the vim help browser, highlighted text typically represents hyperlinks that can be followed by ^] (control and right bracket). You can navigate "back" via ^T (control and T).
+If you've never used the vim help browser, highlighted text typically represents hyperlinks that can be followed by +++^]+++ (control and right bracket). You can navigate "back" via +++^T+++ (control and T).
 
 See the vim documentation for further ways in which you can streamline your experience.
 
@@ -52,5 +52,13 @@ I find it useful to remove the documentation for `java.awt.List` because I almos
 * link:http://download.java.net/jdk6[JDK6 source code]
 * link:http://www.vim.org[VIM Homepage]
 * link:http://java.sun.com/j2se/javadoc/[Javadoc homepage]
+* link:http://vim.wikia.com/wiki/Vim_Doclet[Vim wikia entry]
+
+== Screenshots ==
+image:vimdoclet1.png[Screenshot of what the documentation looks like]
+image:vimdoclet2.png[Screenshot of the method list]
+image:vimdoclet3.png[Screenshot a method's javadoc]
+
+''''
 
 image:sflogo.png[link="http://www.sourceforge.net"]
