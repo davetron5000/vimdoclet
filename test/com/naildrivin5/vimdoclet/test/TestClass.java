@@ -7,7 +7,7 @@ import java.util.*;
  * the {@link java.lang.String#indexOf(int)} method for more information.
  * @deprecated You should not use this class
  */
-public class TestClass extends java.io.Serializable
+public class TestClass implements java.io.Serializable
 {
     /** Default constructor.  This is what you use normally */
     public TestClass(){}
