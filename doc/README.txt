@@ -24,7 +24,7 @@ outputDir::
 lineLength:: 
     This defaults to 80 and specifies the number of characters per line for the documentation. You can use this to increase the size of your documentation if you know you will be using vim in a particular size.
 
-Aside from simply configuration `javadoc` to use this doclet, you also need source to run it on. The most useful source is the source code for Java itself. Fortunately, this is available from Sun link:http://download.java.net/jdk6/[here]. Once you download this, extract it somewhere and have your javadoc point to that (though you will need to point it to `j2se/src/share/classes` unless you want a ton of superfluous classes documented).
+Aside from simply configuration `javadoc` to use this doclet, you also need source to run it on. The most useful source is the source code for Java itself. Fortunately, this is available from Sun link:https://jdk6.dev.java.net/[here (click on "Latest JDK 6 Source Snapshots")]. Once you download this, extract it somewhere and have your javadoc point to that (though you will need to point it to `j2se/src/share/classes` unless you want a ton of superfluous classes documented).
 
 === Running from Ant ===
 
@@ -49,7 +49,7 @@ I find it useful to remove the documentation for `java.awt.List` because I almos
 
 == Links ==
 
-* link:http://download.java.net/jdk6[JDK6 source code]
+* link:https://jdk6.dev.java.net/[JDK6 Dev page (source available here)]
 * link:http://www.vim.org[VIM Homepage]
 * link:http://java.sun.com/j2se/javadoc/[Javadoc homepage]
 * link:http://vim.wikia.com/wiki/Vim_Doclet[Vim wikia entry]
