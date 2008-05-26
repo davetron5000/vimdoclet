@@ -9,6 +9,9 @@ import java.util.*;
  */
 public class TestClass implements java.io.Serializable
 {
+    /** This is to be used when you need a constaint.  It's useful because it's true */
+    public static final String SOME_CONSTANT = "blah";
+
     /** Default constructor.  This is what you use normally */
     public TestClass(){}
     /** String based constructor.  This is for when you have one string

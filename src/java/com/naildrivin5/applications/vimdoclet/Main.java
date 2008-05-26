@@ -168,7 +168,7 @@ public class Main
             w.print(link);
             w.println("*");
             w.println("");
-            outputTags(w,doc.inlineTags());
+            outputTags(w,d.inlineTags());
             w.println("");
         }
         w.println("");
