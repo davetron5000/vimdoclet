@@ -19,12 +19,9 @@
         <mkdir dir="${release.build.dir}" />
         <mkdir dir="${release.build.dir}/bin" />
 
-        <copy todir="${release.build.dir}/bin" file="${jar}" />
+        <copy tofile="${release.build.dir}/bin/vimdoclet-${release.number}.jar" file="${jar}" />
         <copy todir="${release.build.dir}/src">
             <fileset dir="${src.dir}" excludes="release.txt" />
-        </copy> 
-        <copy todir="${release.build.dir}/lib">
-            <fileset dir="${lib.dir}" excludes="release.txt" />
         </copy> 
         <copy todir="${release.build.dir}" file="build.xml" />
         <copy todir="${release.build.dir}" file="run.xml" />
