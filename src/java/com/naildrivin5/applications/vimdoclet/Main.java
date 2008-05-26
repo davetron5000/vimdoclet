@@ -299,6 +299,8 @@ public class Main
 
             outputTags(w,d.inlineTags());
 
+            writeDeprecation(d,"    ",w);
+
             ParamTag params[] = d.paramTags();
             for (ParamTag t: params)
             {
@@ -315,6 +317,8 @@ public class Main
                 w.print("    Returns: ");
                 w.print(format(stripHtml(t.text()),"             "));
             }
+            if (tags.length > 0)
+                w.println("");
 
         }
         w.println("");
@@ -491,6 +495,25 @@ public class Main
         Tag tags[] = doc.inlineTags();
         outputTags(w,tags);
         w.println("");
+        writeDeprecation(doc,"  ",w);
+    }
+
+    private static void writeDeprecation(Doc doc, String linePrefix, PrintWriter w)
+    {
+        Tag dep[] = doc.tags("@deprecated");
+        if (dep != null)
+        {
+            for (Tag tag: dep)
+            {
+                w.print(linePrefix);
+                w.print("Deprecated");
+                if ( (tag.text() != null) && (tag.text().trim().length() > 0) )
+                    w.println(": " + tag.text());
+                else
+                    w.println("");
+            }
+            w.println("");
+        }
     }
 
     private static void outputTags(PrintWriter w, Tag tags[])
