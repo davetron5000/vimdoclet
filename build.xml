@@ -32,11 +32,11 @@
     <path id="javadoc.classpath">
         <fileset dir="${build.dir}"> <include name="*.jar"/> </fileset>
     </path>
-    <target name="test.run">
+    <target name="test.run" depends="jar">
         <delete dir="${build.dir}/test-output" />
         <mkdir dir="${build.dir}/test-output" />
         <javadoc maxmemory="512M" classpathref="javadoc.classpath">
-            <packageset dir="${basedir}/test" />
+            <packageset dir="${basedir}/src/java" />
             <doclet 
                 name="com.naildrivin5.applications.vimdoclet.Main"
                 pathref="javadoc.classpath">

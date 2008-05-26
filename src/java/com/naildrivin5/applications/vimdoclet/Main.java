@@ -28,6 +28,10 @@ public class Main
     private static int lineLength = 80;
     private static String outputDir = ".";
 
+    public static LanguageVersion languageVersion() {
+        return LanguageVersion.JAVA_1_5;
+    }
+
     public static boolean start(RootDoc root) 
     {
         readOptions(root.options());
@@ -259,6 +263,7 @@ public class Main
             w.print(d.returnType().qualifiedTypeName());
             if (!returnType.isPrimitive())
                 w.print("|");
+            w.print(getNonLinkableTypeInfo(d.returnType()));
             w.print(" ");
             w.print(d.name());
             w.print("(");
@@ -291,7 +296,8 @@ public class Main
                 {
                     w.print("|");
                     w.print(ex.qualifiedTypeName());
-                    w.println("|");
+                    w.print("|");
+                    w.println(getNonLinkableTypeInfo(ex));
                     w.print("         ");
                 }
             }
@@ -440,6 +446,7 @@ public class Main
             w.print("  extends    |");
             w.print(superDoc.qualifiedTypeName());
             w.print("|");
+            w.print(getNonLinkableTypeInfo(superDoc));
         }
         w.println("");
         
@@ -452,7 +459,8 @@ public class Main
                 ClassDoc d = interfaces[i];
                 w.print("|");
                 w.print(d.qualifiedTypeName());
-                w.println("|");
+                w.print("|");
+                w.println(getNonLinkableTypeInfo(d));
                 if (i < (interfaces.length - 1) )
                     w.print("             ");
             }
@@ -681,6 +689,44 @@ public class Main
         if (currentLine.length() > pre.length())
             overallString.append(currentLine.toString());
         return overallString.toString();
+    }
+    private static String getNonLinkableTypeInfo(Type t)
+    {
+        StringBuilder returnMe = new StringBuilder(t.dimension());
+
+        if (t instanceof ParameterizedType)
+        {
+            ParameterizedType param = t.asParameterizedType();
+            if (param != null)
+            {
+                Type args[] = param.typeArguments();
+                if (args.length > 0)
+                {
+                    StringBuilder b = new StringBuilder("<");
+                    for (Type type: args)
+                    {
+                        if (type instanceof WildcardType)
+                        {
+                            b.append(type.toString());
+                        }
+                        else if (type instanceof TypeVariable)
+                        {
+                            b.append(type.toString());
+                        }
+                        else
+                        {
+                            b.append(type.simpleTypeName());
+                        }
+                        b.append(getNonLinkableTypeInfo(type));
+                        b.append(",");
+                    }
+                    b.setLength(b.length() - 1);
+                    b.append(">");
+                    returnMe.append(b.toString());
+                }
+            }
+        }
+        return returnMe.toString();
     }
 }
 

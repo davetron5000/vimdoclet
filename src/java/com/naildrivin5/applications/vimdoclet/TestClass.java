@@ -1,4 +1,4 @@
-package com.naildrivin5.vimdoclet.test;
+package com.naildrivin5.applications.vimdoclet;
 
 import java.util.*;
 
@@ -33,6 +33,8 @@ public class TestClass implements java.io.Serializable
      * @exception NullPointerException whenever you use this
      */
     public String[] gimmeArray(){ return null; }
-    public List<String>gimmeList() { return null; }
+    public List<String> gimmeList() { return null; }
     public String gimmeString() { return null; }
+    public Map<String,List<Integer>> getMap() { return null; }
+    public List<? extends TestClass> getMe() { return null; }
 }
