@@ -1,0 +1,511 @@
+*java.util.Deque* *Deque* A linear collection that supports element insertion an
+
+public interface interface Deque<E>
+
+  implements |java.util.Queue|
+
+|java.util.Deque_Description|
+|java.util.Deque_Fields|
+|java.util.Deque_Constructors|
+|java.util.Deque_Methods|
+
+================================================================================
+
+*java.util.Deque_Methods*
+|java.util.Deque.add(E)|Inserts the specified element into the queue represente
+|java.util.Deque.addFirst(E)|Inserts the specified element at the front of this
+|java.util.Deque.addLast(E)|Inserts the specified element at the end of this de
+|java.util.Deque.contains(Object)|Returns true if this deque contains the speci
+|java.util.Deque.descendingIterator()|Returns an iterator over the elements in 
+|java.util.Deque.element()|Retrieves, but does not remove, the head of the queu
+|java.util.Deque.getFirst()|Retrieves, but does not remove, the first element o
+|java.util.Deque.getLast()|Retrieves, but does not remove, the last element of 
+|java.util.Deque.iterator()|Returns an iterator over the elements in this deque
+|java.util.Deque.offer(E)|Inserts the specified element into the queue represen
+|java.util.Deque.offerFirst(E)|Inserts the specified element at the front of th
+|java.util.Deque.offerLast(E)|Inserts the specified element at the end of this 
+|java.util.Deque.peek()|Retrieves, but does not remove, the head of the queue r
+|java.util.Deque.peekFirst()|Retrieves, but does not remove, the first element 
+|java.util.Deque.peekLast()|Retrieves, but does not remove, the last element of
+|java.util.Deque.poll()|Retrieves and removes the head of the queue represented
+|java.util.Deque.pollFirst()|Retrieves and removes the first element of this de
+|java.util.Deque.pollLast()|Retrieves and removes the last element of this dequ
+|java.util.Deque.pop()|Pops an element from the stack represented by this deque
+|java.util.Deque.push(E)|Pushes an element onto the stack represented by this d
+|java.util.Deque.remove()|Retrieves and removes the head of the queue represent
+|java.util.Deque.remove(Object)|Removes the first occurrence of the specified e
+|java.util.Deque.removeFirst()|Retrieves and removes the first element of this 
+|java.util.Deque.removeFirstOccurrence(Object)|Removes the first occurrence of 
+|java.util.Deque.removeLast()|Retrieves and removes the last element of this de
+|java.util.Deque.removeLastOccurrence(Object)|Removes the last occurrence of th
+|java.util.Deque.size()|Returns the number of elements in this deque.
+
+*java.util.Deque_Description*
+
+A linear collection that supports element insertion and removal at both ends. 
+The name deque is short for "double ended queue" and is usually pronounced 
+"deck". Most Deque implementations place no fixed limits on the number of 
+elements they may contain, but this interface supports capacity-restricted 
+deques as well as those with no fixed size limit. 
+
+This interface defines methods to access the elements at both ends of the 
+deque. Methods are provided to insert, remove, and examine the element. Each of 
+these methods exists in two forms: one throws an exception if the operation 
+fails, the other returns a special value (either null or false, depending on 
+the operation). The latter form of the insert operation is designed 
+specifically for use with capacity-restricted Deque implementations; in most 
+implementations, insert operations cannot fail. 
+
+The twelve methods described above are summarized in the following table: 
+
+
+
+
+
+First Element (Head) Last Element (Tail) 
+
+
+
+Throws exception Special value Throws exception Special value 
+
+Insert addFirst(e)(|java.util.Deque|) offerFirst(e)(|java.util.Deque|) 
+addLast(e)(|java.util.Deque|) offerLast(e)(|java.util.Deque|) 
+
+Remove removeFirst()(|java.util.Deque|) pollFirst()(|java.util.Deque|) 
+removeLast()(|java.util.Deque|) pollLast()(|java.util.Deque|) 
+
+Examine getFirst()(|java.util.Deque|) peekFirst()(|java.util.Deque|) 
+getLast()(|java.util.Deque|) peekLast()(|java.util.Deque|) 
+
+
+
+This interface extends the (|java.util.Queue|) interface. When a deque is used 
+as a queue, FIFO (First-In-First-Out) behavior results. Elements are added at 
+the end of the deque and removed from the beginning. The methods inherited from 
+the Queue interface are precisely equivalent to Deque methods as indicated in 
+the following table: 
+
+
+
+Queue Method Equivalent Deque Method 
+
+add(e)(|java.util.Queue|) addLast(e)(|java.util.Deque|) 
+
+offer(e)(|java.util.Queue|) offerLast(e)(|java.util.Deque|) 
+
+remove()(|java.util.Queue|) removeFirst()(|java.util.Deque|) 
+
+poll()(|java.util.Queue|) pollFirst()(|java.util.Deque|) 
+
+element()(|java.util.Queue|) getFirst()(|java.util.Deque|) 
+
+peek()(|java.util.Queue|) peekFirst()(|java.util.Deque|) 
+
+
+
+Deques can also be used as LIFO (Last-In-First-Out) stacks. This interface 
+should be used in preference to the legacy (|java.util.Stack|) class. When a 
+deque is used as a stack, elements are pushed and popped from the beginning of 
+the deque. Stack methods are precisely equivalent to Deque methods as indicated 
+in the table below: 
+
+
+
+Stack Method Equivalent Deque Method 
+
+push(e)(|java.util.Deque|) addFirst(e)(|java.util.Deque|) 
+
+pop()(|java.util.Deque|) removeFirst()(|java.util.Deque|) 
+
+peek()(|java.util.Deque|) peekFirst()(|java.util.Deque|) 
+
+
+
+Note that the peek(|java.util.Deque|) method works equally well when a deque is 
+used as a queue or a stack; in either case, elements are drawn from the 
+beginning of the deque. 
+
+This interface provides two methods to remove interior elements, 
+removeFirstOccurrence(|java.util.Deque|) and 
+removeLastOccurrence(|java.util.Deque|) . 
+
+Unlike the (|java.util.List|) interface, this interface does not provide 
+support for indexed access to elements. 
+
+While Deque implementations are not strictly required to prohibit the insertion 
+of null elements, they are strongly encouraged to do so. Users of any Deque 
+implementations that do allow null elements are strongly encouraged not to take 
+advantage of the ability to insert nulls. This is so because null is used as a 
+special return value by various methods to indicated that the deque is empty. 
+
+Deque implementations generally do not define element-based versions of the 
+equals and hashCode methods, but instead inherit the identity-based versions 
+from class Object. 
+
+This interface is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
+
+
+*java.util.Deque.add(E)*
+
+public boolean add(E e)
+
+Inserts the specified element into the queue represented by this deque (in 
+other words, at the tail of this deque) if it is possible to do so immediately 
+without violating capacity restrictions, returning true upon success and 
+throwing an IllegalStateException if no space is currently available. When 
+using a capacity-restricted deque, it is generally preferable to use 
+offer(|java.util.Deque|) . 
+
+This method is equivalent to (|java.util.Deque|) . 
+
+
+    e - the element to add 
+
+    Returns: true (as specified by {@link Collection#add}) 
+
+*java.util.Deque.addFirst(E)*
+
+public void addFirst(E e)
+
+Inserts the specified element at the front of this deque if it is possible to 
+do so immediately without violating capacity restrictions. When using a 
+capacity-restricted deque, it is generally preferable to use method 
+(|java.util.Deque|) . 
+
+
+    e - the element to add 
+
+*java.util.Deque.addLast(E)*
+
+public void addLast(E e)
+
+Inserts the specified element at the end of this deque if it is possible to do 
+so immediately without violating capacity restrictions. When using a 
+capacity-restricted deque, it is generally preferable to use method 
+(|java.util.Deque|) . 
+
+This method is equivalent to (|java.util.Deque|) . 
+
+
+    e - the element to add 
+
+*java.util.Deque.contains(Object)*
+
+public boolean contains(java.lang.Object o)
+
+Returns true if this deque contains the specified element. More formally, 
+returns true if and only if this deque contains at least one element e such 
+that (o==null?e==null:o.equals(e)). 
+
+
+    o - element whose presence in this deque is to be tested 
+
+    Returns: true if this deque contains the specified element 
+
+*java.util.Deque.descendingIterator()*
+
+public |java.util.Iterator|<E> descendingIterator()
+
+Returns an iterator over the elements in this deque in reverse sequential 
+order. The elements will be returned in order from last (tail) to first (head). 
+
+
+
+    Returns: an iterator over the elements in this deque in reverse sequence 
+
+*java.util.Deque.element()*
+
+public |E| element()
+
+Retrieves, but does not remove, the head of the queue represented by this deque 
+(in other words, the first element of this deque). This method differs from 
+peek(|java.util.Deque|) only in that it throws an exception if this deque is 
+empty. 
+
+This method is equivalent to (|java.util.Deque|) . 
+
+
+
+    Returns: the head of the queue represented by this deque 
+
+*java.util.Deque.getFirst()*
+
+public |E| getFirst()
+
+Retrieves, but does not remove, the first element of this deque. 
+
+This method differs from peekFirst(|java.util.Deque|) only in that it throws an 
+exception if this deque is empty. 
+
+
+
+    Returns: the head of this deque 
+
+*java.util.Deque.getLast()*
+
+public |E| getLast()
+
+Retrieves, but does not remove, the last element of this deque. This method 
+differs from peekLast(|java.util.Deque|) only in that it throws an exception if 
+this deque is empty. 
+
+
+
+    Returns: the tail of this deque 
+
+*java.util.Deque.iterator()*
+
+public |java.util.Iterator|<E> iterator()
+
+Returns an iterator over the elements in this deque in proper sequence. The 
+elements will be returned in order from first (head) to last (tail). 
+
+
+
+    Returns: an iterator over the elements in this deque in proper sequence 
+
+*java.util.Deque.offer(E)*
+
+public boolean offer(E e)
+
+Inserts the specified element into the queue represented by this deque (in 
+other words, at the tail of this deque) if it is possible to do so immediately 
+without violating capacity restrictions, returning true upon success and false 
+if no space is currently available. When using a capacity-restricted deque, 
+this method is generally preferable to the (|java.util.Deque|) method, which 
+can fail to insert an element only by throwing an exception. 
+
+This method is equivalent to (|java.util.Deque|) . 
+
+
+    e - the element to add 
+
+    Returns: true if the element was added to this deque, else false 
+
+*java.util.Deque.offerFirst(E)*
+
+public boolean offerFirst(E e)
+
+Inserts the specified element at the front of this deque unless it would 
+violate capacity restrictions. When using a capacity-restricted deque, this 
+method is generally preferable to the (|java.util.Deque|) method, which can 
+fail to insert an element only by throwing an exception. 
+
+
+    e - the element to add 
+
+    Returns: true if the element was added to this deque, else false 
+
+*java.util.Deque.offerLast(E)*
+
+public boolean offerLast(E e)
+
+Inserts the specified element at the end of this deque unless it would violate 
+capacity restrictions. When using a capacity-restricted deque, this method is 
+generally preferable to the (|java.util.Deque|) method, which can fail to 
+insert an element only by throwing an exception. 
+
+
+    e - the element to add 
+
+    Returns: true if the element was added to this deque, else false 
+
+*java.util.Deque.peek()*
+
+public |E| peek()
+
+Retrieves, but does not remove, the head of the queue represented by this deque 
+(in other words, the first element of this deque), or returns null if this 
+deque is empty. 
+
+This method is equivalent to (|java.util.Deque|) . 
+
+
+
+    Returns: the head of the queue represented by this deque, or null if this deque is empty 
+
+*java.util.Deque.peekFirst()*
+
+public |E| peekFirst()
+
+Retrieves, but does not remove, the first element of this deque, or returns 
+null if this deque is empty. 
+
+
+
+    Returns: the head of this deque, or null if this deque is empty 
+
+*java.util.Deque.peekLast()*
+
+public |E| peekLast()
+
+Retrieves, but does not remove, the last element of this deque, or returns null 
+if this deque is empty. 
+
+
+
+    Returns: the tail of this deque, or null if this deque is empty 
+
+*java.util.Deque.poll()*
+
+public |E| poll()
+
+Retrieves and removes the head of the queue represented by this deque (in other 
+words, the first element of this deque), or returns null if this deque is 
+empty. 
+
+This method is equivalent to (|java.util.Deque|) . 
+
+
+
+    Returns: the first element of this deque, or null if this deque is empty 
+
+*java.util.Deque.pollFirst()*
+
+public |E| pollFirst()
+
+Retrieves and removes the first element of this deque, or returns null if this 
+deque is empty. 
+
+
+
+    Returns: the head of this deque, or null if this deque is empty 
+
+*java.util.Deque.pollLast()*
+
+public |E| pollLast()
+
+Retrieves and removes the last element of this deque, or returns null if this 
+deque is empty. 
+
+
+
+    Returns: the tail of this deque, or null if this deque is empty 
+
+*java.util.Deque.pop()*
+
+public |E| pop()
+
+Pops an element from the stack represented by this deque. In other words, 
+removes and returns the first element of this deque. 
+
+This method is equivalent to (|java.util.Deque|) . 
+
+
+
+    Returns: the element at the front of this deque (which is the top of the stack 
+             represented by this deque) 
+
+*java.util.Deque.push(E)*
+
+public void push(E e)
+
+Pushes an element onto the stack represented by this deque (in other words, at 
+the head of this deque) if it is possible to do so immediately without 
+violating capacity restrictions, returning true upon success and throwing an 
+IllegalStateException if no space is currently available. 
+
+This method is equivalent to (|java.util.Deque|) . 
+
+
+    e - the element to push 
+
+*java.util.Deque.remove()*
+
+public |E| remove()
+
+Retrieves and removes the head of the queue represented by this deque (in other 
+words, the first element of this deque). This method differs from 
+poll(|java.util.Deque|) only in that it throws an exception if this deque is 
+empty. 
+
+This method is equivalent to (|java.util.Deque|) . 
+
+
+
+    Returns: the head of the queue represented by this deque 
+
+*java.util.Deque.remove(Object)*
+
+public boolean remove(java.lang.Object o)
+
+Removes the first occurrence of the specified element from this deque. If the 
+deque does not contain the element, it is unchanged. More formally, removes the 
+first element e such that (o==null?e==null:o.equals(e)) (if such an element 
+exists). Returns true if this deque contained the specified element (or 
+equivalently, if this deque changed as a result of the call). 
+
+This method is equivalent to (|java.util.Deque|) . 
+
+
+    o - element to be removed from this deque, if present 
+
+    Returns: true if an element was removed as a result of this call 
+
+*java.util.Deque.removeFirst()*
+
+public |E| removeFirst()
+
+Retrieves and removes the first element of this deque. This method differs from 
+pollFirst(|java.util.Deque|) only in that it throws an exception if this deque 
+is empty. 
+
+
+
+    Returns: the head of this deque 
+
+*java.util.Deque.removeFirstOccurrence(Object)*
+
+public boolean removeFirstOccurrence(java.lang.Object o)
+
+Removes the first occurrence of the specified element from this deque. If the 
+deque does not contain the element, it is unchanged. More formally, removes the 
+first element e such that (o==null?e==null:o.equals(e)) (if such an element 
+exists). Returns true if this deque contained the specified element (or 
+equivalently, if this deque changed as a result of the call). 
+
+
+    o - element to be removed from this deque, if present 
+
+    Returns: true if an element was removed as a result of this call 
+
+*java.util.Deque.removeLast()*
+
+public |E| removeLast()
+
+Retrieves and removes the last element of this deque. This method differs from 
+pollLast(|java.util.Deque|) only in that it throws an exception if this deque 
+is empty. 
+
+
+
+    Returns: the tail of this deque 
+
+*java.util.Deque.removeLastOccurrence(Object)*
+
+public boolean removeLastOccurrence(java.lang.Object o)
+
+Removes the last occurrence of the specified element from this deque. If the 
+deque does not contain the element, it is unchanged. More formally, removes the 
+last element e such that (o==null?e==null:o.equals(e)) (if such an element 
+exists). Returns true if this deque contained the specified element (or 
+equivalently, if this deque changed as a result of the call). 
+
+
+    o - element to be removed from this deque, if present 
+
+    Returns: true if an element was removed as a result of this call 
+
+*java.util.Deque.size()*
+
+public int size()
+
+Returns the number of elements in this deque. 
+
+
+
+    Returns: the number of elements in this deque 
+
+

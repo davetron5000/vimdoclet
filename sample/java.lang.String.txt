@@ -14,20 +14,22 @@ public final class String
 ================================================================================
 
 *java.lang.String_Fields*
-|java.util.Comparator_java.lang.String.CASE_INSENSITIVE_ORDER|
+|java.util.Comparator<java.lang.String>_java.lang.String.CASE_INSENSITIVE_ORDER|
 
 *java.lang.String_Constructors*
-|java.lang.String()|Initializes a newly created String object so that it  repre
-|java.lang.String(byte[])|Constructs a new String by decoding the specified arr
-|java.lang.String(byte[],int)|Allocates a new String containing characters  con
-|java.lang.String(byte[],int,int)|Constructs a new String by decoding the speci
-|java.lang.String(byte[],int,int,int)|Allocates a new String constructed from a
-|java.lang.String(byte[],int,int,String)|Constructs a new String by decoding th
-|java.lang.String(byte[],String)|Constructs a new String by decoding the specif
-|java.lang.String(char[])|Allocates a new String so that it represents the  seq
-|java.lang.String(char[],int,int)|Allocates a new String that contains characte
-|java.lang.String(int[],int,int)|Allocates a new String that contains character
-|java.lang.String(String)|Initializes a newly created String object so that it 
+|java.lang.String()|Initializes a newly createdStringobject so that it represen
+|java.lang.String(byte[])|Constructs a newStringby decoding the specified array
+|java.lang.String(byte[],Charset)|Constructs a newStringby decoding the specifi
+|java.lang.String(byte[],int)|Allocates a newStringcontaining characters constr
+|java.lang.String(byte[],int,int)|Constructs a newStringby decoding the specifi
+|java.lang.String(byte[],int,int,Charset)|Constructs a newStringby decoding the
+|java.lang.String(byte[],int,int,int)|Allocates a newStringconstructed from a s
+|java.lang.String(byte[],int,int,String)|Constructs a newStringby decoding the 
+|java.lang.String(byte[],String)|Constructs a newStringby decoding the specifie
+|java.lang.String(char[])|Allocates a newStringso that it represents the sequen
+|java.lang.String(char[],int,int)|Allocates a newStringthat contains characters
+|java.lang.String(int[],int,int)|Allocates a newStringthat contains characters 
+|java.lang.String(String)|Initializes a newly createdStringobject so that it re
 |java.lang.String(StringBuffer)|Allocates a new string that contains the sequen
 |java.lang.String(StringBuilder)|Allocates a new string that contains the seque
 
@@ -40,18 +42,19 @@ public final class String
 |java.lang.String.compareToIgnoreCase(String)|Compares two strings lexicographi
 |java.lang.String.concat(String)|Concatenates the specified string to the end o
 |java.lang.String.contains(CharSequence)|Returns true if and only if this strin
-|java.lang.String.contentEquals(CharSequence)|Returns true if and only if this 
-|java.lang.String.contentEquals(StringBuffer)|Returns true if and only if this 
+|java.lang.String.contentEquals(CharSequence)|Compares this string to the speci
+|java.lang.String.contentEquals(StringBuffer)|Compares this string to the speci
 |java.lang.String.copyValueOf(char[])|Returns a String that represents the char
 |java.lang.String.copyValueOf(char[],int,int)|Returns a String that represents 
 |java.lang.String.endsWith(String)|Tests if this string ends with the specified
 |java.lang.String.equals(Object)|Compares this string to the specified object.
-|java.lang.String.equalsIgnoreCase(String)|Compares this String to another Stri
-|java.lang.String.format(Locale,String,Object[])|Returns a formatted string usi
-|java.lang.String.format(String,Object[])|Returns a formatted string using the 
-|java.lang.String.getBytes()|Encodes this String into a sequence of bytes using
+|java.lang.String.equalsIgnoreCase(String)|Compares thisStringto anotherString,
+|java.lang.String.format(Locale,String,Object...)|Returns a formatted string us
+|java.lang.String.format(String,Object...)|Returns a formatted string using the
+|java.lang.String.getBytes()|Encodes thisStringinto a sequence of bytes using t
+|java.lang.String.getBytes(Charset)|Encodes thisStringinto a sequence of bytes 
 |java.lang.String.getBytes(int,int,byte[],int)|Copies characters from this stri
-|java.lang.String.getBytes(String)|Encodes this String into a sequence of bytes
+|java.lang.String.getBytes(String)|Encodes thisStringinto a sequence of bytes u
 |java.lang.String.getChars(int,int,char[],int)|Copies characters from this stri
 |java.lang.String.hashCode()|Returns a hash code for this string.
 |java.lang.String.indexOf(int)|Returns the index within this string of the firs
@@ -59,6 +62,7 @@ public final class String
 |java.lang.String.indexOf(String)|Returns the index within this string of the f
 |java.lang.String.indexOf(String,int)|Returns the index within this string of t
 |java.lang.String.intern()|Returns a canonical representation for the string ob
+|java.lang.String.isEmpty()|Returns true if, and only if,#length()is 0.
 |java.lang.String.lastIndexOf(int)|Returns the index within this string of the 
 |java.lang.String.lastIndexOf(int,int)|Returns the index within this string of 
 |java.lang.String.lastIndexOf(String)|Returns the index within this string of t
@@ -72,10 +76,10 @@ public final class String
 |java.lang.String.replace(CharSequence,CharSequence)|Replaces each substring of
 |java.lang.String.replaceAll(String,String)|Replaces each substring of this str
 |java.lang.String.replaceFirst(String,String)|Replaces the first substring of t
-|java.lang.String.split(String)|Splits this string around matches of the givenj
+|java.lang.String.split(String)|Splits this string around matches of the given 
 |java.lang.String.split(String,int)|Splits this string around matches of the gi
 |java.lang.String.startsWith(String)|Tests if this string starts with the speci
-|java.lang.String.startsWith(String,int)|Tests if this string starts with the s
+|java.lang.String.startsWith(String,int)|Tests if the substring of this string 
 |java.lang.String.subSequence(int,int)|Returns a new character sequence that is
 |java.lang.String.substring(int)|Returns a new string that is a substring of th
 |java.lang.String.substring(int,int)|Returns a new string that is a substring o
@@ -142,50 +146,15 @@ Unicode code points (i.e., characters), in addition to those for dealing with
 Unicode code units (i.e., char values). 
 
 
-*java.util.Comparator_java.lang.String.CASE_INSENSITIVE_ORDER*
 
-The String class represents character strings. All string literals in Java 
-programs, such as "abc", are implemented as instances of this class. 
+*java.util.Comparator<java.lang.String>_java.lang.String.CASE_INSENSITIVE_ORDER*
 
-Strings are constant; their values cannot be changed after they are created. 
-String buffers support mutable strings. Because String objects are immutable 
-they can be shared. For example: 
+A Comparator that orders String objects as by compareToIgnoreCase. This 
+comparator is serializable. 
 
-String str = "abc"; 
-
-is equivalent to: 
-
-char data[] = {'a', 'b', 'c'}; String str = new String(data); 
-
-Here are some more examples of how strings can be used: 
-
-System.out.println("abc"); String cde = "cde"; System.out.println("abc" + cde); 
-String c = "abc".substring(2,3); String d = cde.substring(1, 2); 
-
-The class String includes methods for examining individual characters of the 
-sequence, for comparing strings, for searching strings, for extracting 
-substrings, and for creating a copy of a string with all characters translated 
-to uppercase or to lowercase. Case mapping is based on the Unicode Standard 
-version specified by the Character(|java.lang.Character|) class. 
-
-The Java language provides special support for the string concatenation 
-operator (+), and for conversion of other objects to strings. String 
-concatenation is implemented through the StringBuilder(or StringBuffer) class 
-and its append method. String conversions are implemented through the method 
-toString, defined by Object and inherited by all classes in Java. For 
-additional information on string concatenation and conversion, see Gosling, 
-Joy, and Steele, The Java Language Specification. 
-
-Unless otherwise noted, passing a null argument to a constructor or method in 
-this class will cause a (|java.lang.NullPointerException|) to be thrown. 
-
-A String represents a string in the UTF-16 format in which supplementary 
-characters are represented by surrogate pairs (see the section Unicode 
-Character Representations in the Character class for more information). Index 
-values refer to char code units, so a supplementary character uses two 
-positions in a String. The String class provides methods for dealing with 
-Unicode code points (i.e., characters), in addition to those for dealing with 
-Unicode code units (i.e., char values). 
+Note that this Comparator does not take locale into account, and will result in 
+an unsatisfactory ordering for certain locales. The java.text package provides 
+Collators to allow locale-sensitive ordering. 
 
 
 
@@ -193,7 +162,7 @@ Unicode code units (i.e., char values).
 
 public String()
 
-Initializes a newly created String object so that it represents an empty 
+Initializes a newly createdStringobject so that it represents an empty 
 character sequence. Note that use of this constructor is unnecessary since 
 Strings are immutable. 
 
@@ -202,15 +171,35 @@ Strings are immutable.
 
 public String(byte[] bytes)
 
-Constructs a new String by decoding the specified array of bytes using the 
-platform's default charset. The length of the new String is a function of the 
+Constructs a newStringby decoding the specified array of bytes using the 
+platform's default charset. The length of the newStringis a function of the 
 charset, and hence may not be equal to the length of the byte array. 
 
 The behavior of this constructor when the given bytes are not valid in the 
 default charset is unspecified. The (|java.nio.charset.CharsetDecoder|) class 
 should be used when more control over the decoding process is required. 
 
-    bytes - the bytes to be decoded into characters 
+    bytes - The bytes to be decoded into characters 
+
+*java.lang.String(byte[],Charset)*
+
+public String(
+  byte[] bytes,
+  java.nio.charset.Charset charset)
+
+Constructs a newStringby decoding the specified array of bytes using the 
+specified charset(|java.nio.charset.Charset|) . The length of the newStringis a 
+function of the charset, and hence may not be equal to the length of the byte 
+array. 
+
+This method always replaces malformed-input and unmappable-character sequences 
+with this charset's default replacement string. The 
+(|java.nio.charset.CharsetDecoder|) class should be used when more control over 
+the decoding process is required. 
+
+    bytes - The bytes to be decoded into characters 
+    charset - The {@linkplain java.nio.charset.Charset charset} to be used to decode the 
+       {@code bytes} 
 
 *java.lang.String(byte[],int)*
 
@@ -218,14 +207,16 @@ public String(
   byte[] ascii,
   int hibyte)
 
-Allocates a new String containing characters constructed from an array of 8-bit 
+Allocates a newStringcontaining characters constructed from an array of 8-bit 
 integer values. Each character cin the resulting string is constructed from the 
 corresponding component b in the byte array such that: 
 
+
+
 c == (char)(((hibyte and 0xff) << 8) | (b and 0xff)) 
 
-    ascii - the bytes to be converted to characters. 
-    hibyte - the top 8 bits of each 16-bit Unicode character. 
+    ascii - The bytes to be converted to characters 
+    hibyte - The top 8 bits of each 16-bit Unicode code unit 
 
 *java.lang.String(byte[],int,int)*
 
@@ -234,17 +225,41 @@ public String(
   int offset,
   int length)
 
-Constructs a new String by decoding the specified subarray of bytes using the 
-platform's default charset. The length of the new String is a function of the 
+Constructs a newStringby decoding the specified subarray of bytes using the 
+platform's default charset. The length of the newStringis a function of the 
 charset, and hence may not be equal to the length of the subarray. 
 
 The behavior of this constructor when the given bytes are not valid in the 
 default charset is unspecified. The (|java.nio.charset.CharsetDecoder|) class 
 should be used when more control over the decoding process is required. 
 
-    bytes - the bytes to be decoded into characters 
-    offset - the index of the first byte to decode 
-    length - the number of bytes to decode 
+    bytes - The bytes to be decoded into characters 
+    offset - The index of the first byte to decode 
+    length - The number of bytes to decode 
+
+*java.lang.String(byte[],int,int,Charset)*
+
+public String(
+  byte[] bytes,
+  int offset,
+  int length,
+  java.nio.charset.Charset charset)
+
+Constructs a newStringby decoding the specified subarray of bytes using the 
+specified charset(|java.nio.charset.Charset|) . The length of the newStringis a 
+function of the charset, and hence may not be equal to the length of the 
+subarray. 
+
+This method always replaces malformed-input and unmappable-character sequences 
+with this charset's default replacement string. The 
+(|java.nio.charset.CharsetDecoder|) class should be used when more control over 
+the decoding process is required. 
+
+    bytes - The bytes to be decoded into characters 
+    offset - The index of the first byte to decode 
+    length - The number of bytes to decode 
+    charset - The {@linkplain java.nio.charset.Charset charset} to be used to decode the 
+       {@code bytes} 
 
 *java.lang.String(byte[],int,int,int)*
 
@@ -254,19 +269,18 @@ public String(
   int offset,
   int count)
 
-Allocates a new String constructed from a subarray of an array of 8-bit integer 
+Allocates a newStringconstructed from a subarray of an array of 8-bit integer 
 values. 
 
-The offset argument is the index of the first byte of the subarray, and the 
-count argument specifies the length of the subarray. 
+Theoffsetargument is the index of the first byte of the subarray, and 
+thecountargument specifies the length of the subarray. 
 
-Each byte in the subarray is converted to a char as specified in the method 
-above. 
+Eachbytein the subarray is converted to acharas specified in the method above. 
 
-    ascii - the bytes to be converted to characters. 
-    hibyte - the top 8 bits of each 16-bit Unicode character. 
-    offset - the initial offset. 
-    count - the length. 
+    ascii - The bytes to be converted to characters 
+    hibyte - The top 8 bits of each 16-bit Unicode code unit 
+    offset - The initial offset 
+    count - The length 
 
 *java.lang.String(byte[],int,int,String)*
 
@@ -277,18 +291,18 @@ public String(
   java.lang.String charsetName)
   throws |java.io.UnsupportedEncodingException|
          
-Constructs a new String by decoding the specified subarray of bytes using the 
-specified charset. The length of the new String is a function of the charset, 
-and hence may not be equal to the length of the subarray. 
+Constructs a newStringby decoding the specified subarray of bytes using the 
+specified charset. The length of the newStringis a function of the charset, and 
+hence may not be equal to the length of the subarray. 
 
 The behavior of this constructor when the given bytes are not valid in the 
 given charset is unspecified. The (|java.nio.charset.CharsetDecoder|) class 
 should be used when more control over the decoding process is required. 
 
-    bytes - the bytes to be decoded into characters 
-    offset - the index of the first byte to decode 
-    length - the number of bytes to decode 
-    charsetName - the name of a supported {@link java.nio.charset.Charset charset} 
+    bytes - The bytes to be decoded into characters 
+    offset - The index of the first byte to decode 
+    length - The number of bytes to decode 
+    charsetName - The name of a supported {@linkplain java.nio.charset.Charset charset} 
 
 *java.lang.String(byte[],String)*
 
@@ -297,27 +311,28 @@ public String(
   java.lang.String charsetName)
   throws |java.io.UnsupportedEncodingException|
          
-Constructs a new String by decoding the specified array of bytes using the 
-specified charset. The length of the new String is a function of the charset, 
-and hence may not be equal to the length of the byte array. 
+Constructs a newStringby decoding the specified array of bytes using the 
+specified charset(|java.nio.charset.Charset|) . The length of the newStringis a 
+function of the charset, and hence may not be equal to the length of the byte 
+array. 
 
 The behavior of this constructor when the given bytes are not valid in the 
 given charset is unspecified. The (|java.nio.charset.CharsetDecoder|) class 
 should be used when more control over the decoding process is required. 
 
-    bytes - the bytes to be decoded into characters 
-    charsetName - the name of a supported {@link java.nio.charset.Charset charset} 
+    bytes - The bytes to be decoded into characters 
+    charsetName - The name of a supported {@linkplain java.nio.charset.Charset charset} 
 
 *java.lang.String(char[])*
 
 public String(char[] value)
 
-Allocates a new String so that it represents the sequence of characters 
-currently contained in the character array argument. The contents of the 
-character array are copied; subsequent modification of the character array does 
-not affect the newly created string. 
+Allocates a newStringso that it represents the sequence of characters currently 
+contained in the character array argument. The contents of the character array 
+are copied; subsequent modification of the character array does not affect the 
+newly created string. 
 
-    value - the initial value of the string. 
+    value - The initial value of the string 
 
 *java.lang.String(char[],int,int)*
 
@@ -326,15 +341,15 @@ public String(
   int offset,
   int count)
 
-Allocates a new String that contains characters from a subarray of the 
-character array argument. The offset argument is the index of the first 
-character of the subarray and the count argument specifies the length of the 
-subarray. The contents of the subarray are copied; subsequent modification of 
-the character array does not affect the newly created string. 
+Allocates a newStringthat contains characters from a subarray of the character 
+array argument. Theoffsetargument is the index of the first character of the 
+subarray and thecountargument specifies the length of the subarray. The 
+contents of the subarray are copied; subsequent modification of the character 
+array does not affect the newly created string. 
 
-    value - array that is the source of characters. 
-    offset - the initial offset. 
-    count - the length. 
+    value - Array that is the source of characters 
+    offset - The initial offset 
+    count - The length 
 
 *java.lang.String(int[],int,int)*
 
@@ -343,26 +358,26 @@ public String(
   int offset,
   int count)
 
-Allocates a new String that contains characters from a subarray of the Unicode 
-code point array argument. The offset argument is the index of the first code 
-point of the subarray and the count argument specifies the length of the 
-subarray. The contents of the subarray are converted to chars; subsequent 
-modification of the int array does not affect the newly created string. 
+Allocates a newStringthat contains characters from a subarray of the Unicode 
+code point array argument. Theoffsetargument is the index of the first code 
+point of the subarray and thecountargument specifies the length of the 
+subarray. The contents of the subarray are converted tochars; subsequent 
+modification of theintarray does not affect the newly created string. 
 
-    codePoints - array that is the source of Unicode code points. 
-    offset - the initial offset. 
-    count - the length. 
+    codePoints - Array that is the source of Unicode code points 
+    offset - The initial offset 
+    count - The length 
 
 *java.lang.String(String)*
 
 public String(java.lang.String original)
 
-Initializes a newly created String object so that it represents the same 
-sequence of characters as the argument; in other words, the newly created 
-string is a copy of the argument string. Unless an explicit copy of original is 
-needed, use of this constructor is unnecessary since Strings are immutable. 
+Initializes a newly createdStringobject so that it represents the same sequence 
+of characters as the argument; in other words, the newly created string is a 
+copy of the argument string. Unless an explicit copy oforiginalis needed, use 
+of this constructor is unnecessary since Strings are immutable. 
 
-    original - a String. 
+    original - A {@code String} 
 
 *java.lang.String(StringBuffer)*
 
@@ -373,7 +388,7 @@ contained in the string buffer argument. The contents of the string buffer are
 copied; subsequent modification of the string buffer does not affect the newly 
 created string. 
 
-    buffer - a StringBuffer. 
+    buffer - A {@code StringBuffer} 
 
 *java.lang.String(StringBuilder)*
 
@@ -384,11 +399,11 @@ contained in the string builder argument. The contents of the string builder
 are copied; subsequent modification of the string builder does not affect the 
 newly created string. 
 
-This constructor is provided to ease migration to StringBuilder. Obtaining a 
-string from a string builder via the toString method is likely to run faster 
-and is generally preferred. 
+This constructor is provided to ease migration toStringBuilder. Obtaining a 
+string from a string builder via thetoStringmethod is likely to run faster and 
+is generally preferred. 
 
-    builder - a StringBuilder 
+    builder - A {@code StringBuilder} 
 
 *java.lang.String.charAt(int)*
 
@@ -401,10 +416,12 @@ index 1, and so on, as for array indexing.
 If the char value specified by the index is a surrogate, the surrogate value is 
 returned. 
 
+
     index - the index of the char value. 
 
     Returns: the char value at the specified index of this string. The first char value is 
              at index 0. 
+
 *java.lang.String.codePointAt(int)*
 
 public int codePointAt(int index)
@@ -419,9 +436,11 @@ at the following index is in the low-surrogate range, then the supplementary
 code point corresponding to this surrogate pair is returned. Otherwise, the 
 char value at the given index is returned. 
 
+
     index - the index to the char values 
 
     Returns: the code point value of the character at the index 
+
 *java.lang.String.codePointBefore(int)*
 
 public int codePointBefore(int index)
@@ -436,9 +455,11 @@ then the supplementary code point value of the surrogate pair is returned. If
 the char value at index - 1 is an unpaired low-surrogate or a high-surrogate, 
 the surrogate value is returned. 
 
+
     index - the index following the code point that should be returned 
 
     Returns: the Unicode code point value before the given index. 
+
 *java.lang.String.codePointCount(int,int)*
 
 public int codePointCount(
@@ -451,10 +472,12 @@ char at index endIndex - 1. Thus the length (in chars) of the text range is
 endIndex-beginIndex. Unpaired surrogates within the text range count as one 
 code point each. 
 
+
     beginIndex - the index to the first char of the text range. 
     endIndex - the index after the last char of the text range. 
 
     Returns: the number of Unicode code points in the specified text range 
+
 *java.lang.String.compareTo(String)*
 
 public int compareTo(java.lang.String anotherString)
@@ -485,12 +508,14 @@ the difference of the lengths of the strings -- that is, the value:
 
 this.length()-anotherString.length() 
 
+
     anotherString - the String to be compared. 
 
     Returns: the value 0 if the argument string is equal to this string; a value less than 0 
              if this string is lexicographically less than the string argument; 
              and a value greater than 0 if this string is lexicographically 
              greater than the string argument. 
+
 *java.lang.String.compareToIgnoreCase(String)*
 
 public int compareToIgnoreCase(java.lang.String str)
@@ -504,11 +529,13 @@ Note that this method does not take locale into account, and will result in an
 unsatisfactory ordering for certain locales. The java.text package provides 
 collators to allow locale-sensitive ordering. 
 
+
     str - the String to be compared. 
 
     Returns: a negative integer, zero, or a positive integer as the specified String is 
              greater than, equal to, or less than this String, ignoring case 
              considerations. 
+
 *java.lang.String.concat(String)*
 
 public |java.lang.String| concat(java.lang.String str)
@@ -523,10 +550,12 @@ object and the character sequence represented by the argument string. Examples:
 "cares".concat("s") returns "caress" "to".concat("get").concat("her") returns 
 "together" 
 
+
     str - the String that is concatenated to the end of this String. 
 
     Returns: a string that represents the concatenation of this object's characters followed 
              by the string argument's characters. 
+
 *java.lang.String.contains(CharSequence)*
 
 public boolean contains(java.lang.CharSequence s)
@@ -534,40 +563,50 @@ public boolean contains(java.lang.CharSequence s)
 Returns true if and only if this string contains the specified sequence of char 
 values. 
 
+
     s - the sequence to search for 
 
     Returns: true if this string contains s, false otherwise 
+
 *java.lang.String.contentEquals(CharSequence)*
 
 public boolean contentEquals(java.lang.CharSequence cs)
 
-Returns true if and only if this String represents the same sequence of char 
-values as the specified sequence. 
+Compares this string to the specifiedCharSequence. The result istrueif and only 
+if thisStringrepresents the same sequence of char values as the specified 
+sequence. 
 
-    cs - the sequence to compare to. 
 
-    Returns: true if and only if this String represents the same sequence of char values as 
-             the specified sequence, otherwise false. 
+    cs - The sequence to compare this {@code String} against 
+
+    Returns: {@code true} if this {@code String} represents the same sequence of char values 
+             as the specified sequence, {@code false} otherwise 
+
 *java.lang.String.contentEquals(StringBuffer)*
 
 public boolean contentEquals(java.lang.StringBuffer sb)
 
-Returns true if and only if this String represents the same sequence of 
-characters as the specified StringBuffer. 
+Compares this string to the specifiedStringBuffer. The result istrueif and only 
+if thisStringrepresents the same sequence of characters as the 
+specifiedStringBuffer. 
 
-    sb - the StringBuffer to compare to. 
 
-    Returns: true if and only if this String represents the same sequence of characters as 
-             the specified StringBuffer, otherwise false. 
+    sb - The {@code StringBuffer} to compare this {@code String} against 
+
+    Returns: {@code true} if this {@code String} represents the same sequence of characters 
+             as the specified {@code StringBuffer}, {@code false} otherwise 
+
 *java.lang.String.copyValueOf(char[])*
 
 public static |java.lang.String| copyValueOf(char[] data)
 
 Returns a String that represents the character sequence in the array specified. 
 
+
     data - the character array. 
 
     Returns: a String that contains the characters of the character array. 
+
 *java.lang.String.copyValueOf(char[],int,int)*
 
 public static |java.lang.String| copyValueOf(
@@ -577,17 +616,20 @@ public static |java.lang.String| copyValueOf(
 
 Returns a String that represents the character sequence in the array specified. 
 
+
     data - the character array. 
     offset - initial offset of the subarray. 
     count - length of the subarray. 
 
     Returns: a String that contains the characters of the specified subarray of the 
              character array. 
+
 *java.lang.String.endsWith(String)*
 
 public boolean endsWith(java.lang.String suffix)
 
 Tests if this string ends with the specified suffix. 
+
 
     suffix - the suffix. 
 
@@ -596,36 +638,44 @@ Tests if this string ends with the specified suffix.
              Note that the result will be true if the argument is the empty 
              string or is equal to this String object as determined by the 
              {@link #equals(Object)} method. 
+
 *java.lang.String.equals(Object)*
 
 public boolean equals(java.lang.Object anObject)
 
-Compares this string to the specified object. The result is true if and only if 
-the argument is not null and is a String object that represents the same 
-sequence of characters as this object. 
+Compares this string to the specified object. The result istrueif and only if 
+the argument is notnulland is aStringobject that represents the same sequence 
+of characters as this object. 
 
-    anObject - the object to compare this String against. 
 
-    Returns: true if the String are equal; false otherwise. 
+    anObject - The object to compare this {@code String} against 
+
+    Returns: {@code true} if the given object represents a {@code String} equivalent to this 
+             string, {@code false} otherwise 
+
 *java.lang.String.equalsIgnoreCase(String)*
 
 public boolean equalsIgnoreCase(java.lang.String anotherString)
 
-Compares this String to another String, ignoring case considerations. Two 
-strings are considered equal ignoring case if they are of the same length, and 
+Compares thisStringto anotherString, ignoring case considerations. Two strings 
+are considered equal ignoring case if they are of the same length and 
 corresponding characters in the two strings are equal ignoring case. 
 
-Two characters c1 and c2 are considered the same, ignoring case if at least one 
-of the following is true: The two characters are the same (as compared by the 
-== operator). Applying the method (|java.lang.Character|) to each character 
-produces the same result. Applying the method (|java.lang.Character|) to each 
-character produces the same result. 
+Two charactersc1andc2are considered the same ignoring case if at least one of 
+the following is true: 
 
-    anotherString - the String to compare this String against. 
+The two characters are the same (as compared by the==operator) Applying the 
+method (|java.lang.Character|) to each character produces the same result 
+Applying the method (|java.lang.Character|) to each character produces the same 
+result 
 
-    Returns: true if the argument is not null and the Strings are equal, ignoring case; 
-             false otherwise. 
-*java.lang.String.format(Locale,String,Object[])*
+
+    anotherString - The {@code String} to compare this {@code String} against 
+
+    Returns: {@code true} if the argument is not {@code null} and it represents an 
+             equivalent {@code String} ignoring case; {@code false} otherwise 
+
+*java.lang.String.format(Locale,String,Object...)*
 
 public static |java.lang.String| format(
   java.util.Locale l,
@@ -634,6 +684,7 @@ public static |java.lang.String| format(
 
 Returns a formatted string using the specified locale, format string, and 
 arguments. 
+
 
     l - The {@linkplain java.util.Locale locale} to apply during formatting. If l is 
        null then no localization is applied. 
@@ -646,7 +697,8 @@ arguments.
        behaviour on a null argument depends on the conversion. 
 
     Returns: A formatted string 
-*java.lang.String.format(String,Object[])*
+
+*java.lang.String.format(String,Object...)*
 
 public static |java.lang.String| format(
   java.lang.String format,
@@ -657,6 +709,7 @@ Returns a formatted string using the specified format string and arguments.
 The locale always used is the one returned by 
 Locale.getDefault()(|java.util.Locale|) . 
 
+
     format - A format string 
     args - Arguments referenced by the format specifiers in the format string. If there 
        are more arguments than format specifiers, the extra arguments are 
@@ -666,11 +719,12 @@ Locale.getDefault()(|java.util.Locale|) .
        behaviour on a null argument depends on the conversion. 
 
     Returns: A formatted string 
+
 *java.lang.String.getBytes()*
 
-public byte getBytes()
+public byte[] getBytes()
 
-Encodes this String into a sequence of bytes using the platform's default 
+Encodes thisStringinto a sequence of bytes using the platform's default 
 charset, storing the result into a new byte array. 
 
 The behavior of this method when this string cannot be encoded in the default 
@@ -678,7 +732,27 @@ charset is unspecified. The (|java.nio.charset.CharsetEncoder|) class should be
 used when more control over the encoding process is required. 
 
 
+
     Returns: The resultant byte array 
+
+*java.lang.String.getBytes(Charset)*
+
+public byte[] getBytes(java.nio.charset.Charset charset)
+
+Encodes thisStringinto a sequence of bytes using the given 
+charset(|java.nio.charset.Charset|) , storing the result into a new byte array. 
+
+This method always replaces malformed-input and unmappable-character sequences 
+with this charset's default replacement byte array. The 
+(|java.nio.charset.CharsetEncoder|) class should be used when more control over 
+the encoding process is required. 
+
+
+    charset - The {@linkplain java.nio.charset.Charset} to be used to encode the {@code 
+       String} 
+
+    Returns: The resultant byte array 
+
 *java.lang.String.getBytes(int,int,byte[],int)*
 
 public void getBytes(
@@ -692,33 +766,41 @@ receives the 8 low-order bits of the corresponding character. The eight
 high-order bits of each character are not copied and do not participate in the 
 transfer in any way. 
 
-The first character to be copied is at index srcBegin; the last character to be 
-copied is at index srcEnd-1. The total number of characters to be copied is 
-srcEnd-srcBegin. The characters, converted to bytes, are copied into the 
-subarray of dst starting at index dstBegin and ending at index: 
+The first character to be copied is at indexsrcBegin; the last character to be 
+copied is at indexsrcEnd-1. The total number of characters to be copied 
+issrcEnd-srcBegin. The characters, converted to bytes, are copied into the 
+subarray ofdststarting at indexdstBeginand ending at index: 
+
+
 
 dstbegin + (srcEnd-srcBegin) - 1 
 
-    srcBegin - index of the first character in the string to copy. 
-    srcEnd - index after the last character in the string to copy. 
-    dst - the destination array. 
-    dstBegin - the start offset in the destination array. 
+    Deprecated: This method does not properly convert characters into
+ bytes.  As of JDK&nbsp;1.1, the preferred way to do this is via the
+ {@link #getBytes()} method, which uses the platform's default charset.
+
+    srcBegin - Index of the first character in the string to copy 
+    srcEnd - Index after the last character in the string to copy 
+    dst - The destination array 
+    dstBegin - The start offset in the destination array 
 
 *java.lang.String.getBytes(String)*
 
-public byte getBytes(java.lang.String charsetName)
+public byte[] getBytes(java.lang.String charsetName)
   throws |java.io.UnsupportedEncodingException|
          
-Encodes this String into a sequence of bytes using the named charset, storing 
-the result into a new byte array. 
+Encodes thisStringinto a sequence of bytes using the named charset, storing the 
+result into a new byte array. 
 
 The behavior of this method when this string cannot be encoded in the given 
 charset is unspecified. The (|java.nio.charset.CharsetEncoder|) class should be 
 used when more control over the encoding process is required. 
 
-    charsetName - the name of a supported {@link java.nio.charset.Charset charset} 
+
+    charsetName - The name of a supported {@linkplain java.nio.charset.Charset charset} 
 
     Returns: The resultant byte array 
+
 *java.lang.String.getChars(int,int,char[],int)*
 
 public void getChars(
@@ -735,6 +817,7 @@ is srcEnd-srcBegin). The characters are copied into the subarray of dst
 starting at index dstBegin and ending at index: 
 
 dstbegin + (srcEnd-srcBegin) - 1 
+
 
     srcBegin - index of the first character in the string to copy. 
     srcEnd - index after the last character in the string to copy. 
@@ -755,7 +838,9 @@ length of the string, and ^ indicates exponentiation. (The hash value of the
 empty string is zero.) 
 
 
+
     Returns: a hash code value for this object. 
+
 *java.lang.String.indexOf(int)*
 
 public int indexOf(int ch)
@@ -775,10 +860,12 @@ this.codePointAt(k) == ch
 is true. In either case, if no such character occurs in this string, then -1 is 
 returned. 
 
+
     ch - a character (Unicode code point). 
 
     Returns: the index of the first occurrence of the character in the character sequence 
              represented by this object, or -1 if the character does not occur. 
+
 *java.lang.String.indexOf(int,int)*
 
 public int indexOf(
@@ -809,12 +896,14 @@ equal to the length of this string: -1 is returned.
 
 All indices are specified in char values (Unicode code units). 
 
+
     ch - a character (Unicode code point). 
     fromIndex - the index to start the search from. 
 
     Returns: the index of the first occurrence of the character in the character sequence 
              represented by this object that is greater than or equal to 
              fromIndex, or -1 if the character does not occur. 
+
 *java.lang.String.indexOf(String)*
 
 public int indexOf(java.lang.String str)
@@ -826,11 +915,13 @@ this.startsWith(str, k)
 
 is true. 
 
+
     str - any string. 
 
     Returns: if the string argument occurs as a substring within this object, then the index 
              of the first character of the first such substring is returned; if 
              it does not occur as a substring, -1 is returned. 
+
 *java.lang.String.indexOf(String,int)*
 
 public int indexOf(
@@ -841,15 +932,17 @@ Returns the index within this string of the first occurrence of the specified
 substring, starting at the specified index. The integer returned is the 
 smallest value k for which: 
 
-k >= Math.min(fromIndex, str.length()) this.startsWith(str, k) 
+k >= Math.min(fromIndex, this.length()) this.startsWith(str, k) 
 
 If no such value of k exists, then -1 is returned. 
+
 
     str - the substring for which to search. 
     fromIndex - the index from which to start the search. 
 
     Returns: the index within this string of the first occurrence of the specified 
              substring, starting at the specified index. 
+
 *java.lang.String.intern()*
 
 public native |java.lang.String| intern()
@@ -871,8 +964,20 @@ All literal strings and string-valued constant expressions are interned. String
 literals are defined in 3.10.5 of the Java Language Specification 
 
 
+
     Returns: a string that has the same contents as this string, but is guaranteed to be 
              from a pool of unique strings. 
+
+*java.lang.String.isEmpty()*
+
+public boolean isEmpty()
+
+Returns true if, and only if, (|java.lang.String|) is 0. 
+
+
+
+    Returns: true if {@link #length()} is 0, otherwise false 
+
 *java.lang.String.lastIndexOf(int)*
 
 public int lastIndexOf(int ch)
@@ -890,10 +995,12 @@ this.codePointAt(k) == ch
 is true. In either case, if no such character occurs in this string, then -1 is 
 returned. The String is searched backwards starting at the last character. 
 
+
     ch - a character (Unicode code point). 
 
     Returns: the index of the last occurrence of the character in the character sequence 
              represented by this object, or -1 if the character does not occur. 
+
 *java.lang.String.lastIndexOf(int,int)*
 
 public int lastIndexOf(
@@ -916,6 +1023,7 @@ before position fromIndex, then -1 is returned.
 
 All indices are specified in char values (Unicode code units). 
 
+
     ch - a character (Unicode code point). 
     fromIndex - the index to start the search from. There is no restriction on the value of 
        fromIndex. If it is greater than or equal to the length of this string, 
@@ -927,6 +1035,7 @@ All indices are specified in char values (Unicode code units).
              represented by this object that is less than or equal to 
              fromIndex, or -1 if the character does not occur before that 
              point. 
+
 *java.lang.String.lastIndexOf(String)*
 
 public int lastIndexOf(java.lang.String str)
@@ -940,12 +1049,14 @@ this.startsWith(str, k)
 
 is true. 
 
+
     str - the substring to search for. 
 
     Returns: if the string argument occurs one or more times as a substring within this 
              object, then the index of the first character of the last such 
              substring is returned. If it does not occur as a substring, -1 is 
              returned. 
+
 *java.lang.String.lastIndexOf(String,int)*
 
 public int lastIndexOf(
@@ -956,23 +1067,27 @@ Returns the index within this string of the last occurrence of the specified
 substring, searching backward starting at the specified index. The integer 
 returned is the largest value k such that: 
 
-k <= Math.min(fromIndex, str.length()) this.startsWith(str, k) 
+k <= Math.min(fromIndex, this.length()) this.startsWith(str, k) 
 
 If no such value of k exists, then -1 is returned. 
+
 
     str - the substring to search for. 
     fromIndex - the index to start the search from. 
 
     Returns: the index within this string of the last occurrence of the specified substring. 
+
 *java.lang.String.length()*
 
 public int length()
 
-Returns the length of this string. The length is equal to the number of 16-bit 
-Unicode characters in the string. 
+Returns the length of this string. The length is equal to the number of Unicode 
+code units in the string. 
+
 
 
     Returns: the length of the sequence of characters represented by this object. 
+
 *java.lang.String.matches(String)*
 
 public boolean matches(java.lang.String regex)
@@ -984,9 +1099,11 @@ same result as the expression
 
 (|java.util.regex.Pattern|) . matches(|java.util.regex.Pattern|) (regex, str) 
 
+
     regex - the regular expression to which this string is to be matched 
 
     Returns: true if, and only if, this string matches the given regular expression 
+
 *java.lang.String.offsetByCodePoints(int,int)*
 
 public int offsetByCodePoints(
@@ -997,10 +1114,12 @@ Returns the index within this String that is offset from the given index by
 codePointOffset code points. Unpaired surrogates within the text range given by 
 index and codePointOffset count as one code point each. 
 
+
     index - the index to be offset 
     codePointOffset - the offset in code points 
 
     Returns: the index within this String 
+
 *java.lang.String.regionMatches(boolean,int,String,int,int)*
 
 public boolean regionMatches(
@@ -1038,6 +1157,7 @@ Character.toUpperCase(other.charAt(ooffset+k))
 
 
 
+
     ignoreCase - if true, ignore case when comparing characters. 
     toffset - the starting offset of the subregion in this string. 
     other - the string argument. 
@@ -1047,6 +1167,7 @@ Character.toUpperCase(other.charAt(ooffset+k))
     Returns: true if the specified subregion of this string matches the specified subregion 
              of the string argument; false otherwise. Whether the matching is 
              exact or case insensitive depends on the ignoreCase argument. 
+
 *java.lang.String.regionMatches(int,String,int,int)*
 
 public boolean regionMatches(
@@ -1068,6 +1189,7 @@ greater than the length of the other argument. There is some nonnegative
 integer k less than len such that: 
 this.charAt(toffset+k)!=other.charAt(ooffset+k) 
 
+
     toffset - the starting offset of the subregion in this string. 
     other - the string argument. 
     ooffset - the starting offset of the subregion in the string argument. 
@@ -1075,6 +1197,7 @@ this.charAt(toffset+k)!=other.charAt(ooffset+k)
 
     Returns: true if the specified subregion of this string exactly matches the specified 
              subregion of the string argument; false otherwise. 
+
 *java.lang.String.replace(char,char)*
 
 public |java.lang.String| replace(
@@ -1097,11 +1220,13 @@ Examples:
 with a purple porpoise".replace('p', 't') returns "starring with a turtle 
 tortoise" "JonL".replace('q', 'x') returns "JonL" (no change) 
 
+
     oldChar - the old character. 
     newChar - the new character. 
 
     Returns: a string derived from this string by replacing every occurrence of oldChar with 
              newChar. 
+
 *java.lang.String.replace(CharSequence,CharSequence)*
 
 public |java.lang.String| replace(
@@ -1113,10 +1238,12 @@ with the specified literal replacement sequence. The replacement proceeds from
 the beginning of the string to the end, for example, replacing "aa" with "b" in 
 the string "aaa" will result in "ba" rather than "ab". 
 
+
     target - The sequence of char values to be replaced 
     replacement - The replacement sequence of char values 
 
     Returns: The resulting string 
+
 *java.lang.String.replaceAll(String,String)*
 
 public |java.lang.String| replaceAll(
@@ -1133,9 +1260,18 @@ exactly the same result as the expression
 matcher(|java.util.regex.Pattern|) (str). replaceAll(|java.util.regex.Matcher|) 
 (repl) 
 
+Note that backslashes (\) and dollar signs ($) in the replacement string may 
+cause the results to be different than if it were being treated as a literal 
+replacement string; see Matcher.replaceAll(|java.util.regex.Matcher|) . Use 
+(|java.util.regex.Matcher|) to suppress the special meaning of these 
+characters, if desired. 
+
+
     regex - the regular expression to which this string is to be matched 
+    replacement - the string to be substituted for each match 
 
     Returns: The resulting String 
+
 *java.lang.String.replaceFirst(String,String)*
 
 public |java.lang.String| replaceFirst(
@@ -1152,15 +1288,23 @@ exactly the same result as the expression
 matcher(|java.util.regex.Pattern|) (str). 
 replaceFirst(|java.util.regex.Matcher|) (repl) 
 
+Note that backslashes (\) and dollar signs ($) in the replacement string may 
+cause the results to be different than if it were being treated as a literal 
+replacement string; see (|java.util.regex.Matcher|) . Use 
+(|java.util.regex.Matcher|) to suppress the special meaning of these 
+characters, if desired. 
+
+
     regex - the regular expression to which this string is to be matched 
+    replacement - the string to be substituted for the first match 
 
     Returns: The resulting String 
+
 *java.lang.String.split(String)*
 
-public |java.lang.String| split(java.lang.String regex)
+public |java.lang.String|[] split(java.lang.String regex)
 
-Splits this string around matches of the given regular 
-expression(|java.util.regex.Pattern|) . 
+Splits this string around matches of the given regular expression. 
 
 This method works as if by invoking the two-argument split(|java.lang.String|) 
 method with the given expression and a limit argument of zero. Trailing empty 
@@ -1175,13 +1319,15 @@ Regex Result
 
 : { "boo", "and", "foo" } o { "b", "", ":and:f" } 
 
+
     regex - the delimiting regular expression 
 
     Returns: the array of strings computed by splitting this string around matches of the 
              given regular expression 
+
 *java.lang.String.split(String,int)*
 
-public |java.lang.String| split(
+public |java.lang.String|[] split(
   java.lang.String regex,
   int limit)
 
@@ -1220,16 +1366,19 @@ result as the expression
 (|java.util.regex.Pattern|) . compile(|java.util.regex.Pattern|) (regex). 
 split(|java.util.regex.Pattern|) (str,n) 
 
+
     regex - the delimiting regular expression 
     limit - the result threshold, as described above 
 
     Returns: the array of strings computed by splitting this string around matches of the 
              given regular expression 
+
 *java.lang.String.startsWith(String)*
 
 public boolean startsWith(java.lang.String prefix)
 
 Tests if this string starts with the specified prefix. 
+
 
     prefix - the prefix. 
 
@@ -1238,17 +1387,19 @@ Tests if this string starts with the specified prefix.
              Note also that true will be returned if the argument is an empty 
              string or is equal to this String object as determined by the 
              {@link #equals(Object)} method. 
+
 *java.lang.String.startsWith(String,int)*
 
 public boolean startsWith(
   java.lang.String prefix,
   int toffset)
 
-Tests if this string starts with the specified prefix beginning a specified 
-index. 
+Tests if the substring of this string beginning at the specified index starts 
+with the specified prefix. 
+
 
     prefix - the prefix. 
-    toffset - where to begin looking in the string. 
+    toffset - where to begin looking in this string. 
 
     Returns: true if the character sequence represented by the argument is a prefix of the 
              substring of this object starting at index toffset; false 
@@ -1257,6 +1408,7 @@ index.
              same as the result of the expression 
 
 this.substring(toffset).startsWith(prefix) 
+
 *java.lang.String.subSequence(int,int)*
 
 public |java.lang.CharSequence| subSequence(
@@ -1280,10 +1432,12 @@ str.substring(begin,end)
 This method is defined so that the String class can implement the 
 (|java.lang.CharSequence|) interface. 
 
+
     beginIndex - the begin index, inclusive. 
     endIndex - the end index, exclusive. 
 
     Returns: the specified subsequence. 
+
 *java.lang.String.substring(int)*
 
 public |java.lang.String| substring(int beginIndex)
@@ -1295,9 +1449,11 @@ string. Examples:
 "unhappy".substring(2) returns "happy" "Harbison".substring(3) returns "bison" 
 "emptiness".substring(9) returns "" (an empty string) 
 
+
     beginIndex - the beginning index, inclusive. 
 
     Returns: the specified substring. 
+
 *java.lang.String.substring(int,int)*
 
 public |java.lang.String| substring(
@@ -1313,20 +1469,24 @@ Examples:
 "hamburger".substring(4, 8) returns "urge" "smiles".substring(1, 5) returns 
 "mile" 
 
+
     beginIndex - the beginning index, inclusive. 
     endIndex - the ending index, exclusive. 
 
     Returns: the specified substring. 
+
 *java.lang.String.toCharArray()*
 
-public char toCharArray()
+public char[] toCharArray()
 
 Converts this string to a new character array. 
+
 
 
     Returns: a newly allocated character array whose length is the length of this string and 
              whose contents are initialized to contain the character sequence 
              represented by this string. 
+
 *java.lang.String.toLowerCase()*
 
 public |java.lang.String| toLowerCase()
@@ -1335,8 +1495,17 @@ Converts all of the characters in this String to lower case using the rules of
 the default locale. This is equivalent to calling 
 toLowerCase(Locale.getDefault()). 
 
+Note: This method is locale sensitive, and may produce unexpected results if 
+used for strings that are intended to be interpreted locale independently. 
+Examples are programming language identifiers, protocol keys, and HTML tags. 
+For instance, "TITLE".toLowerCase() in a Turkish locale returns "tõtle", where 
+'õ' is the LATIN SMALL LETTER DOTLESS I character. To obtain correct results 
+for locale insensitive strings, use toLowerCase(Locale.ENGLISH). 
+
+
 
     Returns: the String, converted to lowercase. 
+
 *java.lang.String.toLowerCase(Locale)*
 
 public |java.lang.String| toLowerCase(java.util.Locale locale)
@@ -1367,9 +1536,11 @@ lowercased all chars in String
 
 
 
+
     locale - use the case transformation rules for this locale 
 
     Returns: the String, converted to lowercase. 
+
 *java.lang.String.toString()*
 
 public |java.lang.String| toString()
@@ -1377,7 +1548,9 @@ public |java.lang.String| toString()
 This object (which is already a string!) is itself returned. 
 
 
+
     Returns: the string itself. 
+
 *java.lang.String.toUpperCase()*
 
 public |java.lang.String| toUpperCase()
@@ -1386,8 +1559,17 @@ Converts all of the characters in this String to upper case using the rules of
 the default locale. This method is equivalent to 
 toUpperCase(Locale.getDefault()). 
 
+Note: This method is locale sensitive, and may produce unexpected results if 
+used for strings that are intended to be interpreted locale independently. 
+Examples are programming language identifiers, protocol keys, and HTML tags. 
+For instance, "title".toUpperCase() in a Turkish locale returns "T?TLE", where 
+'?' is the LATIN CAPITAL LETTER I WITH DOT ABOVE character. To obtain correct 
+results for locale insensitive strings, use toUpperCase(Locale.ENGLISH). 
+
+
 
     Returns: the String, converted to uppercase. 
+
 *java.lang.String.toUpperCase(Locale)*
 
 public |java.lang.String| toUpperCase(java.util.Locale locale)
@@ -1414,9 +1596,11 @@ tr (Turkish) u0131 u0049 small letter dotless i -> capital letter I
 
 
 
+
     locale - use the case transformation rules for this locale 
 
     Returns: the String, converted to uppercase. 
+
 *java.lang.String.trim()*
 
 public |java.lang.String| trim()
@@ -1443,27 +1627,33 @@ This method may be used to trim whitespace (as defined above) from the
 beginning and end of a string. 
 
 
+
     Returns: A copy of this string with leading and trailing white space removed, or this 
              string if it has no leading or trailing white space. 
+
 *java.lang.String.valueOf(boolean)*
 
 public static |java.lang.String| valueOf(boolean b)
 
 Returns the string representation of the boolean argument. 
 
+
     b - a boolean. 
 
     Returns: if the argument is true, a string equal to "true" is returned; otherwise, a 
              string equal to "false" is returned. 
+
 *java.lang.String.valueOf(char)*
 
 public static |java.lang.String| valueOf(char c)
 
 Returns the string representation of the char argument. 
 
+
     c - a char. 
 
     Returns: a string of length 1 containing as its single character the argument c. 
+
 *java.lang.String.valueOf(char[])*
 
 public static |java.lang.String| valueOf(char[] data)
@@ -1472,10 +1662,12 @@ Returns the string representation of the char array argument. The contents of
 the character array are copied; subsequent modification of the character array 
 does not affect the newly created string. 
 
+
     data - a char array. 
 
     Returns: a newly allocated string representing the same sequence of characters contained 
              in the character array argument. 
+
 *java.lang.String.valueOf(char[],int,int)*
 
 public static |java.lang.String| valueOf(
@@ -1491,12 +1683,14 @@ count argument specifies the length of the subarray. The contents of the
 subarray are copied; subsequent modification of the character array does not 
 affect the newly created string. 
 
+
     data - the character array. 
     offset - the initial offset into the value of the String. 
     count - the length of the value of the String. 
 
     Returns: a string representing the sequence of characters contained in the subarray of 
              the character array argument. 
+
 *java.lang.String.valueOf(double)*
 
 public static |java.lang.String| valueOf(double d)
@@ -1506,9 +1700,11 @@ Returns the string representation of the double argument.
 The representation is exactly the one returned by the Double.toString method of 
 one argument. 
 
+
     d - a double. 
 
     Returns: a string representation of the double argument. 
+
 *java.lang.String.valueOf(float)*
 
 public static |java.lang.String| valueOf(float f)
@@ -1518,9 +1714,11 @@ Returns the string representation of the float argument.
 The representation is exactly the one returned by the Float.toString method of 
 one argument. 
 
+
     f - a float. 
 
     Returns: a string representation of the float argument. 
+
 *java.lang.String.valueOf(int)*
 
 public static |java.lang.String| valueOf(int i)
@@ -1530,9 +1728,11 @@ Returns the string representation of the int argument.
 The representation is exactly the one returned by the Integer.toString method 
 of one argument. 
 
+
     i - an int. 
 
     Returns: a string representation of the int argument. 
+
 *java.lang.String.valueOf(long)*
 
 public static |java.lang.String| valueOf(long l)
@@ -1542,17 +1742,21 @@ Returns the string representation of the long argument.
 The representation is exactly the one returned by the Long.toString method of 
 one argument. 
 
+
     l - a long. 
 
     Returns: a string representation of the long argument. 
+
 *java.lang.String.valueOf(Object)*
 
 public static |java.lang.String| valueOf(java.lang.Object obj)
 
 Returns the string representation of the Object argument. 
 
+
     obj - an Object. 
 
     Returns: if the argument is null, then a string equal to "null"; otherwise, the value of 
              obj.toString() is returned. 
+
 

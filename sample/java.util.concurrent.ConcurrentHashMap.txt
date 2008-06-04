@@ -1,6 +1,6 @@
 *java.util.concurrent.ConcurrentHashMap* *ConcurrentHashMap* A hash table suppor
 
-public class ConcurrentHashMap
+public class ConcurrentHashMap<K,V>
   extends    |java.util.AbstractMap|
   implements |java.util.concurrent.ConcurrentMap|
              |java.io.Serializable|
@@ -15,29 +15,30 @@ public class ConcurrentHashMap
 *java.util.concurrent.ConcurrentHashMap_Constructors*
 |java.util.concurrent.ConcurrentHashMap()|Creates a new, empty map with a defau
 |java.util.concurrent.ConcurrentHashMap(int)|Creates a new, empty map with the 
+|java.util.concurrent.ConcurrentHashMap(int,float)|Creates a new, empty map wit
 |java.util.concurrent.ConcurrentHashMap(int,float,int)|Creates a new, empty map
-|java.util.concurrent.ConcurrentHashMap(Map)|Creates a new map with the same ma
+|java.util.concurrent.ConcurrentHashMap(Map<?extendsK,?extendsV>)|Creates a new
 
 *java.util.concurrent.ConcurrentHashMap_Methods*
-|java.util.concurrent.ConcurrentHashMap.clear()|Removes all mappings from this 
+|java.util.concurrent.ConcurrentHashMap.clear()|Removes all of the mappings fro
 |java.util.concurrent.ConcurrentHashMap.contains(Object)|Legacy method testing 
 |java.util.concurrent.ConcurrentHashMap.containsKey(Object)|Tests if the specif
 |java.util.concurrent.ConcurrentHashMap.containsValue(Object)|Returns true if t
 |java.util.concurrent.ConcurrentHashMap.elements()|Returns an enumeration of th
-|java.util.concurrent.ConcurrentHashMap.entrySet()|Returns a collection view of
+|java.util.concurrent.ConcurrentHashMap.entrySet()|Returns aSetview of the mapp
 |java.util.concurrent.ConcurrentHashMap.get(Object)|Returns the value to which 
-|java.util.concurrent.ConcurrentHashMap.isEmpty()|
+|java.util.concurrent.ConcurrentHashMap.isEmpty()|Returns true if this map cont
 |java.util.concurrent.ConcurrentHashMap.keys()|Returns an enumeration of the ke
-|java.util.concurrent.ConcurrentHashMap.keySet()|Returns a set view of the keys
+|java.util.concurrent.ConcurrentHashMap.keySet()|Returns aSetview of the keys c
 |java.util.concurrent.ConcurrentHashMap.put(K,V)|Maps the specified key to the 
-|java.util.concurrent.ConcurrentHashMap.putAll(Map)|Copies all of the mappings 
-|java.util.concurrent.ConcurrentHashMap.putIfAbsent(K,V)|If the specified key i
+|java.util.concurrent.ConcurrentHashMap.putAll(Map<?extendsK,?extendsV>)|Copies
+|java.util.concurrent.ConcurrentHashMap.putIfAbsent(K,V)|
 |java.util.concurrent.ConcurrentHashMap.remove(Object)|Removes the key (and its
-|java.util.concurrent.ConcurrentHashMap.remove(Object,Object)|Remove entry for 
-|java.util.concurrent.ConcurrentHashMap.replace(K,V)|Replace entry for key only
-|java.util.concurrent.ConcurrentHashMap.replace(K,V,V)|Replace entry for key on
-|java.util.concurrent.ConcurrentHashMap.size()|
-|java.util.concurrent.ConcurrentHashMap.values()|Returns a collection view of t
+|java.util.concurrent.ConcurrentHashMap.remove(Object,Object)|
+|java.util.concurrent.ConcurrentHashMap.replace(K,V)|
+|java.util.concurrent.ConcurrentHashMap.replace(K,V,V)|
+|java.util.concurrent.ConcurrentHashMap.size()|Returns the number of key-value 
+|java.util.concurrent.ConcurrentHashMap.values()|Returns aCollectionview of the
 
 *java.util.concurrent.ConcurrentHashMap_Description*
 
@@ -79,18 +80,19 @@ This class and its views and iterators implement all of the optional methods of
 the (|java.util.Map|) and (|java.util.Iterator|) interfaces. 
 
 Like (|java.util.Hashtable|) but unlike (|java.util.HashMap|) , this class does 
-NOT allow null to be used as a key or value. 
+not allow null to be used as a key or value. 
 
-This class is a member of the <a href="/../guide/collections/index.html"> Java 
-Collections Framework. 
+This class is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
 
 
 *java.util.concurrent.ConcurrentHashMap()*
 
 public ConcurrentHashMap()
 
-Creates a new, empty map with a default initial capacity, load factor, and 
-concurrencyLevel. 
+Creates a new, empty map with a default initial capacity (16), load factor 
+(0.75) and concurrencyLevel (16). 
 
 
 *java.util.concurrent.ConcurrentHashMap(int)*
@@ -98,10 +100,23 @@ concurrencyLevel.
 public ConcurrentHashMap(int initialCapacity)
 
 Creates a new, empty map with the specified initial capacity, and with default 
-load factor and concurrencyLevel. 
+load factor (0.75) and concurrencyLevel (16). 
 
     initialCapacity - the initial capacity. The implementation performs internal sizing to 
        accommodate this many elements. 
+
+*java.util.concurrent.ConcurrentHashMap(int,float)*
+
+public ConcurrentHashMap(
+  int initialCapacity,
+  float loadFactor)
+
+Creates a new, empty map with the specified initial capacity and load factor 
+and with the default concurrencyLevel (16). 
+
+    initialCapacity - The implementation performs internal sizing to accommodate this many elements. 
+    loadFactor - the load factor threshold, used to control resizing. Resizing may be performed 
+       when the average number of elements per bin exceeds this threshold. 
 
 *java.util.concurrent.ConcurrentHashMap(int,float,int)*
 
@@ -110,7 +125,7 @@ public ConcurrentHashMap(
   float loadFactor,
   int concurrencyLevel)
 
-Creates a new, empty map with the specified initial capacity, load factor, and 
+Creates a new, empty map with the specified initial capacity, load factor and 
 concurrency level. 
 
     initialCapacity - the initial capacity. The implementation performs internal sizing to 
@@ -120,21 +135,23 @@ concurrency level.
     concurrencyLevel - the estimated number of concurrently updating threads. The implementation 
        performs internal sizing to try to accommodate this many threads. 
 
-*java.util.concurrent.ConcurrentHashMap(Map)*
+*java.util.concurrent.ConcurrentHashMap(Map<?extendsK,?extendsV>)*
 
-public ConcurrentHashMap(java.util.Map t)
+public ConcurrentHashMap(java.util.Map<? extends K, ? extends V> m)
 
 Creates a new map with the same mappings as the given map. The map is created 
-with a capacity of twice the number of mappings in the given map or 11 
-(whichever is greater), and a default load factor and concurrencyLevel. 
+with a capacity of 1.5 times the number of mappings in the given map or 16 
+(whichever is greater), and a default load factor (0.75) and concurrencyLevel 
+(16). 
 
-    t - the map 
+    m - the map 
 
 *java.util.concurrent.ConcurrentHashMap.clear()*
 
 public void clear()
 
-Removes all mappings from this map. 
+Removes all of the mappings from this map. 
+
 
 
 *java.util.concurrent.ConcurrentHashMap.contains(Object)*
@@ -147,20 +164,24 @@ This method is identical in functionality to
 compatibility with class (|java.util.Hashtable|) , which supported this method 
 prior to introduction of the Java Collections framework. 
 
-    value - a value to search for. 
+
+    value - a value to search for 
 
     Returns: true if and only if some key maps to the value argument in this table as 
-             determined by the equals method; false otherwise. 
+             determined by the equals method; false otherwise 
+
 *java.util.concurrent.ConcurrentHashMap.containsKey(Object)*
 
 public boolean containsKey(java.lang.Object key)
 
 Tests if the specified object is a key in this table. 
 
-    key - possible key. 
+
+    key - possible key 
 
     Returns: true if and only if the specified object is a key in this table, as determined 
              by the equals method; false otherwise. 
+
 *java.util.concurrent.ConcurrentHashMap.containsValue(Object)*
 
 public boolean containsValue(java.lang.Object value)
@@ -169,81 +190,95 @@ Returns true if this map maps one or more keys to the specified value. Note:
 This method requires a full internal traversal of the hash table, and so is 
 much slower than method containsKey. 
 
-    value - value whose presence in this map is to be tested. 
 
-    Returns: true if this map maps one or more keys to the specified value. 
+    value - value whose presence in this map is to be tested 
+
+    Returns: true if this map maps one or more keys to the specified value 
+
 *java.util.concurrent.ConcurrentHashMap.elements()*
 
-public |java.util.Enumeration| elements()
+public |java.util.Enumeration|<V> elements()
 
 Returns an enumeration of the values in this table. 
 
 
-    Returns: an enumeration of the values in this table. 
+
+    Returns: an enumeration of the values in this table 
+
 *java.util.concurrent.ConcurrentHashMap.entrySet()*
 
-public |java.util.Set| entrySet()
+public |java.util.Set|<Entry<K,V>> entrySet()
 
-Returns a collection view of the mappings contained in this map. Each element 
-in the returned collection is a Map.Entry. The collection is backed by the map, 
-so changes to the map are reflected in the collection, and vice-versa. The 
-collection supports element removal, which removes the corresponding mapping 
-from the map, via the Iterator.remove, Collection.remove, removeAll, retainAll, 
-and clear operations. It does not support the add or addAll operations. The 
-view's returned iterator is a "weakly consistent" iterator that will never 
-throw (|java.util.ConcurrentModificationException|) , and guarantees to 
-traverse elements as they existed upon construction of the iterator, and may 
-(but is not guaranteed to) reflect any modifications subsequent to 
-construction. 
+Returns a (|java.util.Set|) view of the mappings contained in this map. The set 
+is backed by the map, so changes to the map are reflected in the set, and 
+vice-versa. The set supports element removal, which removes the corresponding 
+mapping from the map, via the Iterator.remove, Set.remove, removeAll, 
+retainAll, and clear operations. It does not support the add or addAll 
+operations. 
 
-
-    Returns: a collection view of the mappings contained in this map. 
-*java.util.concurrent.ConcurrentHashMap.get(Object)*
-
-public |java.lang.Object| get(java.lang.Object key)
-
-Returns the value to which the specified key is mapped in this table. 
-
-    key - a key in the table. 
-
-    Returns: the value to which the key is mapped in this table; null if the key is not 
-             mapped to any value in this table. 
-*java.util.concurrent.ConcurrentHashMap.isEmpty()*
-
-public boolean isEmpty()
-
-
-
-
-*java.util.concurrent.ConcurrentHashMap.keys()*
-
-public |java.util.Enumeration| keys()
-
-Returns an enumeration of the keys in this table. 
-
-
-    Returns: an enumeration of the keys in this table. 
-*java.util.concurrent.ConcurrentHashMap.keySet()*
-
-public |java.util.Set| keySet()
-
-Returns a set view of the keys contained in this map. The set is backed by the 
-map, so changes to the map are reflected in the set, and vice-versa. The set 
-supports element removal, which removes the corresponding mapping from this 
-map, via the Iterator.remove, Set.remove, removeAll, retainAll, and clear 
-operations. It does not support the add or addAll operations. The view's 
-returned iterator is a "weakly consistent" iterator that will never throw 
+The view's iterator is a "weakly consistent" iterator that will never throw 
 (|java.util.ConcurrentModificationException|) , and guarantees to traverse 
 elements as they existed upon construction of the iterator, and may (but is not 
 guaranteed to) reflect any modifications subsequent to construction. 
 
 
-    Returns: a set view of the keys contained in this map. 
+
+*java.util.concurrent.ConcurrentHashMap.get(Object)*
+
+public |V| get(java.lang.Object key)
+
+Returns the value to which the specified key is mapped, ornullif this map 
+contains no mapping for the key. 
+
+More formally, if this map contains a mapping from a keykto a valuevsuch 
+thatkey.equals(k), then this method returnsv; otherwise it returnsnull. (There 
+can be at most one such mapping.) 
+
+
+
+*java.util.concurrent.ConcurrentHashMap.isEmpty()*
+
+public boolean isEmpty()
+
+Returns true if this map contains no key-value mappings. 
+
+
+
+    Returns: true if this map contains no key-value mappings 
+
+*java.util.concurrent.ConcurrentHashMap.keys()*
+
+public |java.util.Enumeration|<K> keys()
+
+Returns an enumeration of the keys in this table. 
+
+
+
+    Returns: an enumeration of the keys in this table 
+
+*java.util.concurrent.ConcurrentHashMap.keySet()*
+
+public |java.util.Set|<K> keySet()
+
+Returns a (|java.util.Set|) view of the keys contained in this map. The set is 
+backed by the map, so changes to the map are reflected in the set, and 
+vice-versa. The set supports element removal, which removes the corresponding 
+mapping from this map, via the Iterator.remove, Set.remove, removeAll, 
+retainAll, and clear operations. It does not support the add or addAll 
+operations. 
+
+The view's iterator is a "weakly consistent" iterator that will never throw 
+(|java.util.ConcurrentModificationException|) , and guarantees to traverse 
+elements as they existed upon construction of the iterator, and may (but is not 
+guaranteed to) reflect any modifications subsequent to construction. 
+
+
+
 *java.util.concurrent.ConcurrentHashMap.put(K,V)*
 
-public |java.lang.Object| put(
-  java.lang.Object key,
-  java.lang.Object value)
+public |V| put(
+  K key,
+  V value)
 
 Maps the specified key to the specified value in this table. Neither the key 
 nor the value can be null. 
@@ -251,127 +286,109 @@ nor the value can be null.
 The value can be retrieved by calling the get method with a key that is equal 
 to the original key. 
 
-    key - the table key. 
-    value - the value. 
 
-    Returns: the previous value of the specified key in this table, or null if it did not 
-             have one. 
-*java.util.concurrent.ConcurrentHashMap.putAll(Map)*
+    key - key with which the specified value is to be associated 
+    value - value to be associated with the specified key 
 
-public void putAll(java.util.Map t)
+    Returns: the previous value associated with key, or null if there was no mapping for key 
 
-Copies all of the mappings from the specified map to this one. 
+*java.util.concurrent.ConcurrentHashMap.putAll(Map<?extendsK,?extendsV>)*
 
-These mappings replace any mappings that this map had for any of the keys 
-currently in the specified Map. 
+public void putAll(java.util.Map<? extends K, ? extends V> m)
 
-    t - Mappings to be stored in this map. 
+Copies all of the mappings from the specified map to this one. These mappings 
+replace any mappings that this map had for any of the keys currently in the 
+specified map. 
+
+
+    m - mappings to be stored in this map 
 
 *java.util.concurrent.ConcurrentHashMap.putIfAbsent(K,V)*
 
-public |java.lang.Object| putIfAbsent(
-  java.lang.Object key,
-  java.lang.Object value)
+public |V| putIfAbsent(
+  K key,
+  V value)
 
-If the specified key is not already associated with a value, associate it with 
-the given value. This is equivalent to 
 
-if (!map.containsKey(key)) return map.put(key, value); else return 
-map.get(key); 
 
-Except that the action is performed atomically. 
 
-    key - key with which the specified value is to be associated. 
-    value - value to be associated with the specified key. 
 
-    Returns: previous value associated with specified key, or null if there was no mapping 
-             for key. 
+    Returns: the previous value associated with the specified key, or null if there was no 
+             mapping for the key 
+
 *java.util.concurrent.ConcurrentHashMap.remove(Object)*
 
-public |java.lang.Object| remove(java.lang.Object key)
+public |V| remove(java.lang.Object key)
 
-Removes the key (and its corresponding value) from this table. This method does 
-nothing if the key is not in the table. 
+Removes the key (and its corresponding value) from this map. This method does 
+nothing if the key is not in the map. 
 
-    key - the key that needs to be removed. 
 
-    Returns: the value to which the key had been mapped in this table, or null if the key 
-             did not have a mapping. 
+    key - the key that needs to be removed 
+
+    Returns: the previous value associated with key, or null if there was no mapping for key 
+
 *java.util.concurrent.ConcurrentHashMap.remove(Object,Object)*
 
 public boolean remove(
   java.lang.Object key,
   java.lang.Object value)
 
-Remove entry for key only if currently mapped to given value. Acts as 
 
-if (map.get(key).equals(value)) { map.remove(key); return true; } else return 
-false; 
 
-except that the action is performed atomically. 
 
-    key - key with which the specified value is associated. 
-    value - value associated with the specified key. 
 
-    Returns: true if the value was removed 
 *java.util.concurrent.ConcurrentHashMap.replace(K,V)*
 
-public |java.lang.Object| replace(
-  java.lang.Object key,
-  java.lang.Object value)
+public |V| replace(
+  K key,
+  V value)
 
-Replace entry for key only if currently mapped to some value. Acts as 
 
-if ((map.containsKey(key)) { return map.put(key, value); } else return null; 
 
-except that the action is performed atomically. 
 
-    key - key with which the specified value is associated. 
-    value - value to be associated with the specified key. 
 
-    Returns: previous value associated with specified key, or null if there was no mapping 
-             for key. 
+    Returns: the previous value associated with the specified key, or null if there was no 
+             mapping for the key 
+
 *java.util.concurrent.ConcurrentHashMap.replace(K,V,V)*
 
 public boolean replace(
-  java.lang.Object key,
-  java.lang.Object oldValue,
-  java.lang.Object newValue)
+  K key,
+  V oldValue,
+  V newValue)
 
-Replace entry for key only if currently mapped to given value. Acts as 
 
-if (map.get(key).equals(oldValue)) { map.put(key, newValue); return true; } 
-else return false; 
 
-except that the action is performed atomically. 
 
-    key - key with which the specified value is associated. 
-    oldValue - value expected to be associated with the specified key. 
-    newValue - value to be associated with the specified key. 
 
-    Returns: true if the value was replaced 
 *java.util.concurrent.ConcurrentHashMap.size()*
 
 public int size()
 
+Returns the number of key-value mappings in this map. If the map contains more 
+than Integer.MAX_VALUE elements, returns Integer.MAX_VALUE. 
 
 
+
+    Returns: the number of key-value mappings in this map 
 
 *java.util.concurrent.ConcurrentHashMap.values()*
 
-public |java.util.Collection| values()
+public |java.util.Collection|<V> values()
 
-Returns a collection view of the values contained in this map. The collection 
-is backed by the map, so changes to the map are reflected in the collection, 
-and vice-versa. The collection supports element removal, which removes the 
-corresponding mapping from this map, via the Iterator.remove, 
+Returns a (|java.util.Collection|) view of the values contained in this map. 
+The collection is backed by the map, so changes to the map are reflected in the 
+collection, and vice-versa. The collection supports element removal, which 
+removes the corresponding mapping from this map, via the Iterator.remove, 
 Collection.remove, removeAll, retainAll, and clear operations. It does not 
-support the add or addAll operations. The view's returned iterator is a "weakly 
-consistent" iterator that will never throw 
+support the add or addAll operations. 
+
+The view's iterator is a "weakly consistent" iterator that will never throw 
 (|java.util.ConcurrentModificationException|) , and guarantees to traverse 
 elements as they existed upon construction of the iterator, and may (but is not 
 guaranteed to) reflect any modifications subsequent to construction. 
 
 
-    Returns: a collection view of the values contained in this map. 
+
 

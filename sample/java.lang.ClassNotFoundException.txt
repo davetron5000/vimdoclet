@@ -37,6 +37,7 @@ the cause, and may be accessed via the (|java.lang.Throwable|) method, as well
 as the aforementioned "legacy method." 
 
 
+
 *java.lang.ClassNotFoundException()*
 
 public ClassNotFoundException()
@@ -72,7 +73,9 @@ Returns the cause of this exception (the exception that was raised if an error
 occurred while attempting to load the class; otherwise null). 
 
 
+
     Returns: the cause of this exception. 
+
 *java.lang.ClassNotFoundException.getException()*
 
 public |java.lang.Throwable| getException()
@@ -85,5 +88,7 @@ This method predates the general-purpose exception chaining facility. The
 information. 
 
 
+
     Returns: the Exception that was raised while loading a class 
+
 

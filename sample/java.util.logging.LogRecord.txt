@@ -73,6 +73,7 @@ attempt to locate a suitable resource bundle.
 
 
 
+
 *java.util.logging.LogRecord(Level,String)*
 
 public LogRecord(
@@ -101,7 +102,9 @@ public |java.util.logging.Level| getLevel()
 Get the logging message level, for example Level.SEVERE. 
 
 
+
     Returns: the logging message level 
+
 *java.util.logging.LogRecord.getLoggerName()*
 
 public |java.lang.String| getLoggerName()
@@ -109,7 +112,9 @@ public |java.lang.String| getLoggerName()
 Get the source Logger name's 
 
 
+
     Returns: source logger name (may be null) 
+
 *java.util.logging.LogRecord.getMessage()*
 
 public |java.lang.String| getMessage()
@@ -125,7 +130,9 @@ if that ResourceBundle has an entry for this message string, then the message
 string is replaced with the localized value. 
 
 
+
     Returns: the raw message string 
+
 *java.util.logging.LogRecord.getMillis()*
 
 public long getMillis()
@@ -133,15 +140,19 @@ public long getMillis()
 Get event time in milliseconds since 1970. 
 
 
+
     Returns: event time in millis since 1970 
+
 *java.util.logging.LogRecord.getParameters()*
 
-public |java.lang.Object| getParameters()
+public |java.lang.Object|[] getParameters()
 
 Get the parameters to the log message. 
 
 
+
     Returns: the log message parameters. May be null if there are no parameters. 
+
 *java.util.logging.LogRecord.getResourceBundle()*
 
 public |java.util.ResourceBundle| getResourceBundle()
@@ -151,6 +162,7 @@ Get the localization resource bundle
 This is the ResourceBundle that should be used to localize the message string 
 before formatting it. The result may be null if the message is not localizable, 
 or if no suitable ResourceBundle is available. 
+
 
 
 *java.util.logging.LogRecord.getResourceBundleName()*
@@ -164,6 +176,7 @@ message string before formatting it. The result may be null if the message is
 not localizable. 
 
 
+
 *java.util.logging.LogRecord.getSequenceNumber()*
 
 public long getSequenceNumber()
@@ -174,7 +187,9 @@ Sequence numbers are normally assigned in the LogRecord constructor, which
 assigns unique sequence numbers to each new LogRecord in increasing order. 
 
 
+
     Returns: the sequence number 
+
 *java.util.logging.LogRecord.getSourceClassName()*
 
 public |java.lang.String| getSourceClassName()
@@ -190,7 +205,9 @@ earlier call on the stack frame.
 May be null if no information could be obtained. 
 
 
+
     Returns: the source class name 
+
 *java.util.logging.LogRecord.getSourceMethodName()*
 
 public |java.lang.String| getSourceMethodName()
@@ -206,7 +223,9 @@ earlier call on the stack frame.
 May be null if no information could be obtained. 
 
 
+
     Returns: the source method name 
+
 *java.util.logging.LogRecord.getThreadID()*
 
 public int getThreadID()
@@ -217,7 +236,9 @@ This is a thread identifier within the Java VM and may or may not map to any
 operating system ID. 
 
 
+
     Returns: 
+
 *java.util.logging.LogRecord.getThrown()*
 
 public |java.lang.Throwable| getThrown()
@@ -228,12 +249,15 @@ If the event involved an exception, this will be the exception object.
 Otherwise null. 
 
 
+
     Returns: 
+
 *java.util.logging.LogRecord.setLevel(Level)*
 
 public void setLevel(java.util.logging.Level level)
 
 Set the logging message level, for example Level.SEVERE. 
+
 
     level - the logging message level 
 
@@ -243,6 +267,7 @@ public void setLoggerName(java.lang.String name)
 
 Set the source Logger name. 
 
+
     name - the source logger name (may be null) 
 
 *java.util.logging.LogRecord.setMessage(String)*
@@ -250,6 +275,7 @@ Set the source Logger name.
 public void setMessage(java.lang.String message)
 
 Set the "raw" log message, before localization or formatting. 
+
 
     message - the raw message string (may be null) 
 
@@ -259,6 +285,7 @@ public void setMillis(long millis)
 
 Set event time. 
 
+
     millis - event time in millis since 1970 
 
 *java.util.logging.LogRecord.setParameters(Object[])*
@@ -266,6 +293,7 @@ Set event time.
 public void setParameters(java.lang.Object[] parameters)
 
 Set the parameters to the log message. 
+
 
     parameters - the log message parameters. (may be null) 
 
@@ -275,6 +303,7 @@ public void setResourceBundle(java.util.ResourceBundle bundle)
 
 Set the localization resource bundle. 
 
+
     bundle - localization bundle (may be null) 
 
 *java.util.logging.LogRecord.setResourceBundleName(String)*
@@ -282,6 +311,7 @@ Set the localization resource bundle.
 public void setResourceBundleName(java.lang.String name)
 
 Set the localization resource bundle name. 
+
 
     name - localization bundle name (may be null) 
 
@@ -295,11 +325,13 @@ Sequence numbers are normally assigned in the LogRecord constructor, so it
 should not normally be necessary to use this method. 
 
 
+
 *java.util.logging.LogRecord.setSourceClassName(String)*
 
 public void setSourceClassName(java.lang.String sourceClassName)
 
 Set the name of the class that (allegedly) issued the logging request. 
+
 
     sourceClassName - the source class name (may be null) 
 
@@ -309,6 +341,7 @@ public void setSourceMethodName(java.lang.String sourceMethodName)
 
 Set the name of the method that (allegedly) issued the logging request. 
 
+
     sourceMethodName - the source method name (may be null) 
 
 *java.util.logging.LogRecord.setThreadID(int)*
@@ -317,6 +350,7 @@ public void setThreadID(int threadID)
 
 Set an identifier for the thread where the message originated. 
 
+
     threadID - the thread ID 
 
 *java.util.logging.LogRecord.setThrown(Throwable)*
@@ -324,6 +358,7 @@ Set an identifier for the thread where the message originated.
 public void setThrown(java.lang.Throwable thrown)
 
 Set a throwable associated with the log event. 
+
 
     thrown - a throwable (may be null) 
 

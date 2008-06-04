@@ -28,6 +28,7 @@ constructor in this class will cause a (|java.lang.NullPointerException|) to be
 thrown. 
 
 
+
 *java.util.IllegalFormatCodePointException(int)*
 
 public IllegalFormatCodePointException(int c)
@@ -44,10 +45,13 @@ public int getCodePoint()
 Returns the illegal code point as defined by (|java.lang.Character|) . 
 
 
+
     Returns: The illegal Unicode code point 
+
 *java.util.IllegalFormatCodePointException.getMessage()*
 
 public |java.lang.String| getMessage()
+
 
 
 

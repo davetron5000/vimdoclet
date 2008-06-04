@@ -28,6 +28,7 @@ Applications should throw instances of this class to indicate other illegal
 uses of the null object. 
 
 
+
 *java.lang.NullPointerException()*
 
 public NullPointerException()

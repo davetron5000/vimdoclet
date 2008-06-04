@@ -16,7 +16,7 @@ public final class Short
 |short_java.lang.Short.MAX_VALUE|
 |short_java.lang.Short.MIN_VALUE|
 |int_java.lang.Short.SIZE|
-|java.lang.Class_java.lang.Short.TYPE|
+|java.lang.Class<java.lang.Short>_java.lang.Short.TYPE|
 
 *java.lang.Short_Constructors*
 |java.lang.Short(short)|Constructs a newly allocated Short object that  represe
@@ -54,52 +54,26 @@ String and a String to a short, as well as other constants and methods useful
 when dealing with a short. 
 
 
+
 *short_java.lang.Short.MAX_VALUE*
 
-The Short class wraps a value of primitive type short in an object. An object 
-of type Short contains a single field whose type is short. 
-
-
-
-In addition, this class provides several methods for converting a short to a 
-String and a String to a short, as well as other constants and methods useful 
-when dealing with a short. 
+A constant holding the maximum value a short can have, 215-1. 
 
 
 *short_java.lang.Short.MIN_VALUE*
 
-The Short class wraps a value of primitive type short in an object. An object 
-of type Short contains a single field whose type is short. 
-
-
-
-In addition, this class provides several methods for converting a short to a 
-String and a String to a short, as well as other constants and methods useful 
-when dealing with a short. 
+A constant holding the minimum value a short can have, -215. 
 
 
 *int_java.lang.Short.SIZE*
 
-The Short class wraps a value of primitive type short in an object. An object 
-of type Short contains a single field whose type is short. 
+The number of bits used to represent a short value in two's complement binary 
+form. 
 
 
+*java.lang.Class<java.lang.Short>_java.lang.Short.TYPE*
 
-In addition, this class provides several methods for converting a short to a 
-String and a String to a short, as well as other constants and methods useful 
-when dealing with a short. 
-
-
-*java.lang.Class_java.lang.Short.TYPE*
-
-The Short class wraps a value of primitive type short in an object. An object 
-of type Short contains a single field whose type is short. 
-
-
-
-In addition, this class provides several methods for converting a short to a 
-String and a String to a short, as well as other constants and methods useful 
-when dealing with a short. 
+The Class instance representing the primitive type short. 
 
 
 
@@ -130,11 +104,13 @@ public byte byteValue()
 Returns the value of this Short as a byte. 
 
 
+
 *java.lang.Short.compareTo(Short)*
 
 public int compareTo(java.lang.Short anotherShort)
 
 Compares two Short objects numerically. 
+
 
     anotherShort - the Short to be compared. 
 
@@ -142,6 +118,7 @@ Compares two Short objects numerically.
              if this Short is numerically less than the argument Short; and a 
              value greater than 0 if this Short is numerically greater than the 
              argument Short (signed comparison). 
+
 *java.lang.Short.decode(String)*
 
 public static |java.lang.Short| decode(java.lang.String nm)
@@ -169,14 +146,17 @@ must represent a positive value or a (|java.lang.NumberFormatException|) will
 be thrown. The result is negated if first character of the specified String is 
 the minus sign. No whitespace characters are permitted in the String. 
 
+
     nm - the String to decode. 
 
     Returns: a Short object holding the short value represented by nm 
+
 *java.lang.Short.doubleValue()*
 
 public double doubleValue()
 
 Returns the value of this Short as a double. 
+
 
 
 *java.lang.Short.equals(Object)*
@@ -187,14 +167,17 @@ Compares this object to the specified object. The result is true if and only if
 the argument is not null and is a Short object that contains the same short 
 value as this object. 
 
+
     obj - the object to compare with 
 
     Returns: true if the objects are the same; false otherwise. 
+
 *java.lang.Short.floatValue()*
 
 public float floatValue()
 
 Returns the value of this Short as a float. 
+
 
 
 *java.lang.Short.hashCode()*
@@ -204,6 +187,7 @@ public int hashCode()
 Returns a hash code for this Short. 
 
 
+
 *java.lang.Short.intValue()*
 
 public int intValue()
@@ -211,11 +195,13 @@ public int intValue()
 Returns the value of this Short as an int. 
 
 
+
 *java.lang.Short.longValue()*
 
 public long longValue()
 
 Returns the value of this Short as a long. 
+
 
 
 *java.lang.Short.parseShort(String)*
@@ -229,9 +215,11 @@ ASCII minus sign '-' ('u002D') to indicate a negative value. The resulting
 short value is returned, exactly as if the argument and the radix 10 were given 
 as arguments to the (|java.lang.Short|) method. 
 
+
     s - a String containing the short representation to be parsed 
 
     Returns: the short value represented by the argument in decimal. 
+
 *java.lang.Short.parseShort(String,int)*
 
 public static short parseShort(
@@ -260,10 +248,12 @@ is longer than length 1.
 
 The value represented by the string is not a value of type short. 
 
+
     s - the String containing the short representation to be parsed 
     radix - the radix to be used while parsing s 
 
     Returns: the short represented by the string argument in the specified radix. 
+
 *java.lang.Short.reverseBytes(short)*
 
 public static short reverseBytes(short i)
@@ -272,13 +262,16 @@ Returns the value obtained by reversing the order of the bytes in the two's
 complement representation of the specified short value. 
 
 
+
     Returns: the value obtained by reversing (or, equivalently, swapping) the bytes in the 
              specified short value. 
+
 *java.lang.Short.shortValue()*
 
 public short shortValue()
 
 Returns the value of this Short as a short. 
+
 
 
 *java.lang.Short.toString()*
@@ -290,7 +283,9 @@ to signed decimal representation and returned as a string, exactly as if the
 short value were given as an argument to the (|java.lang.Short|) method. 
 
 
+
     Returns: a string representation of the value of this object in base10. 
+
 *java.lang.Short.toString(short)*
 
 public static |java.lang.String| toString(short s)
@@ -298,9 +293,11 @@ public static |java.lang.String| toString(short s)
 Returns a new String object representing the specified short. The radix is 
 assumed to be 10. 
 
+
     s - the short to be converted 
 
     Returns: the string representation of the specified short 
+
 *java.lang.Short.valueOf(short)*
 
 public static |java.lang.Short| valueOf(short s)
@@ -311,9 +308,11 @@ the constructor (|java.lang.Short|) , as this method is likely to yield
 significantly better space and time performance by caching frequently requested 
 values. 
 
+
     s - a short value. 
 
     Returns: a Short instance representing s. 
+
 *java.lang.Short.valueOf(String)*
 
 public static |java.lang.Short| valueOf(java.lang.String s)
@@ -327,9 +326,11 @@ words, this method returns a Byte object equal to the value of:
 
 new Short(Short.parseShort(s)) 
 
+
     s - the string to be parsed 
 
     Returns: a Short object holding the value represented by the string argument 
+
 *java.lang.Short.valueOf(String,int)*
 
 public static |java.lang.Short| valueOf(
@@ -347,9 +348,11 @@ value of:
 
 new Short(Short.parseShort(s, radix)) 
 
+
     s - the string to be parsed 
     radix - the radix to be used in interpreting s 
 
     Returns: a Short object holding the value represented by the string argument in the 
              specified radix. 
+
 

@@ -35,6 +35,7 @@ The Java Language Specification, Second Edition,
 Section 15.18.1.1), regardless of the type of expression. 
 
 
+
 *java.lang.AssertionError()*
 
 public AssertionError()

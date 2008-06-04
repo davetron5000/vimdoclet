@@ -21,6 +21,7 @@ requested operation. See, for example, the suspend and resume methods in class
 Thread. 
 
 
+
 *java.lang.IllegalThreadStateException()*
 
 public IllegalThreadStateException()

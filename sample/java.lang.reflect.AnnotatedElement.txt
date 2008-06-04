@@ -11,10 +11,10 @@ public interface interface AnnotatedElement
 ================================================================================
 
 *java.lang.reflect.AnnotatedElement_Methods*
-|java.lang.reflect.AnnotatedElement.getAnnotation(Class)|Returns this element's
+|java.lang.reflect.AnnotatedElement.getAnnotation(Class<T>)|Returns this elemen
 |java.lang.reflect.AnnotatedElement.getAnnotations()|Returns all annotations pr
 |java.lang.reflect.AnnotatedElement.getDeclaredAnnotations()|Returns all annota
-|java.lang.reflect.AnnotatedElement.isAnnotationPresent(Class)|Returns true if 
+|java.lang.reflect.AnnotatedElement.isAnnotationPresent(Class<?extendsAnnotation>)|
 
 *java.lang.reflect.AnnotatedElement_Description*
 
@@ -40,20 +40,23 @@ will result in a (|java.lang.annotation.AnnotationTypeMismatchException|) or an
 (|java.lang.annotation.IncompleteAnnotationException|) . 
 
 
-*java.lang.reflect.AnnotatedElement.getAnnotation(Class)*
 
-public |java.lang.annotation.Annotation| getAnnotation(java.lang.Class annotationType)
+*java.lang.reflect.AnnotatedElement.getAnnotation(Class<T>)*
+
+public |T| getAnnotation(java.lang.Class<T> annotationClass)
 
 Returns this element's annotation for the specified type if such an annotation 
 is present, else null. 
 
-    annotationType - the Class object corresponding to the annotation type 
+
+    annotationClass - the Class object corresponding to the annotation type 
 
     Returns: this element's annotation for the specified annotation type if present on this 
              element, else null 
+
 *java.lang.reflect.AnnotatedElement.getAnnotations()*
 
-public |java.lang.annotation.Annotation| getAnnotations()
+public |java.lang.annotation.Annotation|[] getAnnotations()
 
 Returns all annotations present on this element. (Returns an array of length 
 zero if this element has no annotations.) The caller of this method is free to 
@@ -61,10 +64,12 @@ modify the returned array; it will have no effect on the arrays returned to
 other callers. 
 
 
+
     Returns: all annotations present on this element 
+
 *java.lang.reflect.AnnotatedElement.getDeclaredAnnotations()*
 
-public |java.lang.annotation.Annotation| getDeclaredAnnotations()
+public |java.lang.annotation.Annotation|[] getDeclaredAnnotations()
 
 Returns all annotations that are directly present on this element. Unlike the 
 other methods in this interface, this method ignores inherited annotations. 
@@ -73,17 +78,21 @@ element.) The caller of this method is free to modify the returned array; it
 will have no effect on the arrays returned to other callers. 
 
 
-    Returns: All annotations directly present on this element 
-*java.lang.reflect.AnnotatedElement.isAnnotationPresent(Class)*
 
-public boolean isAnnotationPresent(java.lang.Class annotationType)
+    Returns: All annotations directly present on this element 
+
+*java.lang.reflect.AnnotatedElement.isAnnotationPresent(Class<?extendsAnnotation>)*
+
+public boolean isAnnotationPresent(java.lang.Class<? extends java.lang.annotation.Annotation> annotationClass)
 
 Returns true if an annotation for the specified type is present on this 
 element, else false. This method is designed primarily for convenient access to 
 marker annotations. 
 
-    annotationType - the Class object corresponding to the annotation type 
+
+    annotationClass - the Class object corresponding to the annotation type 
 
     Returns: true if an annotation for the specified annotation type is present on this 
              element, else false 
+
 

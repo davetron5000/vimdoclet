@@ -1,6 +1,6 @@
 *java.lang.ref.PhantomReference* *PhantomReference* Phantom reference objects, w
 
-public class PhantomReference
+public class PhantomReference<T>
   extends    |java.lang.ref.Reference|
 
 |java.lang.ref.PhantomReference_Description|
@@ -11,7 +11,7 @@ public class PhantomReference
 ================================================================================
 
 *java.lang.ref.PhantomReference_Constructors*
-|java.lang.ref.PhantomReference(T,ReferenceQueue)|Creates a new phantom referen
+|java.lang.ref.PhantomReference(T,ReferenceQueue<?superT>)|Creates a new phanto
 
 *java.lang.ref.PhantomReference_Methods*
 |java.lang.ref.PhantomReference.get()|Returns this reference object's referent.
@@ -37,11 +37,12 @@ reachable via phantom references will remain so until all such references are
 cleared or themselves become unreachable. 
 
 
-*java.lang.ref.PhantomReference(T,ReferenceQueue)*
+
+*java.lang.ref.PhantomReference(T,ReferenceQueue<?superT>)*
 
 public PhantomReference(
-  java.lang.Object referent,
-  java.lang.ref.ReferenceQueue q)
+  T referent,
+  java.lang.ref.ReferenceQueue<? super T> q)
 
 Creates a new phantom reference that refers to the given object and is 
 registered with the given queue. 
@@ -56,11 +57,13 @@ since it does not have a queue, it will never be enqueued.
 
 *java.lang.ref.PhantomReference.get()*
 
-public |java.lang.Object| get()
+public |T| get()
 
 Returns this reference object's referent. Because the referent of a phantom 
 reference is always inaccessible, this method always returns null. 
 
 
+
     Returns: 
+
 

@@ -29,22 +29,20 @@ This class implements a stream filter for reading compressed data in the GZIP
 file format. 
 
 
+
 *java.util.zip.CRC32_java.util.zip.GZIPInputStream.crc*
 
-This class implements a stream filter for reading compressed data in the GZIP 
-file format. 
+CRC-32 for uncompressed data. 
 
 
 *boolean_java.util.zip.GZIPInputStream.eos*
 
-This class implements a stream filter for reading compressed data in the GZIP 
-file format. 
+Indicates end of input stream. 
 
 
 *int_java.util.zip.GZIPInputStream.GZIP_MAGIC*
 
-This class implements a stream filter for reading compressed data in the GZIP 
-file format. 
+GZIP header magic number. 
 
 
 
@@ -78,6 +76,7 @@ Closes this input stream and releases any system resources associated with the
 stream. 
 
 
+
 *java.util.zip.GZIPInputStream.read(byte[],int,int)*
 
 public int read(
@@ -86,13 +85,16 @@ public int read(
   int len)
   throws |java.io.IOException|
          
-Reads uncompressed data into an array of bytes. Blocks until enough input is 
-available for decompression. 
+Reads uncompressed data into an array of bytes. If len is not zero, the method 
+will block until some input can be decompressed; otherwise, no bytes are read 
+and 0 is returned. 
+
 
     buf - the buffer into which the data is read 
-    off - the start offset of the data 
+    off - the start offset in the destination array b 
     len - the maximum number of bytes read 
 
     Returns: the actual number of bytes read, or -1 if the end of the compressed input 
              stream is reached 
+
 

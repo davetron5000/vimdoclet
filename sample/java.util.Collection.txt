@@ -1,6 +1,6 @@
 *java.util.Collection* *Collection* The root interface in the collection hierarc
 
-public interface interface Collection
+public interface interface Collection<E>
 
   implements |java.lang.Iterable|
 
@@ -13,17 +13,17 @@ public interface interface Collection
 
 *java.util.Collection_Methods*
 |java.util.Collection.add(E)|Ensures that this collection contains the specifie
-|java.util.Collection.addAll(Collection)|Adds all of the elements in the specif
+|java.util.Collection.addAll(Collection<?extendsE>)|Adds all of the elements in
 |java.util.Collection.clear()|Removes all of the elements from this collection 
 |java.util.Collection.contains(Object)|Returns true if this collection contains
-|java.util.Collection.containsAll(Collection)|Returns true if this collection c
+|java.util.Collection.containsAll(Collection<?>)|Returns true if this collectio
 |java.util.Collection.equals(Object)|Compares the specified object with this co
 |java.util.Collection.hashCode()|Returns the hash code value for this collectio
 |java.util.Collection.isEmpty()|Returns true if this collection contains no ele
 |java.util.Collection.iterator()|Returns an iterator over the elements in this 
 |java.util.Collection.remove(Object)|Removes a single instance of the specified
-|java.util.Collection.removeAll(Collection)|Removes all this collection's eleme
-|java.util.Collection.retainAll(Collection)|Retains only the elements in this c
+|java.util.Collection.removeAll(Collection<?>)|Removes all of this collection's
+|java.util.Collection.retainAll(Collection<?>)|Retains only the elements in thi
 |java.util.Collection.size()|Returns the number of elements in this collection.
 |java.util.Collection.toArray()|Returns an array containing all of the elements
 |java.util.Collection.toArray(T[])|Returns an array containing all of the eleme
@@ -74,8 +74,12 @@ collection may throw an exception or it may succeed, at the option of the
 implementation. Such exceptions are marked as "optional" in the specification 
 for this interface. 
 
-This interface is a member of the <a href="/../guide/collections/index.html"> 
-Java Collections Framework. 
+It is up to each collection to determine its own synchronization policy. In the 
+absence of a stronger guarantee by the implementation, undefined behavior may 
+result from the invocation of any method on a collection that is being mutated 
+by another thread; this includes direct invocations, passing the collection to 
+a method that might perform invocations, and using an existing iterator to 
+examine the collection. 
 
 Many methods in Collections Framework interfaces are defined in terms of the 
 equals(|java.lang.Object|) method. For example, the specification for the 
@@ -92,10 +96,14 @@ Collections Framework interfaces are free to take advantage of the specified
 behavior of underlying (|java.lang.Object|) methods wherever the implementor 
 deems it appropriate. 
 
+This interface is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
+
 
 *java.util.Collection.add(E)*
 
-public boolean add(java.lang.Object o)
+public boolean add(E e)
 
 Ensures that this collection contains the specified element (optional 
 operation). Returns true if this collection changed as a result of the call. 
@@ -113,12 +121,14 @@ that it already contains the element, it must throw an exception (rather than
 returning false). This preserves the invariant that a collection always 
 contains the specified element after this call returns. 
 
-    o - element whose presence in this collection is to be ensured. 
+
+    e - element whose presence in this collection is to be ensured 
 
     Returns: true if this collection changed as a result of the call 
-*java.util.Collection.addAll(Collection)*
 
-public boolean addAll(java.util.Collection c)
+*java.util.Collection.addAll(Collection<?extendsE>)*
+
+public boolean addAll(java.util.Collection<? extends E> c)
 
 Adds all of the elements in the specified collection to this collection 
 (optional operation). The behavior of this operation is undefined if the 
@@ -126,16 +136,18 @@ specified collection is modified while the operation is in progress. (This
 implies that the behavior of this call is undefined if the specified collection 
 is this collection, and this collection is nonempty.) 
 
-    c - elements to be inserted into this collection. 
+
+    c - collection containing elements to be added to this collection 
 
     Returns: true if this collection changed as a result of the call 
+
 *java.util.Collection.clear()*
 
 public void clear()
 
-Removes all of the elements from this collection (optional operation). This 
-collection will be empty after this method returns unless it throws an 
-exception. 
+Removes all of the elements from this collection (optional operation). The 
+collection will be empty after this method returns. 
+
 
 
 *java.util.Collection.contains(Object)*
@@ -144,22 +156,26 @@ public boolean contains(java.lang.Object o)
 
 Returns true if this collection contains the specified element. More formally, 
 returns true if and only if this collection contains at least one element e 
-such that (o==null ? e==null : o.equals(e)). 
+such that (o==null?e==null:o.equals(e)). 
 
-    o - element whose presence in this collection is to be tested. 
+
+    o - element whose presence in this collection is to be tested 
 
     Returns: true if this collection contains the specified element 
-*java.util.Collection.containsAll(Collection)*
 
-public boolean containsAll(java.util.Collection c)
+*java.util.Collection.containsAll(Collection<?>)*
+
+public boolean containsAll(java.util.Collection<?> c)
 
 Returns true if this collection contains all of the elements in the specified 
 collection. 
 
-    c - collection to be checked for containment in this collection. 
+
+    c - collection to be checked for containment in this collection 
 
     Returns: true if this collection contains all of the elements in the specified 
              collection 
+
 *java.util.Collection.equals(Object)*
 
 public boolean equals(java.lang.Object o)
@@ -171,7 +187,7 @@ the Object.equals, programmers who implement the Collection interface
 "directly" (in other words, create a class that is a Collection but is not a 
 Set or a List) must exercise care if they choose to override the Object.equals. 
 It is not necessary to do so, and the simplest course of action is to rely on 
-Object's implementation, but the implementer may wish to implement a "value 
+Object's implementation, but the implementor may wish to implement a "value 
 comparison" in place of the default "reference comparison." (The List and Set 
 interfaces mandate such value comparisons.) 
 
@@ -184,9 +200,11 @@ false when this collection is compared to any list or set. (By the same logic,
 it is not possible to write a class that correctly implements both the Set and 
 List interfaces.) 
 
-    o - Object to be compared for equality with this collection. 
+
+    o - object to be compared for equality with this collection 
 
     Returns: true if the specified object is equal to this collection 
+
 *java.util.Collection.hashCode()*
 
 public int hashCode()
@@ -199,7 +217,9 @@ general contract for the Object.hashCodemethod. In particular, c1.equals(c2)
 implies that c1.hashCode()==c2.hashCode(). 
 
 
+
     Returns: the hash code value for this collection 
+
 *java.util.Collection.isEmpty()*
 
 public boolean isEmpty()
@@ -207,53 +227,63 @@ public boolean isEmpty()
 Returns true if this collection contains no elements. 
 
 
+
     Returns: true if this collection contains no elements 
+
 *java.util.Collection.iterator()*
 
-public |java.util.Iterator| iterator()
+public |java.util.Iterator|<E> iterator()
 
 Returns an iterator over the elements in this collection. There are no 
 guarantees concerning the order in which the elements are returned (unless this 
 collection is an instance of some class that provides a guarantee). 
 
 
+
     Returns: an Iterator over the elements in this collection 
+
 *java.util.Collection.remove(Object)*
 
 public boolean remove(java.lang.Object o)
 
 Removes a single instance of the specified element from this collection, if it 
 is present (optional operation). More formally, removes an element e such that 
-(o==null ? e==null : o.equals(e)), if this collection contains one or more such 
+(o==null?e==null:o.equals(e)), if this collection contains one or more such 
 elements. Returns true if this collection contained the specified element (or 
 equivalently, if this collection changed as a result of the call). 
 
-    o - element to be removed from this collection, if present. 
+
+    o - element to be removed from this collection, if present 
+
+    Returns: true if an element was removed as a result of this call 
+
+*java.util.Collection.removeAll(Collection<?>)*
+
+public boolean removeAll(java.util.Collection<?> c)
+
+Removes all of this collection's elements that are also contained in the 
+specified collection (optional operation). After this call returns, this 
+collection will contain no elements in common with the specified collection. 
+
+
+    c - collection containing elements to be removed from this collection 
 
     Returns: true if this collection changed as a result of the call 
-*java.util.Collection.removeAll(Collection)*
 
-public boolean removeAll(java.util.Collection c)
+*java.util.Collection.retainAll(Collection<?>)*
 
-Removes all this collection's elements that are also contained in the specified 
-collection (optional operation). After this call returns, this collection will 
-contain no elements in common with the specified collection. 
-
-    c - elements to be removed from this collection. 
-
-    Returns: true if this collection changed as a result of the call 
-*java.util.Collection.retainAll(Collection)*
-
-public boolean retainAll(java.util.Collection c)
+public boolean retainAll(java.util.Collection<?> c)
 
 Retains only the elements in this collection that are contained in the 
 specified collection (optional operation). In other words, removes from this 
 collection all of its elements that are not contained in the specified 
 collection. 
 
-    c - elements to be retained in this collection. 
+
+    c - collection containing elements to be retained in this collection 
 
     Returns: true if this collection changed as a result of the call 
+
 *java.util.Collection.size()*
 
 public int size()
@@ -262,12 +292,14 @@ Returns the number of elements in this collection. If this collection contains
 more than Integer.MAX_VALUE elements, returns Integer.MAX_VALUE. 
 
 
+
     Returns: the number of elements in this collection 
+
 *java.util.Collection.toArray()*
 
-public |java.lang.Object| toArray()
+public |java.lang.Object|[] toArray()
 
-Returns an array containing all of the elements in this collection. If the 
+Returns an array containing all of the elements in this collection. If this 
 collection makes any guarantees as to what order its elements are returned by 
 its iterator, this method must return the elements in the same order. 
 
@@ -279,10 +311,12 @@ returned array.
 This method acts as bridge between array-based and collection-based APIs. 
 
 
+
     Returns: an array containing all of the elements in this collection 
+
 *java.util.Collection.toArray(T[])*
 
-public |java.lang.Object| toArray(java.lang.Object[] a)
+public |T|[] toArray(T[] a)
 
 Returns an array containing all of the elements in this collection; the runtime 
 type of the returned array is that of the specified array. If the collection 
@@ -292,7 +326,7 @@ collection.
 
 If this collection fits in the specified array with room to spare (i.e., the 
 array has more elements than this collection), the element in the array 
-immediately following the end of the collection is set to null. This is useful 
+immediately following the end of the collection is set to null. (This is useful 
 in determining the length of this collection only if the caller knows that this 
 collection does not contain any null elements.) 
 
@@ -300,23 +334,25 @@ If this collection makes any guarantees as to what order its elements are
 returned by its iterator, this method must return the elements in the same 
 order. 
 
-Like the toArray method, this method acts as bridge between array-based and 
-collection-based APIs. Further, this method allows precise control over the 
-runtime type of the output array, and may, under certain circumstances, be used 
-to save allocation costs 
+Like the (|java.util.Collection|) method, this method acts as bridge between 
+array-based and collection-based APIs. Further, this method allows precise 
+control over the runtime type of the output array, and may, under certain 
+circumstances, be used to save allocation costs. 
 
-Suppose l is a List known to contain only strings. The following code can be 
-used to dump the list into a newly allocated array of String: 
+Suppose x is a collection known to contain only strings. The following code can 
+be used to dump the collection into a newly allocated array of String: 
 
 
 
-String[] x = (String[]) v.toArray(new String[0]); 
+String[] y = x.toArray(new String[0]); 
 
 Note that toArray(new Object[0]) is identical in function to toArray(). 
+
 
     a - the array into which the elements of this collection are to be stored, if it is 
        big enough; otherwise, a new array of the same runtime type is allocated 
        for this purpose. 
 
-    Returns: an array containing the elements of this collection 
+    Returns: an array containing all of the elements in this collection 
+
 

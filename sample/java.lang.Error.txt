@@ -29,6 +29,7 @@ Error that might be thrown during the execution of the method but not caught,
 since these errors are abnormal conditions that should never occur. 
 
 
+
 *java.lang.Error()*
 
 public Error()

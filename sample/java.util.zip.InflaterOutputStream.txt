@@ -1,0 +1,136 @@
+*java.util.zip.InflaterOutputStream* *InflaterOutputStream* Implements an output
+
+public class InflaterOutputStream
+  extends    |java.io.FilterOutputStream|
+
+|java.util.zip.InflaterOutputStream_Description|
+|java.util.zip.InflaterOutputStream_Fields|
+|java.util.zip.InflaterOutputStream_Constructors|
+|java.util.zip.InflaterOutputStream_Methods|
+
+================================================================================
+
+*java.util.zip.InflaterOutputStream_Fields*
+|byte[]_java.util.zip.InflaterOutputStream.buf|
+|java.util.zip.Inflater_java.util.zip.InflaterOutputStream.inf|
+
+*java.util.zip.InflaterOutputStream_Constructors*
+|java.util.zip.InflaterOutputStream(OutputStream)|Creates a new output stream w
+|java.util.zip.InflaterOutputStream(OutputStream,Inflater)|Creates a new output
+|java.util.zip.InflaterOutputStream(OutputStream,Inflater,int)|Creates a new ou
+
+*java.util.zip.InflaterOutputStream_Methods*
+|java.util.zip.InflaterOutputStream.close()|Writes any remaining uncompressed d
+|java.util.zip.InflaterOutputStream.finish()|Finishes writing uncompressed data
+|java.util.zip.InflaterOutputStream.flush()|Flushes this output stream, forcing
+|java.util.zip.InflaterOutputStream.write(byte[],int,int)|Writes an array of by
+|java.util.zip.InflaterOutputStream.write(int)|Writes a byte to the uncompresse
+
+*java.util.zip.InflaterOutputStream_Description*
+
+Implements an output stream filter for uncompressing data stored in the 
+"deflate" compression format. 
+
+
+
+*byte[]_java.util.zip.InflaterOutputStream.buf*
+
+Output buffer for writing uncompressed data. 
+
+
+*java.util.zip.Inflater_java.util.zip.InflaterOutputStream.inf*
+
+Decompressor for this stream. 
+
+
+
+*java.util.zip.InflaterOutputStream(OutputStream)*
+
+public InflaterOutputStream(java.io.OutputStream out)
+
+Creates a new output stream with a default decompressor and buffer size. 
+
+    out - output stream to write the uncompressed data to 
+
+*java.util.zip.InflaterOutputStream(OutputStream,Inflater)*
+
+public InflaterOutputStream(
+  java.io.OutputStream out,
+  java.util.zip.Inflater infl)
+
+Creates a new output stream with the specified decompressor and a default 
+buffer size. 
+
+    out - output stream to write the uncompressed data to 
+    infl - decompressor ("inflater") for this stream 
+
+*java.util.zip.InflaterOutputStream(OutputStream,Inflater,int)*
+
+public InflaterOutputStream(
+  java.io.OutputStream out,
+  java.util.zip.Inflater infl,
+  int bufLen)
+
+Creates a new output stream with the specified decompressor and buffer size. 
+
+    out - output stream to write the uncompressed data to 
+    infl - decompressor ("inflater") for this stream 
+    bufLen - decompression buffer size 
+
+*java.util.zip.InflaterOutputStream.close()*
+
+public void close()
+  throws |java.io.IOException|
+         
+Writes any remaining uncompressed data to the output stream and closes the 
+underlying output stream. 
+
+
+
+*java.util.zip.InflaterOutputStream.finish()*
+
+public void finish()
+  throws |java.io.IOException|
+         
+Finishes writing uncompressed data to the output stream without closing the 
+underlying stream. Use this method when applying multiple filters in succession 
+to the same output stream. 
+
+
+
+*java.util.zip.InflaterOutputStream.flush()*
+
+public void flush()
+  throws |java.io.IOException|
+         
+Flushes this output stream, forcing any pending buffered output bytes to be 
+written. 
+
+
+
+*java.util.zip.InflaterOutputStream.write(byte[],int,int)*
+
+public void write(
+  byte[] b,
+  int off,
+  int len)
+  throws |java.io.IOException|
+         
+Writes an array of bytes to the uncompressed output stream. 
+
+
+    b - buffer containing compressed data to decompress and write to the output stream 
+    off - starting offset of the compressed data within {@code b} 
+    len - number of bytes to decompress from {@code b} 
+
+*java.util.zip.InflaterOutputStream.write(int)*
+
+public void write(int b)
+  throws |java.io.IOException|
+         
+Writes a byte to the uncompressed output stream. 
+
+
+    b - a single byte of compressed data to decompress and write to the output stream 
+
+

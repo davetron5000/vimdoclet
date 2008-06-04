@@ -1,0 +1,375 @@
+*java.util.NavigableMap* *NavigableMap* ASortedMapextended with navigation metho
+
+public interface interface NavigableMap<K,V>
+
+  implements |java.util.SortedMap|
+
+|java.util.NavigableMap_Description|
+|java.util.NavigableMap_Fields|
+|java.util.NavigableMap_Constructors|
+|java.util.NavigableMap_Methods|
+
+================================================================================
+
+*java.util.NavigableMap_Methods*
+|java.util.NavigableMap.ceilingEntry(K)|Returns a key-value mapping associated 
+|java.util.NavigableMap.ceilingKey(K)|Returns the least key greater than or equ
+|java.util.NavigableMap.descendingKeySet()|Returns a reverse orderNavigableSetv
+|java.util.NavigableMap.descendingMap()|Returns a reverse order view of the map
+|java.util.NavigableMap.firstEntry()|Returns a key-value mapping associated wit
+|java.util.NavigableMap.floorEntry(K)|Returns a key-value mapping associated wi
+|java.util.NavigableMap.floorKey(K)|Returns the greatest key less than or equal
+|java.util.NavigableMap.headMap(K)|
+|java.util.NavigableMap.headMap(K,boolean)|Returns a view of the portion of thi
+|java.util.NavigableMap.higherEntry(K)|Returns a key-value mapping associated w
+|java.util.NavigableMap.higherKey(K)|Returns the least key strictly greater tha
+|java.util.NavigableMap.lastEntry()|Returns a key-value mapping associated with
+|java.util.NavigableMap.lowerEntry(K)|Returns a key-value mapping associated wi
+|java.util.NavigableMap.lowerKey(K)|Returns the greatest key strictly less than
+|java.util.NavigableMap.navigableKeySet()|Returns aNavigableSetview of the keys
+|java.util.NavigableMap.pollFirstEntry()|Removes and returns a key-value mappin
+|java.util.NavigableMap.pollLastEntry()|Removes and returns a key-value mapping
+|java.util.NavigableMap.subMap(K,boolean,K,boolean)|Returns a view of the porti
+|java.util.NavigableMap.subMap(K,K)|
+|java.util.NavigableMap.tailMap(K)|
+|java.util.NavigableMap.tailMap(K,boolean)|Returns a view of the portion of thi
+
+*java.util.NavigableMap_Description*
+
+A (|java.util.SortedMap|) extended with navigation methods returning the 
+closest matches for given search targets. 
+MethodslowerEntry,floorEntry,ceilingEntry, andhigherEntryreturnMap.Entryobjects 
+associated with keys respectively less than, less than or equal, greater than 
+or equal, and greater than a given key, returningnullif there is no such key. 
+Similarly, methodslowerKey,floorKey,ceilingKey, andhigherKeyreturn only the 
+associated keys. All of these methods are designed for locating, not traversing 
+entries. 
+
+ANavigableMapmay be accessed and traversed in either ascending or descending 
+key order. ThedescendingMapmethod returns a view of the map with the senses of 
+all relational and directional methods inverted. The performance of ascending 
+operations and views is likely to be faster than that of descending ones. 
+MethodssubMap,headMap, andtailMapdiffer from the like-namedSortedMapmethods in 
+accepting additional arguments describing whether lower and upper bounds are 
+inclusive versus exclusive. Submaps of anyNavigableMapmust implement 
+theNavigableMapinterface. 
+
+This interface additionally defines methodsfirstEntry,pollFirstEntry,lastEntry, 
+andpollLastEntrythat return and/or remove the least and greatest mappings, if 
+any exist, else returningnull. 
+
+Implementations of entry-returning methods are expected to returnMap.Entrypairs 
+representing snapshots of mappings at the time they were produced, and thus 
+generally do not support the optionalEntry.setValuemethod. Note however that it 
+is possible to change mappings in the associated map using methodput. 
+
+Methods subMap(K, K)(|java.util.NavigableMap|) , 
+headMap(K)(|java.util.NavigableMap|) , and tailMap(K)(|java.util.NavigableMap|) 
+are specified to returnSortedMapto allow existing implementations ofSortedMapto 
+be compatibly retrofitted to implementNavigableMap, but extensions and 
+implementations of this interface are encouraged to override these methods to 
+returnNavigableMap. Similarly, (|java.util.NavigableMap|) can be overriden to 
+returnNavigableSet. 
+
+This interface is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
+
+
+*java.util.NavigableMap.ceilingEntry(K)*
+
+public |java.util.Map.Entry|<K,V> ceilingEntry(K key)
+
+Returns a key-value mapping associated with the least key greater than or equal 
+to the given key, ornullif there is no such key. 
+
+
+    key - the key 
+
+    Returns: an entry with the least key greater than or equal to {@code key}, or {@code 
+             null} if there is no such key 
+
+*java.util.NavigableMap.ceilingKey(K)*
+
+public |K| ceilingKey(K key)
+
+Returns the least key greater than or equal to the given key, ornullif there is 
+no such key. 
+
+
+    key - the key 
+
+    Returns: the least key greater than or equal to {@code key}, or {@code null} if there is 
+             no such key 
+
+*java.util.NavigableMap.descendingKeySet()*
+
+public |java.util.NavigableSet|<K> descendingKeySet()
+
+Returns a reverse order (|java.util.NavigableSet|) view of the keys contained 
+in this map. The set's iterator returns the keys in descending order. The set 
+is backed by the map, so changes to the map are reflected in the set, and 
+vice-versa. If the map is modified while an iteration over the set is in 
+progress (except through the iterator's ownremoveoperation), the results of the 
+iteration are undefined. The set supports element removal, which removes the 
+corresponding mapping from the map, via 
+theIterator.remove,Set.remove,removeAll,retainAll, andclearoperations. It does 
+not support theaddoraddAlloperations. 
+
+
+
+    Returns: a reverse order navigable set view of the keys in this map 
+
+*java.util.NavigableMap.descendingMap()*
+
+public |java.util.NavigableMap|<K,V> descendingMap()
+
+Returns a reverse order view of the mappings contained in this map. The 
+descending map is backed by this map, so changes to the map are reflected in 
+the descending map, and vice-versa. If either map is modified while an 
+iteration over a collection view of either map is in progress (except through 
+the iterator's ownremoveoperation), the results of the iteration are undefined. 
+
+The returned map has an ordering equivalent to 
+Collections.reverseOrder(|java.util.Collections|) (comparator()). The 
+expressionm.descendingMap().descendingMap()returns a view ofmessentially 
+equivalent tom. 
+
+
+
+    Returns: a reverse order view of this map 
+
+*java.util.NavigableMap.firstEntry()*
+
+public |java.util.Map.Entry|<K,V> firstEntry()
+
+Returns a key-value mapping associated with the least key in this map, ornullif 
+the map is empty. 
+
+
+
+    Returns: an entry with the least key, or {@code null} if this map is empty 
+
+*java.util.NavigableMap.floorEntry(K)*
+
+public |java.util.Map.Entry|<K,V> floorEntry(K key)
+
+Returns a key-value mapping associated with the greatest key less than or equal 
+to the given key, ornullif there is no such key. 
+
+
+    key - the key 
+
+    Returns: an entry with the greatest key less than or equal to {@code key}, or {@code 
+             null} if there is no such key 
+
+*java.util.NavigableMap.floorKey(K)*
+
+public |K| floorKey(K key)
+
+Returns the greatest key less than or equal to the given key, ornullif there is 
+no such key. 
+
+
+    key - the key 
+
+    Returns: the greatest key less than or equal to {@code key}, or {@code null} if there is 
+             no such key 
+
+*java.util.NavigableMap.headMap(K)*
+
+public |java.util.SortedMap|<K,V> headMap(K toKey)
+
+Equivalent toheadMap(toKey, false). 
+
+
+
+*java.util.NavigableMap.headMap(K,boolean)*
+
+public |java.util.NavigableMap|<K,V> headMap(
+  K toKey,
+  boolean inclusive)
+
+Returns a view of the portion of this map whose keys are less than (or equal 
+to, ifinclusiveis true)toKey. The returned map is backed by this map, so 
+changes in the returned map are reflected in this map, and vice-versa. The 
+returned map supports all optional map operations that this map supports. 
+
+The returned map will throw anIllegalArgumentExceptionon an attempt to insert a 
+key outside its range. 
+
+
+    toKey - high endpoint of the keys in the returned map 
+    inclusive - {@code true} if the high endpoint is to be included in the returned view 
+
+    Returns: a view of the portion of this map whose keys are less than (or equal to, if 
+             {@code inclusive} is true) {@code toKey} 
+
+*java.util.NavigableMap.higherEntry(K)*
+
+public |java.util.Map.Entry|<K,V> higherEntry(K key)
+
+Returns a key-value mapping associated with the least key strictly greater than 
+the given key, ornullif there is no such key. 
+
+
+    key - the key 
+
+    Returns: an entry with the least key greater than {@code key}, or {@code null} if there 
+             is no such key 
+
+*java.util.NavigableMap.higherKey(K)*
+
+public |K| higherKey(K key)
+
+Returns the least key strictly greater than the given key, ornullif there is no 
+such key. 
+
+
+    key - the key 
+
+    Returns: the least key greater than {@code key}, or {@code null} if there is no such key 
+
+*java.util.NavigableMap.lastEntry()*
+
+public |java.util.Map.Entry|<K,V> lastEntry()
+
+Returns a key-value mapping associated with the greatest key in this map, 
+ornullif the map is empty. 
+
+
+
+    Returns: an entry with the greatest key, or {@code null} if this map is empty 
+
+*java.util.NavigableMap.lowerEntry(K)*
+
+public |java.util.Map.Entry|<K,V> lowerEntry(K key)
+
+Returns a key-value mapping associated with the greatest key strictly less than 
+the given key, ornullif there is no such key. 
+
+
+    key - the key 
+
+    Returns: an entry with the greatest key less than {@code key}, or {@code null} if there 
+             is no such key 
+
+*java.util.NavigableMap.lowerKey(K)*
+
+public |K| lowerKey(K key)
+
+Returns the greatest key strictly less than the given key, ornullif there is no 
+such key. 
+
+
+    key - the key 
+
+    Returns: the greatest key less than {@code key}, or {@code null} if there is no such key 
+
+*java.util.NavigableMap.navigableKeySet()*
+
+public |java.util.NavigableSet|<K> navigableKeySet()
+
+Returns a (|java.util.NavigableSet|) view of the keys contained in this map. 
+The set's iterator returns the keys in ascending order. The set is backed by 
+the map, so changes to the map are reflected in the set, and vice-versa. If the 
+map is modified while an iteration over the set is in progress (except through 
+the iterator's ownremoveoperation), the results of the iteration are undefined. 
+The set supports element removal, which removes the corresponding mapping from 
+the map, via theIterator.remove,Set.remove,removeAll,retainAll, 
+andclearoperations. It does not support theaddoraddAlloperations. 
+
+
+
+    Returns: a navigable set view of the keys in this map 
+
+*java.util.NavigableMap.pollFirstEntry()*
+
+public |java.util.Map.Entry|<K,V> pollFirstEntry()
+
+Removes and returns a key-value mapping associated with the least key in this 
+map, ornullif the map is empty. 
+
+
+
+    Returns: the removed first entry of this map, or {@code null} if this map is empty 
+
+*java.util.NavigableMap.pollLastEntry()*
+
+public |java.util.Map.Entry|<K,V> pollLastEntry()
+
+Removes and returns a key-value mapping associated with the greatest key in 
+this map, ornullif the map is empty. 
+
+
+
+    Returns: the removed last entry of this map, or {@code null} if this map is empty 
+
+*java.util.NavigableMap.subMap(K,boolean,K,boolean)*
+
+public |java.util.NavigableMap|<K,V> subMap(
+  K fromKey,
+  boolean fromInclusive,
+  K toKey,
+  boolean toInclusive)
+
+Returns a view of the portion of this map whose keys range fromfromKeytotoKey. 
+IffromKeyandtoKeyare equal, the returned map is empty 
+unlessfromExclusiveandtoExclusiveare both true. The returned map is backed by 
+this map, so changes in the returned map are reflected in this map, and 
+vice-versa. The returned map supports all optional map operations that this map 
+supports. 
+
+The returned map will throw anIllegalArgumentExceptionon an attempt to insert a 
+key outside of its range, or to construct a submap either of whose endpoints 
+lie outside its range. 
+
+
+    fromKey - low endpoint of the keys in the returned map 
+    fromInclusive - {@code true} if the low endpoint is to be included in the returned view 
+    toKey - high endpoint of the keys in the returned map 
+    toInclusive - {@code true} if the high endpoint is to be included in the returned view 
+
+    Returns: a view of the portion of this map whose keys range from {@code fromKey} to 
+             {@code toKey} 
+
+*java.util.NavigableMap.subMap(K,K)*
+
+public |java.util.SortedMap|<K,V> subMap(
+  K fromKey,
+  K toKey)
+
+Equivalent tosubMap(fromKey, true, toKey, false). 
+
+
+
+*java.util.NavigableMap.tailMap(K)*
+
+public |java.util.SortedMap|<K,V> tailMap(K fromKey)
+
+Equivalent totailMap(fromKey, true). 
+
+
+
+*java.util.NavigableMap.tailMap(K,boolean)*
+
+public |java.util.NavigableMap|<K,V> tailMap(
+  K fromKey,
+  boolean inclusive)
+
+Returns a view of the portion of this map whose keys are greater than (or equal 
+to, ifinclusiveis true)fromKey. The returned map is backed by this map, so 
+changes in the returned map are reflected in this map, and vice-versa. The 
+returned map supports all optional map operations that this map supports. 
+
+The returned map will throw anIllegalArgumentExceptionon an attempt to insert a 
+key outside its range. 
+
+
+    fromKey - low endpoint of the keys in the returned map 
+    inclusive - {@code true} if the low endpoint is to be included in the returned view 
+
+    Returns: a view of the portion of this map whose keys are greater than (or equal to, if 
+             {@code inclusive} is true) {@code fromKey} 
+
+

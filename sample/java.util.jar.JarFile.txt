@@ -39,16 +39,10 @@ Unless otherwise noted, passing a null argument to a constructor or method in
 this class will cause a (|java.lang.NullPointerException|) to be thrown. 
 
 
+
 *java.lang.String_java.util.jar.JarFile.MANIFEST_NAME*
 
-The JarFile class is used to read the contents of a jar file from any file that 
-can be opened with java.io.RandomAccessFile. It extends the class 
-java.util.zip.ZipFile with support for reading an optional Manifest entry. The 
-Manifest can be used to specify meta-information about the jar file and its 
-entries. 
-
-Unless otherwise noted, passing a null argument to a constructor or method in 
-this class will cause a (|java.lang.NullPointerException|) to be thrown. 
+The JAR manifest file name. 
 
 
 
@@ -113,9 +107,10 @@ Creates a new JarFile to read from the specified file name.
 
 *java.util.jar.JarFile.entries()*
 
-public |java.util.Enumeration| entries()
+public |java.util.Enumeration|<JarEntry> entries()
 
 Returns an enumeration of the zip file entries. 
+
 
 
 *java.util.jar.JarFile.getEntry(String)*
@@ -124,9 +119,11 @@ public |java.util.zip.ZipEntry| getEntry(java.lang.String name)
 
 Returns the ZipEntry for the given entry name or null if not found. 
 
+
     name - the jar file entry name 
 
     Returns: the ZipEntry for the given entry name or null if not found 
+
 *java.util.jar.JarFile.getInputStream(ZipEntry)*
 
 public synchronized |java.io.InputStream| getInputStream(java.util.zip.ZipEntry ze)
@@ -135,18 +132,22 @@ public synchronized |java.io.InputStream| getInputStream(java.util.zip.ZipEntry 
 Returns an input stream for reading the contents of the specified zip file 
 entry. 
 
+
     ze - the zip file entry 
 
     Returns: an input stream for reading the contents of the specified zip file entry 
+
 *java.util.jar.JarFile.getJarEntry(String)*
 
 public |java.util.jar.JarEntry| getJarEntry(java.lang.String name)
 
 Returns the JarEntry for the given entry name or null if not found. 
 
+
     name - the jar file entry name 
 
     Returns: the JarEntry for the given entry name or null if not found. 
+
 *java.util.jar.JarFile.getManifest()*
 
 public |java.util.jar.Manifest| getManifest()
@@ -155,5 +156,7 @@ public |java.util.jar.Manifest| getManifest()
 Returns the jar file manifest, or null if none. 
 
 
+
     Returns: the jar file manifest, or null if none 
+
 

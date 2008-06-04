@@ -46,8 +46,8 @@ decompression of a string using Deflater and Inflater.
 
 
 
-// Encode a String into bytes String inputString = "blahblahblah€€"; byte[] 
-input = inputString.getBytes("UTF-8"); 
+try { // Encode a String into bytes String inputString = "blahblahblah€€"; 
+byte[] input = inputString.getBytes("UTF-8"); 
 
 // Compress the bytes byte[] output = new byte[100]; Deflater compresser = new 
 Deflater(); compresser.setInput(input); compresser.finish(); int 
@@ -58,7 +58,9 @@ decompresser.setInput(output, 0, compressedDataLength); byte[] result = new
 byte[100]; int resultLength = decompresser.inflate(result); decompresser.end(); 
 
 // Decode the bytes into a String String outputString = new String(result, 0, 
-resultLength, "UTF-8"); 
+resultLength, "UTF-8"); } catch(java.io.UnsupportedEncodingException ex) { // 
+handle } catch (java.util.zip.DataFormatException ex) { // handle } 
+
 
 
 *java.util.zip.Inflater()*
@@ -92,11 +94,13 @@ called automatically by the finalize() method. Once this method is called, the
 behavior of the Inflater object is undefined. 
 
 
+
 *java.util.zip.Inflater.finalize()*
 
 protected void finalize()
 
 Closes the decompressor when garbage is collected. 
+
 
 
 *java.util.zip.Inflater.finished()*
@@ -106,7 +110,9 @@ public synchronized boolean finished()
 Returns true if the end of the compressed data stream has been reached. 
 
 
+
     Returns: true if the end of the compressed data stream has been reached 
+
 *java.util.zip.Inflater.getAdler()*
 
 public synchronized int getAdler()
@@ -114,7 +120,9 @@ public synchronized int getAdler()
 Returns the ADLER-32 value of the uncompressed data. 
 
 
+
     Returns: the ADLER-32 value of the uncompressed data 
+
 *java.util.zip.Inflater.getBytesRead()*
 
 public synchronized long getBytesRead()
@@ -122,7 +130,9 @@ public synchronized long getBytesRead()
 Returns the total number of compressed bytes input so far. 
 
 
+
     Returns: the total (non-negative) number of compressed bytes input so far 
+
 *java.util.zip.Inflater.getBytesWritten()*
 
 public synchronized long getBytesWritten()
@@ -130,7 +140,9 @@ public synchronized long getBytesWritten()
 Returns the total number of uncompressed bytes output so far. 
 
 
+
     Returns: the total (non-negative) number of uncompressed bytes output so far 
+
 *java.util.zip.Inflater.getRemaining()*
 
 public synchronized int getRemaining()
@@ -140,7 +152,9 @@ used to find out what bytes still remain in the input buffer after
 decompression has finished. 
 
 
+
     Returns: the total number of bytes remaining in the input buffer 
+
 *java.util.zip.Inflater.getTotalIn()*
 
 public int getTotalIn()
@@ -152,7 +166,9 @@ Since the number of bytes may be greater than Integer.MAX_VALUE, the
 information. 
 
 
+
     Returns: the total number of compressed bytes input so far 
+
 *java.util.zip.Inflater.getTotalOut()*
 
 public int getTotalOut()
@@ -164,7 +180,9 @@ Since the number of bytes may be greater than Integer.MAX_VALUE, the
 information. 
 
 
+
     Returns: the total number of uncompressed bytes output so far 
+
 *java.util.zip.Inflater.inflate(byte[])*
 
 public int inflate(byte[] b)
@@ -173,12 +191,14 @@ public int inflate(byte[] b)
 Uncompresses bytes into specified buffer. Returns actual number of bytes 
 uncompressed. A return value of 0 indicates that needsInput() or 
 needsDictionary() should be called in order to determine if more input data or 
-a preset dictionary is required. In the later case, getAdler() can be used to 
+a preset dictionary is required. In the latter case, getAdler() can be used to 
 get the Adler-32 value of the dictionary required. 
+
 
     b - the buffer for the uncompressed data 
 
     Returns: the actual number of uncompressed bytes 
+
 *java.util.zip.Inflater.inflate(byte[],int,int)*
 
 public synchronized int inflate(
@@ -190,14 +210,16 @@ public synchronized int inflate(
 Uncompresses bytes into specified buffer. Returns actual number of bytes 
 uncompressed. A return value of 0 indicates that needsInput() or 
 needsDictionary() should be called in order to determine if more input data or 
-a preset dictionary is required. In the later case, getAdler() can be used to 
+a preset dictionary is required. In the latter case, getAdler() can be used to 
 get the Adler-32 value of the dictionary required. 
+
 
     b - the buffer for the uncompressed data 
     off - the start offset of the data 
     len - the maximum number of uncompressed bytes 
 
     Returns: the actual number of uncompressed bytes 
+
 *java.util.zip.Inflater.needsDictionary()*
 
 public synchronized boolean needsDictionary()
@@ -205,7 +227,9 @@ public synchronized boolean needsDictionary()
 Returns true if a preset dictionary is needed for decompression. 
 
 
+
     Returns: true if a preset dictionary is needed for decompression 
+
 *java.util.zip.Inflater.needsInput()*
 
 public synchronized boolean needsInput()
@@ -214,12 +238,15 @@ Returns true if no data remains in the input buffer. This can be used to
 determine if #setInput should be called in order to provide more input. 
 
 
+
     Returns: true if no data remains in the input buffer 
+
 *java.util.zip.Inflater.reset()*
 
 public synchronized void reset()
 
 Resets inflater so that a new set of input data can be processed. 
+
 
 
 *java.util.zip.Inflater.setDictionary(byte[])*
@@ -230,6 +257,7 @@ Sets the preset dictionary to the given array of bytes. Should be called when
 inflate() returns 0 and needsDictionary() returns true indicating that a preset 
 dictionary is required. The method getAdler() can be used to get the Adler-32 
 value of the dictionary needed. 
+
 
     b - the dictionary data bytes 
 
@@ -245,6 +273,7 @@ inflate() returns 0 and needsDictionary() returns true indicating that a preset
 dictionary is required. The method getAdler() can be used to get the Adler-32 
 value of the dictionary needed. 
 
+
     b - the dictionary data bytes 
     off - the start offset of the data 
     len - the length of the data 
@@ -255,6 +284,7 @@ public void setInput(byte[] b)
 
 Sets input data for decompression. Should be called whenever needsInput() 
 returns true indicating that more input data is required. 
+
 
     b - the input data bytes 
 
@@ -267,6 +297,7 @@ public synchronized void setInput(
 
 Sets input data for decompression. Should be called whenever needsInput() 
 returns true indicating that more input data is required. 
+
 
     b - the input data bytes 
     off - the start offset of the input data 

@@ -31,6 +31,7 @@ Subclasses of Number must provide methods to convert the represented numeric
 value to byte, double, float, int, long, and short. 
 
 
+
 *java.lang.Number()*
 
 public Number()
@@ -46,7 +47,9 @@ Returns the value of the specified number as a byte. This may involve rounding
 or truncation. 
 
 
+
     Returns: the numeric value represented by this object after conversion to type byte. 
+
 *java.lang.Number.doubleValue()*
 
 public abstract double doubleValue()
@@ -55,7 +58,9 @@ Returns the value of the specified number as a double. This may involve
 rounding. 
 
 
+
     Returns: the numeric value represented by this object after conversion to type double. 
+
 *java.lang.Number.floatValue()*
 
 public abstract float floatValue()
@@ -64,7 +69,9 @@ Returns the value of the specified number as a float. This may involve
 rounding. 
 
 
+
     Returns: the numeric value represented by this object after conversion to type float. 
+
 *java.lang.Number.intValue()*
 
 public abstract int intValue()
@@ -73,7 +80,9 @@ Returns the value of the specified number as an int. This may involve rounding
 or truncation. 
 
 
+
     Returns: the numeric value represented by this object after conversion to type int. 
+
 *java.lang.Number.longValue()*
 
 public abstract long longValue()
@@ -82,7 +91,9 @@ Returns the value of the specified number as a long. This may involve rounding
 or truncation. 
 
 
+
     Returns: the numeric value represented by this object after conversion to type long. 
+
 *java.lang.Number.shortValue()*
 
 public short shortValue()
@@ -91,5 +102,7 @@ Returns the value of the specified number as a short. This may involve rounding
 or truncation. 
 
 
+
     Returns: the numeric value represented by this object after conversion to type short. 
+
 

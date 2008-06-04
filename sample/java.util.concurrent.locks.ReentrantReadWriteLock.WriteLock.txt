@@ -16,7 +16,9 @@ public static class ReentrantReadWriteLock.WriteLock
 |java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock(ReentrantReadWriteLock)|
 
 *java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock_Methods*
-|java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.lock()|Acquire the
+|java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.getHoldCount()|Que
+|java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.isHeldByCurrentThread()|
+|java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.lock()|Acquires th
 |java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.lockInterruptibly()|
 |java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.newCondition()|Ret
 |java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.toString()|Returns
@@ -30,6 +32,7 @@ The lock returned by method
 (|java.util.concurrent.locks.ReentrantReadWriteLock|) . 
 
 
+
 *java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock(ReentrantReadWriteLock)*
 
 protected ReentrantReadWriteLock.WriteLock(java.util.concurrent.locks.ReentrantReadWriteLock lock)
@@ -38,11 +41,36 @@ Constructor for use by subclasses
 
     lock - the outer lock object 
 
+*java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.getHoldCount()*
+
+public int getHoldCount()
+
+Queries the number of holds on this write lock by the current thread. A thread 
+has a hold on a lock for each lock action that is not matched by an unlock 
+action. Identical in effect to 
+(|java.util.concurrent.locks.ReentrantReadWriteLock|) . 
+
+
+
+    Returns: the number of holds on this lock by the current thread, or zero if this lock is 
+             not held by the current thread 
+
+*java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.isHeldByCurrentThread()*
+
+public boolean isHeldByCurrentThread()
+
+Queries if this write lock is held by the current thread. Identical in effect 
+to (|java.util.concurrent.locks.ReentrantReadWriteLock|) . 
+
+
+
+    Returns: {@code true} if the current thread holds this lock and {@code false} otherwise 
+
 *java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.lock()*
 
 public void lock()
 
-Acquire the write lock. 
+Acquires the write lock. 
 
 Acquires the write lock if neither the read nor write lock are held by another 
 thread and returns immediately, setting the write lock hold count to one. 
@@ -53,6 +81,7 @@ incremented by one and the method returns immediately.
 If the lock is held by another thread then the current thread becomes disabled 
 for thread scheduling purposes and lies dormant until the write lock has been 
 acquired, at which time the write lock hold count is set to one. 
+
 
 
 *java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.lockInterruptibly()*
@@ -102,6 +131,7 @@ preference is given to responding to the interrupt over normal or reentrant
 acquisition of the lock. 
 
 
+
 *java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.newCondition()*
 
 public |java.util.concurrent.locks.Condition| newCondition()
@@ -142,17 +172,21 @@ been waiting the longest.
 
 
 
+
     Returns: the Condition object 
+
 *java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.toString()*
 
 public |java.lang.String| toString()
 
 Returns a string identifying this lock, as well as its lock state. The state, 
-in brackets includes either the String Unlocked or the String Locked by 
-followed by the (|java.lang.Thread|) of the owning thread. 
+in brackets includes either the String"Unlocked"or the String"Locked 
+by"followed by the name(|java.lang.Thread|) of the owning thread. 
 
 
-    Returns: a string identifying this lock, as well as its lock state. 
+
+    Returns: a string identifying this lock, as well as its lock state 
+
 *java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.tryLock()*
 
 public boolean tryLock()
@@ -161,9 +195,9 @@ Acquires the write lock only if it is not held by another thread at the time of
 invocation. 
 
 Acquires the write lock if neither the read nor write lock are held by another 
-thread and returns immediately with the value true, setting the write lock hold 
+thread and returns immediately with the valuetrue, setting the write lock hold 
 count to one. Even when this lock has been set to use a fair ordering policy, a 
-call to tryLock() will immediately acquire the lock if it is available, whether 
+call totryLock()will immediately acquire the lock if it is available, whether 
 or not other threads are currently waiting for the write lock. This barging 
 behavior can be useful in certain circumstances, even though it breaks 
 fairness. If you want to honor the fairness setting for this lock, then use 
@@ -172,14 +206,17 @@ tryLock(0, TimeUnit.SECONDS)
 equivalent (it also detects interruption). 
 
 If the current thread already holds this lock then the hold count is 
-incremented by one and the method returns true. 
+incremented by one and the method returnstrue. 
 
 If the lock is held by another thread then this method will return immediately 
-with the value false. 
+with the valuefalse. 
 
 
-    Returns: true if the lock was free and was acquired by the current thread, or the write 
-             lock was already held by the current thread; and false otherwise. 
+
+    Returns: {@code true} if the lock was free and was acquired by the current thread, or 
+             the write lock was already held by the current thread; and {@code 
+             false} otherwise. 
+
 *java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.tryLock(long,TimeUnit)*
 
 public boolean tryLock(
@@ -192,18 +229,18 @@ waiting time and the current thread has not been
 interrupted(|java.lang.Thread|) . 
 
 Acquires the write lock if neither the read nor write lock are held by another 
-thread and returns immediately with the value true, setting the write lock hold 
+thread and returns immediately with the valuetrue, setting the write lock hold 
 count to one. If this lock has been set to use a fair ordering policy then an 
 available lock will not be acquired if any other threads are waiting for the 
 write lock. This is in contrast to the 
 (|java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock|) method. If you 
-want a timed tryLock that does permit barging on a fair lock then combine the 
+want a timedtryLockthat does permit barging on a fair lock then combine the 
 timed and un-timed forms together: 
 
 if (lock.tryLock() || lock.tryLock(timeout, unit) ) { ... } 
 
 If the current thread already holds this lock then the hold count is 
-incremented by one and the method returns true. 
+incremented by one and the method returnstrue. 
 
 If the lock is held by another thread then the current thread becomes disabled 
 for thread scheduling purposes and lies dormant until one of three things 
@@ -219,8 +256,8 @@ The specified waiting time elapses
 
 
 
-If the write lock is acquired then the value true is returned and the write 
-lock hold count is set to one. 
+If the write lock is acquired then the valuetrueis returned and the write lock 
+hold count is set to one. 
 
 If the current thread: 
 
@@ -235,19 +272,22 @@ is interrupted(|java.lang.Thread|) while acquiring the write lock,
 then (|java.lang.InterruptedException|) is thrown and the current thread's 
 interrupted status is cleared. 
 
-If the specified waiting time elapses then the value false is returned. If the 
+If the specified waiting time elapses then the valuefalseis returned. If the 
 time is less than or equal to zero, the method will not wait at all. 
 
 In this implementation, as this method is an explicit interruption point, 
 preference is given to responding to the interrupt over normal or reentrant 
 acquisition of the lock, and over reporting the elapse of the waiting time. 
 
+
     timeout - the time to wait for the write lock 
     unit - the time unit of the timeout argument 
 
-    Returns: true if the lock was free and was acquired by the current thread, or the write 
-             lock was already held by the current thread; and false if the 
-             waiting time elapsed before the lock could be acquired. 
+    Returns: {@code true} if the lock was free and was acquired by the current thread, or 
+             the write lock was already held by the current thread; and {@code 
+             false} if the waiting time elapsed before the lock could be 
+             acquired. 
+
 *java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock.unlock()*
 
 public void unlock()
@@ -258,6 +298,7 @@ If the current thread is the holder of this lock then the hold count is
 decremented. If the hold count is now zero then the lock is released. If the 
 current thread is not the holder of this lock then 
 (|java.lang.IllegalMonitorStateException|) is thrown. 
+
 
 
 

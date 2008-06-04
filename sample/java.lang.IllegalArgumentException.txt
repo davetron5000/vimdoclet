@@ -22,6 +22,7 @@ Thrown to indicate that a method has been passed an illegal or inappropriate
 argument. 
 
 
+
 *java.lang.IllegalArgumentException()*
 
 public IllegalArgumentException()

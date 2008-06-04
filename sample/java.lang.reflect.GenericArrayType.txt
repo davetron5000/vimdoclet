@@ -20,6 +20,7 @@ GenericArrayType represents an array type whose component type is either a
 parameterized type or a type variable. 
 
 
+
 *java.lang.reflect.GenericArrayType.getGenericComponentType()*
 
 public |java.lang.reflect.Type| getGenericComponentType()
@@ -32,5 +33,7 @@ TypeVariable(|java.lang.reflect.TypeVariable|) for the creation process for
 type variables. 
 
 
+
     Returns: a Type object representing the component type of this array 
+
 

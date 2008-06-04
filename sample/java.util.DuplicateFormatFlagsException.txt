@@ -27,6 +27,7 @@ constructor in this class will cause a (|java.lang.NullPointerException|) to be
 thrown. 
 
 
+
 *java.util.DuplicateFormatFlagsException(String)*
 
 public DuplicateFormatFlagsException(java.lang.String f)
@@ -42,10 +43,13 @@ public |java.lang.String| getFlags()
 Returns the set of flags which contains a duplicate flag. 
 
 
+
     Returns: 
+
 *java.util.DuplicateFormatFlagsException.getMessage()*
 
 public |java.lang.String| getMessage()
+
 
 
 

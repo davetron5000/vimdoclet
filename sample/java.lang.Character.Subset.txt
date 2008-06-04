@@ -26,6 +26,7 @@ UnicodeBlock(|java.lang.Character.UnicodeBlock|) . Other portions of the Java
 API may define other subsets for their own purposes. 
 
 
+
 *java.lang.Character.Subset(String)*
 
 protected Character.Subset(java.lang.String name)
@@ -43,6 +44,7 @@ if this and the argument refer to the same object; since this method is final,
 this guarantee holds for all subclasses. 
 
 
+
 *java.lang.Character.Subset.hashCode()*
 
 public final int hashCode()
@@ -52,11 +54,13 @@ This method is final in order to ensure that the equals and hashCode methods
 will be consistent in all subclasses. 
 
 
+
 *java.lang.Character.Subset.toString()*
 
 public final |java.lang.String| toString()
 
 Returns the name of this subset. 
+
 
 
 

@@ -20,6 +20,7 @@ Thrown when the "verifier" detects that a class file, though well formed,
 contains some sort of internal inconsistency or security problem. 
 
 
+
 *java.lang.VerifyError()*
 
 public VerifyError()

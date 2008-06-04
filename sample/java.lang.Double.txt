@@ -12,13 +12,16 @@ public final class Double
 ================================================================================
 
 *java.lang.Double_Fields*
+|int_java.lang.Double.MAX_EXPONENT|
 |double_java.lang.Double.MAX_VALUE|
+|int_java.lang.Double.MIN_EXPONENT|
+|double_java.lang.Double.MIN_NORMAL|
 |double_java.lang.Double.MIN_VALUE|
 |double_java.lang.Double.NaN|
 |double_java.lang.Double.NEGATIVE_INFINITY|
 |double_java.lang.Double.POSITIVE_INFINITY|
 |int_java.lang.Double.SIZE|
-|java.lang.Class_java.lang.Double.TYPE|
+|java.lang.Class<java.lang.Double>_java.lang.Double.TYPE|
 
 *java.lang.Double_Constructors*
 |java.lang.Double(double)|Constructs a newly allocated Double object that  repr
@@ -59,74 +62,67 @@ String and a String to a double, as well as other constants and methods useful
 when dealing with a double. 
 
 
+
+*int_java.lang.Double.MAX_EXPONENT*
+
+Maximum exponent a finitedoublevariable may have. It is equal to the value 
+returned byMath.getExponent(Double.MAX_VALUE). 
+
+
 *double_java.lang.Double.MAX_VALUE*
 
-The Double class wraps a value of the primitive type double in an object. An 
-object of type Double contains a single field whose type is double. 
+A constant holding the largest positive finite value of type double, 
+(2-2-52)21023. It is equal to the hexadecimal floating-point literal 
+0x1.fffffffffffffP+1023 and also equal to 
+Double.longBitsToDouble(0x7fefffffffffffffL). 
 
-In addition, this class provides several methods for converting a double to a 
-String and a String to a double, as well as other constants and methods useful 
-when dealing with a double. 
+
+*int_java.lang.Double.MIN_EXPONENT*
+
+Minimum exponent a normalizeddoublevariable may have. It is equal to the value 
+returned byMath.getExponent(Double.MIN_NORMAL). 
+
+
+*double_java.lang.Double.MIN_NORMAL*
+
+A constant holding the smallest positive normal value of typedouble, 2-1022. It 
+is equal to the hexadecimal floating-point literal0x1.0p-1022and also equal 
+toDouble.longBitsToDouble(0x0010000000000000L). 
 
 
 *double_java.lang.Double.MIN_VALUE*
 
-The Double class wraps a value of the primitive type double in an object. An 
-object of type Double contains a single field whose type is double. 
-
-In addition, this class provides several methods for converting a double to a 
-String and a String to a double, as well as other constants and methods useful 
-when dealing with a double. 
+A constant holding the smallest positive nonzero value of type double, 2-1074. 
+It is equal to the hexadecimal floating-point literal 0x0.0000000000001P-1022 
+and also equal to Double.longBitsToDouble(0x1L). 
 
 
 *double_java.lang.Double.NaN*
 
-The Double class wraps a value of the primitive type double in an object. An 
-object of type Double contains a single field whose type is double. 
-
-In addition, this class provides several methods for converting a double to a 
-String and a String to a double, as well as other constants and methods useful 
-when dealing with a double. 
+A constant holding a Not-a-Number (NaN) value of type double. It is equivalent 
+to the value returned by Double.longBitsToDouble(0x7ff8000000000000L). 
 
 
 *double_java.lang.Double.NEGATIVE_INFINITY*
 
-The Double class wraps a value of the primitive type double in an object. An 
-object of type Double contains a single field whose type is double. 
-
-In addition, this class provides several methods for converting a double to a 
-String and a String to a double, as well as other constants and methods useful 
-when dealing with a double. 
+A constant holding the negative infinity of type double. It is equal to the 
+value returned by Double.longBitsToDouble(0xfff0000000000000L). 
 
 
 *double_java.lang.Double.POSITIVE_INFINITY*
 
-The Double class wraps a value of the primitive type double in an object. An 
-object of type Double contains a single field whose type is double. 
-
-In addition, this class provides several methods for converting a double to a 
-String and a String to a double, as well as other constants and methods useful 
-when dealing with a double. 
+A constant holding the positive infinity of type double. It is equal to the 
+value returned by Double.longBitsToDouble(0x7ff0000000000000L). 
 
 
 *int_java.lang.Double.SIZE*
 
-The Double class wraps a value of the primitive type double in an object. An 
-object of type Double contains a single field whose type is double. 
-
-In addition, this class provides several methods for converting a double to a 
-String and a String to a double, as well as other constants and methods useful 
-when dealing with a double. 
+The number of bits used to represent a double value. 
 
 
-*java.lang.Class_java.lang.Double.TYPE*
+*java.lang.Class<java.lang.Double>_java.lang.Double.TYPE*
 
-The Double class wraps a value of the primitive type double in an object. An 
-object of type Double contains a single field whose type is double. 
-
-In addition, this class provides several methods for converting a double to a 
-String and a String to a double, as well as other constants and methods useful 
-when dealing with a double. 
+The Class instance representing the primitive type double. 
 
 
 
@@ -157,7 +153,9 @@ public byte byteValue()
 Returns the value of this Double as a byte (by casting to a byte). 
 
 
+
     Returns: the double value represented by this object converted to type byte 
+
 *java.lang.Double.compare(double,double)*
 
 public static int compare(
@@ -169,12 +167,14 @@ returned is the same as that of the integer that would be returned by the call:
 
 new Double(d1).compareTo(new Double(d2)) 
 
+
     d1 - the first double to compare 
     d2 - the second double to compare 
 
     Returns: the value 0 if d1 is numerically equal to d2; a value less than 0 if d1 is 
              numerically less than d2; and a value greater than 0 if d1 is 
              numerically greater than d2. 
+
 *java.lang.Double.compareTo(Double)*
 
 public int compareTo(java.lang.Double anotherDouble)
@@ -192,15 +192,17 @@ all other double values (including Double.POSITIVE_INFINITY).
 This ensures that the natural ordering of Double objects imposed by this method 
 is consistent with equals. 
 
+
     anotherDouble - the Double to be compared. 
 
     Returns: the value 0 if anotherDouble is numerically equal to this Double; a value less 
              than 0 if this Double is numerically less than anotherDouble; and 
              a value greater than 0 if this Double is numerically greater than 
              anotherDouble. 
+
 *java.lang.Double.doubleToLongBits(double)*
 
-public static native long doubleToLongBits(double value)
+public static long doubleToLongBits(double value)
 
 Returns a representation of the specified floating-point value according to the 
 IEEE 754 floating-point "double format" bit layout. 
@@ -222,9 +224,11 @@ In all cases, the result is a long integer that, when given to the
 the argument to doubleToLongBits (except all NaN values are collapsed to a 
 single canonical NaN value). 
 
+
     value - a double precision floating-point number. 
 
     Returns: the bits that represent the floating-point number. 
+
 *java.lang.Double.doubleToRawLongBits(double)*
 
 public static native long doubleToRawLongBits(double value)
@@ -251,9 +255,11 @@ In all cases, the result is a long integer that, when given to the
 (|java.lang.Double|) method, will produce a floating-point value the same as 
 the argument to doubleToRawLongBits. 
 
+
     value - a double precision floating-point number. 
 
     Returns: the bits that represent the floating-point number. 
+
 *java.lang.Double.doubleValue()*
 
 public double doubleValue()
@@ -261,7 +267,9 @@ public double doubleValue()
 Returns the double value of this Double object. 
 
 
+
     Returns: the double value represented by this object 
+
 *java.lang.Double.equals(Object)*
 
 public boolean equals(java.lang.Object obj)
@@ -287,9 +295,11 @@ even though +0.0==-0.0 has the value true.
 
 This definition allows hash tables to operate properly. 
 
+
     obj - the object to compare with. 
 
     Returns: true if the objects are the same; false otherwise. 
+
 *java.lang.Double.floatValue()*
 
 public float floatValue()
@@ -297,7 +307,9 @@ public float floatValue()
 Returns the float value of this Double object. 
 
 
+
     Returns: the double value represented by this object converted to type float 
+
 *java.lang.Double.hashCode()*
 
 public int hashCode()
@@ -314,7 +326,9 @@ where v is defined by:
 long v = Double.doubleToLongBits(this.doubleValue()); 
 
 
+
     Returns: a hash code value for this object. 
+
 *java.lang.Double.intValue()*
 
 public int intValue()
@@ -322,7 +336,9 @@ public int intValue()
 Returns the value of this Double as an int (by casting to type int). 
 
 
+
     Returns: the double value represented by this object converted to type int 
+
 *java.lang.Double.isInfinite()*
 
 public boolean isInfinite()
@@ -331,8 +347,10 @@ Returns true if this Double value is infinitely large in magnitude, false
 otherwise. 
 
 
+
     Returns: true if the value represented by this object is positive infinity or negative 
              infinity; false otherwise. 
+
 *java.lang.Double.isInfinite(double)*
 
 public static boolean isInfinite(double v)
@@ -340,10 +358,12 @@ public static boolean isInfinite(double v)
 Returns true if the specified number is infinitely large in magnitude, false 
 otherwise. 
 
+
     v - the value to be tested. 
 
     Returns: true if the value of the argument is positive infinity or negative infinity; 
              false otherwise. 
+
 *java.lang.Double.isNaN()*
 
 public boolean isNaN()
@@ -351,7 +371,9 @@ public boolean isNaN()
 Returns true if this Double value is a Not-a-Number (NaN), false otherwise. 
 
 
+
     Returns: true if the value represented by this object is NaN; false otherwise. 
+
 *java.lang.Double.isNaN(double)*
 
 public static boolean isNaN(double v)
@@ -359,9 +381,11 @@ public static boolean isNaN(double v)
 Returns true if the specified number is a Not-a-Number (NaN) value, false 
 otherwise. 
 
+
     v - the value to be tested. 
 
     Returns: true if the value of the argument is NaN; false otherwise. 
+
 *java.lang.Double.longBitsToDouble(long)*
 
 public static native double longBitsToDouble(long bits)
@@ -405,9 +429,11 @@ Moreover, which particular bit patterns represent signaling NaNs is platform
 dependent; although all NaN bit patterns, quiet or signaling, must be in the 
 NaN range identified above. 
 
+
     bits - any long integer. 
 
     Returns: the double floating-point value with the same bit pattern. 
+
 *java.lang.Double.longValue()*
 
 public long longValue()
@@ -415,7 +441,9 @@ public long longValue()
 Returns the value of this Double as a long (by casting to type long). 
 
 
+
     Returns: the double value represented by this object converted to type long 
+
 *java.lang.Double.parseDouble(String)*
 
 public static double parseDouble(java.lang.String s)
@@ -424,9 +452,11 @@ public static double parseDouble(java.lang.String s)
 Returns a new double initialized to the value represented by the specified 
 String, as performed by the valueOf method of class Double. 
 
+
     s - the string to be parsed. 
 
     Returns: the double value represented by the string argument. 
+
 *java.lang.Double.shortValue()*
 
 public short shortValue()
@@ -434,7 +464,9 @@ public short shortValue()
 Returns the value of this Double as a short (by casting to a short). 
 
 
+
     Returns: the double value represented by this object converted to type short 
+
 *java.lang.Double.toHexString(double)*
 
 public static |java.lang.String| toHexString(double d)
@@ -478,9 +510,11 @@ Examples Floating-point ValueHexadecimal String 1.0	0x1.0p0 -1.0	-0x1.0p0
 0x1.fffffffffffffp1023 Minimum Normal Value 0x1.0p-1022 Maximum Subnormal Value 
 0x0.fffffffffffffp-1022 Double.MIN_VALUE 0x0.0000000000001p-1022 
 
+
     d - the double to be converted. 
 
     Returns: a hex string representation of the argument. 
+
 *java.lang.Double.toString()*
 
 public |java.lang.String| toString()
@@ -490,7 +524,9 @@ value represented by this object is converted to a string exactly as if by the
 method toString of one argument. 
 
 
+
     Returns: a String representation of this object. 
+
 *java.lang.Double.toString(double)*
 
 public static |java.lang.String| toString(double d)
@@ -537,9 +573,11 @@ one of them and the least significant bit of the significand of d must be 0.
 To create localized string representations of a floating-point value, use 
 subclasses of (|java.text.NumberFormat|) . 
 
+
     d - the double to be converted. 
 
     Returns: a string representation of the argument. 
+
 *java.lang.Double.valueOf(double)*
 
 public static |java.lang.Double| valueOf(double d)
@@ -550,9 +588,11 @@ preference to the constructor (|java.lang.Double|) , as this method is likely
 to yield significantly better space and time performance by caching frequently 
 requested values. 
 
+
     d - a double value. 
 
     Returns: a Double instance representing d. 
+
 *java.lang.Double.valueOf(String)*
 
 public static |java.lang.Double| valueOf(java.lang.String s)
@@ -617,7 +657,7 @@ literal 0.1f represents a different numerical value than the double literal
 0.1. (The numerical value 0.1 cannot be exactly represented in a binary 
 floating-point number.) 
 
-To avoid calling this method on a invalid string and having a 
+To avoid calling this method on an invalid string and having a 
 NumberFormatException be thrown, the regular expression below can be used to 
 screen the input string: 
 
@@ -656,7 +696,9 @@ Perform suitable alternative action }
 
 
 
+
     s - the string to be parsed. 
 
     Returns: a Double object holding the value represented by the String argument. 
+
 

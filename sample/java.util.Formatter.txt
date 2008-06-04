@@ -31,8 +31,8 @@ public final class Formatter
 *java.util.Formatter_Methods*
 |java.util.Formatter.close()|Closes this formatter.
 |java.util.Formatter.flush()|Flushes this formatter.
-|java.util.Formatter.format(Locale,String,Object[])|Writes a formatted string t
-|java.util.Formatter.format(String,Object[])|Writes a formatted string to this 
+|java.util.Formatter.format(Locale,String,Object...)|Writes a formatted string 
+|java.util.Formatter.format(String,Object...)|Writes a formatted string to this
 |java.util.Formatter.ioException()|Returns the IOException last thrown by this 
 |java.util.Formatter.locale()|Returns the locale set by the construction of thi
 |java.util.Formatter.out()|Returns the destination for the output.
@@ -138,7 +138,7 @@ Birthday: " and any other spaces or punctuation.
 
 The argument list consists of all arguments passed to the method after the 
 format string. In the above example, the argument list is of size one and 
-consists of the new Calendar(|java.util.Calendar|) object. 
+consists of the Calendar(|java.util.Calendar|) object c. 
 
 
 
@@ -471,16 +471,17 @@ The argument index is a decimal integer indicating the position of the argument
 in the argument list. The first argument is referenced by "1$", the second by 
 "2$", etc. 
 
-Another way to reference arguments by position is to use the ' ('u003c') flag, 
-which causes the argument for the previous format specifier to be re-used. For 
-example, the following two statements would produce identical strings: 
+Another way to reference arguments by position is to use the '<' ('u003c') 
+flag, which causes the argument for the previous format specifier to be 
+re-used. For example, the following two statements would produce identical 
+strings: 
 
 
 
 Calendar c = ...; String s1 = String.format("Duke's Birthday: %1$tm 
 %1$te,%1$tY", c); 
 
-String s2 = String.format("Duke's Birthday: %1$tm % 
+String s2 = String.format("Duke's Birthday: %1$tm %<te,%<tY", c); 
 
 Details 
 
@@ -574,8 +575,6 @@ form is specified by the conversion.
 
 
 
-
-
 The width is the minimum number of characters to be written to the output. If 
 the length of the converted value is less than the width then the output will 
 be padded by '' (u0020') until the total number of characters equals the width. 
@@ -591,9 +590,9 @@ characters.
 
 Character 
 
-This conversion may be applied to char, (|java.lang.Character|) , byte, 
-(|java.lang.Byte|) , short, and (|java.lang.Short|) . This conversion may also 
-be applied to the types int and (|java.lang.Integer|) when 
+This conversion may be applied to char and (|java.lang.Character|) . It may 
+also be applied to the types byte, (|java.lang.Byte|) , short, and 
+(|java.lang.Short|) , int and (|java.lang.Integer|) when 
 (|java.lang.Character|) returns true. If it returns false then an 
 (|java.util.IllegalFormatCodePointException|) will be thrown. 
 
@@ -1359,9 +1358,9 @@ For example:
 formatter.format("%4$s %3$s %2$s %1$s %4$s %3$s %2$s %1$s", "a", "b", "c", "d") 
 // -> "d c b a d c b a" 
 
-Relative indexing is used when the format specifier contains a ' ('u003c') flag 
-which causes the argument for the previous format specifier to be re-used. If 
-there is no previous argument, then a 
+Relative indexing is used when the format specifier contains a '<' ('u003c') 
+flag which causes the argument for the previous format specifier to be re-used. 
+If there is no previous argument, then a 
 (|java.util.MissingFormatArgumentException|) is thrown. 
 
 
@@ -1370,9 +1369,9 @@ formatter.format("%s %s %<s %<s", "a", "b", "c", "d") // -> "a b b b" // "c"
 and "d" are ignored because they are not referenced 
 
 Ordinary indexing is used when the format specifier contains neither an 
-argument index nor a ' flag. Each format specifier which uses ordinary indexing 
-is assigned a sequential implicit index into argument list which is independent 
-of the indices used by explicit or relative indexing. 
+argument index nor a '<' flag. Each format specifier which uses ordinary 
+indexing is assigned a sequential implicit index into argument list which is 
+independent of the indices used by explicit or relative indexing. 
 
 
 
@@ -1399,6 +1398,7 @@ ignored.
 Unless otherwise specified, passing a null argument to any method or 
 constructor in this class will cause a (|java.lang.NullPointerException|) to be 
 thrown. 
+
 
 
 *java.util.Formatter()*
@@ -1637,6 +1637,7 @@ formatter after it has been closed will result in a
 (|java.util.FormatterClosedException|) . 
 
 
+
 *java.util.Formatter.flush()*
 
 public void flush()
@@ -1648,7 +1649,8 @@ Flushing a formatter writes any buffered output in the destination to the
 underlying stream. 
 
 
-*java.util.Formatter.format(Locale,String,Object[])*
+
+*java.util.Formatter.format(Locale,String,Object...)*
 
 public |java.util.Formatter| format(
   java.util.Locale l,
@@ -1657,6 +1659,7 @@ public |java.util.Formatter| format(
 
 Writes a formatted string to this object's destination using the specified 
 locale, format string, and arguments. 
+
 
     l - The {@linkplain java.util.Locale locale} to apply during formatting. If l is 
        null then no localization is applied. This does not change this object's 
@@ -1669,7 +1672,8 @@ locale, format string, and arguments.
        Specification 
 
     Returns: This formatter 
-*java.util.Formatter.format(String,Object[])*
+
+*java.util.Formatter.format(String,Object...)*
 
 public |java.util.Formatter| format(
   java.lang.String format,
@@ -1679,6 +1683,7 @@ Writes a formatted string to this object's destination using the specified
 format string and arguments. The locale used is the one defined during the 
 construction of this formatter. 
 
+
     format - A format string as described in Format string syntax. 
     args - Arguments referenced by the format specifiers in the format string. If there 
        are more arguments than format specifiers, the extra arguments are 
@@ -1687,6 +1692,7 @@ construction of this formatter.
        Specification. 
 
     Returns: This formatter 
+
 *java.util.Formatter.ioException()*
 
 public |java.io.IOException| ioException()
@@ -1698,8 +1704,10 @@ If the destination's append() method never throws IOException, then this method
 will always return null. 
 
 
+
     Returns: The last exception thrown by the Appendable or null if no such exception 
              exists. 
+
 *java.util.Formatter.locale()*
 
 public |java.util.Locale| locale()
@@ -1710,7 +1718,9 @@ The format(|java.util.Formatter|) method for this object which has a locale
 argument does not change this value. 
 
 
+
     Returns: null if no localization is applied, otherwise a locale 
+
 *java.util.Formatter.out()*
 
 public |java.lang.Appendable| out()
@@ -1718,7 +1728,9 @@ public |java.lang.Appendable| out()
 Returns the destination for the output. 
 
 
+
     Returns: The destination for the output 
+
 *java.util.Formatter.toString()*
 
 public |java.lang.String| toString()
@@ -1745,5 +1757,7 @@ destination. For instance, buffers typically return their contents in
 toString(), but streams cannot since the data is discarded. 
 
 
+
     Returns: The result of invoking toString() on the destination for the output 
+
 

@@ -22,6 +22,7 @@ public static class ThreadPoolExecutor.DiscardPolicy
 A handler for rejected tasks that silently discards the rejected task. 
 
 
+
 *java.util.concurrent.ThreadPoolExecutor.DiscardPolicy()*
 
 public ThreadPoolExecutor.DiscardPolicy()
@@ -36,6 +37,7 @@ public void rejectedExecution(
   java.util.concurrent.ThreadPoolExecutor e)
 
 Does nothing, which has the effect of discarding task r. 
+
 
     r - the runnable task requested to be executed 
     e - the executor attempting to execute this task 

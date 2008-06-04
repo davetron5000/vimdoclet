@@ -1,7 +1,7 @@
 *java.util.concurrent.locks.AbstractQueuedSynchronizer* *AbstractQueuedSynchronizer* 
 
 public abstract class AbstractQueuedSynchronizer
-  extends    |java.lang.Object|
+  extends    |java.util.concurrent.locks.AbstractOwnableSynchronizer|
   implements |java.io.Serializable|
 
 |java.util.concurrent.locks.AbstractQueuedSynchronizer_Description|
@@ -127,6 +127,12 @@ must be internally thread-safe, and should in general be short and not block.
 Defining these methods is the only supported means of using this class. All 
 other methods are declared final because they cannot be independently varied. 
 
+You may also find the inherited methods from 
+(|java.util.concurrent.locks.AbstractOwnableSynchronizer|) useful to keep track 
+of the thread owning an exclusive synchronizer. You are encouraged to use them 
+-- this enables monitoring and diagnostic tools to assist users in determining 
+which threads hold locks. 
+
 Even though this class is based on an internal FIFO queue, it does not 
 automatically enforce FIFO acquisition policies. The core of exclusive 
 synchronization takes the form: 
@@ -177,7 +183,9 @@ blocking support.
 Usage Examples 
 
 Here is a non-reentrant mutual exclusion lock class that uses the value zero to 
-represent the unlocked state, and one to represent the locked state. It also 
+represent the unlocked state, and one to represent the locked state. While a 
+non-reentrant lock does not strictly require recording of the current owner 
+thread, this class does so anyway to make usage easier to monitor. It also 
 supports conditions and exposes one of the instrumentation methods: 
 
 
@@ -189,11 +197,13 @@ AbstractQueuedSynchronizer { // Report whether in locked state protected
 boolean isHeldExclusively() { return getState() == 1; } 
 
 // Acquire the lock if state is zero public boolean tryAcquire(int acquires) { 
-assert acquires == 1; // Otherwise unused return compareAndSetState(0, 1); } 
+assert acquires == 1; // Otherwise unused if (compareAndSetState(0, 1)) { 
+setExclusiveOwnerThread(Thread.currentThread()); return true; } return false; } 
 
 // Release the lock by setting state to zero protected boolean tryRelease(int 
 releases) { assert releases == 1; // Otherwise unused if (getState() == 0) 
-throw new IllegalMonitorStateException(); setState(0); return true; } 
+throw new IllegalMonitorStateException(); setExclusiveOwnerThread(null); 
+setState(0); return true; } 
 
 // Provide a Condition Condition newCondition() { return new ConditionObject(); 
 } 
@@ -237,7 +247,6 @@ void await() throws InterruptedException { sync.acquireSharedInterruptibly(1);
 
 
 
-
 *java.util.concurrent.locks.AbstractQueuedSynchronizer()*
 
 protected AbstractQueuedSynchronizer()
@@ -255,7 +264,8 @@ least once (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) ,
 returning on success. Otherwise the thread is queued, possibly repeatedly 
 blocking and unblocking, invoking 
 (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) until success. This 
-method can be used to implement method (|java.util.concurrent.locks.Lock|) 
+method can be used to implement method (|java.util.concurrent.locks.Lock|) . 
+
 
     arg - the acquire argument. This value is conveyed to {@link #tryAcquire} but is 
        otherwise uninterpreted and can represent anything you like. 
@@ -271,7 +281,8 @@ checking interrupt status, then invoking at least once
 success. Otherwise the thread is queued, possibly repeatedly blocking and 
 unblocking, invoking (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) 
 until success or the thread is interrupted. This method can be used to 
-implement method (|java.util.concurrent.locks.Lock|) 
+implement method (|java.util.concurrent.locks.Lock|) . 
+
 
     arg - the acquire argument. This value is conveyed to {@link #tryAcquire} but is 
        otherwise uninterpreted and can represent anything you like. 
@@ -285,6 +296,7 @@ least once (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) ,
 returning on success. Otherwise the thread is queued, possibly repeatedly 
 blocking and unblocking, invoking 
 (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) until success. 
+
 
     arg - the acquire argument. This value is conveyed to {@link #tryAcquireShared} but 
        is otherwise uninterpreted and can represent anything you like. 
@@ -301,6 +313,7 @@ success. Otherwise the thread is queued, possibly repeatedly blocking and
 unblocking, invoking (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) 
 until success or the thread is interrupted. 
 
+
     arg - the acquire argument. This value is conveyed to {@link #tryAcquireShared} but 
        is otherwise uninterpreted and can represent anything you like. 
 
@@ -314,14 +327,16 @@ Atomically sets synchronization state to the given updated value if the current
 state value equals the expected value. This operation has memory semantics of a 
 volatile read and write. 
 
+
     expect - the expected value 
     update - the new value 
 
     Returns: true if successful. False return indicates that the actual value was not equal 
              to the expected value. 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.getExclusiveQueuedThreads()*
 
-public final |java.util.Collection| getExclusiveQueuedThreads()
+public final |java.util.Collection|<Thread> getExclusiveQueuedThreads()
 
 Returns a collection containing threads that may be waiting to acquire in 
 exclusive mode. This has the same properties as 
@@ -329,12 +344,14 @@ exclusive mode. This has the same properties as
 returns those threads waiting due to an exclusive acquire. 
 
 
+
     Returns: the collection of threads 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.getFirstQueuedThread()*
 
 public final |java.lang.Thread| getFirstQueuedThread()
 
-Returns the first (longest-waiting) thread in the queue, or null if no threads 
+Returns the first (longest-waiting) thread in the queue, ornullif no threads 
 are currently queued. 
 
 In this implementation, this operation normally returns in constant time, but 
@@ -342,11 +359,13 @@ may iterate upon contention if other threads are concurrently modifying the
 queue. 
 
 
-    Returns: the first (longest-waiting) thread in the queue, or null if no threads are 
-             currently queued. 
+
+    Returns: the first (longest-waiting) thread in the queue, or {@code null} if no threads 
+             are currently queued 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.getQueuedThreads()*
 
-public final |java.util.Collection| getQueuedThreads()
+public final |java.util.Collection|<Thread> getQueuedThreads()
 
 Returns a collection containing threads that may be waiting to acquire. Because 
 the actual set of threads may change dynamically while constructing this 
@@ -356,7 +375,9 @@ facilitate construction of subclasses that provide more extensive monitoring
 facilities. 
 
 
+
     Returns: the collection of threads 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.getQueueLength()*
 
 public final int getQueueLength()
@@ -367,10 +388,12 @@ this method traverses internal data structures. This method is designed for use
 in monitoring system state, not for synchronization control. 
 
 
-    Returns: the estimated number of threads waiting for this lock 
+
+    Returns: the estimated number of threads waiting to acquire 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.getSharedQueuedThreads()*
 
-public final |java.util.Collection| getSharedQueuedThreads()
+public final |java.util.Collection|<Thread> getSharedQueuedThreads()
 
 Returns a collection containing threads that may be waiting to acquire in 
 shared mode. This has the same properties as 
@@ -378,7 +401,9 @@ shared mode. This has the same properties as
 returns those threads waiting due to a shared acquire. 
 
 
+
     Returns: the collection of threads 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.getState()*
 
 protected final int getState()
@@ -387,10 +412,12 @@ Returns the current value of synchronization state. This operation has memory
 semantics of a volatile read. 
 
 
+
     Returns: current state value 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.getWaitingThreads(AbstractQueuedSynchronizer.ConditionObject)*
 
-public final |java.util.Collection| getWaitingThreads(java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject condition)
+public final |java.util.Collection|<Thread> getWaitingThreads(java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject condition)
 
 Returns a collection containing those threads that may be waiting on the given 
 condition associated with this synchronizer. Because the actual set of threads 
@@ -398,9 +425,11 @@ may change dynamically while constructing this result, the returned collection
 is only a best-effort estimate. The elements of the returned collection are in 
 no particular order. 
 
+
     condition - the condition 
 
     Returns: the collection of threads 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.getWaitQueueLength(AbstractQueuedSynchronizer.ConditionObject)*
 
 public final int getWaitQueueLength(java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject condition)
@@ -411,9 +440,11 @@ may occur at any time, the estimate serves only as an upper bound on the actual
 number of waiters. This method is designed for use in monitoring of the system 
 state, not for synchronization control. 
 
+
     condition - the condition 
 
-    Returns: the estimated number of waiting threads. 
+    Returns: the estimated number of waiting threads 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.hasContended()*
 
 public final boolean hasContended()
@@ -424,19 +455,23 @@ that is if an acquire method has ever blocked.
 In this implementation, this operation returns in constant time. 
 
 
-    Returns: true if there has ever been contention 
+
+    Returns: {@code true} if there has ever been contention 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.hasQueuedThreads()*
 
 public final boolean hasQueuedThreads()
 
 Queries whether any threads are waiting to acquire. Note that because 
-cancellations due to interrupts and timeouts may occur at any time, a true 
-return does not guarantee that any other thread will ever acquire. 
+cancellations due to interrupts and timeouts may occur at any time, atruereturn 
+does not guarantee that any other thread will ever acquire. 
 
 In this implementation, this operation returns in constant time. 
 
 
-    Returns: true if there may be other threads waiting to acquire the lock. 
+
+    Returns: {@code true} if there may be other threads waiting to acquire 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.hasWaiters(AbstractQueuedSynchronizer.ConditionObject)*
 
 public final boolean hasWaiters(java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject condition)
@@ -447,25 +482,30 @@ time, a true return does not guarantee that a future signal will awaken any
 threads. This method is designed primarily for use in monitoring of the system 
 state. 
 
+
     condition - the condition 
 
-    Returns: true if there are any waiting threads. 
+    Returns: true if there are any waiting threads 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.isHeldExclusively()*
 
 protected boolean isHeldExclusively()
 
-Returns true if synchronization is held exclusively with respect to the current 
+Returnstrueif synchronization is held exclusively with respect to the current 
 (calling) thread. This method is invoked upon each call to a non-waiting 
 (|java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject|) 
 method. (Waiting methods instead invoke 
-(|java.util.concurrent.locks.AbstractQueuedSynchronizer|) .) The default 
-implementation throws (|java.lang.UnsupportedOperationException|) . This method 
-is invoked internally only within 
+(|java.util.concurrent.locks.AbstractQueuedSynchronizer|) .) 
+
+The default implementation throws (|java.lang.UnsupportedOperationException|) . 
+This method is invoked internally only within 
 (|java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject|) 
 methods, so need not be defined if conditions are not used. 
 
 
-    Returns: true if synchronization is held exclusively; else false 
+
+    Returns: {@code true} if synchronization is held exclusively; {@code false} otherwise 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.isQueued(Thread)*
 
 public final boolean isQueued(java.lang.Thread thread)
@@ -475,30 +515,36 @@ Returns true if the given thread is currently queued.
 This implementation traverses the queue to determine presence of the given 
 thread. 
 
+
     thread - the thread 
 
-    Returns: true if the given thread in on the queue 
+    Returns: {@code true} if the given thread is on the queue 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.owns(AbstractQueuedSynchronizer.ConditionObject)*
 
 public final boolean owns(java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject condition)
 
 Queries whether the given ConditionObject uses this synchronizer as its lock. 
 
+
     condition - the condition 
 
     Returns: true if owned 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.release(int)*
 
 public final boolean release(int arg)
 
 Releases in exclusive mode. Implemented by unblocking one or more threads if 
 (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) returns true. This 
-method can be used to implement method (|java.util.concurrent.locks.Lock|) 
+method can be used to implement method (|java.util.concurrent.locks.Lock|) . 
+
 
     arg - the release argument. This value is conveyed to {@link #tryRelease} but is 
        otherwise uninterpreted and can represent anything you like. 
 
     Returns: the value returned from {@link #tryRelease} 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.releaseShared(int)*
 
 public final boolean releaseShared(int arg)
@@ -506,16 +552,19 @@ public final boolean releaseShared(int arg)
 Releases in shared mode. Implemented by unblocking one or more threads if 
 (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) returns true. 
 
+
     arg - the release argument. This value is conveyed to {@link #tryReleaseShared} but 
        is otherwise uninterpreted and can represent anything you like. 
 
     Returns: the value returned from {@link #tryReleaseShared} 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.setState(int)*
 
 protected final void setState(int newState)
 
 Sets the value of synchronization state. This operation has memory semantics of 
 a volatile write. 
+
 
     newState - the new state value 
 
@@ -524,12 +573,14 @@ a volatile write.
 public |java.lang.String| toString()
 
 Returns a string identifying this synchronizer, as well as its state. The 
-state, in brackets, includes the String State = followed by the current value 
-of (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) , and either 
-nonempty or empty depending on whether the queue is empty. 
+state, in brackets, includes the String"State ="followed by the current value 
+of (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) , and 
+either"nonempty"or"empty"depending on whether the queue is empty. 
 
 
-    Returns: a string identifying this synchronizer, as well as its state. 
+
+    Returns: a string identifying this synchronizer, as well as its state 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.tryAcquire(int)*
 
 protected boolean tryAcquire(int arg)
@@ -543,13 +594,15 @@ reports failure, the acquire method may queue the thread, if it is not already
 queued, until it is signalled by a release from some other thread. This can be 
 used to implement method (|java.util.concurrent.locks.Lock|) . 
 
-The default implementation throws (|java.lang.UnsupportedOperationException|) 
+The default implementation throws (|java.lang.UnsupportedOperationException|) . 
+
 
     arg - the acquire argument. This value is always the one passed to an acquire method, 
        or is the value saved on entry to a condition wait. The value is 
        otherwise uninterpreted and can represent anything you like. 
 
-    Returns: true if successful. Upon success, this object has been acquired. 
+    Returns: {@code true} if successful. Upon success, this object has been acquired. 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.tryAcquireNanos(int,long)*
 
 public final boolean tryAcquireNanos(
@@ -566,11 +619,13 @@ unblocking, invoking (|java.util.concurrent.locks.AbstractQueuedSynchronizer|)
 until success or the thread is interrupted or the timeout elapses. This method 
 can be used to implement method (|java.util.concurrent.locks.Lock|) . 
 
+
     arg - the acquire argument. This value is conveyed to {@link #tryAcquire} but is 
        otherwise uninterpreted and can represent anything you like. 
     nanosTimeout - the maximum number of nanoseconds to wait 
 
-    Returns: true if acquired; false if timed out 
+    Returns: {@code true} if acquired; {@code false} if timed out 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.tryAcquireShared(int)*
 
 protected int tryAcquireShared(int arg)
@@ -583,18 +638,22 @@ This method is always invoked by the thread performing acquire. If this method
 reports failure, the acquire method may queue the thread, if it is not already 
 queued, until it is signalled by a release from some other thread. 
 
-The default implementation throws (|java.lang.UnsupportedOperationException|) 
+The default implementation throws (|java.lang.UnsupportedOperationException|) . 
+
 
     arg - the acquire argument. This value is always the one passed to an acquire method, 
        or is the value saved on entry to a condition wait. The value is 
        otherwise uninterpreted and can represent anything you like. 
 
-    Returns: a negative value on failure, zero on exclusive success, and a positive value if 
-             non-exclusively successful, in which case a subsequent waiting 
-             thread must check availability. (Support for three different 
-             return values enables this method to be used in contexts where 
-             acquires only sometimes act exclusively.) Upon success, this 
-             object has been acquired. 
+    Returns: a negative value on failure; zero if acquisition in shared mode succeeded but 
+             no subsequent shared-mode acquire can succeed; and a positive 
+             value if acquisition in shared mode succeeded and subsequent 
+             shared-mode acquires might also succeed, in which case a 
+             subsequent waiting thread must check availability. (Support for 
+             three different return values enables this method to be used in 
+             contexts where acquires only sometimes act exclusively.) Upon 
+             success, this object has been acquired. 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.tryAcquireSharedNanos(int,long)*
 
 public final boolean tryAcquireSharedNanos(
@@ -610,38 +669,48 @@ success. Otherwise, the thread is queued, possibly repeatedly blocking and
 unblocking, invoking (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) 
 until success or the thread is interrupted or the timeout elapses. 
 
+
     arg - the acquire argument. This value is conveyed to {@link #tryAcquireShared} but 
        is otherwise uninterpreted and can represent anything you like. 
     nanosTimeout - the maximum number of nanoseconds to wait 
 
-    Returns: true if acquired; false if timed out 
+    Returns: {@code true} if acquired; {@code false} if timed out 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.tryRelease(int)*
 
 protected boolean tryRelease(int arg)
 
-Attempts to set the state to reflect a release in exclusive mode. This method 
-is always invoked by the thread performing release. 
+Attempts to set the state to reflect a release in exclusive mode. 
 
-The default implementation throws (|java.lang.UnsupportedOperationException|) 
+This method is always invoked by the thread performing release. 
+
+The default implementation throws (|java.lang.UnsupportedOperationException|) . 
+
 
     arg - the release argument. This value is always the one passed to a release method, 
        or the current state value upon entry to a condition wait. The value is 
        otherwise uninterpreted and can represent anything you like. 
 
-    Returns: true if this object is now in a fully released state, so that any waiting 
-             threads may attempt to acquire; and false otherwise. 
+    Returns: {@code true} if this object is now in a fully released state, so that any 
+             waiting threads may attempt to acquire; and {@code false} 
+             otherwise. 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.tryReleaseShared(int)*
 
 protected boolean tryReleaseShared(int arg)
 
-Attempts to set the state to reflect a release in shared mode. This method is 
-always invoked by the thread performing release. The default implementation 
-throws (|java.lang.UnsupportedOperationException|) 
+Attempts to set the state to reflect a release in shared mode. 
+
+This method is always invoked by the thread performing release. 
+
+The default implementation throws (|java.lang.UnsupportedOperationException|) . 
+
 
     arg - the release argument. This value is always the one passed to a release method, 
        or the current state value upon entry to a condition wait. The value is 
        otherwise uninterpreted and can represent anything you like. 
 
-    Returns: true if this object is now in a fully released state, so that any waiting 
-             threads may attempt to acquire; and false otherwise. 
+    Returns: {@code true} if this release of shared mode may permit a waiting acquire 
+             (shared or exclusive) to succeed; and {@code false} otherwise 
+
 

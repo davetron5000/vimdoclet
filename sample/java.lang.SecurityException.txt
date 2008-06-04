@@ -21,6 +21,7 @@ public class SecurityException
 Thrown by the security manager to indicate a security violation. 
 
 
+
 *java.lang.SecurityException()*
 
 public SecurityException()

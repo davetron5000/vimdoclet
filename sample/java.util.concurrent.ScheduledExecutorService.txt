@@ -12,7 +12,7 @@ public interface interface ScheduledExecutorService
 ================================================================================
 
 *java.util.concurrent.ScheduledExecutorService_Methods*
-|java.util.concurrent.ScheduledExecutorService.schedule(Callable,long,TimeUnit)|
+|java.util.concurrent.ScheduledExecutorService.schedule(Callable<V>,long,TimeUnit)|
 |java.util.concurrent.ScheduledExecutorService.schedule(Runnable,long,TimeUnit)|
 |java.util.concurrent.ScheduledExecutorService.scheduleAtFixedRate(Runnable,long,long,TimeUnit)|
 |java.util.concurrent.ScheduledExecutorService.scheduleWithFixedDelay(Runnable,long,long,TimeUnit)|
@@ -63,24 +63,27 @@ scheduler.schedule(new Runnable() { public void run() {
 beeperHandle.cancel(true); } }, 60 * 60, SECONDS); } } 
 
 
-*java.util.concurrent.ScheduledExecutorService.schedule(Callable,long,TimeUnit)*
 
-public |java.util.concurrent.ScheduledFuture| schedule(
-  java.util.concurrent.Callable callable,
+*java.util.concurrent.ScheduledExecutorService.schedule(Callable<V>,long,TimeUnit)*
+
+public |java.util.concurrent.ScheduledFuture|<V> schedule(
+  java.util.concurrent.Callable<V> callable,
   long delay,
   java.util.concurrent.TimeUnit unit)
 
 Creates and executes a ScheduledFuture that becomes enabled after the given 
 delay. 
 
-    callable - the function to execute. 
-    delay - the time from now to delay execution. 
-    unit - the time unit of the delay parameter. 
 
-    Returns: a ScheduledFuture that can be used to extract result or cancel. 
+    callable - the function to execute 
+    delay - the time from now to delay execution 
+    unit - the time unit of the delay parameter 
+
+    Returns: a ScheduledFuture that can be used to extract result or cancel 
+
 *java.util.concurrent.ScheduledExecutorService.schedule(Runnable,long,TimeUnit)*
 
-public |java.util.concurrent.ScheduledFuture| schedule(
+public |java.util.concurrent.ScheduledFuture|<?> schedule(
   java.lang.Runnable command,
   long delay,
   java.util.concurrent.TimeUnit unit)
@@ -88,15 +91,17 @@ public |java.util.concurrent.ScheduledFuture| schedule(
 Creates and executes a one-shot action that becomes enabled after the given 
 delay. 
 
-    command - the task to execute. 
-    delay - the time from now to delay execution. 
-    unit - the time unit of the delay parameter. 
 
-    Returns: a Future representing pending completion of the task, and whose get() method 
-             will return null upon completion. 
+    command - the task to execute 
+    delay - the time from now to delay execution 
+    unit - the time unit of the delay parameter 
+
+    Returns: a ScheduledFuture representing pending completion of the task and whose get() 
+             method will return null upon completion 
+
 *java.util.concurrent.ScheduledExecutorService.scheduleAtFixedRate(Runnable,long,long,TimeUnit)*
 
-public |java.util.concurrent.ScheduledFuture| scheduleAtFixedRate(
+public |java.util.concurrent.ScheduledFuture|<?> scheduleAtFixedRate(
   java.lang.Runnable command,
   long initialDelay,
   long period,
@@ -107,18 +112,22 @@ given initial delay, and subsequently with the given period; that is executions
 will commence after initialDelay then initialDelay+period, then initialDelay + 
 2 * period, and so on. If any execution of the task encounters an exception, 
 subsequent executions are suppressed. Otherwise, the task will only terminate 
-via cancellation or termination of the executor. 
+via cancellation or termination of the executor. If any execution of this task 
+takes longer than its period, then subsequent executions may start late, but 
+will not concurrently execute. 
 
-    command - the task to execute. 
-    initialDelay - the time to delay first execution. 
-    period - the period between successive executions. 
+
+    command - the task to execute 
+    initialDelay - the time to delay first execution 
+    period - the period between successive executions 
     unit - the time unit of the initialDelay and period parameters 
 
-    Returns: a Future representing pending completion of the task, and whose get() method 
-             will throw an exception upon cancellation. 
+    Returns: a ScheduledFuture representing pending completion of the task, and whose get() 
+             method will throw an exception upon cancellation 
+
 *java.util.concurrent.ScheduledExecutorService.scheduleWithFixedDelay(Runnable,long,long,TimeUnit)*
 
-public |java.util.concurrent.ScheduledFuture| scheduleWithFixedDelay(
+public |java.util.concurrent.ScheduledFuture|<?> scheduleWithFixedDelay(
   java.lang.Runnable command,
   long initialDelay,
   long delay,
@@ -131,12 +140,14 @@ of the task encounters an exception, subsequent executions are suppressed.
 Otherwise, the task will only terminate via cancellation or termination of the 
 executor. 
 
-    command - the task to execute. 
-    initialDelay - the time to delay first execution. 
+
+    command - the task to execute 
+    initialDelay - the time to delay first execution 
     delay - the delay between the termination of one execution and the commencement of the 
-       next. 
+       next 
     unit - the time unit of the initialDelay and delay parameters 
 
-    Returns: a Future representing pending completion of the task, and whose get() method 
-             will throw an exception upon cancellation. 
+    Returns: a ScheduledFuture representing pending completion of the task, and whose get() 
+             method will throw an exception upon cancellation 
+
 

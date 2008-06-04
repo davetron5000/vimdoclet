@@ -12,6 +12,7 @@ public class Logger
 
 *java.util.logging.Logger_Fields*
 |java.util.logging.Logger_java.util.logging.Logger.global|
+|java.lang.String_java.util.logging.Logger.GLOBAL_LOGGER_NAME|
 
 *java.util.logging.Logger_Constructors*
 |java.util.logging.Logger(String,String)|Protected method to construct a logger
@@ -175,116 +176,26 @@ output, subclasses need only override the log(LogRecord) method. All the other
 logging methods are implemented as calls on this log(LogRecord) method. 
 
 
+
 *java.util.logging.Logger_java.util.logging.Logger.global*
 
-A Logger object is used to log messages for a specific system or application 
-component. Loggers are normally named, using a hierarchical dot-separated 
-namespace. Logger names can be arbitrary strings, but they should normally be 
-based on the package name or class name of the logged component, such as 
-java.net or javax.swing. In addition it is possible to create "anonymous" 
-Loggers that are not stored in the Logger namespace. 
+The "global" Logger object is provided as a convenience to developers who are 
+making casual use of the Logging package. Developers who are making serious use 
+of the logging package (for example in products) should create and use their 
+own Logger objects, with appropriate names, so that logging can be controlled 
+on a suitable per-Logger granularity. 
 
-Logger objects may be obtained by calls on one of the getLogger factory 
-methods. These will either create a new Logger or return a suitable existing 
-Logger. 
 
-Logging messages will be forwarded to registered Handler objects, which can 
-forward the messages to a variety of destinations, including consoles, files, 
-OS logs, etc. 
+*java.lang.String_java.util.logging.Logger.GLOBAL_LOGGER_NAME*
 
-Each Logger keeps track of a "parent" Logger, which is its nearest existing 
-ancestor in the Logger namespace. 
+GLOBAL_LOGGER_NAME is a name for the global logger. This name is provided as a 
+convenience to developers who are making casual use of the Logging package. 
+Developers who are making serious use of the logging package (for example in 
+products) should create and use their own Logger objects, with appropriate 
+names, so that logging can be controlled on a suitable per-Logger granularity. 
 
-Each Logger has a "Level" associated with it. This reflects a minimum Level 
-that this logger cares about. If a Logger's level is set to null, then its 
-effective level is inherited from its parent, which may in turn obtain it 
-recursively from its parent, and so on up the tree. 
-
-The log level can be configured based on the properties from the logging 
-configuration file, as described in the description of the LogManager class. 
-However it may also be dynamically changed by calls on the Logger.setLevel 
-method. If a logger's level is changed the change may also affect child 
-loggers, since any child logger that has null as its level will inherit its 
-effective level from its parent. 
-
-On each logging call the Logger initially performs a cheap check of the request 
-level (e.g. SEVERE or FINE) against the effective log level of the logger. If 
-the request level is lower than the log level, the logging call returns 
-immediately. 
-
-After passing this initial (cheap) test, the Logger will allocate a LogRecord 
-to describe the logging message. It will then call a Filter (if present) to do 
-a more detailed check on whether the record should be published. If that passes 
-it will then publish the LogRecord to its output Handlers. By default, loggers 
-also publish to their parent's Handlers, recursively up the tree. 
-
-Each Logger may have a ResourceBundle name associated with it. The named bundle 
-will be used for localizing logging messages. If a Logger does not have its own 
-ResourceBundle name, then it will inherit the ResourceBundle name from its 
-parent, recursively up the tree. 
-
-Most of the logger output methods take a "msg" argument. This msg argument may 
-be either a raw value or a localization key. During formatting, if the logger 
-has (or inherits) a localization ResourceBundle and if the ResourceBundle has a 
-mapping for the msg string, then the msg string is replaced by the localized 
-value. Otherwise the original msg string is used. Typically, formatters use 
-java.text.MessageFormat style formatting to format parameters, so for example a 
-format string "{0} {1}" would format two parameters as strings. 
-
-When mapping ResourceBundle names to ResourceBundles, the Logger will first try 
-to use the Thread's ContextClassLoader. If that is null it will try the 
-SystemClassLoader instead. As a temporary transition feature in the initial 
-implementation, if the Logger is unable to locate a ResourceBundle from the 
-ContextClassLoader or SystemClassLoader the Logger will also search up the 
-class stack and use successive calling ClassLoaders to try to locate a 
-ResourceBundle. (This call stack search is to allow containers to transition to 
-using ContextClassLoaders and is likely to be removed in future versions.) 
-
-Formatting (including localization) is the responsibility of the output 
-Handler, which will typically call a Formatter. 
-
-Note that formatting need not occur synchronously. It may be delayed until a 
-LogRecord is actually written to an external sink. 
-
-The logging methods are grouped in five main categories: 
-
-There are a set of "log" methods that take a log level, a message string, and 
-optionally some parameters to the message string. 
-
-There are a set of "logp" methods (for "log precise") that are like the "log" 
-methods, but also take an explicit source class name and method name. 
-
-There are a set of "logrb" method (for "log with resource bundle") that are 
-like the "logp" method, but also take an explicit resource bundle name for use 
-in localizing the log message. 
-
-There are convenience methods for tracing method entries (the "entering" 
-methods), method returns (the "exiting" methods) and throwing exceptions (the 
-"throwing" methods). 
-
-Finally, there are a set of convenience methods for use in the very simplest 
-cases, when a developer simply wants to log a simple string at a given log 
-level. These methods are named after the standard Level names ("severe", 
-"warning", "info", etc.) and take a single argument, a message string. 
-
-For the methods that do not take an explicit source name and method name, the 
-Logging framework will make a "best effort" to determine which class and method 
-called into the logging method. However, it is important to realize that this 
-automatically inferred information may only be approximate (or may even be 
-quite wrong!). Virtual machines are allowed to do extensive optimizations when 
-JITing and may entirely remove stack frames, making it impossible to reliably 
-locate the calling class and method. 
-
-All methods on Logger are multi-thread safe. 
-
-Subclassing Information: Note that a LogManager class may provide its own 
-implementation of named Loggers for any point in the namespace. Therefore, any 
-subclasses of Logger (unless they are implemented in conjunction with a new 
-LogManager class) should take care to obtain a Logger instance from the 
-LogManager class and should delegate operations such as "isLoggable" and 
-"log(LogRecord)" to that instance. Note that in order to intercept all logging 
-output, subclasses need only override the log(LogRecord) method. All the other 
-logging methods are implemented as calls on this log(LogRecord) method. 
+The preferred way to get the global logger object is via the call 
+Logger.getLogger(Logger.GLOBAL_LOGGER_NAME). 
 
 
 
@@ -316,6 +227,7 @@ By default, Loggers also send their output to their parent logger. Typically
 the root Logger is configured with a set of Handlers that essentially act as 
 default handlers for all loggers. 
 
+
     handler - a logging Handler 
 
 *java.util.logging.Logger.config(String)*
@@ -326,6 +238,7 @@ Log a CONFIG message.
 
 If the logger is currently enabled for the CONFIG message level then the given 
 message is forwarded to all the registered output Handler objects. 
+
 
     msg - The string message (or a key in the message catalog) 
 
@@ -340,6 +253,7 @@ Log a method entry.
 This is a convenience method that can be used to log entry to a method. A 
 LogRecord with message "ENTRY", log level FINER, and the given sourceMethod and 
 sourceClass is logged. 
+
 
     sourceClass - name of class that issued the logging request 
     sourceMethod - name of method that is being entered 
@@ -356,6 +270,7 @@ Log a method entry, with one parameter.
 This is a convenience method that can be used to log entry to a method. A 
 LogRecord with message "ENTRY {0}", log level FINER, and the given 
 sourceMethod, sourceClass, and parameter is logged. 
+
 
     sourceClass - name of class that issued the logging request 
     sourceMethod - name of method that is being entered 
@@ -375,6 +290,7 @@ LogRecord with message "ENTRY" (followed by a format {N} indicator for each
 entry in the parameter array), log level FINER, and the given sourceMethod, 
 sourceClass, and parameters is logged. 
 
+
     sourceClass - name of class that issued the logging request 
     sourceMethod - name of method that is being entered 
     params - array of parameters to the method being entered 
@@ -390,6 +306,7 @@ Log a method return.
 This is a convenience method that can be used to log returning from a method. A 
 LogRecord with message "RETURN", log level FINER, and the given sourceMethod 
 and sourceClass is logged. 
+
 
     sourceClass - name of class that issued the logging request 
     sourceMethod - name of the method 
@@ -407,6 +324,7 @@ This is a convenience method that can be used to log returning from a method. A
 LogRecord with message "RETURN {0}", log level FINER, and the gives 
 sourceMethod, sourceClass, and result object is logged. 
 
+
     sourceClass - name of class that issued the logging request 
     sourceMethod - name of the method 
     result - Object that is being returned 
@@ -420,6 +338,7 @@ Log a FINE message.
 If the logger is currently enabled for the FINE message level then the given 
 message is forwarded to all the registered output Handler objects. 
 
+
     msg - The string message (or a key in the message catalog) 
 
 *java.util.logging.Logger.finer(String)*
@@ -431,6 +350,7 @@ Log a FINER message.
 If the logger is currently enabled for the FINER message level then the given 
 message is forwarded to all the registered output Handler objects. 
 
+
     msg - The string message (or a key in the message catalog) 
 
 *java.util.logging.Logger.finest(String)*
@@ -441,6 +361,7 @@ Log a FINEST message.
 
 If the logger is currently enabled for the FINEST message level then the given 
 message is forwarded to all the registered output Handler objects. 
+
 
     msg - The string message (or a key in the message catalog) 
 
@@ -462,7 +383,9 @@ logger ("") as its parent. This means that by default it inherits its effective
 level and handlers from the root logger. 
 
 
+
     Returns: a newly created private Logger 
+
 *java.util.logging.Logger.getAnonymousLogger(String)*
 
 public static synchronized |java.util.logging.Logger| getAnonymousLogger(java.lang.String resourceBundleName)
@@ -480,10 +403,12 @@ Even although the new logger is anonymous, it is configured to have the root
 logger ("") as its parent. This means that by default it inherits its effective 
 level and handlers from the root logger. 
 
+
     resourceBundleName - name of ResourceBundle to be used for localizing messages for this logger. May 
        be null if none of the messages require localization. 
 
     Returns: a newly created private Logger 
+
 *java.util.logging.Logger.getFilter()*
 
 public |java.util.logging.Filter| getFilter()
@@ -491,15 +416,19 @@ public |java.util.logging.Filter| getFilter()
 Get the current filter for this Logger. 
 
 
+
     Returns: a filter object (may be null) 
+
 *java.util.logging.Logger.getHandlers()*
 
-public synchronized |java.util.logging.Handler| getHandlers()
+public synchronized |java.util.logging.Handler|[] getHandlers()
 
 Get the Handlers associated with this logger. 
 
 
+
     Returns: an array of all registered Handlers 
+
 *java.util.logging.Logger.getLevel()*
 
 public |java.util.logging.Level| getLevel()
@@ -509,7 +438,9 @@ null, which means that this logger's effective level will be inherited from its
 parent. 
 
 
+
     Returns: this Logger's level 
+
 *java.util.logging.Logger.getLogger(String)*
 
 public static synchronized |java.util.logging.Logger| getLogger(java.lang.String name)
@@ -522,11 +453,13 @@ LogManager configuration and it will configured to also send logging output to
 its parent's handlers. It will be registered in the LogManager global 
 namespace. 
 
+
     name - A name for the logger. This should be a dot-separated name and should normally 
        be based on the package name or class name of the subsystem, such as 
        java.net or javax.swing 
 
     Returns: a suitable Logger 
+
 *java.util.logging.Logger.getLogger(String,String)*
 
 public static synchronized |java.util.logging.Logger| getLogger(
@@ -545,6 +478,7 @@ resource bundle then the given resource bundle name is used. If the named
 Logger already exists and has a different resource bundle name then an 
 IllegalArgumentException is thrown. 
 
+
     name - A name for the logger. This should be a dot-separated name and should normally 
        be based on the package name or class name of the subsystem, such as 
        java.net or javax.swing 
@@ -552,6 +486,7 @@ IllegalArgumentException is thrown.
        be null if none of the messages require localization. 
 
     Returns: a suitable Logger 
+
 *java.util.logging.Logger.getName()*
 
 public |java.lang.String| getName()
@@ -559,7 +494,9 @@ public |java.lang.String| getName()
 Get the name for this logger. 
 
 
+
     Returns: logger name. Will be null for anonymous Loggers. 
+
 *java.util.logging.Logger.getParent()*
 
 public |java.util.logging.Logger| getParent()
@@ -574,7 +511,9 @@ return the Logger "a.b".
 The result will be null if it is called on the root Logger in the namespace. 
 
 
+
     Returns: nearest existing parent Logger 
+
 *java.util.logging.Logger.getResourceBundle()*
 
 public |java.util.ResourceBundle| getResourceBundle()
@@ -584,7 +523,9 @@ default locale. Note that if the result is null, then the Logger will use a
 resource bundle inherited from its parent. 
 
 
+
     Returns: localization bundle (may be null) 
+
 *java.util.logging.Logger.getResourceBundleName()*
 
 public |java.lang.String| getResourceBundleName()
@@ -594,7 +535,9 @@ the result is null, then the Logger will use a resource bundle name inherited
 from its parent. 
 
 
+
     Returns: localization bundle name (may be null) 
+
 *java.util.logging.Logger.getUseParentHandlers()*
 
 public synchronized boolean getUseParentHandlers()
@@ -602,7 +545,9 @@ public synchronized boolean getUseParentHandlers()
 Discover whether or not this logger is sending its output to its parent logger. 
 
 
+
     Returns: true if output is to be sent to the logger's parent 
+
 *java.util.logging.Logger.info(String)*
 
 public void info(java.lang.String msg)
@@ -611,6 +556,7 @@ Log an INFO message.
 
 If the logger is currently enabled for the INFO message level then the given 
 message is forwarded to all the registered output Handler objects. 
+
 
     msg - The string message (or a key in the message catalog) 
 
@@ -622,9 +568,11 @@ Check if a message of the given level would actually be logged by this logger.
 This check is based on the Loggers effective level, which may be inherited from 
 its parent. 
 
+
     level - a message logging level 
 
     Returns: true if the given message level is currently being logged. 
+
 *java.util.logging.Logger.log(Level,String)*
 
 public void log(
@@ -635,6 +583,7 @@ Log a message, with no arguments.
 
 If the logger is currently enabled for the given message level then the given 
 message is forwarded to all the registered output Handler objects. 
+
 
     level - One of the message level identifiers, e.g. SEVERE 
     msg - The string message (or a key in the message catalog) 
@@ -652,6 +601,7 @@ If the logger is currently enabled for the given message level then a
 corresponding LogRecord is created and forwarded to all the registered output 
 Handler objects. 
 
+
     level - One of the message level identifiers, e.g. SEVERE 
     msg - The string message (or a key in the message catalog) 
     param1 - parameter to the message 
@@ -668,6 +618,7 @@ Log a message, with an array of object arguments.
 If the logger is currently enabled for the given message level then a 
 corresponding LogRecord is created and forwarded to all the registered output 
 Handler objects. 
+
 
     level - One of the message level identifiers, e.g. SEVERE 
     msg - The string message (or a key in the message catalog) 
@@ -691,6 +642,7 @@ rather than the LogRecord parameters property. Thus is it processed specially
 by output Formatters and is not treated as a formatting parameter to the 
 LogRecord message property. 
 
+
     level - One of the message level identifiers, e.g. SEVERE 
     msg - The string message (or a key in the message catalog) 
     thrown - Throwable associated with log message. 
@@ -704,6 +656,7 @@ Log a LogRecord.
 All the other logging methods in this class call through this method to 
 actually perform any logging. Subclasses can override this single method to 
 capture all log activity. 
+
 
     record - the LogRecord to be published 
 
@@ -719,6 +672,7 @@ Log a message, specifying source class and method, with no arguments.
 
 If the logger is currently enabled for the given message level then the given 
 message is forwarded to all the registered output Handler objects. 
+
 
     level - One of the message level identifiers, e.g. SEVERE 
     sourceClass - name of class that issued the logging request 
@@ -741,6 +695,7 @@ If the logger is currently enabled for the given message level then a
 corresponding LogRecord is created and forwarded to all the registered output 
 Handler objects. 
 
+
     level - One of the message level identifiers, e.g. SEVERE 
     sourceClass - name of class that issued the logging request 
     sourceMethod - name of method that issued the logging request 
@@ -762,6 +717,7 @@ arguments.
 If the logger is currently enabled for the given message level then a 
 corresponding LogRecord is created and forwarded to all the registered output 
 Handler objects. 
+
 
     level - One of the message level identifiers, e.g. SEVERE 
     sourceClass - name of class that issued the logging request 
@@ -790,6 +746,7 @@ rather than the LogRecord parameters property. Thus is it processed specially
 by output Formatters and is not treated as a formatting parameter to the 
 LogRecord message property. 
 
+
     level - One of the message level identifiers, e.g. SEVERE 
     sourceClass - name of class that issued the logging request 
     sourceMethod - name of method that issued the logging request 
@@ -814,6 +771,7 @@ message is forwarded to all the registered output Handler objects.
 The msg string is localized using the named resource bundle. If the resource 
 bundle name is null, or an empty String or invalid then the msg string is not 
 localized. 
+
 
     level - One of the message level identifiers, e.g. SEVERE 
     sourceClass - name of class that issued the logging request 
@@ -842,6 +800,7 @@ The msg string is localized using the named resource bundle. If the resource
 bundle name is null, or an empty String or invalid then the msg string is not 
 localized. 
 
+
     level - One of the message level identifiers, e.g. SEVERE 
     sourceClass - name of class that issued the logging request 
     sourceMethod - name of method that issued the logging request 
@@ -869,6 +828,7 @@ Handler objects.
 The msg string is localized using the named resource bundle. If the resource 
 bundle name is null, or an empty String or invalid then the msg string is not 
 localized. 
+
 
     level - One of the message level identifiers, e.g. SEVERE 
     sourceClass - name of class that issued the logging request 
@@ -903,6 +863,7 @@ rather than the LogRecord parameters property. Thus is it processed specially
 by output Formatters and is not treated as a formatting parameter to the 
 LogRecord message property. 
 
+
     level - One of the message level identifiers, e.g. SEVERE 
     sourceClass - name of class that issued the logging request 
     sourceMethod - name of method that issued the logging request 
@@ -919,6 +880,7 @@ Remove a log Handler.
 
 Returns silently if the given Handler is not found or is null 
 
+
     handler - a logging Handler 
 
 *java.util.logging.Logger.setFilter(Filter)*
@@ -930,6 +892,7 @@ Set a filter to control output on this Logger.
 
 After passing the initial "level" check, the Logger will call this Filter to 
 check if a log record should really be published. 
+
 
     newFilter - a filter object (may be null) 
 
@@ -945,6 +908,7 @@ Level.OFF can be used to turn off logging.
 If the new level is null, it means that this node should inherit its level from 
 its nearest ancestor with a specific (non-null) level value. 
 
+
     newLevel - the new value for the log level (may be null) 
 
 *java.util.logging.Logger.setParent(Logger)*
@@ -956,6 +920,7 @@ a Logger when the namespace changes.
 
 It should not be called from application code. 
 
+
     parent - the new parent logger 
 
 *java.util.logging.Logger.setUseParentHandlers(boolean)*
@@ -965,6 +930,7 @@ public synchronized void setUseParentHandlers(boolean useParentHandlers)
 Specify whether or not this logger should send its output to it's parent 
 Logger. This means that any LogRecords will also be written to the parent's 
 Handlers, and potentially to its parent, recursively up the namespace. 
+
 
     useParentHandlers - true if output is to be sent to the logger's parent. 
 
@@ -976,6 +942,7 @@ Log a SEVERE message.
 
 If the logger is currently enabled for the SEVERE message level then the given 
 message is forwarded to all the registered output Handler objects. 
+
 
     msg - The string message (or a key in the message catalog) 
 
@@ -1000,6 +967,7 @@ rather than the LogRecord parameters property. Thus is it processed specially
 by output Formatters and is not treated as a formatting parameter to the 
 LogRecord message property. 
 
+
     sourceClass - name of class that issued the logging request 
     sourceMethod - name of the method. 
     thrown - The Throwable that is being thrown. 
@@ -1012,6 +980,7 @@ Log a WARNING message.
 
 If the logger is currently enabled for the WARNING message level then the given 
 message is forwarded to all the registered output Handler objects. 
+
 
     msg - The string message (or a key in the message catalog) 
 

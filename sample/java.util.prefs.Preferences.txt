@@ -53,10 +53,10 @@ public abstract class Preferences
 |java.util.prefs.Preferences.removeNodeChangeListener(NodeChangeListener)|Remov
 |java.util.prefs.Preferences.removePreferenceChangeListener(PreferenceChangeListener)|
 |java.util.prefs.Preferences.sync()|Ensures that future reads from this prefere
-|java.util.prefs.Preferences.systemNodeForPackage(Class)|Returns the preference
+|java.util.prefs.Preferences.systemNodeForPackage(Class<?>)|Returns the prefere
 |java.util.prefs.Preferences.systemRoot()|Returns the root preference node for 
 |java.util.prefs.Preferences.toString()|Returns a string representation of this
-|java.util.prefs.Preferences.userNodeForPackage(Class)|Returns the preference n
+|java.util.prefs.Preferences.userNodeForPackage(Class<?>)|Returns the preferenc
 |java.util.prefs.Preferences.userRoot()|Returns the root preference node for th
 
 *java.util.prefs.Preferences_Description*
@@ -178,7 +178,7 @@ map (entry*) >
 #REQUIRED > 
 
 Every Preferences implementation must have an associated 
-(|java.util.prefs.PreferencesFactory|) implementation. Every J2SE 
+(|java.util.prefs.PreferencesFactory|) implementation. Every Java(TM) SE 
 implementation must provide some means of specifying which PreferencesFactory 
 implementation is used to generate the root preferences nodes. This allows the 
 administrator to replace the default preferences implementation with an 
@@ -206,461 +206,24 @@ thrown.
 Finally, if neither the above-mentioned system property nor an extension jar 
 file is provided, then the system-wide default PreferencesFactory 
 implementation for the underlying platform is loaded and instantiated. 
+
 
 
 
 
 *int_java.util.prefs.Preferences.MAX_KEY_LENGTH*
 
-A node in a hierarchical collection of preference data. This class allows 
-applications to store and retrieve user and system preference and configuration 
-data. This data is stored persistently in an implementation-dependent backing 
-store. Typical implementations include flat files, OS-specific registries, 
-directory servers and SQL databases. The user of this class needn't be 
-concerned with details of the backing store. 
-
-There are two separate trees of preference nodes, one for user preferences and 
-one for system preferences. Each user has a separate user preference tree, and 
-all users in a given system share the same system preference tree. The precise 
-description of "user" and "system" will vary from implementation to 
-implementation. Typical information stored in the user preference tree might 
-include font choice, color choice, or preferred window location and size for a 
-particular application. Typical information stored in the system preference 
-tree might include installation configuration data for an application. 
-
-Nodes in a preference tree are named in a similar fashion to directories in a 
-hierarchical file system. Every node in a preference tree has a node name 
-(which is not necessarily unique), a unique absolute path name, and a path name 
-relative to each ancestor including itself. 
-
-The root node has a node name of the empty string (""). Every other node has an 
-arbitrary node name, specified at the time it is created. The only restrictions 
-on this name are that it cannot be the empty string, and it cannot contain the 
-slash character ('/'). 
-
-The root node has an absolute path name of "/". Children of the root node have 
-absolute path names of "/" + <node name>. All other nodes have absolute path 
-names of <parent's absolute path name> + "/" + <node name>. Note that all 
-absolute path names begin with the slash character. 
-
-A node n's path name relative to its ancestor a is simply the string that must 
-be appended to a's absolute path name in order to form n's absolute path name, 
-with the initial slash character (if present) removed. Note that: 
-
-No relative path names begin with the slash character. Every node's path name 
-relative to itself is the empty string. Every node's path name relative to its 
-parent is its node name (except for the root node, which does not have a 
-parent). Every node's path name relative to the root is its absolute path name 
-with the initial slash character removed. 
-
-Note finally that: 
-
-No path name contains multiple consecutive slash characters. No path name with 
-the exception of the root's absolute path name ends in the slash character. Any 
-string that conforms to these two rules is a valid path name. 
-
-All of the methods that modify preferences data are permitted to operate 
-asynchronously; they may return immediately, and changes will eventually 
-propagate to the persistent backing store with an implementation-dependent 
-delay. The flush method may be used to synchronously force updates to the 
-backing store. Normal termination of the Java Virtual Machine will not result 
-in the loss of pending updates -- an explicit flush invocation is not required 
-upon termination to ensure that pending updates are made persistent. 
-
-All of the methods that read preferences from a Preferences object require the 
-invoker to provide a default value. The default value is returned if no value 
-has been previously set or if the backing store is unavailable. The intent is 
-to allow applications to operate, albeit with slightly degraded functionality, 
-even if the backing store becomes unavailable. Several methods, like flush, 
-have semantics that prevent them from operating if the backing store is 
-unavailable. Ordinary applications should have no need to invoke any of these 
-methods, which can be identified by the fact that they are declared to throw 
-(|java.util.prefs.BackingStoreException|) . 
-
-The methods in this class may be invoked concurrently by multiple threads in a 
-single JVM without the need for external synchronization, and the results will 
-be equivalent to some serial execution. If this class is used concurrently by 
-multiple JVMs that store their preference data in the same backing store, the 
-data store will not be corrupted, but no other guarantees are made concerning 
-the consistency of the preference data. 
-
-This class contains an export/import facility, allowing preferences to be 
-"exported" to an XML document, and XML documents representing preferences to be 
-"imported" back into the system. This facility may be used to back up all or 
-part of a preference tree, and subsequently restore from the backup. 
-
-The XML document has the following DOCTYPE declaration: 
-
-<!DOCTYPE preferences SYSTEM "http://java.sun.com/dtd/preferences.dtd"> 
-
-Note that the system URI (http://java.sun.com/dtd/preferences.dtd) is not 
-accessed when exporting or importing preferences; it merely serves as a string 
-to uniquely identify the DTD, which is: 
-
-<?xml version="1.0" encoding="UTF-8"?> 
-
-<!-- DTD for a Preferences tree. --> 
-
-<!-- The preferences element is at the root of an XML document representing a 
-Preferences tree. --> <!ELEMENT preferences (root)> 
-
-<!-- The preferences element contains an optional version attribute, which 
-specifies version of DTD. --> <!ATTLIST preferences EXTERNAL_XML_VERSION CDATA 
-"0.0" 
-
-<!-- The root element has a map representing the root's preferences (if any), 
-and one node for each child of the root (if any). --> <!ELEMENT root (map, 
-node*) > 
-
-<!-- Additionally, the root contains a type attribute, which specifies whether 
-it's the system or user root. --> <!ATTLIST root type (system|user) #REQUIRED > 
-
-<!-- Each node has a map representing its preferences (if any), and one node 
-for each child (if any). --> <!ELEMENT node (map, node*) > 
-
-<!-- Additionally, each node has a name attribute --> <!ATTLIST node name CDATA 
-#REQUIRED > 
-
-<!-- A map represents the preferences stored at a node (if any). --> <!ELEMENT 
-map (entry*) > 
-
-<!-- An entry represents a single preference, which is simply a key-value pair. 
---> <!ELEMENT entry EMPTY > <!ATTLIST entry key CDATA #REQUIRED value CDATA 
-#REQUIRED > 
-
-Every Preferences implementation must have an associated 
-(|java.util.prefs.PreferencesFactory|) implementation. Every J2SE 
-implementation must provide some means of specifying which PreferencesFactory 
-implementation is used to generate the root preferences nodes. This allows the 
-administrator to replace the default preferences implementation with an 
-alternative implementation. 
-
-Implementation note: In Sun's JRE, the PreferencesFactory implementation is 
-located as follows: 
-
-
-
-If the system property java.util.prefs.PreferencesFactory is defined, then it 
-is taken to be the fully-qualified name of a class implementing the 
-PreferencesFactory interface. The class is loaded and instantiated; if this 
-process fails then an unspecified error is thrown. 
-
-If a PreferencesFactory implementation class file has been installed in a jar 
-file that is visible to the system class loader(|java.lang.ClassLoader|) , and 
-that jar file contains a provider-configuration file named 
-java.util.prefs.PreferencesFactory in the resource directory META-INF/services, 
-then the first class name specified in that file is taken. If more than one 
-such jar file is provided, the first one found will be used. The class is 
-loaded and instantiated; if this process fails then an unspecified error is 
-thrown. 
-
-Finally, if neither the above-mentioned system property nor an extension jar 
-file is provided, then the system-wide default PreferencesFactory 
-implementation for the underlying platform is loaded and instantiated. 
-
-
+Maximum length of string allowed as a key (80 characters). 
 
 
 *int_java.util.prefs.Preferences.MAX_NAME_LENGTH*
 
-A node in a hierarchical collection of preference data. This class allows 
-applications to store and retrieve user and system preference and configuration 
-data. This data is stored persistently in an implementation-dependent backing 
-store. Typical implementations include flat files, OS-specific registries, 
-directory servers and SQL databases. The user of this class needn't be 
-concerned with details of the backing store. 
-
-There are two separate trees of preference nodes, one for user preferences and 
-one for system preferences. Each user has a separate user preference tree, and 
-all users in a given system share the same system preference tree. The precise 
-description of "user" and "system" will vary from implementation to 
-implementation. Typical information stored in the user preference tree might 
-include font choice, color choice, or preferred window location and size for a 
-particular application. Typical information stored in the system preference 
-tree might include installation configuration data for an application. 
-
-Nodes in a preference tree are named in a similar fashion to directories in a 
-hierarchical file system. Every node in a preference tree has a node name 
-(which is not necessarily unique), a unique absolute path name, and a path name 
-relative to each ancestor including itself. 
-
-The root node has a node name of the empty string (""). Every other node has an 
-arbitrary node name, specified at the time it is created. The only restrictions 
-on this name are that it cannot be the empty string, and it cannot contain the 
-slash character ('/'). 
-
-The root node has an absolute path name of "/". Children of the root node have 
-absolute path names of "/" + <node name>. All other nodes have absolute path 
-names of <parent's absolute path name> + "/" + <node name>. Note that all 
-absolute path names begin with the slash character. 
-
-A node n's path name relative to its ancestor a is simply the string that must 
-be appended to a's absolute path name in order to form n's absolute path name, 
-with the initial slash character (if present) removed. Note that: 
-
-No relative path names begin with the slash character. Every node's path name 
-relative to itself is the empty string. Every node's path name relative to its 
-parent is its node name (except for the root node, which does not have a 
-parent). Every node's path name relative to the root is its absolute path name 
-with the initial slash character removed. 
-
-Note finally that: 
-
-No path name contains multiple consecutive slash characters. No path name with 
-the exception of the root's absolute path name ends in the slash character. Any 
-string that conforms to these two rules is a valid path name. 
-
-All of the methods that modify preferences data are permitted to operate 
-asynchronously; they may return immediately, and changes will eventually 
-propagate to the persistent backing store with an implementation-dependent 
-delay. The flush method may be used to synchronously force updates to the 
-backing store. Normal termination of the Java Virtual Machine will not result 
-in the loss of pending updates -- an explicit flush invocation is not required 
-upon termination to ensure that pending updates are made persistent. 
-
-All of the methods that read preferences from a Preferences object require the 
-invoker to provide a default value. The default value is returned if no value 
-has been previously set or if the backing store is unavailable. The intent is 
-to allow applications to operate, albeit with slightly degraded functionality, 
-even if the backing store becomes unavailable. Several methods, like flush, 
-have semantics that prevent them from operating if the backing store is 
-unavailable. Ordinary applications should have no need to invoke any of these 
-methods, which can be identified by the fact that they are declared to throw 
-(|java.util.prefs.BackingStoreException|) . 
-
-The methods in this class may be invoked concurrently by multiple threads in a 
-single JVM without the need for external synchronization, and the results will 
-be equivalent to some serial execution. If this class is used concurrently by 
-multiple JVMs that store their preference data in the same backing store, the 
-data store will not be corrupted, but no other guarantees are made concerning 
-the consistency of the preference data. 
-
-This class contains an export/import facility, allowing preferences to be 
-"exported" to an XML document, and XML documents representing preferences to be 
-"imported" back into the system. This facility may be used to back up all or 
-part of a preference tree, and subsequently restore from the backup. 
-
-The XML document has the following DOCTYPE declaration: 
-
-<!DOCTYPE preferences SYSTEM "http://java.sun.com/dtd/preferences.dtd"> 
-
-Note that the system URI (http://java.sun.com/dtd/preferences.dtd) is not 
-accessed when exporting or importing preferences; it merely serves as a string 
-to uniquely identify the DTD, which is: 
-
-<?xml version="1.0" encoding="UTF-8"?> 
-
-<!-- DTD for a Preferences tree. --> 
-
-<!-- The preferences element is at the root of an XML document representing a 
-Preferences tree. --> <!ELEMENT preferences (root)> 
-
-<!-- The preferences element contains an optional version attribute, which 
-specifies version of DTD. --> <!ATTLIST preferences EXTERNAL_XML_VERSION CDATA 
-"0.0" 
-
-<!-- The root element has a map representing the root's preferences (if any), 
-and one node for each child of the root (if any). --> <!ELEMENT root (map, 
-node*) > 
-
-<!-- Additionally, the root contains a type attribute, which specifies whether 
-it's the system or user root. --> <!ATTLIST root type (system|user) #REQUIRED > 
-
-<!-- Each node has a map representing its preferences (if any), and one node 
-for each child (if any). --> <!ELEMENT node (map, node*) > 
-
-<!-- Additionally, each node has a name attribute --> <!ATTLIST node name CDATA 
-#REQUIRED > 
-
-<!-- A map represents the preferences stored at a node (if any). --> <!ELEMENT 
-map (entry*) > 
-
-<!-- An entry represents a single preference, which is simply a key-value pair. 
---> <!ELEMENT entry EMPTY > <!ATTLIST entry key CDATA #REQUIRED value CDATA 
-#REQUIRED > 
-
-Every Preferences implementation must have an associated 
-(|java.util.prefs.PreferencesFactory|) implementation. Every J2SE 
-implementation must provide some means of specifying which PreferencesFactory 
-implementation is used to generate the root preferences nodes. This allows the 
-administrator to replace the default preferences implementation with an 
-alternative implementation. 
-
-Implementation note: In Sun's JRE, the PreferencesFactory implementation is 
-located as follows: 
-
-
-
-If the system property java.util.prefs.PreferencesFactory is defined, then it 
-is taken to be the fully-qualified name of a class implementing the 
-PreferencesFactory interface. The class is loaded and instantiated; if this 
-process fails then an unspecified error is thrown. 
-
-If a PreferencesFactory implementation class file has been installed in a jar 
-file that is visible to the system class loader(|java.lang.ClassLoader|) , and 
-that jar file contains a provider-configuration file named 
-java.util.prefs.PreferencesFactory in the resource directory META-INF/services, 
-then the first class name specified in that file is taken. If more than one 
-such jar file is provided, the first one found will be used. The class is 
-loaded and instantiated; if this process fails then an unspecified error is 
-thrown. 
-
-Finally, if neither the above-mentioned system property nor an extension jar 
-file is provided, then the system-wide default PreferencesFactory 
-implementation for the underlying platform is loaded and instantiated. 
-
-
+Maximum length of a node name (80 characters). 
 
 
 *int_java.util.prefs.Preferences.MAX_VALUE_LENGTH*
 
-A node in a hierarchical collection of preference data. This class allows 
-applications to store and retrieve user and system preference and configuration 
-data. This data is stored persistently in an implementation-dependent backing 
-store. Typical implementations include flat files, OS-specific registries, 
-directory servers and SQL databases. The user of this class needn't be 
-concerned with details of the backing store. 
-
-There are two separate trees of preference nodes, one for user preferences and 
-one for system preferences. Each user has a separate user preference tree, and 
-all users in a given system share the same system preference tree. The precise 
-description of "user" and "system" will vary from implementation to 
-implementation. Typical information stored in the user preference tree might 
-include font choice, color choice, or preferred window location and size for a 
-particular application. Typical information stored in the system preference 
-tree might include installation configuration data for an application. 
-
-Nodes in a preference tree are named in a similar fashion to directories in a 
-hierarchical file system. Every node in a preference tree has a node name 
-(which is not necessarily unique), a unique absolute path name, and a path name 
-relative to each ancestor including itself. 
-
-The root node has a node name of the empty string (""). Every other node has an 
-arbitrary node name, specified at the time it is created. The only restrictions 
-on this name are that it cannot be the empty string, and it cannot contain the 
-slash character ('/'). 
-
-The root node has an absolute path name of "/". Children of the root node have 
-absolute path names of "/" + <node name>. All other nodes have absolute path 
-names of <parent's absolute path name> + "/" + <node name>. Note that all 
-absolute path names begin with the slash character. 
-
-A node n's path name relative to its ancestor a is simply the string that must 
-be appended to a's absolute path name in order to form n's absolute path name, 
-with the initial slash character (if present) removed. Note that: 
-
-No relative path names begin with the slash character. Every node's path name 
-relative to itself is the empty string. Every node's path name relative to its 
-parent is its node name (except for the root node, which does not have a 
-parent). Every node's path name relative to the root is its absolute path name 
-with the initial slash character removed. 
-
-Note finally that: 
-
-No path name contains multiple consecutive slash characters. No path name with 
-the exception of the root's absolute path name ends in the slash character. Any 
-string that conforms to these two rules is a valid path name. 
-
-All of the methods that modify preferences data are permitted to operate 
-asynchronously; they may return immediately, and changes will eventually 
-propagate to the persistent backing store with an implementation-dependent 
-delay. The flush method may be used to synchronously force updates to the 
-backing store. Normal termination of the Java Virtual Machine will not result 
-in the loss of pending updates -- an explicit flush invocation is not required 
-upon termination to ensure that pending updates are made persistent. 
-
-All of the methods that read preferences from a Preferences object require the 
-invoker to provide a default value. The default value is returned if no value 
-has been previously set or if the backing store is unavailable. The intent is 
-to allow applications to operate, albeit with slightly degraded functionality, 
-even if the backing store becomes unavailable. Several methods, like flush, 
-have semantics that prevent them from operating if the backing store is 
-unavailable. Ordinary applications should have no need to invoke any of these 
-methods, which can be identified by the fact that they are declared to throw 
-(|java.util.prefs.BackingStoreException|) . 
-
-The methods in this class may be invoked concurrently by multiple threads in a 
-single JVM without the need for external synchronization, and the results will 
-be equivalent to some serial execution. If this class is used concurrently by 
-multiple JVMs that store their preference data in the same backing store, the 
-data store will not be corrupted, but no other guarantees are made concerning 
-the consistency of the preference data. 
-
-This class contains an export/import facility, allowing preferences to be 
-"exported" to an XML document, and XML documents representing preferences to be 
-"imported" back into the system. This facility may be used to back up all or 
-part of a preference tree, and subsequently restore from the backup. 
-
-The XML document has the following DOCTYPE declaration: 
-
-<!DOCTYPE preferences SYSTEM "http://java.sun.com/dtd/preferences.dtd"> 
-
-Note that the system URI (http://java.sun.com/dtd/preferences.dtd) is not 
-accessed when exporting or importing preferences; it merely serves as a string 
-to uniquely identify the DTD, which is: 
-
-<?xml version="1.0" encoding="UTF-8"?> 
-
-<!-- DTD for a Preferences tree. --> 
-
-<!-- The preferences element is at the root of an XML document representing a 
-Preferences tree. --> <!ELEMENT preferences (root)> 
-
-<!-- The preferences element contains an optional version attribute, which 
-specifies version of DTD. --> <!ATTLIST preferences EXTERNAL_XML_VERSION CDATA 
-"0.0" 
-
-<!-- The root element has a map representing the root's preferences (if any), 
-and one node for each child of the root (if any). --> <!ELEMENT root (map, 
-node*) > 
-
-<!-- Additionally, the root contains a type attribute, which specifies whether 
-it's the system or user root. --> <!ATTLIST root type (system|user) #REQUIRED > 
-
-<!-- Each node has a map representing its preferences (if any), and one node 
-for each child (if any). --> <!ELEMENT node (map, node*) > 
-
-<!-- Additionally, each node has a name attribute --> <!ATTLIST node name CDATA 
-#REQUIRED > 
-
-<!-- A map represents the preferences stored at a node (if any). --> <!ELEMENT 
-map (entry*) > 
-
-<!-- An entry represents a single preference, which is simply a key-value pair. 
---> <!ELEMENT entry EMPTY > <!ATTLIST entry key CDATA #REQUIRED value CDATA 
-#REQUIRED > 
-
-Every Preferences implementation must have an associated 
-(|java.util.prefs.PreferencesFactory|) implementation. Every J2SE 
-implementation must provide some means of specifying which PreferencesFactory 
-implementation is used to generate the root preferences nodes. This allows the 
-administrator to replace the default preferences implementation with an 
-alternative implementation. 
-
-Implementation note: In Sun's JRE, the PreferencesFactory implementation is 
-located as follows: 
-
-
-
-If the system property java.util.prefs.PreferencesFactory is defined, then it 
-is taken to be the fully-qualified name of a class implementing the 
-PreferencesFactory interface. The class is loaded and instantiated; if this 
-process fails then an unspecified error is thrown. 
-
-If a PreferencesFactory implementation class file has been installed in a jar 
-file that is visible to the system class loader(|java.lang.ClassLoader|) , and 
-that jar file contains a provider-configuration file named 
-java.util.prefs.PreferencesFactory in the resource directory META-INF/services, 
-then the first class name specified in that file is taken. If more than one 
-such jar file is provided, the first one found will be used. The class is 
-loaded and instantiated; if this process fails then an unspecified error is 
-thrown. 
-
-Finally, if neither the above-mentioned system property nor an extension jar 
-file is provided, then the system-wide default PreferencesFactory 
-implementation for the underlying platform is loaded and instantiated. 
-
-
+Maximum length of string allowed as a value (8192 characters). 
 
 
 
@@ -679,7 +242,9 @@ public abstract |java.lang.String| absolutePath()
 Returns this preference node's absolute path name. 
 
 
+
     Returns: this preference node's absolute path name. 
+
 *java.util.prefs.Preferences.addNodeChangeListener(NodeChangeListener)*
 
 public abstract void addNodeChangeListener(java.util.prefs.NodeChangeListener ncl)
@@ -704,6 +269,7 @@ determine whether a child node existed in the backing store prior to access
 out of date). Under these circumstances, implementations are neither required 
 to generate node change events nor prohibited from doing so. 
 
+
     ncl - The NodeChangeListener to add. 
 
 *java.util.prefs.Preferences.addPreferenceChangeListener(PreferenceChangeListener)*
@@ -724,18 +290,21 @@ been made persistent. Events are not generated when preferences are modified in
 descendants of this node; a caller desiring such events must register with each 
 descendant. 
 
+
     pcl - The preference change listener to add. 
 
 *java.util.prefs.Preferences.childrenNames()*
 
-public abstract |java.lang.String| childrenNames()
+public abstract |java.lang.String|[] childrenNames()
   throws |java.util.prefs.BackingStoreException|
          
 Returns the names of the children of this preference node, relative to this 
 node. (The returned array will be of size zero if this node has no children.) 
 
 
+
     Returns: the names of the children of this preference node. 
+
 *java.util.prefs.Preferences.clear()*
 
 public abstract void clear()
@@ -748,6 +317,7 @@ If this implementation supports stored defaults, and this node in the
 preferences hierarchy contains any such defaults, the stored defaults will be 
 "exposed" by this call, in the sense that they will be returned by succeeding 
 calls to get. 
+
 
 
 *java.util.prefs.Preferences.exportNode(OutputStream)*
@@ -773,6 +343,7 @@ concurrently with an invocation of this method, the exported preferences
 comprise a "fuzzy snapshot" of the preferences contained in the node; some of 
 the concurrent modifications may be reflected in the exported data while others 
 may not. 
+
 
     os - the output stream on which to emit the XML document. 
 
@@ -800,6 +371,7 @@ exported preferences comprise a "fuzzy snapshot" of the subtree; some of the
 concurrent modifications may be reflected in the exported data while others may 
 not. 
 
+
     os - the output stream on which to emit the XML document. 
 
 *java.util.prefs.Preferences.flush()*
@@ -825,6 +397,7 @@ If this method is invoked on a node that has been removed with the
 not on others. 
 
 
+
 *java.util.prefs.Preferences.get(String,String)*
 
 public abstract |java.lang.String| get(
@@ -839,12 +412,14 @@ Some implementations may store default values in their backing stores. If there
 is no value associated with the specified key but there is such a stored 
 default, it is returned in preference to the specified default. 
 
+
     key - key whose associated value is to be returned. 
     def - the value to be returned in the event that this preference node has no value 
        associated with key. 
 
     Returns: the value associated with key, or def if no value is associated with key, or 
              the backing store is inaccessible. 
+
 *java.util.prefs.Preferences.getBoolean(String,boolean)*
 
 public abstract boolean getBoolean(
@@ -866,6 +441,7 @@ accessible, it is used in preference to the specified default, unless the
 stored default is something other than "true" or "false", ignoring case, in 
 which case the specified default is used. 
 
+
     key - key whose associated value is to be returned as a boolean. 
     def - the value to be returned in the event that this preference node has no value 
        associated with key or the associated value cannot be interpreted as a 
@@ -874,9 +450,10 @@ which case the specified default is used.
     Returns: the boolean value represented by the string associated with key in this 
              preference node, or def if the associated value does not exist or 
              cannot be interpreted as a boolean. 
+
 *java.util.prefs.Preferences.getByteArray(String,byte[])*
 
-public abstract byte getByteArray(
+public abstract byte[] getByteArray(
   java.lang.String key,
   byte[] def)
 
@@ -896,6 +473,7 @@ accessible, it is used in preference to the specified default, unless the
 stored default is not a valid Base64 encoded byte array (as defined above), in 
 which case the specified default is used. 
 
+
     key - key whose associated value is to be returned as a byte array. 
     def - the value to be returned in the event that this preference node has no value 
        associated with key or the associated value cannot be interpreted as a 
@@ -904,6 +482,7 @@ which case the specified default is used.
     Returns: the byte array value represented by the string associated with key in this 
              preference node, or def if the associated value does not exist or 
              cannot be interpreted as a byte array. 
+
 *java.util.prefs.Preferences.getDouble(String,double)*
 
 public abstract double getDouble(
@@ -922,6 +501,7 @@ If the implementation supports stored defaults and such a default exists, is
 accessible, and could be converted to a double with Double.parseDouble, this 
 double is returned in preference to the specified default. 
 
+
     key - key whose associated value is to be returned as a double. 
     def - the value to be returned in the event that this preference node has no value 
        associated with key or the associated value cannot be interpreted as a 
@@ -930,6 +510,7 @@ double is returned in preference to the specified default.
     Returns: the double value represented by the string associated with key in this 
              preference node, or def if the associated value does not exist or 
              cannot be interpreted as a double. 
+
 *java.util.prefs.Preferences.getFloat(String,float)*
 
 public abstract float getFloat(
@@ -948,6 +529,7 @@ If the implementation supports stored defaults and such a default exists, is
 accessible, and could be converted to a float with Float.parseFloat, this float 
 is returned in preference to the specified default. 
 
+
     key - key whose associated value is to be returned as a float. 
     def - the value to be returned in the event that this preference node has no value 
        associated with key or the associated value cannot be interpreted as a 
@@ -956,6 +538,7 @@ is returned in preference to the specified default.
     Returns: the float value represented by the string associated with key in this 
              preference node, or def if the associated value does not exist or 
              cannot be interpreted as a float. 
+
 *java.util.prefs.Preferences.getInt(String,int)*
 
 public abstract int getInt(
@@ -974,6 +557,7 @@ If the implementation supports stored defaults and such a default exists, is
 accessible, and could be converted to an int with Integer.parseInt, this int is 
 returned in preference to the specified default. 
 
+
     key - key whose associated value is to be returned as an int. 
     def - the value to be returned in the event that this preference node has no value 
        associated with key or the associated value cannot be interpreted as an 
@@ -982,6 +566,7 @@ returned in preference to the specified default.
     Returns: the int value represented by the string associated with key in this preference 
              node, or def if the associated value does not exist or cannot be 
              interpreted as an int. 
+
 *java.util.prefs.Preferences.getLong(String,long)*
 
 public abstract long getLong(
@@ -1000,6 +585,7 @@ If the implementation supports stored defaults and such a default exists, is
 accessible, and could be converted to a long with Long.parseLong, this long is 
 returned in preference to the specified default. 
 
+
     key - key whose associated value is to be returned as a long. 
     def - the value to be returned in the event that this preference node has no value 
        associated with key or the associated value cannot be interpreted as a 
@@ -1008,6 +594,7 @@ returned in preference to the specified default.
     Returns: the long value represented by the string associated with key in this preference 
              node, or def if the associated value does not exist or cannot be 
              interpreted as a long. 
+
 *java.util.prefs.Preferences.importPreferences(InputStream)*
 
 public static void importPreferences(java.io.InputStream is)
@@ -1035,6 +622,7 @@ to some serial execution. The method behaves as if implemented on top of the
 other public methods in this class, notably (|java.util.prefs.Preferences|) and 
 (|java.util.prefs.Preferences|) . 
 
+
     is - the input stream from which to read the XML document. 
 
 *java.util.prefs.Preferences.isUserNode()*
@@ -1045,11 +633,13 @@ Returns true if this preference node is in the user preference tree, false if
 it's in the system preference tree. 
 
 
+
     Returns: true if this preference node is in the user preference tree, false if it's in 
              the system preference tree. 
+
 *java.util.prefs.Preferences.keys()*
 
-public abstract |java.lang.String| keys()
+public abstract |java.lang.String|[] keys()
   throws |java.util.prefs.BackingStoreException|
          
 Returns all of the keys that have an associated value in this preference node. 
@@ -1060,7 +650,9 @@ at this node that have not been overridden, by explicit preferences, the
 defaults are returned in the array in addition to any explicit preferences. 
 
 
+
     Returns: an array of the keys that have an associated value in this preference node. 
+
 *java.util.prefs.Preferences.name()*
 
 public abstract |java.lang.String| name()
@@ -1068,7 +660,9 @@ public abstract |java.lang.String| name()
 Returns this preference node's name, relative to its parent. 
 
 
+
     Returns: this preference node's name, relative to its parent. 
+
 *java.util.prefs.Preferences.node(String)*
 
 public abstract |java.util.prefs.Preferences| node(java.lang.String pathName)
@@ -1083,9 +677,11 @@ ancestors that were created by this call are not guaranteed to become permanent
 until the flush method is called on the returned node (or one of its ancestors 
 or descendants). 
 
+
     pathName - the path name of the preference node to return. 
 
     Returns: the specified preference node. 
+
 *java.util.prefs.Preferences.nodeExists(String)*
 
 public abstract boolean nodeExists(java.lang.String pathName)
@@ -1100,9 +696,11 @@ If this node (or an ancestor) has already been removed with the
 only with the path name ""; the invocation will return false. Thus, the idiom 
 p.nodeExists("") may be used to test whether p has been removed. 
 
+
     pathName - the path name of the node whose existence is to be checked. 
 
     Returns: true if the specified node exists. 
+
 *java.util.prefs.Preferences.parent()*
 
 public abstract |java.util.prefs.Preferences| parent()
@@ -1110,7 +708,9 @@ public abstract |java.util.prefs.Preferences| parent()
 Returns the parent of this preference node, or null if this is the root. 
 
 
+
     Returns: the parent of this preference node. 
+
 *java.util.prefs.Preferences.put(String,String)*
 
 public abstract void put(
@@ -1118,6 +718,7 @@ public abstract void put(
   java.lang.String value)
 
 Associates the specified value with the specified key in this preference node. 
+
 
     key - key with which the specified value is to be associated. 
     value - value to be associated with the specified key. 
@@ -1132,6 +733,7 @@ Associates a string representing the specified boolean value with the specified
 key in this preference node. The associated string is "true" if the value is 
 true, and "false" if it is false. This method is intended for use in 
 conjunction with (|java.util.prefs.Preferences|) . 
+
 
     key - key with which the string form of value is to be associated. 
     value - value whose string form is to be associated with key. 
@@ -1151,6 +753,7 @@ is limited to three quarters of MAX_VALUE_LENGTH so that the length of the
 Base64 encoded String does not exceed MAX_VALUE_LENGTH. This method is intended 
 for use in conjunction with (|java.util.prefs.Preferences|) . 
 
+
     key - key with which the string form of value is to be associated. 
     value - value whose string form is to be associated with key. 
 
@@ -1164,6 +767,7 @@ Associates a string representing the specified double value with the specified
 key in this preference node. The associated string is the one that would be 
 returned if the double value were passed to (|java.lang.Double|) . This method 
 is intended for use in conjunction with (|java.util.prefs.Preferences|) . 
+
 
     key - key with which the string form of value is to be associated. 
     value - value whose string form is to be associated with key. 
@@ -1179,6 +783,7 @@ key in this preference node. The associated string is the one that would be
 returned if the float value were passed to (|java.lang.Float|) . This method is 
 intended for use in conjunction with (|java.util.prefs.Preferences|) . 
 
+
     key - key with which the string form of value is to be associated. 
     value - value whose string form is to be associated with key. 
 
@@ -1192,6 +797,7 @@ Associates a string representing the specified int value with the specified key
 in this preference node. The associated string is the one that would be 
 returned if the int value were passed to (|java.lang.Integer|) . This method is 
 intended for use in conjunction with (|java.util.prefs.Preferences|) . 
+
 
     key - key with which the string form of value is to be associated. 
     value - value whose string form is to be associated with key. 
@@ -1207,6 +813,7 @@ key in this preference node. The associated string is the one that would be
 returned if the long value were passed to (|java.lang.Long|) . This method is 
 intended for use in conjunction with (|java.util.prefs.Preferences|) . 
 
+
     key - key with which the string form of value is to be associated. 
     value - value whose string form is to be associated with key. 
 
@@ -1220,6 +827,7 @@ any.
 If this implementation supports stored defaults, and there is such a default 
 for the specified preference, the stored default will be "exposed" by this 
 call, in the sense that it will be returned by a succeeding call to get. 
+
 
     key - key whose mapping is to be removed from the preference node. 
 
@@ -1248,12 +856,14 @@ path name may return a (different) Preferences instance representing a
 non-empty collection of preferences and/or children. 
 
 
+
 *java.util.prefs.Preferences.removeNodeChangeListener(NodeChangeListener)*
 
 public abstract void removeNodeChangeListener(java.util.prefs.NodeChangeListener ncl)
 
 Removes the specified NodeChangeListener, so it no longer receives change 
 events. 
+
 
     ncl - The NodeChangeListener to remove. 
 
@@ -1263,6 +873,7 @@ public abstract void removePreferenceChangeListener(java.util.prefs.PreferenceCh
 
 Removes the specified preference change listener, so it no longer receives 
 preference change events. 
+
 
     pcl - The preference change listener to remove. 
 
@@ -1278,16 +889,17 @@ this preference node and its descendants to the persistent store, as if the
 flush method had been invoked on this node. 
 
 
-*java.util.prefs.Preferences.systemNodeForPackage(Class)*
 
-public static |java.util.prefs.Preferences| systemNodeForPackage(java.lang.Class c)
+*java.util.prefs.Preferences.systemNodeForPackage(Class<?>)*
+
+public static |java.util.prefs.Preferences| systemNodeForPackage(java.lang.Class<?> c)
 
 Returns the preference node from the system preference tree that is associated 
 (by convention) with the specified class's package. The convention is as 
 follows: the absolute path name of the node is the fully qualified package 
 name, preceded by a slash ('/'), and with each period ('.') replaced by a 
 slash. For example the absolute path name of the node associated with the class 
-com.acme.widget is /com/acme/widget. 
+com.acme.widget.Foo is /com/acme/widget. 
 
 This convention does not apply to the unnamed package, whose associated 
 preference node is <unnamed>. This node is not intended for long term use, but 
@@ -1310,9 +922,11 @@ prior to this call, this node and any ancestors that were created by this call
 are not guaranteed to become permanent until the flush method is called on the 
 returned node (or one of its ancestors or descendants). 
 
+
     c - the class for whose package a system preference node is desired. 
 
     Returns: the system preference node associated with the package of which c is a member. 
+
 *java.util.prefs.Preferences.systemRoot()*
 
 public static |java.util.prefs.Preferences| systemRoot()
@@ -1320,7 +934,9 @@ public static |java.util.prefs.Preferences| systemRoot()
 Returns the root preference node for the system. 
 
 
+
     Returns: the root preference node for the system. 
+
 *java.util.prefs.Preferences.toString()*
 
 public abstract |java.lang.String| toString()
@@ -1330,16 +946,17 @@ expression:(this.isUserNode() ? "User" : "System") + " Preference Node: " +
 this.absolutePath(). 
 
 
-*java.util.prefs.Preferences.userNodeForPackage(Class)*
 
-public static |java.util.prefs.Preferences| userNodeForPackage(java.lang.Class c)
+*java.util.prefs.Preferences.userNodeForPackage(Class<?>)*
+
+public static |java.util.prefs.Preferences| userNodeForPackage(java.lang.Class<?> c)
 
 Returns the preference node from the calling user's preference tree that is 
 associated (by convention) with the specified class's package. The convention 
 is as follows: the absolute path name of the node is the fully qualified 
 package name, preceded by a slash ('/'), and with each period ('.') replaced by 
 a slash. For example the absolute path name of the node associated with the 
-class com.acme.widget is /com/acme/widget. 
+class com.acme.widget.Foo is /com/acme/widget. 
 
 This convention does not apply to the unnamed package, whose associated 
 preference node is <unnamed>. This node is not intended for long term use, but 
@@ -1362,9 +979,11 @@ prior to this call, this node and any ancestors that were created by this call
 are not guaranteed to become permanent until the flush method is called on the 
 returned node (or one of its ancestors or descendants). 
 
+
     c - the class for whose package a user preference node is desired. 
 
     Returns: the user preference node associated with the package of which c is a member. 
+
 *java.util.prefs.Preferences.userRoot()*
 
 public static |java.util.prefs.Preferences| userRoot()
@@ -1372,5 +991,7 @@ public static |java.util.prefs.Preferences| userRoot()
 Returns the root preference node for the calling user. 
 
 
+
     Returns: the root preference node for the calling user. 
+
 

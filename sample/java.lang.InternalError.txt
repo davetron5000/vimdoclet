@@ -20,6 +20,7 @@ Thrown to indicate some unexpected internal error has occurred in the Java
 Virtual Machine. 
 
 
+
 *java.lang.InternalError()*
 
 public InternalError()

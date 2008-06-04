@@ -37,6 +37,7 @@ encoding to use (defaults to the default platform encoding).
 
 
 
+
 *java.util.logging.ConsoleHandler()*
 
 public ConsoleHandler()
@@ -55,6 +56,7 @@ Override StreamHandler.close to do a flush but not to close the output stream.
 That is, we do not close System.err. 
 
 
+
 *java.util.logging.ConsoleHandler.publish(LogRecord)*
 
 public void publish(java.util.logging.LogRecord record)
@@ -63,6 +65,7 @@ Publish a LogRecord.
 
 The logging request was made initially to a Logger object, which initialized 
 the LogRecord and forwarded it here. 
+
 
     record - description of the log event. A null record is silently ignored and is not 
        published 

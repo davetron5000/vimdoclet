@@ -11,28 +11,33 @@ public class InstantiationException
 ================================================================================
 
 *java.lang.InstantiationException_Constructors*
-|java.lang.InstantiationException()|Constructs an InstantiationException with n
-|java.lang.InstantiationException(String)|Constructs an InstantiationException 
+|java.lang.InstantiationException()|Constructs anInstantiationExceptionwith no 
+|java.lang.InstantiationException(String)|Constructs anInstantiationExceptionwi
 
 *java.lang.InstantiationException_Description*
 
-Thrown when an application tries to create an instance of a class using the 
-newInstance method in class Class, but the specified class object cannot be 
-instantiated because it is an interface or is an abstract class. 
+Thrown when an application tries to create an instance of a class using 
+thenewInstancemethod in classClass, but the specified class object cannot be 
+instantiated. The instantiation can fail for a variety of reasons including but 
+not limited to: 
+
+the class object represents an abstract class, an interface, an array class, a 
+primitive type, orvoid the class has no nullary constructor 
+
 
 
 *java.lang.InstantiationException()*
 
 public InstantiationException()
 
-Constructs an InstantiationException with no detail message. 
+Constructs anInstantiationExceptionwith no detail message. 
 
 
 *java.lang.InstantiationException(String)*
 
 public InstantiationException(java.lang.String s)
 
-Constructs an InstantiationException with the specified detail message. 
+Constructs anInstantiationExceptionwith the specified detail message. 
 
     s - the detail message. 
 

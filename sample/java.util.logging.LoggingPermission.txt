@@ -29,6 +29,7 @@ they are created by the security policy code based on reading the security
 policy file. 
 
 
+
 *java.util.logging.LoggingPermission(String,String)*
 
 public LoggingPermission(

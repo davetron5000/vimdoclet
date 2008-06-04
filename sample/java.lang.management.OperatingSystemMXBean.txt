@@ -14,6 +14,7 @@ public interface interface OperatingSystemMXBean
 |java.lang.management.OperatingSystemMXBean.getArch()|Returns the operating sys
 |java.lang.management.OperatingSystemMXBean.getAvailableProcessors()|Returns th
 |java.lang.management.OperatingSystemMXBean.getName()|Returns the operating sys
+|java.lang.management.OperatingSystemMXBean.getSystemLoadAverage()|Returns the 
 |java.lang.management.OperatingSystemMXBean.getVersion()|Returns the operating 
 
 *java.lang.management.OperatingSystemMXBean_Description*
@@ -37,6 +38,7 @@ properties about the operating system on which the Java virtual machine is
 running. 
 
 
+
 *java.lang.management.OperatingSystemMXBean.getArch()*
 
 public |java.lang.String| getArch()
@@ -45,7 +47,9 @@ Returns the operating system architecture. This method is equivalent to
 System.getProperty("os.arch"). 
 
 
+
     Returns: the operating system architecture. 
+
 *java.lang.management.OperatingSystemMXBean.getAvailableProcessors()*
 
 public int getAvailableProcessors()
@@ -55,8 +59,10 @@ method is equivalent to the (|java.lang.Runtime|) method. This value may change
 during a particular invocation of the virtual machine. 
 
 
+
     Returns: the number of processors available to the virtual machine; never smaller than 
              one. 
+
 *java.lang.management.OperatingSystemMXBean.getName()*
 
 public |java.lang.String| getName()
@@ -65,7 +71,30 @@ Returns the operating system name. This method is equivalent to
 System.getProperty("os.name"). 
 
 
+
     Returns: the operating system name. 
+
+*java.lang.management.OperatingSystemMXBean.getSystemLoadAverage()*
+
+public double getSystemLoadAverage()
+
+Returns the system load average for the last minute. The system load average is 
+the sum of the number of runnable entities queued to the available 
+processors(|java.lang.management.OperatingSystemMXBean|) and the number of 
+runnable entities running on the available processors averaged over a period of 
+time. The way in which the load average is calculated is operating system 
+specific but is typically a damped time-dependent average. 
+
+If the load average is not available, a negative value is returned. 
+
+This method is designed to provide a hint about the system load and may be 
+queried frequently. The load average may be unavailable on some platform where 
+it is expensive to implement this method. 
+
+
+
+    Returns: the system load average; or a negative value if not available. 
+
 *java.lang.management.OperatingSystemMXBean.getVersion()*
 
 public |java.lang.String| getVersion()
@@ -74,5 +103,7 @@ Returns the operating system version. This method is equivalent to
 System.getProperty("os.version"). 
 
 
+
     Returns: the operating system version. 
+
 

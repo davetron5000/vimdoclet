@@ -1,6 +1,6 @@
 *java.util.Queue* *Queue* A collection designed for holding elements prior to pr
 
-public interface interface Queue
+public interface interface Queue<E>
 
   implements |java.util.Collection|
 
@@ -12,17 +12,37 @@ public interface interface Queue
 ================================================================================
 
 *java.util.Queue_Methods*
+|java.util.Queue.add(E)|Inserts the specified element into this queue if it is 
 |java.util.Queue.element()|Retrieves, but does not remove, the head of this que
-|java.util.Queue.offer(E)|Inserts the specified element into this queue, if pos
+|java.util.Queue.offer(E)|Inserts the specified element into this queue if it i
 |java.util.Queue.peek()|Retrieves, but does not remove, the head of this queue,
-|java.util.Queue.poll()|Retrieves and removes the head of this queue, or null  
+|java.util.Queue.poll()|Retrieves and removes the head of this queue,  or retur
 |java.util.Queue.remove()|Retrieves and removes the head of this queue.
 
 *java.util.Queue_Description*
 
 A collection designed for holding elements prior to processing. Besides basic 
 Collection(|java.util.Collection|) operations, queues provide additional 
-insertion, extraction, and inspection operations. 
+insertion, extraction, and inspection operations. Each of these methods exists 
+in two forms: one throws an exception if the operation fails, the other returns 
+a special value (either null or false, depending on the operation). The latter 
+form of the insert operation is designed specifically for use with 
+capacity-restricted Queue implementations; in most implementations, insert 
+operations cannot fail. 
+
+
+
+
+
+Throws exception Returns special value 
+
+Insert add(e)(|java.util.Queue|) offer(e)(|java.util.Queue|) 
+
+Remove remove()(|java.util.Queue|) poll()(|java.util.Queue|) 
+
+Examine element()(|java.util.Queue|) peek()(|java.util.Queue|) 
+
+
 
 Queues typically, but do not necessarily, order elements in a FIFO 
 (first-in-first-out) manner. Among the exceptions are priority queues, which 
@@ -67,56 +87,84 @@ equals and hashCode but instead inherit the identity based versions from class
 Object, because element-based equality is not always well-defined for queues 
 with the same elements but different ordering properties. 
 
-This interface is a member of the <a href="/../guide/collections/index.html"> 
-Java Collections Framework. 
+This interface is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
 
+
+
+*java.util.Queue.add(E)*
+
+public boolean add(E e)
+
+Inserts the specified element into this queue if it is possible to do so 
+immediately without violating capacity restrictions, returning true upon 
+success and throwing an IllegalStateException if no space is currently 
+available. 
+
+
+    e - the element to add 
+
+    Returns: true (as specified by {@link Collection#add}) 
 
 *java.util.Queue.element()*
 
-public |java.lang.Object| element()
+public |E| element()
 
 Retrieves, but does not remove, the head of this queue. This method differs 
-from the peek method only in that it throws an exception if this queue is 
-empty. 
+from peek(|java.util.Queue|) only in that it throws an exception if this queue 
+is empty. 
 
 
-    Returns: the head of this queue. 
+
+    Returns: the head of this queue 
+
 *java.util.Queue.offer(E)*
 
-public boolean offer(java.lang.Object o)
+public boolean offer(E e)
 
-Inserts the specified element into this queue, if possible. When using queues 
-that may impose insertion restrictions (for example capacity bounds), method 
-offer is generally preferable to method (|java.util.Collection|) , which can 
-fail to insert an element only by throwing an exception. 
+Inserts the specified element into this queue if it is possible to do so 
+immediately without violating capacity restrictions. When using a 
+capacity-restricted queue, this method is generally preferable to 
+(|java.util.Queue|) , which can fail to insert an element only by throwing an 
+exception. 
 
-    o - the element to insert. 
 
-    Returns: true if it was possible to add the element to this queue, else false 
+    e - the element to add 
+
+    Returns: true if the element was added to this queue, else false 
+
 *java.util.Queue.peek()*
 
-public |java.lang.Object| peek()
+public |E| peek()
 
-Retrieves, but does not remove, the head of this queue, returning null if this 
+Retrieves, but does not remove, the head of this queue, or returns null if this 
 queue is empty. 
 
 
-    Returns: the head of this queue, or null if this queue is empty. 
+
+    Returns: the head of this queue, or null if this queue is empty 
+
 *java.util.Queue.poll()*
 
-public |java.lang.Object| poll()
+public |E| poll()
 
-Retrieves and removes the head of this queue, or null if this queue is empty. 
+Retrieves and removes the head of this queue, or returns null if this queue is 
+empty. 
 
 
-    Returns: the head of this queue, or null if this queue is empty. 
+
+    Returns: the head of this queue, or null if this queue is empty 
+
 *java.util.Queue.remove()*
 
-public |java.lang.Object| remove()
+public |E| remove()
 
-Retrieves and removes the head of this queue. This method differs from the poll 
-method in that it throws an exception if this queue is empty. 
+Retrieves and removes the head of this queue. This method differs from 
+poll(|java.util.Queue|) only in that it throws an exception if this queue is 
+empty. 
 
 
-    Returns: the head of this queue. 
+
+    Returns: the head of this queue 
+
 

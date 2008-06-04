@@ -14,7 +14,7 @@ public final class Method
 
 *java.lang.reflect.Method_Methods*
 |java.lang.reflect.Method.equals(Object)|Compares this Method against the speci
-|java.lang.reflect.Method.getAnnotation(Class)|
+|java.lang.reflect.Method.getAnnotation(Class<T>)|
 |java.lang.reflect.Method.getDeclaredAnnotations()|
 |java.lang.reflect.Method.getDeclaringClass()|Returns the Class object represen
 |java.lang.reflect.Method.getDefaultValue()|Returns the default value for the a
@@ -29,7 +29,7 @@ public final class Method
 |java.lang.reflect.Method.getReturnType()|Returns a Class object that represent
 |java.lang.reflect.Method.getTypeParameters()|Returns an array of TypeVariable 
 |java.lang.reflect.Method.hashCode()|Returns a hashcode for this Method.
-|java.lang.reflect.Method.invoke(Object,Object[])|Invokes the underlying method
+|java.lang.reflect.Method.invoke(Object,Object...)|Invokes the underlying metho
 |java.lang.reflect.Method.isBridge()|Returns true if this method is a bridge  m
 |java.lang.reflect.Method.isSynthetic()|Returns true if this method is a synthe
 |java.lang.reflect.Method.isVarArgs()|Returns true if this method was declared 
@@ -47,6 +47,7 @@ parameters to invoke with the underlying method's formal parameters, but it
 throws an IllegalArgumentException if a narrowing conversion would occur. 
 
 
+
 *java.lang.reflect.Method.equals(Object)*
 
 public boolean equals(java.lang.Object obj)
@@ -56,26 +57,30 @@ are the same. Two Methods are the same if they were declared by the same class
 and have the same name and formal parameter types and return type. 
 
 
-*java.lang.reflect.Method.getAnnotation(Class)*
 
-public |java.lang.annotation.Annotation| getAnnotation(java.lang.Class annotationClass)
+*java.lang.reflect.Method.getAnnotation(Class<T>)*
+
+public |T| getAnnotation(java.lang.Class<T> annotationClass)
+
 
 
 
 
 *java.lang.reflect.Method.getDeclaredAnnotations()*
 
-public |java.lang.annotation.Annotation| getDeclaredAnnotations()
+public |java.lang.annotation.Annotation|[] getDeclaredAnnotations()
+
 
 
 
 
 *java.lang.reflect.Method.getDeclaringClass()*
 
-public |java.lang.Class| getDeclaringClass()
+public |java.lang.Class|<?> getDeclaringClass()
 
 Returns the Class object representing the class or interface that declares the 
 method represented by this Method object. 
+
 
 
 *java.lang.reflect.Method.getDefaultValue()*
@@ -89,11 +94,13 @@ associated with the member, or if the method instance does not represent a
 declared member of an annotation type. 
 
 
+
     Returns: the default value for the annotation member represented by this Method 
              instance. 
+
 *java.lang.reflect.Method.getExceptionTypes()*
 
-public |java.lang.Class| getExceptionTypes()
+public |java.lang.Class|[] getExceptionTypes()
 
 Returns an array of Class objects that represent the types of the exceptions 
 declared to be thrown by the underlying method represented by this Method 
@@ -101,11 +108,13 @@ object. Returns an array of length 0 if the method declares no exceptions in
 its throws clause. 
 
 
+
     Returns: the exception types declared as being thrown by the method this object 
              represents 
+
 *java.lang.reflect.Method.getGenericExceptionTypes()*
 
-public |java.lang.reflect.Type| getGenericExceptionTypes()
+public |java.lang.reflect.Type|[] getGenericExceptionTypes()
 
 Returns an array of Type objects that represent the exceptions declared to be 
 thrown by this Method object. Returns an array of length 0 if the underlying 
@@ -118,11 +127,13 @@ If an exception type is a type variable or a parameterized type, it is created.
 Otherwise, it is resolved. 
 
 
+
     Returns: an array of Types that represent the exception types thrown by the underlying 
              method 
+
 *java.lang.reflect.Method.getGenericParameterTypes()*
 
-public |java.lang.reflect.Type| getGenericParameterTypes()
+public |java.lang.reflect.Type|[] getGenericParameterTypes()
 
 Returns an array of Type objects that represent the formal parameter types, in 
 declaration order, of the method represented by this Method object. Returns an 
@@ -136,8 +147,10 @@ If a formal parameter type is a type variable or a parameterized type, it is
 created. Otherwise, it is resolved. 
 
 
+
     Returns: an array of Types that represent the formal parameter types of the underlying 
              method, in declaration order 
+
 *java.lang.reflect.Method.getGenericReturnType()*
 
 public |java.lang.reflect.Type| getGenericReturnType()
@@ -152,7 +165,9 @@ If the return type is a type variable or a parameterized type, it is created.
 Otherwise, it is resolved. 
 
 
+
     Returns: a Type object that represents the formal return type of the underlying method 
+
 *java.lang.reflect.Method.getModifiers()*
 
 public int getModifiers()
@@ -162,6 +177,7 @@ object, as an integer. The Modifier class should be used to decode the
 modifiers. 
 
 
+
 *java.lang.reflect.Method.getName()*
 
 public |java.lang.String| getName()
@@ -169,9 +185,10 @@ public |java.lang.String| getName()
 Returns the name of the method represented by this Method object, as a String. 
 
 
+
 *java.lang.reflect.Method.getParameterAnnotations()*
 
-public |java.lang.annotation.Annotation| getParameterAnnotations()
+public |java.lang.annotation.Annotation|[][] getParameterAnnotations()
 
 Returns an array of arrays that represent the annotations on the formal 
 parameters, in declaration order, of the method represented by this Method 
@@ -183,30 +200,36 @@ method is free to modify the returned arrays; it will have no effect on the
 arrays returned to other callers. 
 
 
+
     Returns: an array of arrays that represent the annotations on the formal parameters, in 
              declaration order, of the method represented by this Method object 
+
 *java.lang.reflect.Method.getParameterTypes()*
 
-public |java.lang.Class| getParameterTypes()
+public |java.lang.Class|[] getParameterTypes()
 
 Returns an array of Class objects that represent the formal parameter types, in 
 declaration order, of the method represented by this Method object. Returns an 
 array of length 0 if the underlying method takes no parameters. 
 
 
+
     Returns: the parameter types for the method this object represents 
+
 *java.lang.reflect.Method.getReturnType()*
 
-public |java.lang.Class| getReturnType()
+public |java.lang.Class|<?> getReturnType()
 
 Returns a Class object that represents the formal return type of the method 
 represented by this Method object. 
 
 
+
     Returns: the return type for the method this object represents 
+
 *java.lang.reflect.Method.getTypeParameters()*
 
-public |java.lang.reflect.TypeVariable| getTypeParameters()
+public |java.lang.reflect.TypeVariable|[] getTypeParameters()
 
 Returns an array of TypeVariable objects that represent the type variables 
 declared by the generic declaration represented by this GenericDeclaration 
@@ -214,8 +237,10 @@ object, in declaration order. Returns an array of length 0 if the underlying
 generic declaration declares no type variables. 
 
 
+
     Returns: an array of TypeVariable objects that represent the type variables declared by 
              this generic declaration 
+
 *java.lang.reflect.Method.hashCode()*
 
 public int hashCode()
@@ -225,7 +250,8 @@ exclusive-or of the hashcodes for the underlying method's declaring class name
 and the method's name. 
 
 
-*java.lang.reflect.Method.invoke(Object,Object[])*
+
+*java.lang.reflect.Method.invoke(Object,Object...)*
 
 public |java.lang.Object| invoke(
   java.lang.Object obj,
@@ -261,11 +287,13 @@ primitive type, the elements of the array are not wrapped in objects; in other
 words, an array of primitive type is returned. If the underlying method return 
 type is void, the invocation returns null. 
 
+
     obj - the object the underlying method is invoked from 
     args - the arguments used for the method call 
 
     Returns: the result of dispatching the method represented by this object on obj with 
              parameters args 
+
 *java.lang.reflect.Method.isBridge()*
 
 public boolean isBridge()
@@ -273,8 +301,10 @@ public boolean isBridge()
 Returns true if this method is a bridge method; returns false otherwise. 
 
 
+
     Returns: true if and only if this method is a bridge method as defined by the Java 
              Language Specification. 
+
 *java.lang.reflect.Method.isSynthetic()*
 
 public boolean isSynthetic()
@@ -282,8 +312,10 @@ public boolean isSynthetic()
 Returns true if this method is a synthetic method; returns false otherwise. 
 
 
+
     Returns: true if and only if this method is a synthetic method as defined by the Java 
              Language Specification. 
+
 *java.lang.reflect.Method.isVarArgs()*
 
 public boolean isVarArgs()
@@ -292,8 +324,10 @@ Returns true if this method was declared to take a variable number of
 arguments; returns false otherwise. 
 
 
+
     Returns: true if an only if this method was declared to take a variable number of 
              arguments. 
+
 *java.lang.reflect.Method.toGenericString()*
 
 public |java.lang.String| toGenericString()
@@ -319,7 +353,9 @@ other modifiers in the following order: abstract, static, final, synchronized
 native. 
 
 
+
     Returns: a string describing this Method, include type parameters 
+
 *java.lang.reflect.Method.toString()*
 
 public |java.lang.String| toString()
@@ -337,8 +373,9 @@ public boolean java.lang.Object.equals(java.lang.Object)
 
 The access modifiers are placed in canonical order as specified by "The Java 
 Language Specification". This is public, protected or private first, and then 
-other modifiers in the following order: abstract, static, final, synchronized 
+other modifiers in the following order: abstract, static, final, synchronized, 
 native. 
+
 
 
 

@@ -30,6 +30,7 @@ Exception, even though it is a "normal occurrence", because many applications
 catch all occurrences of Exception and then discard the exception. 
 
 
+
 *java.lang.ThreadDeath()*
 
 public ThreadDeath()

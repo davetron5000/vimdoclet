@@ -1,6 +1,6 @@
 *java.lang.Iterable* *Iterable* Implementing this interface allows an object to 
 
-public interface interface Iterable
+public interface interface Iterable<T>
 
 
 |java.lang.Iterable_Description|
@@ -19,12 +19,15 @@ Implementing this interface allows an object to be the target of the "foreach"
 statement. 
 
 
+
 *java.lang.Iterable.iterator()*
 
-public |java.util.Iterator| iterator()
+public |java.util.Iterator|<T> iterator()
 
 Returns an iterator over a set of elements of type T. 
 
 
+
     Returns: 
+
 

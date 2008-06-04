@@ -1,0 +1,60 @@
+*java.util.concurrent.locks.AbstractOwnableSynchronizer* *AbstractOwnableSynchronizer* 
+
+public abstract class AbstractOwnableSynchronizer
+  extends    |java.lang.Object|
+  implements |java.io.Serializable|
+
+|java.util.concurrent.locks.AbstractOwnableSynchronizer_Description|
+|java.util.concurrent.locks.AbstractOwnableSynchronizer_Fields|
+|java.util.concurrent.locks.AbstractOwnableSynchronizer_Constructors|
+|java.util.concurrent.locks.AbstractOwnableSynchronizer_Methods|
+
+================================================================================
+
+*java.util.concurrent.locks.AbstractOwnableSynchronizer_Constructors*
+|java.util.concurrent.locks.AbstractOwnableSynchronizer()|Empty constructor for
+
+*java.util.concurrent.locks.AbstractOwnableSynchronizer_Methods*
+|java.util.concurrent.locks.AbstractOwnableSynchronizer.getExclusiveOwnerThread()|
+|java.util.concurrent.locks.AbstractOwnableSynchronizer.setExclusiveOwnerThread(Thread)|
+
+*java.util.concurrent.locks.AbstractOwnableSynchronizer_Description*
+
+A synchronizer that may be exclusively owned by a thread. This class provides a 
+basis for creating locks and related synchronizers that may entail a notion of 
+ownership. The AbstractOwnableSynchronizer class itself does not manage or use 
+this information. However, subclasses and tools may use appropriately 
+maintained values to help control and monitor access and provide diagnostics. 
+
+
+
+*java.util.concurrent.locks.AbstractOwnableSynchronizer()*
+
+protected AbstractOwnableSynchronizer()
+
+Empty constructor for use by subclasses. 
+
+
+*java.util.concurrent.locks.AbstractOwnableSynchronizer.getExclusiveOwnerThread()*
+
+protected final |java.lang.Thread| getExclusiveOwnerThread()
+
+Returns the thread last set by setExclusiveOwnerThread, or null if never set. 
+This method does not otherwise impose any synchronization or volatile field 
+accesses. 
+
+
+
+    Returns: the owner thread 
+
+*java.util.concurrent.locks.AbstractOwnableSynchronizer.setExclusiveOwnerThread(Thread)*
+
+protected final void setExclusiveOwnerThread(java.lang.Thread t)
+
+Sets the thread that currently owns exclusive access. A null argument indicates 
+that no thread owns access. This method does not otherwise impose any 
+synchronization or volatile field accesses. 
+
+
+
+

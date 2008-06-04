@@ -1,6 +1,6 @@
 *java.util.Set* *Set* A collection that contains no duplicate elements.
 
-public interface interface Set
+public interface interface Set<E>
 
   implements |java.util.Collection|
 
@@ -13,17 +13,17 @@ public interface interface Set
 
 *java.util.Set_Methods*
 |java.util.Set.add(E)|Adds the specified element to this set if it is not alrea
-|java.util.Set.addAll(Collection)|Adds all of the elements in the specified col
+|java.util.Set.addAll(Collection<?extendsE>)|Adds all of the elements in the sp
 |java.util.Set.clear()|Removes all of the elements from this set (optional oper
 |java.util.Set.contains(Object)|Returns true if this set contains the specified
-|java.util.Set.containsAll(Collection)|Returns true if this set contains all of
+|java.util.Set.containsAll(Collection<?>)|Returns true if this set contains all
 |java.util.Set.equals(Object)|Compares the specified object with this set for e
 |java.util.Set.hashCode()|Returns the hash code value for this set.
 |java.util.Set.isEmpty()|Returns true if this set contains no elements.
 |java.util.Set.iterator()|Returns an iterator over the elements in this set.
 |java.util.Set.remove(Object)|Removes the specified element from this set if it
-|java.util.Set.removeAll(Collection)|Removes from this set all of its elements 
-|java.util.Set.retainAll(Collection)|Retains only the elements in this set that
+|java.util.Set.removeAll(Collection<?>)|Removes from this set all of its elemen
+|java.util.Set.retainAll(Collection<?>)|Retains only the elements in this set t
 |java.util.Set.size()|Returns the number of elements in this set (its cardinali
 |java.util.Set.toArray()|Returns an array containing all of the elements in thi
 |java.util.Set.toArray(T[])|Returns an array containing all of the elements in 
@@ -65,49 +65,55 @@ set may throw an exception or it may succeed, at the option of the
 implementation. Such exceptions are marked as "optional" in the specification 
 for this interface. 
 
-This interface is a member of the <a href="/../guide/collections/index.html"> 
-Java Collections Framework. 
+This interface is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
 
 
 *java.util.Set.add(E)*
 
-public boolean add(java.lang.Object o)
+public boolean add(E e)
 
 Adds the specified element to this set if it is not already present (optional 
-operation). More formally, adds the specified element, o, to this set if this 
-set contains no element e such that (o==null ? e==null : o.equals(e)). If this 
-set already contains the specified element, the call leaves this set unchanged 
-and returns false. In combination with the restriction on constructors, this 
-ensures that sets never contain duplicate elements. 
+operation). More formally, adds the specified element e to this set if the set 
+contains no element e2 such that (e==null?e2==null:e.equals(e2)). If this set 
+already contains the element, the call leaves the set unchanged and returns 
+false. In combination with the restriction on constructors, this ensures that 
+sets never contain duplicate elements. 
 
 The stipulation above does not imply that sets must accept all elements; sets 
-may refuse to add any particular element, including null, and throwing an 
-exception, as described in the specification for Collection.add. Individual set 
-implementations should clearly document any restrictions on the elements that 
-they may contain. 
+may refuse to add any particular element, including null, and throw an 
+exception, as described in the specification for 
+Collection.add(|java.util.Collection|) . Individual set implementations should 
+clearly document any restrictions on the elements that they may contain. 
 
-    o - element to be added to this set. 
 
-    Returns: true if this set did not already contain the specified element. 
-*java.util.Set.addAll(Collection)*
+    e - element to be added to this set 
 
-public boolean addAll(java.util.Collection c)
+    Returns: true if this set did not already contain the specified element 
+
+*java.util.Set.addAll(Collection<?extendsE>)*
+
+public boolean addAll(java.util.Collection<? extends E> c)
 
 Adds all of the elements in the specified collection to this set if they're not 
 already present (optional operation). If the specified collection is also a 
 set, the addAll operation effectively modifies this set so that its value is 
-the union of the two sets. The behavior of this operation is unspecified if the 
+the union of the two sets. The behavior of this operation is undefined if the 
 specified collection is modified while the operation is in progress. 
 
-    c - collection whose elements are to be added to this set. 
 
-    Returns: true if this set changed as a result of the call. 
+    c - collection containing elements to be added to this set 
+
+    Returns: true if this set changed as a result of the call 
+
 *java.util.Set.clear()*
 
 public void clear()
 
-Removes all of the elements from this set (optional operation). This set will 
-be empty after this call returns (unless it throws an exception). 
+Removes all of the elements from this set (optional operation). The set will be 
+empty after this call returns. 
+
 
 
 *java.util.Set.contains(Object)*
@@ -115,23 +121,27 @@ be empty after this call returns (unless it throws an exception).
 public boolean contains(java.lang.Object o)
 
 Returns true if this set contains the specified element. More formally, returns 
-true if and only if this set contains an element e such that (o==null ? e==null 
-: o.equals(e)). 
+true if and only if this set contains an element e such that 
+(o==null?e==null:o.equals(e)). 
 
-    o - element whose presence in this set is to be tested. 
 
-    Returns: true if this set contains the specified element. 
-*java.util.Set.containsAll(Collection)*
+    o - element whose presence in this set is to be tested 
 
-public boolean containsAll(java.util.Collection c)
+    Returns: true if this set contains the specified element 
+
+*java.util.Set.containsAll(Collection<?>)*
+
+public boolean containsAll(java.util.Collection<?> c)
 
 Returns true if this set contains all of the elements of the specified 
 collection. If the specified collection is also a set, this method returns true 
 if it is a subset of this set. 
 
-    c - collection to be checked for containment in this set. 
 
-    Returns: true if this set contains all of the elements of the specified collection. 
+    c - collection to be checked for containment in this set 
+
+    Returns: true if this set contains all of the elements of the specified collection 
+
 *java.util.Set.equals(Object)*
 
 public boolean equals(java.lang.Object o)
@@ -143,21 +153,25 @@ member of this set is contained in the specified set). This definition ensures
 that the equals method works properly across different implementations of the 
 set interface. 
 
-    o - Object to be compared for equality with this set. 
 
-    Returns: true if the specified Object is equal to this set. 
+    o - object to be compared for equality with this set 
+
+    Returns: true if the specified object is equal to this set 
+
 *java.util.Set.hashCode()*
 
 public int hashCode()
 
 Returns the hash code value for this set. The hash code of a set is defined to 
-be the sum of the hash codes of the elements in the set, where the hashcode of 
+be the sum of the hash codes of the elements in the set, where the hash code of 
 a null element is defined to be zero. This ensures that s1.equals(s2) implies 
 that s1.hashCode()==s2.hashCode() for any two sets s1 and s2, as required by 
-the general contract of the Object.hashCode method. 
+the general contract of (|java.lang.Object|) . 
 
 
-    Returns: the hash code value for this set. 
+
+    Returns: the hash code value for this set 
+
 *java.util.Set.isEmpty()*
 
 public boolean isEmpty()
@@ -165,46 +179,54 @@ public boolean isEmpty()
 Returns true if this set contains no elements. 
 
 
-    Returns: true if this set contains no elements. 
+
+    Returns: true if this set contains no elements 
+
 *java.util.Set.iterator()*
 
-public |java.util.Iterator| iterator()
+public |java.util.Iterator|<E> iterator()
 
 Returns an iterator over the elements in this set. The elements are returned in 
 no particular order (unless this set is an instance of some class that provides 
 a guarantee). 
 
 
-    Returns: an iterator over the elements in this set. 
+
+    Returns: an iterator over the elements in this set 
+
 *java.util.Set.remove(Object)*
 
 public boolean remove(java.lang.Object o)
 
 Removes the specified element from this set if it is present (optional 
-operation). More formally, removes an element e such that (o==null ? e==null : 
-o.equals(e)), if the set contains such an element. Returns true if the set 
-contained the specified element (or equivalently, if the set changed as a 
-result of the call). (The set will not contain the specified element once the 
-call returns.) 
+operation). More formally, removes an element e such that 
+(o==null?e==null:o.equals(e)), if this set contains such an element. Returns 
+true if this set contained the element (or equivalently, if this set changed as 
+a result of the call). (This set will not contain the element once the call 
+returns.) 
 
-    o - object to be removed from this set, if present. 
 
-    Returns: true if the set contained the specified element. 
-*java.util.Set.removeAll(Collection)*
+    o - object to be removed from this set, if present 
 
-public boolean removeAll(java.util.Collection c)
+    Returns: true if this set contained the specified element 
+
+*java.util.Set.removeAll(Collection<?>)*
+
+public boolean removeAll(java.util.Collection<?> c)
 
 Removes from this set all of its elements that are contained in the specified 
 collection (optional operation). If the specified collection is also a set, 
 this operation effectively modifies this set so that its value is the 
 asymmetric set difference of the two sets. 
 
-    c - collection that defines which elements will be removed from this set. 
 
-    Returns: true if this set changed as a result of the call. 
-*java.util.Set.retainAll(Collection)*
+    c - collection containing elements to be removed from this set 
 
-public boolean retainAll(java.util.Collection c)
+    Returns: true if this set changed as a result of the call 
+
+*java.util.Set.retainAll(Collection<?>)*
+
+public boolean retainAll(java.util.Collection<?> c)
 
 Retains only the elements in this set that are contained in the specified 
 collection (optional operation). In other words, removes from this set all of 
@@ -212,9 +234,11 @@ its elements that are not contained in the specified collection. If the
 specified collection is also a set, this operation effectively modifies this 
 set so that its value is the intersection of the two sets. 
 
-    c - collection that defines which elements this set will retain. 
 
-    Returns: true if this collection changed as a result of the call. 
+    c - collection containing elements to be retained in this set 
+
+    Returns: true if this set changed as a result of the call 
+
 *java.util.Set.size()*
 
 public int size()
@@ -223,27 +247,65 @@ Returns the number of elements in this set (its cardinality). If this set
 contains more than Integer.MAX_VALUE elements, returns Integer.MAX_VALUE. 
 
 
-    Returns: the number of elements in this set (its cardinality). 
+
+    Returns: the number of elements in this set (its cardinality) 
+
 *java.util.Set.toArray()*
 
-public |java.lang.Object| toArray()
+public |java.lang.Object|[] toArray()
 
-Returns an array containing all of the elements in this set. Obeys the general 
-contract of the Collection.toArray method. 
+Returns an array containing all of the elements in this set. If this set makes 
+any guarantees as to what order its elements are returned by its iterator, this 
+method must return the elements in the same order. 
+
+The returned array will be "safe" in that no references to it are maintained by 
+this set. (In other words, this method must allocate a new array even if this 
+set is backed by an array). The caller is thus free to modify the returned 
+array. 
+
+This method acts as bridge between array-based and collection-based APIs. 
 
 
-    Returns: an array containing all of the elements in this set. 
+
+    Returns: an array containing all the elements in this set 
+
 *java.util.Set.toArray(T[])*
 
-public |java.lang.Object| toArray(java.lang.Object[] a)
+public |T|[] toArray(T[] a)
 
 Returns an array containing all of the elements in this set; the runtime type 
-of the returned array is that of the specified array. Obeys the general 
-contract of the Collection.toArray(Object[]) method. 
+of the returned array is that of the specified array. If the set fits in the 
+specified array, it is returned therein. Otherwise, a new array is allocated 
+with the runtime type of the specified array and the size of this set. 
+
+If this set fits in the specified array with room to spare (i.e., the array has 
+more elements than this set), the element in the array immediately following 
+the end of the set is set to null. (This is useful in determining the length of 
+this set only if the caller knows that this set does not contain any null 
+elements.) 
+
+If this set makes any guarantees as to what order its elements are returned by 
+its iterator, this method must return the elements in the same order. 
+
+Like the (|java.util.Set|) method, this method acts as bridge between 
+array-based and collection-based APIs. Further, this method allows precise 
+control over the runtime type of the output array, and may, under certain 
+circumstances, be used to save allocation costs. 
+
+Suppose x is a set known to contain only strings. The following code can be 
+used to dump the set into a newly allocated array of String: 
+
+
+
+String[] y = x.toArray(new String[0]); 
+
+Note that toArray(new Object[0]) is identical in function to toArray(). 
+
 
     a - the array into which the elements of this set are to be stored, if it is big 
        enough; otherwise, a new array of the same runtime type is allocated for 
        this purpose. 
 
-    Returns: an array containing the elements of this set. 
+    Returns: an array containing all the elements in this set 
+
 

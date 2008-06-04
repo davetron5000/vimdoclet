@@ -44,6 +44,7 @@ The output IO stream is buffered, but is flushed after each LogRecord is
 written. 
 
 
+
 *java.util.logging.SocketHandler()*
 
 public SocketHandler()
@@ -76,11 +77,13 @@ public synchronized void close()
 Close this output stream. 
 
 
+
 *java.util.logging.SocketHandler.publish(LogRecord)*
 
 public synchronized void publish(java.util.logging.LogRecord record)
 
 Format and publish a LogRecord. 
+
 
     record - description of the log event. A null record is silently ignored and is not 
        published 

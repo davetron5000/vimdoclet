@@ -1,7 +1,7 @@
 *java.lang.Class* *Class* Instances of the class Class represent classes and
  in
 
-public final class Class
+public final class Class<T>
   extends    |java.lang.Object|
   implements |java.io.Serializable|
              |java.lang.reflect.GenericDeclaration|
@@ -16,26 +16,26 @@ public final class Class
 ================================================================================
 
 *java.lang.Class_Methods*
-|java.lang.Class.asSubclass(Class)|Casts this Class object to represent a subcl
+|java.lang.Class.asSubclass(Class<U>)|Casts this Class object to represent a su
 |java.lang.Class.cast(Object)|Casts an object to the class or interface represe
 |java.lang.Class.desiredAssertionStatus()|Returns the assertion status that wou
 |java.lang.Class.forName(String)|Returns the Class object associated with the c
 |java.lang.Class.forName(String,boolean,ClassLoader)|Returns the Class object a
-|java.lang.Class.getAnnotation(Class)|
+|java.lang.Class.getAnnotation(Class<A>)|
 |java.lang.Class.getAnnotations()|
-|java.lang.Class.getCanonicalName()|Returns the canonical name of the the under
+|java.lang.Class.getCanonicalName()|Returns the canonical name of the underlyin
 |java.lang.Class.getClasses()|Returns an array containing Class objects represe
 |java.lang.Class.getClassLoader()|Returns the class loader for the class.
 |java.lang.Class.getComponentType()|Returns the Class representing the componen
-|java.lang.Class.getConstructor(Class[])|Returns a Constructor object that refl
+|java.lang.Class.getConstructor(Class<?>...)|Returns a Constructor object that 
 |java.lang.Class.getConstructors()|Returns an array containing Constructor obje
 |java.lang.Class.getDeclaredAnnotations()|
 |java.lang.Class.getDeclaredClasses()|Returns an array of Class objects reflect
-|java.lang.Class.getDeclaredConstructor(Class[])|Returns a Constructor object t
+|java.lang.Class.getDeclaredConstructor(Class<?>...)|Returns a Constructor obje
 |java.lang.Class.getDeclaredConstructors()|Returns an array of Constructor obje
 |java.lang.Class.getDeclaredField(String)|Returns a Field object that reflects 
 |java.lang.Class.getDeclaredFields()|Returns an array of Field objects reflecti
-|java.lang.Class.getDeclaredMethod(String,Class[])|Returns a Method object that
+|java.lang.Class.getDeclaredMethod(String,Class<?>...)|Returns a Method object 
 |java.lang.Class.getDeclaredMethods()|Returns an array of Method objects reflec
 |java.lang.Class.getDeclaringClass()|If the class or interface represented by t
 |java.lang.Class.getEnclosingClass()|Returns the immediately enclosing class of
@@ -47,7 +47,7 @@ public final class Class
 |java.lang.Class.getGenericInterfaces()|Returns the Types representing the inte
 |java.lang.Class.getGenericSuperclass()|Returns the Type representing the direc
 |java.lang.Class.getInterfaces()|Determines the interfaces implemented by the c
-|java.lang.Class.getMethod(String,Class[])|Returns a Method object that reflect
+|java.lang.Class.getMethod(String,Class<?>...)|Returns a Method object that ref
 |java.lang.Class.getMethods()|Returns an array containing Method objects reflec
 |java.lang.Class.getModifiers()|Returns the Java language modifiers for this cl
 |java.lang.Class.getName()|Returns the  name of the entity (class, interface, a
@@ -60,10 +60,10 @@ public final class Class
 |java.lang.Class.getSuperclass()|Returns the Class representing the superclass 
 |java.lang.Class.getTypeParameters()|Returns an array of TypeVariable objects t
 |java.lang.Class.isAnnotation()|Returns true if this Class object represents an
-|java.lang.Class.isAnnotationPresent(Class)|
+|java.lang.Class.isAnnotationPresent(Class<?extendsAnnotation>)|
 |java.lang.Class.isAnonymousClass()|Returns true if and only if the underlying 
 |java.lang.Class.isArray()|Determines if this Class object represents an array 
-|java.lang.Class.isAssignableFrom(Class)|Determines if the class or interface r
+|java.lang.Class.isAssignableFrom(Class<?>)|Determines if the class or interfac
 |java.lang.Class.isEnum()|Returns true if and only if this class was declared a
 |java.lang.Class.isInstance(Object)|Determines if the specified Object is assig
 |java.lang.Class.isInterface()|Determines if the specified Class object represe
@@ -102,9 +102,10 @@ using a class literal (JLS Section 15.8.2). For example:
 System.out.println("The name of class Foo is: "+Foo.class.getName()); 
 
 
-*java.lang.Class.asSubclass(Class)*
 
-public |java.lang.Class| asSubclass(java.lang.Class clazz)
+*java.lang.Class.asSubclass(Class<U>)*
+
+public |java.lang.Class|<? extends U> asSubclass(java.lang.Class<U> clazz)
 
 Casts this Class object to represent a subclass of the class represented by the 
 specified class object. Checks that that the cast is valid, and throws a 
@@ -118,16 +119,20 @@ the cast could not be checked at runtime (because generic types are implemented
 by erasure). 
 
 
+
     Returns: this Class object, cast to represent a subclass of the specified class object. 
+
 *java.lang.Class.cast(Object)*
 
-public |java.lang.Object| cast(java.lang.Object obj)
+public |T| cast(java.lang.Object obj)
 
 Casts an object to the class or interface represented by this Class object. 
+
 
     obj - the object to be cast 
 
     Returns: the object after casting, or null if obj is null 
+
 *java.lang.Class.desiredAssertionStatus()*
 
 public boolean desiredAssertionStatus()
@@ -148,10 +153,12 @@ not guaranteed to return the actual assertion status that was (or will be)
 associated with the specified class when it was (or will be) initialized. 
 
 
+
     Returns: the desired assertion status of the specified class. 
+
 *java.lang.Class.forName(String)*
 
-public static |java.lang.Class| forName(java.lang.String className)
+public static |java.lang.Class|<?> forName(java.lang.String className)
   throws |java.lang.ClassNotFoundException|
          
 Returns the Class object associated with the class or interface with the given 
@@ -172,12 +179,14 @@ Classt= Class.forName("java.lang.Thread")
 
 A call to forName("X") causes the class named X to be initialized. 
 
+
     className - the fully qualified name of the desired class. 
 
     Returns: the Class object for the class with the specified name. 
+
 *java.lang.Class.forName(String,boolean,ClassLoader)*
 
-public static |java.lang.Class| forName(
+public static |java.lang.Class|<?> forName(
   java.lang.String name,
   boolean initialize,
   java.lang.ClassLoader loader)
@@ -222,21 +231,25 @@ class loader is not null, then this method calls the security manager's
 checkPermission method with a RuntimePermission("getClassLoader") permission to 
 ensure it's ok to access the bootstrap class loader. 
 
+
     name - fully qualified name of the desired class 
     initialize - whether the class must be initialized 
     loader - class loader from which the class must be loaded 
 
     Returns: class object representing the desired class 
-*java.lang.Class.getAnnotation(Class)*
 
-public |java.lang.annotation.Annotation| getAnnotation(java.lang.Class annotationClass)
+*java.lang.Class.getAnnotation(Class<A>)*
+
+public |A| getAnnotation(java.lang.Class<A> annotationClass)
+
 
 
 
 
 *java.lang.Class.getAnnotations()*
 
-public |java.lang.annotation.Annotation| getAnnotations()
+public |java.lang.annotation.Annotation|[] getAnnotations()
+
 
 
 
@@ -245,16 +258,18 @@ public |java.lang.annotation.Annotation| getAnnotations()
 
 public |java.lang.String| getCanonicalName()
 
-Returns the canonical name of the the underlying class as defined by the Java 
+Returns the canonical name of the underlying class as defined by the Java 
 Language Specification. Returns null if the underlying class does not have a 
 canonical name (i.e., if it is a local or anonymous class or an array whose 
 component type does not have a canonical name). 
 
 
+
     Returns: the canonical name of the underlying class if it exists, and null otherwise. 
+
 *java.lang.Class.getClasses()*
 
-public |java.lang.Class| getClasses()
+public |java.lang.Class|[] getClasses()
 
 Returns an array containing Class objects representing all the public classes 
 and interfaces that are members of the class represented by this Class object. 
@@ -265,7 +280,9 @@ or interfaces. This method also returns an array of length 0 if this Class
 object represents a primitive type, an array class, or void. 
 
 
+
     Returns: the array of Class objects representing the public members of this class 
+
 *java.lang.Class.getClassLoader()*
 
 public |java.lang.ClassLoader| getClassLoader()
@@ -284,20 +301,24 @@ class loader for the class.
 If this object represents a primitive type or void, null is returned. 
 
 
+
     Returns: the class loader that loaded the class or interface represented by this object. 
+
 *java.lang.Class.getComponentType()*
 
-public native |java.lang.Class| getComponentType()
+public native |java.lang.Class|<?> getComponentType()
 
 Returns the Class representing the component type of an array. If this class 
 does not represent an array class this method returns null. 
 
 
+
     Returns: the Class representing the component type of this class if this class is an 
              array 
-*java.lang.Class.getConstructor(Class[])*
 
-public |java.lang.reflect.Constructor| getConstructor(java.lang.Class[] parameterTypes)
+*java.lang.Class.getConstructor(Class<?>...)*
+
+public |java.lang.reflect.Constructor|<T> getConstructor(java.lang.Class[] parameterTypes)
   throws |java.lang.NoSuchMethodException|
          |java.lang.SecurityException|
          
@@ -306,17 +327,23 @@ the class represented by this Class object. The parameterTypes parameter is an
 array of Class objects that identify the constructor's formal parameter types, 
 in declared order. 
 
+If this Class object represents an inner class declared in a non-static 
+context, the formal parameter types include the explicit enclosing instance as 
+the first parameter. 
+
 The constructor to reflect is the public constructor of the class represented 
 by this Class object whose formal parameter types match those specified by 
 parameterTypes. 
 
+
     parameterTypes - the parameter array 
 
-    Returns: the Method object of the public constructor that matches the specified 
+    Returns: the Constructor object of the public constructor that matches the specified 
              parameterTypes 
+
 *java.lang.Class.getConstructors()*
 
-public |java.lang.reflect.Constructor| getConstructors()
+public |java.lang.reflect.Constructor|[] getConstructors()
   throws |java.lang.SecurityException|
          
 Returns an array containing Constructor objects reflecting all the public 
@@ -324,19 +351,29 @@ constructors of the class represented by this Class object. An array of length
 0 is returned if the class has no public constructors, or if the class is an 
 array class, or if the class reflects a primitive type or void. 
 
+Note that while this method returns an array ofConstructorobjects (that is an 
+array of constructors from this class), the return type of this method 
+isConstructor[]and notConstructor[]as might be expected. This less informative 
+return type is necessary since after being returned from this method, the array 
+could be modified to holdConstructorobjects for different classes, which would 
+violate the type guarantees ofConstructor[]. 
 
-    Returns: the array containing Method objects for all the declared public constructors of 
-             this class matches the specified parameterTypes 
+
+
+    Returns: the array of Constructor objects representing the public constructors of this 
+             class 
+
 *java.lang.Class.getDeclaredAnnotations()*
 
-public |java.lang.annotation.Annotation| getDeclaredAnnotations()
+public |java.lang.annotation.Annotation|[] getDeclaredAnnotations()
+
 
 
 
 
 *java.lang.Class.getDeclaredClasses()*
 
-public |java.lang.Class| getDeclaredClasses()
+public |java.lang.Class|[] getDeclaredClasses()
   throws |java.lang.SecurityException|
          
 Returns an array of Class objects reflecting all the classes and interfaces 
@@ -348,10 +385,12 @@ classes or interfaces as members, or if this Class object represents a
 primitive type, an array class, or void. 
 
 
-    Returns: the array of Class objects representing all the declared members of this class 
-*java.lang.Class.getDeclaredConstructor(Class[])*
 
-public |java.lang.reflect.Constructor| getDeclaredConstructor(java.lang.Class[] parameterTypes)
+    Returns: the array of Class objects representing all the declared members of this class 
+
+*java.lang.Class.getDeclaredConstructor(Class<?>...)*
+
+public |java.lang.reflect.Constructor|<T> getDeclaredConstructor(java.lang.Class[] parameterTypes)
   throws |java.lang.NoSuchMethodException|
          |java.lang.SecurityException|
          
@@ -360,12 +399,18 @@ class or interface represented by this Class object. The parameterTypes
 parameter is an array of Class objects that identify the constructor's formal 
 parameter types, in declared order. 
 
+If this Class object represents an inner class declared in a non-static 
+context, the formal parameter types include the explicit enclosing instance as 
+the first parameter. 
+
+
     parameterTypes - the parameter array 
 
-    Returns: The Method object for the constructor with the specified parameter list 
+    Returns: The Constructor object for the constructor with the specified parameter list 
+
 *java.lang.Class.getDeclaredConstructors()*
 
-public |java.lang.reflect.Constructor| getDeclaredConstructors()
+public |java.lang.reflect.Constructor|[] getDeclaredConstructors()
   throws |java.lang.SecurityException|
          
 Returns an array of Constructor objects reflecting all the constructors 
@@ -379,8 +424,10 @@ interface, a primitive type, an array class, or void.
 See The Java Language Specification, section 8.2. 
 
 
-    Returns: the array of Method objects representing all the declared constructors of this 
-             class 
+
+    Returns: the array of Constructor objects representing all the declared constructors of 
+             this class 
+
 *java.lang.Class.getDeclaredField(String)*
 
 public |java.lang.reflect.Field| getDeclaredField(java.lang.String name)
@@ -392,12 +439,14 @@ or interface represented by this Class object. The name parameter is a String
 that specifies the simple name of the desired field. Note that this method will 
 not reflect the length field of an array class. 
 
+
     name - the name of the field 
 
     Returns: the Field object for the specified field in this class 
+
 *java.lang.Class.getDeclaredFields()*
 
-public |java.lang.reflect.Field| getDeclaredFields()
+public |java.lang.reflect.Field|[] getDeclaredFields()
   throws |java.lang.SecurityException|
          
 Returns an array of Field objects reflecting all the fields declared by the 
@@ -411,8 +460,10 @@ type, an array class, or void.
 See The Java Language Specification, sections 8.2 and 8.3. 
 
 
+
     Returns: the array of Field objects representing all the declared fields of this class 
-*java.lang.Class.getDeclaredMethod(String,Class[])*
+
+*java.lang.Class.getDeclaredMethod(String,Class<?>...)*
 
 public |java.lang.reflect.Method| getDeclaredMethod(
   java.lang.String name,
@@ -430,14 +481,16 @@ has a return type that is more specific than any of the others, that method is
 returned; otherwise one of the methods is chosen arbitrarily. If the name is 
 "<init>"or "<clinit>" a NoSuchMethodException is raised. 
 
+
     name - the name of the method 
     parameterTypes - the parameter array 
 
     Returns: the Method object for the method of this class matching the specified name and 
              parameters 
+
 *java.lang.Class.getDeclaredMethods()*
 
-public |java.lang.reflect.Method| getDeclaredMethods()
+public |java.lang.reflect.Method|[] getDeclaredMethods()
   throws |java.lang.SecurityException|
          
 Returns an array of Method objects reflecting all the methods declared by the 
@@ -454,10 +507,12 @@ the returned array.
 See The Java Language Specification, section 8.2. 
 
 
+
     Returns: the array of Method objects representing all the declared methods of this class 
+
 *java.lang.Class.getDeclaringClass()*
 
-public native |java.lang.Class| getDeclaringClass()
+public native |java.lang.Class|<?> getDeclaringClass()
 
 If the class or interface represented by this Class object is a member of 
 another class, returns the Class object representing the class in which it was 
@@ -466,19 +521,23 @@ of any other class. If this Class object represents an array class, a primitive
 type, or void,then this method returns null. 
 
 
+
     Returns: the declaring class for this class 
+
 *java.lang.Class.getEnclosingClass()*
 
-public |java.lang.Class| getEnclosingClass()
+public |java.lang.Class|<?> getEnclosingClass()
 
 Returns the immediately enclosing class of the underlying class. If the 
 underlying class is a top level class this method returns null. 
 
 
+
     Returns: the immediately enclosing class of the underlying class 
+
 *java.lang.Class.getEnclosingConstructor()*
 
-public |java.lang.reflect.Constructor| getEnclosingConstructor()
+public |java.lang.reflect.Constructor|<?> getEnclosingConstructor()
 
 If this Class object represents a local or anonymous class within a 
 constructor, returns a Constructor(|java.lang.reflect.Constructor|) object 
@@ -488,8 +547,10 @@ underlying class is a local or anonymous class immediately enclosed by a type
 declaration, instance initializer or static initializer. 
 
 
+
     Returns: the immediately enclosing constructor of the underlying class, if that class is 
              a local or anonymous class; otherwise null. 
+
 *java.lang.Class.getEnclosingMethod()*
 
 public |java.lang.reflect.Method| getEnclosingMethod()
@@ -503,19 +564,23 @@ anonymous class immediately enclosed by a type declaration, instance
 initializer or static initializer. 
 
 
+
     Returns: the immediately enclosing method of the underlying class, if that class is a 
              local or anonymous class; otherwise null. 
+
 *java.lang.Class.getEnumConstants()*
 
-public |java.lang.Object| getEnumConstants()
+public |T|[] getEnumConstants()
 
 Returns the elements of this enum class or null if this Class object does not 
 represent an enum type. 
 
 
+
     Returns: an array containing the values comprising the enum class represented by this 
              Class object in the order they're declared, or null if this Class 
              object does not represent an enum type 
+
 *java.lang.Class.getField(String)*
 
 public |java.lang.reflect.Field| getField(java.lang.String name)
@@ -538,12 +603,14 @@ upon S. If C has no superclass, then a NoSuchFieldException is thrown.
 
 See The Java Language Specification, sections 8.2 and 8.3. 
 
+
     name - the field name 
 
     Returns: the Field object of this class specified by name 
+
 *java.lang.Class.getFields()*
 
-public |java.lang.reflect.Field| getFields()
+public |java.lang.reflect.Field|[] getFields()
   throws |java.lang.SecurityException|
          
 Returns an array containing Field objects reflecting all the accessible public 
@@ -563,10 +630,12 @@ code should use the methods of class Array to manipulate arrays.
 See The Java Language Specification, sections 8.2 and 8.3. 
 
 
+
     Returns: the array of Field objects representing the public fields 
+
 *java.lang.Class.getGenericInterfaces()*
 
-public |java.lang.reflect.Type| getGenericInterfaces()
+public |java.lang.reflect.Type|[] getGenericInterfaces()
 
 Returns the Types representing the interfaces directly implemented by the class 
 or interface represented by this object. 
@@ -597,7 +666,9 @@ If this object represents a primitive type or void, the method returns an array
 of length 0. 
 
 
+
     Returns: an array of interfaces implemented by this class 
+
 *java.lang.Class.getGenericSuperclass()*
 
 public |java.lang.reflect.Type| getGenericSuperclass()
@@ -616,10 +687,12 @@ returned. If this object represents an array class then the Class object
 representing the Object class is returned. 
 
 
+
     Returns: the superclass of the class represented by this object 
+
 *java.lang.Class.getInterfaces()*
 
-public native |java.lang.Class| getInterfaces()
+public native |java.lang.Class|[] getInterfaces()
 
 Determines the interfaces implemented by the class or interface represented by 
 this object. 
@@ -654,8 +727,10 @@ If this object represents a primitive type or void, the method returns an array
 of length 0. 
 
 
+
     Returns: an array of interfaces implemented by this class. 
-*java.lang.Class.getMethod(String,Class[])*
+
+*java.lang.Class.getMethod(String,Class<?>...)*
 
 public |java.lang.reflect.Method| getMethod(
   java.lang.String name,
@@ -665,14 +740,14 @@ public |java.lang.reflect.Method| getMethod(
          
 Returns a Method object that reflects the specified public member method of the 
 class or interface represented by this Class object. The name parameter is a 
-String specifying the simple name the desired method. The parameterTypes 
+String specifying the simple name of the desired method. The parameterTypes 
 parameter is an array of Class objects that identify the method's formal 
 parameter types, in declared order. If parameterTypes is null, it is treated as 
 if it were an empty array. 
 
-If the name is "<init>"or "<clinit>" a NoSuchMethodException is raised. 
-Otherwise, the method to be reflected is determined by the algorithm that 
-follows. Let C be the class represented by this object: 
+If the name is ";"or "" a NoSuchMethodException is raised. Otherwise, the 
+method to be reflected is determined by the algorithm that follows. Let C be 
+the class represented by this object: 
 
 C is searched for any matching methods. If no matching method is found, the 
 algorithm of step 1 is invoked recursively on the superclass of C. If no method 
@@ -685,15 +760,25 @@ the method reflected. If more than one such method is found in C, and one of
 these methods has a return type that is more specific than any of the others, 
 that method is reflected; otherwise one of the methods is chosen arbitrarily. 
 
+Note that there may be more than one matching method in a class because while 
+the Java language forbids a class to declare multiple methods with the same 
+signature but different return types, the Java virtual machine does not. This 
+increased flexibility in the virtual machine can be used to implement various 
+language features. For example, covariant returns can be implemented with 
+bridge methods(|java.lang.reflect.Method|) ; the bridge method and the method 
+being overridden would have the same signature but different return types. 
+
 See The Java Language Specification, sections 8.2 and 8.4. 
+
 
     name - the name of the method 
     parameterTypes - the list of parameters 
 
     Returns: the Method object that matches the specified name and parameterTypes 
+
 *java.lang.Class.getMethods()*
 
-public |java.lang.reflect.Method| getMethods()
+public |java.lang.reflect.Method|[] getMethods()
   throws |java.lang.SecurityException|
          
 Returns an array containing Method objects reflecting all the public member 
@@ -713,7 +798,9 @@ types, they are all included in the returned array.
 See The Java Language Specification, sections 8.2 and 8.4. 
 
 
+
     Returns: the array of Method objects representing the public methods of this class 
+
 *java.lang.Class.getModifiers()*
 
 public native int getModifiers()
@@ -735,7 +822,9 @@ The modifier encodings are defined in The Java Virtual Machine Specification,
 table 4.1. 
 
 
+
     Returns: the int representing the modifiers for this class 
+
 *java.lang.Class.getName()*
 
 public |java.lang.String| getName()
@@ -769,7 +858,9 @@ String.class.getName() returns "java.lang.String" byte.class.getName() returns
 int[3][4][5][6][7][8][9]).getClass().getName() returns "[[[[[[[I" 
 
 
+
     Returns: the name of the class or interface represented by this object. 
+
 *java.lang.Class.getPackage()*
 
 public |java.lang.Package| getPackage()
@@ -786,8 +877,10 @@ class loader created the package instance with the attributes from the
 manifest. 
 
 
+
     Returns: the package of the class, or null if no package information is available from 
              the archive or codebase. 
+
 *java.lang.Class.getProtectionDomain()*
 
 public |java.security.ProtectionDomain| getProtectionDomain()
@@ -798,7 +891,9 @@ method with a RuntimePermission("getProtectionDomain") permission to ensure
 it's ok to get the ProtectionDomain. 
 
 
+
     Returns: the ProtectionDomain of this class 
+
 *java.lang.Class.getResource(String)*
 
 public |java.net.URL| getResource(java.lang.String name)
@@ -828,9 +923,11 @@ substituted for '.' ('u002e').
 
 
 
+
     name - name of the desired resource 
 
     Returns: A {@link java.net.URL} object or null if no resource with this name is found 
+
 *java.lang.Class.getResourceAsStream(String)*
 
 public |java.io.InputStream| getResourceAsStream(java.lang.String name)
@@ -860,20 +957,24 @@ substituted for '.' ('u002e').
 
 
 
+
     name - name of the desired resource 
 
     Returns: A {@link java.io.InputStream} object or null if no resource with this name is 
              found 
+
 *java.lang.Class.getSigners()*
 
-public native |java.lang.Object| getSigners()
+public native |java.lang.Object|[] getSigners()
 
 Gets the signers of this class. 
+
 
 
     Returns: the signers of this class, or null if there are no signers. In particular, this 
              method returns null if this object represents a primitive type or 
              void. 
+
 *java.lang.Class.getSimpleName()*
 
 public |java.lang.String| getSimpleName()
@@ -886,10 +987,12 @@ appended. In particular the simple name of an array whose component type is
 anonymous is "[]". 
 
 
+
     Returns: the simple name of the underlying class 
+
 *java.lang.Class.getSuperclass()*
 
-public native |java.lang.Class| getSuperclass()
+public native |java.lang.Class|<? super T> getSuperclass()
 
 Returns the Class representing the superclass of the entity (class, interface, 
 primitive type or void) represented by this Class. If this Class represents 
@@ -898,10 +1001,12 @@ returned. If this object represents an array class then the Class object
 representing the Object class is returned. 
 
 
+
     Returns: the superclass of the class represented by this object. 
+
 *java.lang.Class.getTypeParameters()*
 
-public |java.lang.reflect.TypeVariable| getTypeParameters()
+public |java.lang.reflect.TypeVariable|[] getTypeParameters()
 
 Returns an array of TypeVariable objects that represent the type variables 
 declared by the generic declaration represented by this GenericDeclaration 
@@ -909,8 +1014,10 @@ object, in declaration order. Returns an array of length 0 if the underlying
 generic declaration declares no type variables. 
 
 
+
     Returns: an array of TypeVariable objects that represent the type variables declared by 
              this generic declaration 
+
 *java.lang.Class.isAnnotation()*
 
 public boolean isAnnotation()
@@ -920,10 +1027,13 @@ this method returns true, (|java.lang.Class|) would also return true, as all
 annotation types are also interfaces. 
 
 
-    Returns: true if this class object represents an annotation type; false otherwise 
-*java.lang.Class.isAnnotationPresent(Class)*
 
-public boolean isAnnotationPresent(java.lang.Class annotationClass)
+    Returns: true if this class object represents an annotation type; false otherwise 
+
+*java.lang.Class.isAnnotationPresent(Class<?extendsAnnotation>)*
+
+public boolean isAnnotationPresent(java.lang.Class<? extends java.lang.annotation.Annotation> annotationClass)
+
 
 
 
@@ -935,7 +1045,9 @@ public boolean isAnonymousClass()
 Returns true if and only if the underlying class is an anonymous class. 
 
 
+
     Returns: true if and only if this class is an anonymous class. 
+
 *java.lang.Class.isArray()*
 
 public native boolean isArray()
@@ -943,10 +1055,12 @@ public native boolean isArray()
 Determines if this Class object represents an array class. 
 
 
-    Returns: true if this object represents an array class; false otherwise. 
-*java.lang.Class.isAssignableFrom(Class)*
 
-public native boolean isAssignableFrom(java.lang.Class cls)
+    Returns: true if this object represents an array class; false otherwise. 
+
+*java.lang.Class.isAssignableFrom(Class<?>)*
+
+public native boolean isAssignableFrom(java.lang.Class<?> cls)
 
 Determines if the class or interface represented by this Class object is either 
 the same as, or is a superclass or superinterface of, the class or interface 
@@ -960,10 +1074,12 @@ Class parameter can be converted to the type represented by this Class object
 via an identity conversion or via a widening reference conversion. See The Java 
 Language Specification, sections 5.1.1 and 5.1.4 , for details. 
 
+
     cls - the Class object to be checked 
 
     Returns: the boolean value indicating whether objects of the type cls can be assigned to 
              objects of this class 
+
 *java.lang.Class.isEnum()*
 
 public boolean isEnum()
@@ -972,7 +1088,9 @@ Returns true if and only if this class was declared as an enum in the source
 code. 
 
 
+
     Returns: true if and only if this class was declared as an enum in the source code 
+
 *java.lang.Class.isInstance(Object)*
 
 public native boolean isInstance(java.lang.Object obj)
@@ -994,9 +1112,11 @@ class or any superclass of the specified Object argument implements this
 interface; it returns false otherwise. If this Class object represents a 
 primitive type, this method returns false. 
 
+
     obj - the object to check 
 
     Returns: true if obj is an instance of this class 
+
 *java.lang.Class.isInterface()*
 
 public native boolean isInterface()
@@ -1004,7 +1124,9 @@ public native boolean isInterface()
 Determines if the specified Class object represents an interface type. 
 
 
+
     Returns: true if this object represents an interface; false otherwise. 
+
 *java.lang.Class.isLocalClass()*
 
 public boolean isLocalClass()
@@ -1012,7 +1134,9 @@ public boolean isLocalClass()
 Returns true if and only if the underlying class is a local class. 
 
 
+
     Returns: true if and only if this class is a local class. 
+
 *java.lang.Class.isMemberClass()*
 
 public boolean isMemberClass()
@@ -1020,7 +1144,9 @@ public boolean isMemberClass()
 Returns true if and only if the underlying class is a member class. 
 
 
+
     Returns: true if and only if this class is a member class. 
+
 *java.lang.Class.isPrimitive()*
 
 public native boolean isPrimitive()
@@ -1036,7 +1162,9 @@ These objects may only be accessed via the following public static final
 variables, and are the only Class objects for which this method returns true. 
 
 
+
     Returns: true if and only if this class represents a primitive type 
+
 *java.lang.Class.isSynthetic()*
 
 public boolean isSynthetic()
@@ -1044,11 +1172,13 @@ public boolean isSynthetic()
 Returns true if this class is a synthetic class; returns false otherwise. 
 
 
+
     Returns: true if and only if this class is a synthetic class as defined by the Java 
              Language Specification. 
+
 *java.lang.Class.newInstance()*
 
-public |java.lang.Object| newInstance()
+public |T| newInstance()
   throws |java.lang.IllegalAccessException|
          |java.lang.InstantiationException|
          
@@ -1064,7 +1194,9 @@ method avoids this problem by wrapping any exception thrown by the constructor
 in a (checked) (|java.lang.reflect.InvocationTargetException|) . 
 
 
+
     Returns: a newly allocated instance of the class represented by this object. 
+
 *java.lang.Class.toString()*
 
 public |java.lang.String| toString()
@@ -1076,5 +1208,7 @@ represents a primitive type, this method returns the name of the primitive
 type. If this Class object represents void this method returns "void". 
 
 
+
     Returns: a string representation of this class object. 
+
 

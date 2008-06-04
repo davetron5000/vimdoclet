@@ -1,0 +1,37 @@
+*java.util.concurrent.RunnableScheduledFuture* *RunnableScheduledFuture* ASchedu
+
+public interface interface RunnableScheduledFuture<V>
+
+  implements |java.util.concurrent.RunnableFuture|
+             |java.util.concurrent.ScheduledFuture|
+
+|java.util.concurrent.RunnableScheduledFuture_Description|
+|java.util.concurrent.RunnableScheduledFuture_Fields|
+|java.util.concurrent.RunnableScheduledFuture_Constructors|
+|java.util.concurrent.RunnableScheduledFuture_Methods|
+
+================================================================================
+
+*java.util.concurrent.RunnableScheduledFuture_Methods*
+|java.util.concurrent.RunnableScheduledFuture.isPeriodic()|Returns true if this
+
+*java.util.concurrent.RunnableScheduledFuture_Description*
+
+A (|java.util.concurrent.ScheduledFuture|) that is (|java.lang.Runnable|) . 
+Successful execution of the run method causes completion of the Future and 
+allows access to its results. 
+
+
+
+*java.util.concurrent.RunnableScheduledFuture.isPeriodic()*
+
+public boolean isPeriodic()
+
+Returns true if this is a periodic task. A periodic task may re-run according 
+to some schedule. A non-periodic task can be run only once. 
+
+
+
+    Returns: true if this task is periodic 
+
+

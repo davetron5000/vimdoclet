@@ -51,7 +51,7 @@ second executor, illustrating a composite executor.
 
 
 class SerialExecutor implements Executor { final Queue<Runnable> tasks = new 
-LinkedBlockingQueue<Runnable>(); final Executor executor; Runnable active; 
+ArrayDeque<Runnable>(); final Executor executor; Runnable active; 
 
 SerialExecutor(Executor executor) { this.executor = executor; } 
 
@@ -68,6 +68,11 @@ The (|java.util.concurrent.ThreadPoolExecutor|) class provides an extensible
 thread pool implementation. The (|java.util.concurrent.Executors|) class 
 provides convenient factory methods for these Executors. 
 
+Memory consistency effects: Actions in a thread prior to submitting 
+aRunnableobject to anExecutorhappen-before its execution begins, perhaps in 
+another thread. 
+
+
 
 *java.util.concurrent.Executor.execute(Runnable)*
 
@@ -76,6 +81,7 @@ public void execute(java.lang.Runnable command)
 Executes the given command at some time in the future. The command may execute 
 in a new thread, in a pooled thread, or in the calling thread, at the 
 discretion of the Executor implementation. 
+
 
     command - the runnable task 
 

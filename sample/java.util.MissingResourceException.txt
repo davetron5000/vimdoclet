@@ -22,6 +22,7 @@ public class MissingResourceException
 Signals that a resource is missing. 
 
 
+
 *java.util.MissingResourceException(String,String,String)*
 
 public MissingResourceException(
@@ -43,7 +44,9 @@ public |java.lang.String| getClassName()
 Gets parameter passed by constructor. 
 
 
+
     Returns: the name of the resource class 
+
 *java.util.MissingResourceException.getKey()*
 
 public |java.lang.String| getKey()
@@ -51,5 +54,7 @@ public |java.lang.String| getKey()
 Gets parameter passed by constructor. 
 
 
+
     Returns: the key for the missing resource 
+
 

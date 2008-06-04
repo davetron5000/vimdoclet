@@ -24,6 +24,7 @@ calling thread of the execute method, unless the executor has been shut down,
 in which case the task is discarded. 
 
 
+
 *java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy()*
 
 public ThreadPoolExecutor.CallerRunsPolicy()
@@ -39,6 +40,7 @@ public void rejectedExecution(
 
 Executes task r in the caller's thread, unless the executor has been shut down, 
 in which case the task is discarded. 
+
 
     r - the runnable task requested to be executed 
     e - the executor attempting to execute this task 

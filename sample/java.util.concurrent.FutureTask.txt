@@ -1,9 +1,8 @@
 *java.util.concurrent.FutureTask* *FutureTask* A cancellable asynchronous comput
 
-public class FutureTask
+public class FutureTask<V>
   extends    |java.lang.Object|
-  implements |java.util.concurrent.Future|
-             |java.lang.Runnable|
+  implements |java.util.concurrent.RunnableFuture|
 
 |java.util.concurrent.FutureTask_Description|
 |java.util.concurrent.FutureTask_Fields|
@@ -13,7 +12,7 @@ public class FutureTask
 ================================================================================
 
 *java.util.concurrent.FutureTask_Constructors*
-|java.util.concurrent.FutureTask(Callable)|Creates a FutureTask that will upon 
+|java.util.concurrent.FutureTask(Callable<V>)|Creates a FutureTask that will up
 |java.util.concurrent.FutureTask(Runnable,V)|Creates a FutureTask that will upo
 
 *java.util.concurrent.FutureTask_Methods*
@@ -23,7 +22,7 @@ public class FutureTask
 |java.util.concurrent.FutureTask.get(long,TimeUnit)|
 |java.util.concurrent.FutureTask.isCancelled()|
 |java.util.concurrent.FutureTask.isDone()|
-|java.util.concurrent.FutureTask.run()|Sets this Future to the result of comput
+|java.util.concurrent.FutureTask.run()|Sets this Future to the result of its co
 |java.util.concurrent.FutureTask.runAndReset()|Executes the computation without
 |java.util.concurrent.FutureTask.set(V)|Sets the result of this Future to the g
 |java.util.concurrent.FutureTask.setException(Throwable)|Causes this future to 
@@ -47,9 +46,10 @@ In addition to serving as a standalone class, this class provides protected
 functionality that may be useful when creating customized task classes. 
 
 
-*java.util.concurrent.FutureTask(Callable)*
 
-public FutureTask(java.util.concurrent.Callable callable)
+*java.util.concurrent.FutureTask(Callable<V>)*
+
+public FutureTask(java.util.concurrent.Callable<V> callable)
 
 Creates a FutureTask that will upon running, execute the given Callable. 
 
@@ -59,7 +59,7 @@ Creates a FutureTask that will upon running, execute the given Callable.
 
 public FutureTask(
   java.lang.Runnable runnable,
-  java.lang.Object result)
+  V result)
 
 Creates a FutureTask that will upon running, execute the given Runnable, and 
 arrange that get will return the given result on successful completion. 
@@ -76,6 +76,7 @@ public boolean cancel(boolean mayInterruptIfRunning)
 
 
 
+
 *java.util.concurrent.FutureTask.done()*
 
 protected void done()
@@ -87,18 +88,20 @@ bookkeeping. Note that you can query status inside the implementation of this
 method to determine whether this task has been cancelled. 
 
 
+
 *java.util.concurrent.FutureTask.get()*
 
-public |java.lang.Object| get()
+public |V| get()
   throws |java.util.concurrent.ExecutionException|
          |java.lang.InterruptedException|
          
 
 
 
+
 *java.util.concurrent.FutureTask.get(long,TimeUnit)*
 
-public |java.lang.Object| get(
+public |V| get(
   long timeout,
   java.util.concurrent.TimeUnit unit)
   throws |java.util.concurrent.ExecutionException|
@@ -108,9 +111,11 @@ public |java.lang.Object| get(
 
 
 
+
 *java.util.concurrent.FutureTask.isCancelled()*
 
 public boolean isCancelled()
+
 
 
 
@@ -122,11 +127,13 @@ public boolean isDone()
 
 
 
+
 *java.util.concurrent.FutureTask.run()*
 
 public void run()
 
-Sets this Future to the result of computation unless it has been cancelled. 
+Sets this Future to the result of its computation unless it has been cancelled. 
+
 
 
 *java.util.concurrent.FutureTask.runAndReset()*
@@ -139,13 +146,17 @@ exception or is cancelled. This is designed for use with tasks that
 intrinsically execute more than once. 
 
 
+
     Returns: true if successfully run and reset 
+
 *java.util.concurrent.FutureTask.set(V)*
 
-protected void set(java.lang.Object v)
+protected void set(V v)
 
 Sets the result of this Future to the given value unless this future has 
-already been set or has been cancelled. 
+already been set or has been cancelled. This method is invoked internally by 
+the run method upon successful completion of the computation. 
+
 
     v - the value 
 
@@ -154,8 +165,10 @@ already been set or has been cancelled.
 protected void setException(java.lang.Throwable t)
 
 Causes this future to report an ExecutionException with the given throwable as 
-its cause, unless this Future has already been set or has been cancelled. 
+its cause, unless this Future has already been set or has been cancelled. This 
+method is invoked internally by the run method upon failure of the computation. 
 
-    t - the cause of failure. 
+
+    t - the cause of failure 
 
 

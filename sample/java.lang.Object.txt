@@ -17,19 +17,20 @@ public class Object
 |java.lang.Object.clone()|Creates and returns a copy of this object.
 |java.lang.Object.equals(Object)|Indicates whether some other object is "equal 
 |java.lang.Object.finalize()|Called by the garbage collector on an object when 
-|java.lang.Object.getClass()|Returns the runtime class of an object.
+|java.lang.Object.getClass()|Returns the runtime class of thisObject.
 |java.lang.Object.hashCode()|Returns a hash code value for the object.
 |java.lang.Object.notify()|Wakes up a single thread that is waiting on this obj
 |java.lang.Object.notifyAll()|Wakes up all threads that are waiting on this obj
 |java.lang.Object.toString()|Returns a string representation of the object.
-|java.lang.Object.wait()|Causes current thread to wait until another thread inv
-|java.lang.Object.wait(long)|Causes current thread to wait until either another
-|java.lang.Object.wait(long,int)|Causes current thread to wait until another th
+|java.lang.Object.wait()|Causes the current thread to wait until another thread
+|java.lang.Object.wait(long)|Causes the current thread to wait until either ano
+|java.lang.Object.wait(long,int)|Causes the current thread to wait until anothe
 
 *java.lang.Object_Description*
 
 Class Object is the root of the class hierarchy. Every class has Object as a 
 superclass. All objects, including arrays, implement the methods of this class. 
+
 
 
 *java.lang.Object()*
@@ -95,7 +96,9 @@ the clone method on an object whose class is Object will result in throwing an
 exception at run time. 
 
 
+
     Returns: a clone of this instance. 
+
 *java.lang.Object.equals(Object)*
 
 public boolean equals(java.lang.Object obj)
@@ -124,9 +127,11 @@ Note that it is generally necessary to override the hashCode method whenever
 this method is overridden, so as to maintain the general contract for the 
 hashCode method, which states that equal objects must have equal hash codes. 
 
+
     obj - the reference object with which to compare. 
 
     Returns: true if this object is the same as the obj argument; false otherwise. 
+
 *java.lang.Object.finalize()*
 
 protected void finalize()
@@ -170,17 +175,24 @@ Any exception thrown by the finalize method causes the finalization of this
 object to be halted, but is otherwise ignored. 
 
 
+
 *java.lang.Object.getClass()*
 
-public final native |java.lang.Class| getClass()
+public final native |java.lang.Class|<?> getClass()
 
-Returns the runtime class of an object. That Class object is the object that is 
-locked by static synchronized methods of the represented class. 
+Returns the runtime class of thisObject. The returnedClassobject is the object 
+that is locked bystatic synchronizedmethods of the represented class. 
+
+The actual result type isClasswhere|X|is the erasure of the static type of the 
+expression on whichgetClassis called. For example, no cast is required in this 
+code fragment: 
+
+Number n = 0;Class c = n.getClass(); 
 
 
-    Returns: The java.lang.Class object that represents the runtime class of the object. The 
-             result is of type {@code Class} where X is the erasure of the 
-             static type of the expression on which getClass is called. 
+
+    Returns: The {@code Class} object that represents the runtime class of this object. 
+
 *java.lang.Object.hashCode()*
 
 public native int hashCode()
@@ -210,7 +222,9 @@ but this implementation technique is not required by the JavaTM programming
 language.) 
 
 
+
     Returns: a hash code value for this object. 
+
 *java.lang.Object.notify()*
 
 public final native void notify()
@@ -237,6 +251,7 @@ of type Class, by executing a synchronized static method of that class.
 Only one thread at a time can own an object's monitor. 
 
 
+
 *java.lang.Object.notifyAll()*
 
 public final native void notifyAll()
@@ -253,6 +268,7 @@ privilege or disadvantage in being the next thread to lock this object.
 This method should only be called by a thread that is the owner of this 
 object's monitor. See the notify method for a description of the ways in which 
 a thread can become the owner of a monitor. 
+
 
 
 *java.lang.Object.toString()*
@@ -274,13 +290,15 @@ other words, this method returns a string equal to the value of:
 getClass().getName() + '@' + Integer.toHexString(hashCode()) 
 
 
+
     Returns: a string representation of the object. 
+
 *java.lang.Object.wait()*
 
 public final void wait()
   throws |java.lang.InterruptedException|
          
-Causes current thread to wait until another thread invokes the 
+Causes the current thread to wait until another thread invokes the 
 (|java.lang.Object|) method or the (|java.lang.Object|) method for this object. 
 In other words, this method behaves exactly as if it simply performs the call 
 wait(0). 
@@ -302,12 +320,13 @@ object's monitor. See the notify method for a description of the ways in which
 a thread can become the owner of a monitor. 
 
 
+
 *java.lang.Object.wait(long)*
 
 public final native void wait(long timeout)
   throws |java.lang.InterruptedException|
          
-Causes current thread to wait until either another thread invokes the 
+Causes the current thread to wait until either another thread invokes the 
 (|java.lang.Object|) method or the (|java.lang.Object|) method for this object, 
 or a specified amount of time has elapsed. 
 
@@ -349,10 +368,10 @@ synchronized (obj) { while (<condition does not hold>) obj.wait(timeout); ...
 Item 50 in Joshua Bloch's "Effective Java Programming Language Guide" 
 (Addison-Wesley, 2001). 
 
-If the current thread is interrupted(|java.lang.Thread|) by another thread 
-while it is waiting, then an InterruptedException is thrown. This exception is 
-not thrown until the lock status of this object has been restored as described 
-above. 
+If the current thread is interrupted(|java.lang.Thread|) by any thread before 
+or while it is waiting, then an InterruptedException is thrown. This exception 
+is not thrown until the lock status of this object has been restored as 
+described above. 
 
 Note that the wait method, as it places the current thread into the wait set 
 for this object, unlocks only this object; any other objects on which the 
@@ -361,6 +380,7 @@ current thread may be synchronized remain locked while the thread waits.
 This method should only be called by a thread that is the owner of this 
 object's monitor. See the notify method for a description of the ways in which 
 a thread can become the owner of a monitor. 
+
 
     timeout - the maximum time to wait in milliseconds. 
 
@@ -371,7 +391,7 @@ public final void wait(
   int nanos)
   throws |java.lang.InterruptedException|
          
-Causes current thread to wait until another thread invokes the 
+Causes the current thread to wait until another thread invokes the 
 (|java.lang.Object|) method or the (|java.lang.Object|) method for this object, 
 or some other thread interrupts the current thread, or a certain amount of real 
 time has elapsed. 
@@ -409,6 +429,7 @@ nanos); ... // Perform action appropriate to condition }
 This method should only be called by a thread that is the owner of this 
 object's monitor. See the notify method for a description of the ways in which 
 a thread can become the owner of a monitor. 
+
 
     timeout - the maximum time to wait in milliseconds. 
     nanos - additional time, in nanoseconds range 0-999999. 

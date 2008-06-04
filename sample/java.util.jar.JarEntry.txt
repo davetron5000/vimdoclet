@@ -25,6 +25,7 @@ public class JarEntry
 This class is used to represent a JAR file entry. 
 
 
+
 *java.util.jar.JarEntry(JarEntry)*
 
 public JarEntry(java.util.jar.JarEntry je)
@@ -57,10 +58,12 @@ public |java.util.jar.Attributes| getAttributes()
 Returns the Manifest Attributes for this entry, or null if none. 
 
 
+
     Returns: the Manifest Attributes for this entry, or null if none 
+
 *java.util.jar.JarEntry.getCertificates()*
 
-public |java.security.cert.Certificate| getCertificates()
+public |java.security.cert.Certificate|[] getCertificates()
 
 Returns the Certificate objects for this entry, or null if none. This method 
 can only be called once the JarEntry has been completely verified by reading 
@@ -74,10 +77,12 @@ its supporting certificate chain are ordered bottom-to-top (i.e., with the
 signer certificate first and the (root) certificate authority last). 
 
 
+
     Returns: the Certificate objects for this entry, or null if none. 
+
 *java.util.jar.JarEntry.getCodeSigners()*
 
-public |java.security.CodeSigner| getCodeSigners()
+public |java.security.CodeSigner|[] getCodeSigners()
 
 Returns the CodeSigner objects for this entry, or null if none. This method can 
 only be called once the JarEntry has been completely verified by reading from 
@@ -87,5 +92,7 @@ this method will return null.
 The returned array comprises all the code signers that have signed this entry. 
 
 
+
     Returns: the CodeSigner objects for this entry, or null if none. 
+
 

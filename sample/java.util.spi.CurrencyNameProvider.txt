@@ -1,0 +1,55 @@
+*java.util.spi.CurrencyNameProvider* *CurrencyNameProvider* An abstract class fo
+
+public abstract class CurrencyNameProvider
+  extends    |java.util.spi.LocaleServiceProvider|
+
+|java.util.spi.CurrencyNameProvider_Description|
+|java.util.spi.CurrencyNameProvider_Fields|
+|java.util.spi.CurrencyNameProvider_Constructors|
+|java.util.spi.CurrencyNameProvider_Methods|
+
+================================================================================
+
+*java.util.spi.CurrencyNameProvider_Constructors*
+|java.util.spi.CurrencyNameProvider()|Sole constructor.
+
+*java.util.spi.CurrencyNameProvider_Methods*
+|java.util.spi.CurrencyNameProvider.getSymbol(String,Locale)|Gets the symbol of
+
+*java.util.spi.CurrencyNameProvider_Description*
+
+An abstract class for service providers that provide localized currency symbols 
+for the Currency(|java.util.Currency|) class. Note that currency symbols are 
+considered names when determining behaviors described in the 
+LocaleServiceProvider(|java.util.spi.LocaleServiceProvider|) specification. 
+
+
+
+*java.util.spi.CurrencyNameProvider()*
+
+protected CurrencyNameProvider()
+
+Sole constructor. (For invocation by subclass constructors, typically 
+implicit.) 
+
+
+*java.util.spi.CurrencyNameProvider.getSymbol(String,Locale)*
+
+public abstract |java.lang.String| getSymbol(
+  java.lang.String currencyCode,
+  java.util.Locale locale)
+
+Gets the symbol of the given currency code for the specified locale. For 
+example, for "USD" (US Dollar), the symbol is "$" if the specified locale is 
+the US, while for other locales it may be "US$". If no symbol can be 
+determined, null should be returned. 
+
+
+    currencyCode - the ISO 4217 currency code, which consists of three upper-case letters between 
+       'A' (U+0041) and 'Z' (U+005A) 
+    locale - the desired locale 
+
+    Returns: the symbol of the given currency code for the specified locale, or null if the 
+             symbol is not available for the locale 
+
+

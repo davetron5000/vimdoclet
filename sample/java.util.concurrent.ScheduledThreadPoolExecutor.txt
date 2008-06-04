@@ -18,12 +18,14 @@ public class ScheduledThreadPoolExecutor
 |java.util.concurrent.ScheduledThreadPoolExecutor(int,ThreadFactory,RejectedExecutionHandler)|
 
 *java.util.concurrent.ScheduledThreadPoolExecutor_Methods*
-|java.util.concurrent.ScheduledThreadPoolExecutor.execute(Runnable)|Execute com
+|java.util.concurrent.ScheduledThreadPoolExecutor.decorateTask(Callable<V>,RunnableScheduledFuture<V>)|
+|java.util.concurrent.ScheduledThreadPoolExecutor.decorateTask(Runnable,RunnableScheduledFuture<V>)|
+|java.util.concurrent.ScheduledThreadPoolExecutor.execute(Runnable)|Executes co
 |java.util.concurrent.ScheduledThreadPoolExecutor.getContinueExistingPeriodicTasksAfterShutdownPolicy()|
 |java.util.concurrent.ScheduledThreadPoolExecutor.getExecuteExistingDelayedTasksAfterShutdownPolicy()|
 |java.util.concurrent.ScheduledThreadPoolExecutor.getQueue()|Returns the task q
 |java.util.concurrent.ScheduledThreadPoolExecutor.remove(Runnable)|
-|java.util.concurrent.ScheduledThreadPoolExecutor.schedule(Callable,long,TimeUnit)|
+|java.util.concurrent.ScheduledThreadPoolExecutor.schedule(Callable<V>,long,TimeUnit)|
 |java.util.concurrent.ScheduledThreadPoolExecutor.schedule(Runnable,long,TimeUnit)|
 |java.util.concurrent.ScheduledThreadPoolExecutor.scheduleAtFixedRate(Runnable,long,long,TimeUnit)|
 |java.util.concurrent.ScheduledThreadPoolExecutor.scheduleWithFixedDelay(Runnable,long,long,TimeUnit)|
@@ -31,7 +33,7 @@ public class ScheduledThreadPoolExecutor
 |java.util.concurrent.ScheduledThreadPoolExecutor.setExecuteExistingDelayedTasksAfterShutdownPolicy(boolean)|
 |java.util.concurrent.ScheduledThreadPoolExecutor.shutdown()|Initiates an order
 |java.util.concurrent.ScheduledThreadPoolExecutor.shutdownNow()|Attempts to sto
-|java.util.concurrent.ScheduledThreadPoolExecutor.submit(Callable)|
+|java.util.concurrent.ScheduledThreadPoolExecutor.submit(Callable<T>)|
 |java.util.concurrent.ScheduledThreadPoolExecutor.submit(Runnable)|
 |java.util.concurrent.ScheduledThreadPoolExecutor.submit(Runnable,T)|
 
@@ -54,6 +56,33 @@ few of the inherited tuning methods are not useful for it. In particular,
 because it acts as a fixed-sized pool using corePoolSize threads and an 
 unbounded queue, adjustments to maximumPoolSize have no useful effect. 
 
+Extension notes: This class overrides 
+(|java.util.concurrent.AbstractExecutorService|) submit methods to generate 
+internal objects to control per-task delays and scheduling. To preserve 
+functionality, any further overrides of these methods in subclasses must invoke 
+superclass versions, which effectively disables additional task customization. 
+However, this class provides alternative protected extension method 
+decorateTask (one version each for Runnable and Callable) that can be used to 
+customize the concrete task types used to execute commands entered via execute, 
+submit, schedule, scheduleAtFixedRate, and scheduleWithFixedDelay. By default, 
+a ScheduledThreadPoolExecutor uses a task type extending 
+(|java.util.concurrent.FutureTask|) . However, this may be modified or replaced 
+using subclasses of the form: 
+
+
+
+public class CustomScheduledExecutor extends ScheduledThreadPoolExecutor { 
+
+static class CustomTask<V> implements RunnableScheduledFuture<V> { ... } 
+
+protected <V> RunnableScheduledFuture<V> decorateTask( Runnable r, 
+RunnableScheduledFuture<V> task) { return new CustomTask<V>(r, task); } 
+
+protected <V> RunnableScheduledFuture<V> decorateTask( Callable<V> c, 
+RunnableScheduledFuture<V> task) { return new CustomTask<V>(c, task); } // ... 
+add constructors, etc. } 
+
+
 
 *java.util.concurrent.ScheduledThreadPoolExecutor(int)*
 
@@ -61,7 +90,7 @@ public ScheduledThreadPoolExecutor(int corePoolSize)
 
 Creates a new ScheduledThreadPoolExecutor with the given core pool size. 
 
-    corePoolSize - the number of threads to keep in the pool, even if they are idle. 
+    corePoolSize - the number of threads to keep in the pool, even if they are idle 
 
 *java.util.concurrent.ScheduledThreadPoolExecutor(int,RejectedExecutionHandler)*
 
@@ -71,9 +100,9 @@ public ScheduledThreadPoolExecutor(
 
 Creates a new ScheduledThreadPoolExecutor with the given initial parameters. 
 
-    corePoolSize - the number of threads to keep in the pool, even if they are idle. 
+    corePoolSize - the number of threads to keep in the pool, even if they are idle 
     handler - the handler to use when execution is blocked because the thread bounds and 
-       queue capacities are reached. 
+       queue capacities are reached 
 
 *java.util.concurrent.ScheduledThreadPoolExecutor(int,ThreadFactory)*
 
@@ -83,8 +112,8 @@ public ScheduledThreadPoolExecutor(
 
 Creates a new ScheduledThreadPoolExecutor with the given initial parameters. 
 
-    corePoolSize - the number of threads to keep in the pool, even if they are idle. 
-    threadFactory - the factory to use when the executor creates a new thread. 
+    corePoolSize - the number of threads to keep in the pool, even if they are idle 
+    threadFactory - the factory to use when the executor creates a new thread 
 
 *java.util.concurrent.ScheduledThreadPoolExecutor(int,ThreadFactory,RejectedExecutionHandler)*
 
@@ -95,19 +124,52 @@ public ScheduledThreadPoolExecutor(
 
 Creates a new ScheduledThreadPoolExecutor with the given initial parameters. 
 
-    corePoolSize - the number of threads to keep in the pool, even if they are idle. 
-    threadFactory - the factory to use when the executor creates a new thread. 
+    corePoolSize - the number of threads to keep in the pool, even if they are idle 
+    threadFactory - the factory to use when the executor creates a new thread 
     handler - the handler to use when execution is blocked because the thread bounds and 
        queue capacities are reached. 
+
+*java.util.concurrent.ScheduledThreadPoolExecutor.decorateTask(Callable<V>,RunnableScheduledFuture<V>)*
+
+protected |java.util.concurrent.RunnableScheduledFuture|<V> decorateTask(
+  java.util.concurrent.Callable<V> callable,
+  java.util.concurrent.RunnableScheduledFuture<V> task)
+
+Modifies or replaces the task used to execute a callable. This method can be 
+used to override the concrete class used for managing internal tasks. The 
+default implementation simply returns the given task. 
+
+
+    callable - the submitted Callable 
+    task - the task created to execute the callable 
+
+    Returns: a task that can execute the callable 
+
+*java.util.concurrent.ScheduledThreadPoolExecutor.decorateTask(Runnable,RunnableScheduledFuture<V>)*
+
+protected |java.util.concurrent.RunnableScheduledFuture|<V> decorateTask(
+  java.lang.Runnable runnable,
+  java.util.concurrent.RunnableScheduledFuture<V> task)
+
+Modifies or replaces the task used to execute a runnable. This method can be 
+used to override the concrete class used for managing internal tasks. The 
+default implementation simply returns the given task. 
+
+
+    runnable - the submitted Runnable 
+    task - the task created to execute the runnable 
+
+    Returns: a task that can execute the runnable 
 
 *java.util.concurrent.ScheduledThreadPoolExecutor.execute(Runnable)*
 
 public void execute(java.lang.Runnable command)
 
-Execute command with zero required delay. This has effect equivalent to 
+Executes command with zero required delay. This has effect equivalent to 
 schedule(command, 0, anyUnit). Note that inspections of the queue and of the 
 list returned by shutdownNow will access the zero-delayed 
 (|java.util.concurrent.ScheduledFuture|) , not the command itself. 
+
 
     command - the task to execute 
 
@@ -115,27 +177,31 @@ list returned by shutdownNow will access the zero-delayed
 
 public boolean getContinueExistingPeriodicTasksAfterShutdownPolicy()
 
-Get the policy on whether to continue executing existing periodic tasks even 
+Gets the policy on whether to continue executing existing periodic tasks even 
 when this executor has been shutdown. In this case, these tasks will only 
 terminate upon shutdownNow or after setting the policy to false when already 
 shutdown. This value is by default false. 
 
 
-    Returns: true if will continue after shutdown. 
+
+    Returns: true if will continue after shutdown 
+
 *java.util.concurrent.ScheduledThreadPoolExecutor.getExecuteExistingDelayedTasksAfterShutdownPolicy()*
 
 public boolean getExecuteExistingDelayedTasksAfterShutdownPolicy()
 
-Get policy on whether to execute existing delayed tasks even when this executor 
-has been shutdown. In this case, these tasks will only terminate upon 
+Gets the policy on whether to execute existing delayed tasks even when this 
+executor has been shutdown. In this case, these tasks will only terminate upon 
 shutdownNow, or after setting the policy to false when already shutdown. This 
 value is by default true. 
 
 
-    Returns: true if will execute after shutdown. 
+
+    Returns: true if will execute after shutdown 
+
 *java.util.concurrent.ScheduledThreadPoolExecutor.getQueue()*
 
-public |java.util.concurrent.BlockingQueue| getQueue()
+public |java.util.concurrent.BlockingQueue|<Runnable> getQueue()
 
 Returns the task queue used by this executor. Each element of this queue is a 
 (|java.util.concurrent.ScheduledFuture|) , including those tasks submitted 
@@ -144,7 +210,9 @@ zero-delay ScheduledFuture. Iteration over this queue is not guaranteed to
 traverse tasks in the order in which they will execute. 
 
 
+
     Returns: the task queue 
+
 *java.util.concurrent.ScheduledThreadPoolExecutor.remove(Runnable)*
 
 public boolean remove(java.lang.Runnable task)
@@ -152,19 +220,21 @@ public boolean remove(java.lang.Runnable task)
 
 
 
-*java.util.concurrent.ScheduledThreadPoolExecutor.schedule(Callable,long,TimeUnit)*
 
-public |java.util.concurrent.ScheduledFuture| schedule(
-  java.util.concurrent.Callable callable,
+*java.util.concurrent.ScheduledThreadPoolExecutor.schedule(Callable<V>,long,TimeUnit)*
+
+public |java.util.concurrent.ScheduledFuture|<V> schedule(
+  java.util.concurrent.Callable<V> callable,
   long delay,
   java.util.concurrent.TimeUnit unit)
 
 
 
 
+
 *java.util.concurrent.ScheduledThreadPoolExecutor.schedule(Runnable,long,TimeUnit)*
 
-public |java.util.concurrent.ScheduledFuture| schedule(
+public |java.util.concurrent.ScheduledFuture|<?> schedule(
   java.lang.Runnable command,
   long delay,
   java.util.concurrent.TimeUnit unit)
@@ -172,9 +242,10 @@ public |java.util.concurrent.ScheduledFuture| schedule(
 
 
 
+
 *java.util.concurrent.ScheduledThreadPoolExecutor.scheduleAtFixedRate(Runnable,long,long,TimeUnit)*
 
-public |java.util.concurrent.ScheduledFuture| scheduleAtFixedRate(
+public |java.util.concurrent.ScheduledFuture|<?> scheduleAtFixedRate(
   java.lang.Runnable command,
   long initialDelay,
   long period,
@@ -183,9 +254,10 @@ public |java.util.concurrent.ScheduledFuture| scheduleAtFixedRate(
 
 
 
+
 *java.util.concurrent.ScheduledThreadPoolExecutor.scheduleWithFixedDelay(Runnable,long,long,TimeUnit)*
 
-public |java.util.concurrent.ScheduledFuture| scheduleWithFixedDelay(
+public |java.util.concurrent.ScheduledFuture|<?> scheduleWithFixedDelay(
   java.lang.Runnable command,
   long initialDelay,
   long delay,
@@ -194,14 +266,16 @@ public |java.util.concurrent.ScheduledFuture| scheduleWithFixedDelay(
 
 
 
+
 *java.util.concurrent.ScheduledThreadPoolExecutor.setContinueExistingPeriodicTasksAfterShutdownPolicy(boolean)*
 
 public void setContinueExistingPeriodicTasksAfterShutdownPolicy(boolean value)
 
-Set policy on whether to continue executing existing periodic tasks even when 
-this executor has been shutdown. In this case, these tasks will only terminate 
-upon shutdownNow, or after setting the policy to false when already shutdown. 
-This value is by default false. 
+Sets the policy on whether to continue executing existing periodic tasks even 
+when this executor has been shutdown. In this case, these tasks will only 
+terminate upon shutdownNow, or after setting the policy to false when already 
+shutdown. This value is by default false. 
+
 
     value - if true, continue after shutdown, else don't. 
 
@@ -209,10 +283,11 @@ This value is by default false.
 
 public void setExecuteExistingDelayedTasksAfterShutdownPolicy(boolean value)
 
-Set policy on whether to execute existing delayed tasks even when this executor 
-has been shutdown. In this case, these tasks will only terminate upon 
+Sets the policy on whether to execute existing delayed tasks even when this 
+executor has been shutdown. In this case, these tasks will only terminate upon 
 shutdownNow, or after setting the policy to false when already shutdown. This 
 value is by default true. 
+
 
     value - if true, execute after shutdown, else don't. 
 
@@ -228,42 +303,47 @@ ContinueExistingPeriodicTasksAfterShutdownPolicy has been set true, future
 executions of existing periodic tasks will be cancelled. 
 
 
+
 *java.util.concurrent.ScheduledThreadPoolExecutor.shutdownNow()*
 
-public |java.util.List| shutdownNow()
+public |java.util.List|<Runnable> shutdownNow()
 
 Attempts to stop all actively executing tasks, halts the processing of waiting 
 tasks, and returns a list of the tasks that were awaiting execution. 
 
 There are no guarantees beyond best-effort attempts to stop processing actively 
 executing tasks. This implementation cancels tasks via (|java.lang.Thread|) , 
-so if any tasks mask or fail to respond to interrupts, they may never 
-terminate. 
+so any task that fails to respond to interrupts may never terminate. 
+
 
 
     Returns: list of tasks that never commenced execution. Each element of this list is a 
              {@link ScheduledFuture}, including those tasks submitted using 
              execute, which are for scheduling purposes used as the basis of a 
              zero-delay ScheduledFuture. 
-*java.util.concurrent.ScheduledThreadPoolExecutor.submit(Callable)*
 
-public |java.util.concurrent.Future| submit(java.util.concurrent.Callable task)
+*java.util.concurrent.ScheduledThreadPoolExecutor.submit(Callable<T>)*
+
+public |java.util.concurrent.Future|<T> submit(java.util.concurrent.Callable<T> task)
+
 
 
 
 
 *java.util.concurrent.ScheduledThreadPoolExecutor.submit(Runnable)*
 
-public |java.util.concurrent.Future| submit(java.lang.Runnable task)
+public |java.util.concurrent.Future|<?> submit(java.lang.Runnable task)
+
 
 
 
 
 *java.util.concurrent.ScheduledThreadPoolExecutor.submit(Runnable,T)*
 
-public |java.util.concurrent.Future| submit(
+public |java.util.concurrent.Future|<T> submit(
   java.lang.Runnable task,
-  java.lang.Object result)
+  T result)
+
 
 
 

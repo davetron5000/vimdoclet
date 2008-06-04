@@ -43,6 +43,7 @@ This class is Serializable, but all fields are transient, so deserialized
 conditions have no waiters. 
 
 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject()*
 
 public AbstractQueuedSynchronizer.ConditionObject()
@@ -69,6 +70,7 @@ with saved state as argument. If interrupted while blocked in step 4, throw
 exception 
 
 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject.await(long,TimeUnit)*
 
 public final boolean await(
@@ -92,6 +94,7 @@ InterruptedException If timed out while blocked in step 4, return false, else
 true 
 
 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject.awaitNanos(long)*
 
 public final long awaitNanos(long nanosTimeout)
@@ -112,6 +115,7 @@ saved state as argument. If interrupted while blocked in step 4, throw
 InterruptedException 
 
 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject.awaitUninterruptibly()*
 
 public final void awaitUninterruptibly()
@@ -126,6 +130,7 @@ saved state as argument, throwing IllegalMonitorStateException if it fails.
 Block until signalled Reacquire by invoking specialized version of 
 (|java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject|) with 
 saved state as argument. 
+
 
 
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject.awaitUntil(Date)*
@@ -149,33 +154,41 @@ InterruptedException If timed out while blocked in step 4, return false, else
 true 
 
 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject.getWaitingThreads()*
 
-protected final |java.util.Collection| getWaitingThreads()
+protected final |java.util.Collection|<Thread> getWaitingThreads()
 
 Returns a collection containing those threads that may be waiting on this 
 Condition. Implements (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) 
+. 
+
 
 
     Returns: the collection of threads 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject.getWaitQueueLength()*
 
 protected final int getWaitQueueLength()
 
 Returns an estimate of the number of threads waiting on this condition. 
-Implements (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) 
+Implements (|java.util.concurrent.locks.AbstractQueuedSynchronizer|) . 
 
 
-    Returns: the estimated number of waiting threads. 
+
+    Returns: the estimated number of waiting threads 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject.hasWaiters()*
 
 protected final boolean hasWaiters()
 
 Queries whether any threads are waiting on this condition. Implements 
-(|java.util.concurrent.locks.AbstractQueuedSynchronizer|) 
+(|java.util.concurrent.locks.AbstractQueuedSynchronizer|) . 
 
 
-    Returns: true if there are any waiting threads. 
+
+    Returns: {@code true} if there are any waiting threads 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject.signal()*
 
 public final void signal()
@@ -184,12 +197,14 @@ Moves the longest-waiting thread, if one exists, from the wait queue for this
 condition to the wait queue for the owning lock. 
 
 
+
 *java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject.signalAll()*
 
 public final void signalAll()
 
 Moves all threads from the wait queue for this condition to the wait queue for 
 the owning lock. 
+
 
 
 

@@ -41,6 +41,7 @@ method is now known as the cause, and may be accessed via the
 (|java.lang.Throwable|) method, as well as the aforementioned "legacy method." 
 
 
+
 *java.lang.reflect.UndeclaredThrowableException(Throwable)*
 
 public UndeclaredThrowableException(java.lang.Throwable undeclaredThrowable)
@@ -69,7 +70,9 @@ Returns the cause of this exception (the Throwable instance wrapped in this
 UndeclaredThrowableException, which may be null). 
 
 
+
     Returns: the cause of this exception. 
+
 *java.lang.reflect.UndeclaredThrowableException.getUndeclaredThrowable()*
 
 public |java.lang.Throwable| getUndeclaredThrowable()
@@ -82,5 +85,7 @@ This method predates the general-purpose exception chaining facility. The
 information. 
 
 
+
     Returns: the undeclared checked exception that was thrown 
+
 

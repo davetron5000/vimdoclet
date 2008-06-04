@@ -29,7 +29,7 @@ public class SecurityManager
 |java.lang.SecurityManager.checkExit(int)|Throws a SecurityException if the   c
 |java.lang.SecurityManager.checkLink(String)|Throws a SecurityException if the 
 |java.lang.SecurityManager.checkListen(int)|Throws a SecurityException if the  
-|java.lang.SecurityManager.checkMemberAccess(Class,int)|Throws a SecurityExcept
+|java.lang.SecurityManager.checkMemberAccess(Class<?>,int)|Throws a SecurityExc
 |java.lang.SecurityManager.checkMulticast(InetAddress)|Throws a SecurityExcepti
 |java.lang.SecurityManager.checkMulticast(InetAddress,byte)|Throws a SecurityEx
 |java.lang.SecurityManager.checkPackageAccess(String)|Throws a SecurityExceptio
@@ -179,124 +179,10 @@ regarding porting of 1.1-style security managers, see the security
 documentation. 
 
 
+
 *boolean_java.lang.SecurityManager.inCheck*
 
-The security manager is a class that allows applications to implement a 
-security policy. It allows an application to determine, before performing a 
-possibly unsafe or sensitive operation, what the operation is and whether it is 
-being attempted in a security context that allows the operation to be 
-performed. The application can allow or disallow the operation. 
-
-The SecurityManager class contains many methods with names that begin with the 
-word check. These methods are called by various methods in the Java libraries 
-before those methods perform certain potentially sensitive operations. The 
-invocation of such a check method typically looks like this: 
-
-SecurityManager security = System.getSecurityManager(); if (security != null) { 
-security.checkXXX(argument, ...); } 
-
-The security manager is thereby given an opportunity to prevent completion of 
-the operation by throwing an exception. A security manager routine simply 
-returns if the operation is permitted, but throws a SecurityException if the 
-operation is not permitted. The only exception to this convention is 
-checkTopLevelWindow, which returns a boolean value. 
-
-The current security manager is set by the setSecurityManager method in class 
-System. The current security manager is obtained by the getSecurityManager 
-method. 
-
-The special method (|java.lang.SecurityManager|) determines whether an access 
-request indicated by a specified permission should be granted or denied. The 
-default implementation calls 
-
-
-
-AccessController.checkPermission(perm); 
-
-If a requested access is allowed, checkPermission returns quietly. If denied, a 
-SecurityException is thrown. 
-
-As of Java 2 SDK v1.2, the default implementation of each of the other check 
-methods in SecurityManager is to call the SecurityManager checkPermission 
-method to determine if the calling thread has permission to perform the 
-requested operation. 
-
-Note that the checkPermission method with just a single permission argument 
-always performs security checks within the context of the currently executing 
-thread. Sometimes a security check that should be made within a given context 
-will actually need to be done from within a different context (for example, 
-from within a worker thread). The 
-getSecurityContext(|java.lang.SecurityManager|) method and the 
-checkPermission(|java.lang.SecurityManager|) method that includes a context 
-argument are provided for this situation. The getSecurityContext method returns 
-a "snapshot" of the current calling context. (The default implementation 
-returns an AccessControlContext object.) A sample call is the following: 
-
-
-
-Object context = null; SecurityManager sm = System.getSecurityManager(); if (sm 
-!= null) context = sm.getSecurityContext(); 
-
-
-
-The checkPermission method that takes a context object in addition to a 
-permission makes access decisions based on that context, rather than on that of 
-the current execution thread. Code within a different context can thus call 
-that method, passing the permission and the previously-saved context object. A 
-sample call, using the SecurityManager sm obtained as in the previous example, 
-is the following: 
-
-
-
-if (sm != null) sm.checkPermission(permission, context); 
-
-
-
-Permissions fall into these categories: File, Socket, Net, Security, Runtime, 
-Property, AWT, Reflect, and Serializable. The classes managing these various 
-permission categories are java.io.FilePermission, java.net.SocketPermission, 
-java.net.NetPermission, java.security.SecurityPermission, 
-java.lang.RuntimePermission, java.util.PropertyPermission, 
-java.awt.AWTPermission, java.lang.reflect.ReflectPermission, and 
-java.io.SerializablePermission. 
-
-All but the first two (FilePermission and SocketPermission) are subclasses of 
-java.security.BasicPermission, which itself is an abstract subclass of the 
-top-level class for permissions, which is java.security.Permission. 
-BasicPermission defines the functionality needed for all permissions that 
-contain a name that follows the hierarchical property naming convention (for 
-example, "exitVM", "setFactory", "queuePrintJob", etc). An asterisk may appear 
-at the end of the name, following a ".", or by itself, to signify a wildcard 
-match. For example: "a.*" or "*" is valid, "*a" or "a*b" is not valid. 
-
-FilePermission and SocketPermission are subclasses of the top-level class for 
-permissions (java.security.Permission). Classes like these that have a more 
-complicated name syntax than that used by BasicPermission subclass directly 
-from Permission rather than from BasicPermission. For example, for a 
-java.io.FilePermission object, the permission name is the path name of a file 
-(or directory). 
-
-Some of the permission classes have an "actions" list that tells the actions 
-that are permitted for the object. For example, for a java.io.FilePermission 
-object, the actions list (such as "read, write") specifies which actions are 
-granted for the specified file (or for files in the specified directory). 
-
-Other permission classes are for "named" permissions - ones that contain a name 
-but no actions list; you either have the named permission or you don't. 
-
-Note: There is also a java.security.AllPermission permission that implies all 
-permissions. It exists to simplify the work of system administrators who might 
-need to perform multiple tasks that require all (or numerous) permissions. 
-
-See Permissions in the JDK for permission-related information. This document 
-includes, for example, a table listing the various SecurityManager check 
-methods and the permission(s) the default implementation of each such method 
-requires. It also contains a table of all the version 1.2 methods that require 
-permissions, and for each such method tells which permission it requires. 
-
-For more information about SecurityManager changes made in the JDK and advice 
-regarding porting of 1.1-style security managers, see the security 
-documentation. 
+This field is true if there is a security check in progress; false otherwise. 
 
 
 
@@ -331,6 +217,7 @@ SocketPermission(host+":"+port,"accept") permission.
 If you override this method, then you should make a call to super.checkAccept 
 at the point the overridden method would normally throw an exception. 
 
+
     host - the host name of the socket connection. 
     port - the port number of the socket connection. 
 
@@ -358,6 +245,7 @@ and if so, return silently. This is to ensure that code granted that permission
 If this method is overridden, then super.checkAccess should be called by the 
 first statement in the overridden method, or the equivalent security check 
 should be placed in the overridden method. 
+
 
     t - the thread to be checked. 
 
@@ -387,6 +275,7 @@ If this method is overridden, then super.checkAccess should be called by the
 first statement in the overridden method, or the equivalent security check 
 should be placed in the overridden method. 
 
+
     g - the thread group to be checked. 
 
 *java.lang.SecurityManager.checkAwtEventQueueAccess()*
@@ -402,6 +291,7 @@ permission.
 If you override this method, then you should make a call to 
 super.checkAwtEventQueueAccess at the point the overridden method would 
 normally throw an exception. 
+
 
 
 *java.lang.SecurityManager.checkConnect(String,int)*
@@ -423,6 +313,7 @@ SocketPermission(host,"resolve") permission.
 
 If you override this method, then you should make a call to super.checkConnect 
 at the point the overridden method would normally throw an exception. 
+
 
     host - the host name port to connect to. 
     port - the protocol port to connect to. 
@@ -450,6 +341,7 @@ SocketPermission(host,"resolve") permission.
 If you override this method, then you should make a call to super.checkConnect 
 at the point the overridden method would normally throw an exception. 
 
+
     host - the host name port to connect to. 
     port - the protocol port to connect to. 
     context - a system-dependent security context. 
@@ -469,6 +361,7 @@ super.checkCreateClassLoader at the point the overridden method would normally
 throw an exception. 
 
 
+
 *java.lang.SecurityManager.checkDelete(String)*
 
 public void checkDelete(java.lang.String file)
@@ -484,6 +377,7 @@ permission.
 
 If you override this method, then you should make a call to super.checkDelete 
 at the point the overridden method would normally throw an exception. 
+
 
     file - the system-dependent filename. 
 
@@ -504,6 +398,7 @@ FilePermission("<<ALL FILES>>","execute").
 If you override this method, then you should make a call to super.checkExec at 
 the point the overridden method would normally throw an exception. 
 
+
     cmd - the specified system command. 
 
 *java.lang.SecurityManager.checkExit(int)*
@@ -517,11 +412,12 @@ This method is invoked for the current security manager by the exit method of
 class Runtime. A status of 0 indicates success; other values indicate various 
 errors. 
 
-This method calls checkPermission with the RuntimePermission("exitVM") 
+This method calls checkPermission with the RuntimePermission("exitVM."+status) 
 permission. 
 
 If you override this method, then you should make a call to super.checkExit at 
 the point the overridden method would normally throw an exception. 
+
 
     status - the exit status. 
 
@@ -542,6 +438,7 @@ RuntimePermission("loadLibrary."+lib) permission.
 If you override this method, then you should make a call to super.checkLink at 
 the point the overridden method would normally throw an exception. 
 
+
     lib - the name of the library. 
 
 *java.lang.SecurityManager.checkListen(int)*
@@ -558,12 +455,13 @@ calls checkPermission with SocketPermission("localhost:1024-","listen").
 If you override this method, then you should make a call to super.checkListen 
 at the point the overridden method would normally throw an exception. 
 
+
     port - the local port. 
 
-*java.lang.SecurityManager.checkMemberAccess(Class,int)*
+*java.lang.SecurityManager.checkMemberAccess(Class<?>,int)*
 
 public void checkMemberAccess(
-  java.lang.Class clazz,
+  java.lang.Class<?> clazz,
   int which)
 
 Throws a SecurityException if the calling thread is not allowed to access 
@@ -577,6 +475,7 @@ RuntimePermission("accessDeclaredMembers") permission.
 If this method is overridden, then a call to super.checkMemberAccess cannot be 
 made, as the default implementation of checkMemberAccess relies on the code 
 being checked being at a stack depth of 4. 
+
 
     clazz - the class that reflection is to be performed on. 
     which - type of access, PUBLIC or DECLARED. 
@@ -595,6 +494,7 @@ If you override this method, then you should make a call to
 super.checkMulticast at the point the overridden method would normally throw an 
 exception. 
 
+
     maddr - Internet group address to be used. 
 
 *java.lang.SecurityManager.checkMulticast(InetAddress,byte)*
@@ -612,6 +512,8 @@ java.net.SocketPermission(maddr.getHostAddress(), "accept,connect") permission.
 If you override this method, then you should make a call to 
 super.checkMulticast at the point the overridden method would normally throw an 
 exception. 
+
+    Deprecated: Use #checkPermission(java.security.Permission) instead
 
     maddr - Internet group address to be used. 
     ttl - value in use, if it is multicast send. Note: this particular implementation 
@@ -636,6 +538,7 @@ RuntimePermission("accessClassInPackage."+pkg) permission.
 If this method is overridden, then super.checkPackageAccess should be called as 
 the first line in the overridden method. 
 
+
     pkg - the package name. 
 
 *java.lang.SecurityManager.checkPackageDefinition(String)*
@@ -657,6 +560,7 @@ RuntimePermission("defineClassInPackage."+pkg) permission.
 If this method is overridden, then super.checkPackageDefinition should be 
 called as the first line in the overridden method. 
 
+
     pkg - the package name. 
 
 *java.lang.SecurityManager.checkPermission(Permission)*
@@ -667,6 +571,7 @@ Throws a SecurityException if the requested access, specified by the given
 permission, is not permitted based on the security policy currently in effect. 
 
 This method calls AccessController.checkPermission with the given permission. 
+
 
     perm - the requested permission. 
 
@@ -689,6 +594,7 @@ permission.
 If context is not an instance of AccessControlContext then a SecurityException 
 is thrown. 
 
+
     perm - the specified permission 
     context - a system-dependent security context. 
 
@@ -705,6 +611,7 @@ permission.
 If you override this method, then you should make a call to 
 super.checkPrintJobAccess at the point the overridden method would normally 
 throw an exception. 
+
 
 
 *java.lang.SecurityManager.checkPropertiesAccess()*
@@ -725,6 +632,7 @@ super.checkPropertiesAccess at the point the overridden method would normally
 throw an exception. 
 
 
+
 *java.lang.SecurityManager.checkPropertyAccess(String)*
 
 public void checkPropertyAccess(java.lang.String key)
@@ -741,6 +649,7 @@ If you override this method, then you should make a call to
 super.checkPropertyAccess at the point the overridden method would normally 
 throw an exception. 
 
+
     key - a system property key. 
 
 *java.lang.SecurityManager.checkRead(FileDescriptor)*
@@ -756,6 +665,7 @@ RuntimePermission("readFileDescriptor") permission.
 If you override this method, then you should make a call to super.checkRead at 
 the point the overridden method would normally throw an exception. 
 
+
     fd - the system-dependent file descriptor. 
 
 *java.lang.SecurityManager.checkRead(String)*
@@ -770,6 +680,7 @@ permission.
 
 If you override this method, then you should make a call to super.checkRead at 
 the point the overridden method would normally throw an exception. 
+
 
     file - the system-dependent file name. 
 
@@ -789,6 +700,7 @@ thrown.
 
 If you override this method, then you should make a call to super.checkRead at 
 the point the overridden method would normally throw an exception. 
+
 
     file - the system-dependent filename. 
     context - a system-dependent security context. 
@@ -813,6 +725,7 @@ If you override this method, then you should make a call to
 super.checkSecurityAccess at the point the overridden method would normally 
 throw an exception. 
 
+
     target - the target name of the SecurityPermission. 
 
 *java.lang.SecurityManager.checkSetFactory()*
@@ -831,6 +744,7 @@ super.checkSetFactory at the point the overridden method would normally throw
 an exception. 
 
 
+
 *java.lang.SecurityManager.checkSystemClipboardAccess()*
 
 public void checkSystemClipboardAccess()
@@ -844,6 +758,7 @@ permission.
 If you override this method, then you should make a call to 
 super.checkSystemClipboardAccess at the point the overridden method would 
 normally throw an exception. 
+
 
 
 *java.lang.SecurityManager.checkTopLevelWindow(Object)*
@@ -866,10 +781,12 @@ If you override this method, then you should make a call to
 super.checkTopLevelWindow at the point the overridden method would normally 
 return false, and the value of super.checkTopLevelWindow should be returned. 
 
+
     window - the new window that is being created. 
 
     Returns: true if the calling thread is trusted to put up top-level windows; false 
              otherwise. 
+
 *java.lang.SecurityManager.checkWrite(FileDescriptor)*
 
 public void checkWrite(java.io.FileDescriptor fd)
@@ -882,6 +799,7 @@ RuntimePermission("writeFileDescriptor") permission.
 
 If you override this method, then you should make a call to super.checkWrite at 
 the point the overridden method would normally throw an exception. 
+
 
     fd - the system-dependent file descriptor. 
 
@@ -898,6 +816,7 @@ permission.
 If you override this method, then you should make a call to super.checkWrite at 
 the point the overridden method would normally throw an exception. 
 
+
     file - the system-dependent filename. 
 
 *java.lang.SecurityManager.classDepth(String)*
@@ -906,10 +825,15 @@ protected native int classDepth(java.lang.String name)
 
 Returns the stack depth of the specified class. 
 
+    Deprecated: This type of security checking is not recommended.
+  It is recommended that the <code>checkPermission</code>
+  call be used instead.
+
     name - the fully qualified name of the class to search for. 
 
     Returns: the depth on the stack frame of the first occurrence of a method from a class 
              with the specified name; -1 if such a frame cannot be found. 
+
 *java.lang.SecurityManager.classLoaderDepth()*
 
 protected int classLoaderDepth()
@@ -933,9 +857,14 @@ SecurityException.
 
 
 
+    Deprecated: This type of security checking is not recommended.
+  It is recommended that the <code>checkPermission</code>
+  call be used instead.
+
 
     Returns: the depth on the stack frame of the most recent occurrence of a method from a 
              class defined using a non-system class loader. 
+
 *java.lang.SecurityManager.currentClassLoader()*
 
 protected |java.lang.ClassLoader| currentClassLoader()
@@ -959,12 +888,17 @@ SecurityException.
 
 
 
+    Deprecated: This type of security checking is not recommended.
+  It is recommended that the <code>checkPermission</code>
+  call be used instead.
+
 
     Returns: the class loader of the most recent occurrence on the stack of a method from a 
              class defined using a non-system class loader. 
+
 *java.lang.SecurityManager.currentLoadedClass()*
 
-protected |java.lang.Class| currentLoadedClass()
+protected |java.lang.Class|<?> currentLoadedClass()
 
 Returns the class of the most recently executing method from a class defined 
 using a non-system class loader. A non-system class loader is defined as being 
@@ -985,12 +919,17 @@ SecurityException.
 
 
 
+    Deprecated: This type of security checking is not recommended.
+  It is recommended that the <code>checkPermission</code>
+  call be used instead.
+
 
     Returns: the class of the most recent occurrence on the stack of a method from a class 
              defined using a non-system class loader. 
+
 *java.lang.SecurityManager.getClassContext()*
 
-protected native |java.lang.Class| getClassContext()
+protected native |java.lang.Class|[] getClassContext()
 
 Returns the current execution stack as an array of classes. 
 
@@ -999,16 +938,23 @@ element at index 0 is the class of the currently executing method, the element
 at index 1 is the class of that method's caller, and so on. 
 
 
+
     Returns: the execution stack. 
+
 *java.lang.SecurityManager.getInCheck()*
 
 public boolean getInCheck()
 
 Tests if there is a security check in progress. 
 
+    Deprecated: This type of security checking is not recommended.
+  It is recommended that the <code>checkPermission</code>
+  call be used instead.
+
 
     Returns: the value of the inCheck field. This field should contain true if a security 
              check is in progress, false otherwise. 
+
 *java.lang.SecurityManager.getSecurityContext()*
 
 public |java.lang.Object| getSecurityContext()
@@ -1023,9 +969,11 @@ own. The default implementation of this method is to return an
 AccessControlContext object. 
 
 
+
     Returns: an implementation-dependent object that encapsulates sufficient information 
              about the current execution environment to perform some security 
              checks later. 
+
 *java.lang.SecurityManager.getThreadGroup()*
 
 public |java.lang.ThreadGroup| getThreadGroup()
@@ -1036,7 +984,9 @@ the current thread. This should be overridden by a specific security manager to
 return the appropriate thread group. 
 
 
+
     Returns: ThreadGroup that new threads are instantiated into 
+
 *java.lang.SecurityManager.inClass(String)*
 
 protected boolean inClass(java.lang.String name)
@@ -1044,10 +994,15 @@ protected boolean inClass(java.lang.String name)
 Tests if a method from a class with the specified name is on the execution 
 stack. 
 
+    Deprecated: This type of security checking is not recommended.
+  It is recommended that the <code>checkPermission</code>
+  call be used instead.
+
     name - the fully qualified name of the class. 
 
     Returns: true if a method from a class with the specified name is on the execution 
              stack; false otherwise. 
+
 *java.lang.SecurityManager.inClassLoader()*
 
 protected boolean inClassLoader()
@@ -1055,6 +1010,11 @@ protected boolean inClassLoader()
 Basically, tests if a method from a class defined using a class loader is on 
 the execution stack. 
 
+    Deprecated: This type of security checking is not recommended.
+  It is recommended that the <code>checkPermission</code>
+  call be used instead.
+
 
     Returns: true if a call to currentClassLoader has a non-null return value. 
+
 

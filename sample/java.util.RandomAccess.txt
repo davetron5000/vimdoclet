@@ -37,7 +37,8 @@ runs faster than this loop:
 
 for (Iterator i=list.iterator(); i.hasNext(); ) i.next(); 
 
-This interface is a member of the <a href="/../guide/collections/index.html"> 
-Java Collections Framework. 
+This interface is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
 
 

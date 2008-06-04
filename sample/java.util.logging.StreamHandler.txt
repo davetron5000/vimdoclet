@@ -44,6 +44,7 @@ java.util.logging.StreamHandler.encoding the name of the character set encoding
 to use (defaults to the default platform encoding). 
 
 
+
 *java.util.logging.StreamHandler()*
 
 public StreamHandler()
@@ -74,11 +75,13 @@ addition, if the Formatter's "head" string has not yet been written to the
 stream, it will be written before the "tail" string. 
 
 
+
 *java.util.logging.StreamHandler.flush()*
 
 public synchronized void flush()
 
 Flush any buffered messages. 
+
 
 
 *java.util.logging.StreamHandler.isLoggable(LogRecord)*
@@ -91,9 +94,11 @@ This method checks if the LogRecord has an appropriate level and whether it
 satisfies any Filter. It will also return false if no output stream has been 
 assigned yet or the LogRecord is Null. 
 
+
     record - a LogRecord 
 
     Returns: true if the LogRecord would be logged. 
+
 *java.util.logging.StreamHandler.publish(LogRecord)*
 
 public synchronized void publish(java.util.logging.LogRecord record)
@@ -110,6 +115,7 @@ If this is the first LogRecord to be written to a given OutputStream, the
 Formatter's "head" string is written to the stream before the LogRecord is 
 written. 
 
+
     record - description of the log event. A null record is silently ignored and is not 
        published 
 
@@ -122,6 +128,7 @@ public void setEncoding(java.lang.String encoding)
 Set (or change) the character encoding used by this Handler. 
 
 The encoding should be set before any LogRecords are written to the Handler. 
+
 
     encoding - The name of a supported character encoding. May be null, to indicate the 
        default platform encoding. 
@@ -136,6 +143,7 @@ Change the output stream.
 If there is a current output stream then the Formatter's tail string is written 
 and the stream is flushed and closed. Then the output stream is replaced with 
 the new output stream. 
+
 
     out - New output stream. May not be null. 
 

@@ -23,6 +23,7 @@ method, this exception also is thrown when the index is equal to the size of
 the string. 
 
 
+
 *java.lang.StringIndexOutOfBoundsException()*
 
 public StringIndexOutOfBoundsException()

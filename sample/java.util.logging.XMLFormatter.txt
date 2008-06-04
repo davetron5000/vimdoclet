@@ -30,6 +30,7 @@ recommended that it normally be used with UTF-8. The character encoding can be
 set on the output Handler. 
 
 
+
 *java.util.logging.XMLFormatter()*
 
 public XMLFormatter()
@@ -43,25 +44,31 @@ public |java.lang.String| format(java.util.logging.LogRecord record)
 
 Format the given message to XML. 
 
+
     record - the log record to be formatted. 
 
     Returns: a formatted log record 
+
 *java.util.logging.XMLFormatter.getHead(Handler)*
 
 public |java.lang.String| getHead(java.util.logging.Handler h)
 
 Return the header string for a set of XML formatted records. 
 
+
     h - The target handler (can be null) 
 
     Returns: a valid XML string 
+
 *java.util.logging.XMLFormatter.getTail(Handler)*
 
 public |java.lang.String| getTail(java.util.logging.Handler h)
 
 Return the tail string for a set of XML formatted records. 
 
+
     h - The target handler (can be null) 
 
     Returns: a valid XML string 
+
 

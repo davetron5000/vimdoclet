@@ -25,6 +25,7 @@ for writing an optional Manifest entry. The Manifest can be used to specify
 meta-information about the JAR file and its entries. 
 
 
+
 *java.util.jar.JarOutputStream(OutputStream)*
 
 public JarOutputStream(java.io.OutputStream out)
@@ -56,6 +57,7 @@ Begins writing a new JAR file entry and positions the stream to the start of
 the entry data. This method will also close any previous entry. The default 
 compression method will be used if no compression method was specified for the 
 entry. The current time will be used if the entry has no set modification time. 
+
 
     ze - the ZIP/JAR entry to be written 
 

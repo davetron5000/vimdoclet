@@ -24,6 +24,7 @@ An output stream that also maintains a checksum of the data being written. The
 checksum can then be used to verify the integrity of the output data. 
 
 
+
 *java.util.zip.CheckedOutputStream(OutputStream,Checksum)*
 
 public CheckedOutputStream(
@@ -42,7 +43,9 @@ public |java.util.zip.Checksum| getChecksum()
 Returns the Checksum for this output stream. 
 
 
+
     Returns: 
+
 *java.util.zip.CheckedOutputStream.write(byte[],int,int)*
 
 public void write(
@@ -52,6 +55,7 @@ public void write(
   throws |java.io.IOException|
          
 Writes an array of bytes. Will block until the bytes are actually written. 
+
 
     b - the data to be written 
     off - the start offset of the data 
@@ -63,6 +67,7 @@ public void write(int b)
   throws |java.io.IOException|
          
 Writes a byte. Will block until the byte is actually written. 
+
 
     b - the byte to be written 
 

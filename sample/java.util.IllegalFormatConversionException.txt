@@ -11,7 +11,7 @@ public class IllegalFormatConversionException
 ================================================================================
 
 *java.util.IllegalFormatConversionException_Constructors*
-|java.util.IllegalFormatConversionException(char,Class)|Constructs an instance 
+|java.util.IllegalFormatConversionException(char,Class<?>)|Constructs an instan
 
 *java.util.IllegalFormatConversionException_Methods*
 |java.util.IllegalFormatConversionException.getArgumentClass()|Returns the clas
@@ -28,11 +28,12 @@ constructor in this class will cause a (|java.lang.NullPointerException|) to be
 thrown. 
 
 
-*java.util.IllegalFormatConversionException(char,Class)*
+
+*java.util.IllegalFormatConversionException(char,Class<?>)*
 
 public IllegalFormatConversionException(
   char c,
-  java.lang.Class arg)
+  java.lang.Class<?> arg)
 
 Constructs an instance of this class with the mismatched conversion and the 
 corresponding argument class. 
@@ -42,12 +43,14 @@ corresponding argument class.
 
 *java.util.IllegalFormatConversionException.getArgumentClass()*
 
-public |java.lang.Class| getArgumentClass()
+public |java.lang.Class|<?> getArgumentClass()
 
 Returns the class of the mismatched argument. 
 
 
+
     Returns: The class of the mismatched argument 
+
 *java.util.IllegalFormatConversionException.getConversion()*
 
 public char getConversion()
@@ -55,10 +58,13 @@ public char getConversion()
 Returns the inapplicable conversion. 
 
 
+
     Returns: The inapplicable conversion 
+
 *java.util.IllegalFormatConversionException.getMessage()*
 
 public |java.lang.String| getMessage()
+
 
 
 

@@ -1,0 +1,61 @@
+*java.util.ServiceConfigurationError* *ServiceConfigurationError* Error thrown w
+
+public class ServiceConfigurationError
+  extends    |java.lang.Error|
+
+|java.util.ServiceConfigurationError_Description|
+|java.util.ServiceConfigurationError_Fields|
+|java.util.ServiceConfigurationError_Constructors|
+|java.util.ServiceConfigurationError_Methods|
+
+================================================================================
+
+*java.util.ServiceConfigurationError_Constructors*
+|java.util.ServiceConfigurationError(String)|Constructs a new instance with the
+|java.util.ServiceConfigurationError(String,Throwable)|Constructs a new instanc
+
+*java.util.ServiceConfigurationError_Description*
+
+Error thrown when something goes wrong while loading a service provider. 
+
+This error will be thrown in the following situations: 
+
+
+
+The format of a provider-configuration file violates the specification; 
+
+An IOException(|java.io.IOException|) occurs while reading a 
+provider-configuration file; 
+
+A concrete provider class named in a provider-configuration file cannot be 
+found; 
+
+A concrete provider class is not a subclass of the service class; 
+
+A concrete provider class cannot be instantiated; or 
+
+Some other kind of error occurs. 
+
+
+
+
+
+*java.util.ServiceConfigurationError(String)*
+
+public ServiceConfigurationError(java.lang.String msg)
+
+Constructs a new instance with the specified message. 
+
+    msg - The message, or null if there is no message 
+
+*java.util.ServiceConfigurationError(String,Throwable)*
+
+public ServiceConfigurationError(
+  java.lang.String msg,
+  java.lang.Throwable cause)
+
+Constructs a new instance with the specified message and cause. 
+
+    msg - The message, or null if there is no message 
+    cause - The cause, or null if the cause is nonexistent or unknown 
+

@@ -52,6 +52,7 @@ to access information about its thread group's parent thread group or any other
 thread groups. 
 
 
+
 *java.lang.ThreadGroup(String)*
 
 public ThreadGroup(java.lang.String name)
@@ -91,8 +92,10 @@ Due to the inherently imprecise nature of the result, it is recommended that
 this method only be used for informational purposes. 
 
 
+
     Returns: an estimate of the number of active threads in this thread group and in any 
              other thread group that has this thread group as an ancestor. 
+
 *java.lang.ThreadGroup.activeGroupCount()*
 
 public int activeGroupCount()
@@ -104,16 +107,23 @@ Due to the inherently imprecise nature of the result, it is recommended that
 this method only be used for informational purposes. 
 
 
+
     Returns: the number of active thread groups with this thread group as an ancestor. 
+
 *java.lang.ThreadGroup.allowThreadSuspension(boolean)*
 
 public boolean allowThreadSuspension(boolean b)
 
 Used by VM to control lowmem implicit suspension. 
 
+    Deprecated: The definition of this call depends on {@link #suspend},
+		   which is deprecated.  Further, the behavior of this call
+		   was never specified.
+
     b - boolean to allow or disallow suspension 
 
     Returns: true on success 
+
 *java.lang.ThreadGroup.checkAccess()*
 
 public final void checkAccess()
@@ -123,6 +133,7 @@ group.
 
 If there is a security manager, its checkAccess method is called with this 
 thread group as its argument. This may result in throwing a SecurityException. 
+
 
 
 *java.lang.ThreadGroup.destroy()*
@@ -135,6 +146,7 @@ since stopped.
 
 First, the checkAccess method of this thread group is called with no arguments; 
 this may result in a security exception. 
+
 
 
 *java.lang.ThreadGroup.enumerate(Thread[])*
@@ -156,9 +168,11 @@ that the returned int value is strictly less than the length of list.
 Due to the inherent race condition in this method, it is recommended that the 
 method only be used for informational purposes. 
 
+
     list - an array into which to place the list of threads. 
 
     Returns: the number of threads put into the array. 
+
 *java.lang.ThreadGroup.enumerate(Thread[],boolean)*
 
 public int enumerate(
@@ -182,11 +196,13 @@ int value is strictly less than the length of list.
 Due to the inherent race condition in this method, it is recommended that the 
 method only be used for informational purposes. 
 
+
     list - an array into which to place the list of threads. 
     recurse - a flag indicating whether also to include threads in thread groups that are 
        subgroups of this thread group. 
 
     Returns: the number of threads placed into the array. 
+
 *java.lang.ThreadGroup.enumerate(ThreadGroup[])*
 
 public int enumerate(java.lang.ThreadGroup[] list)
@@ -206,9 +222,11 @@ that the returned int value is strictly less than the length of list.
 Due to the inherent race condition in this method, it is recommended that the 
 method only be used for informational purposes. 
 
+
     list - an array into which to place the list of thread groups. 
 
     Returns: the number of thread groups put into the array. 
+
 *java.lang.ThreadGroup.enumerate(ThreadGroup[],boolean)*
 
 public int enumerate(
@@ -231,10 +249,12 @@ that the returned int value is strictly less than the length of list.
 Due to the inherent race condition in this method, it is recommended that the 
 method only be used for informational purposes. 
 
+
     list - an array into which to place the list of threads. 
     recurse - a flag indicating whether to recursively enumerate all included thread groups. 
 
     Returns: the number of thread groups put into the array. 
+
 *java.lang.ThreadGroup.getMaxPriority()*
 
 public final int getMaxPriority()
@@ -243,7 +263,9 @@ Returns the maximum priority of this thread group. Threads that are part of
 this group cannot have a higher priority than the maximum priority. 
 
 
+
     Returns: the maximum priority that a thread in this thread group can have. 
+
 *java.lang.ThreadGroup.getName()*
 
 public final |java.lang.String| getName()
@@ -251,7 +273,9 @@ public final |java.lang.String| getName()
 Returns the name of this thread group. 
 
 
+
     Returns: the name of this thread group. 
+
 *java.lang.ThreadGroup.getParent()*
 
 public final |java.lang.ThreadGroup| getParent()
@@ -262,8 +286,10 @@ First, if the parent is not null, the checkAccess method of the parent thread
 group is called with no arguments; this may result in a security exception. 
 
 
+
     Returns: the parent of this thread group. The top-level thread group is the only thread 
              group whose parent is null. 
+
 *java.lang.ThreadGroup.interrupt()*
 
 public final void interrupt()
@@ -277,6 +303,7 @@ This method then calls the interrupt method on all the threads in this thread
 group and in all of its subgroups. 
 
 
+
 *java.lang.ThreadGroup.isDaemon()*
 
 public final boolean isDaemon()
@@ -286,7 +313,9 @@ automatically destroyed when its last thread is stopped or its last thread
 group is destroyed. 
 
 
+
     Returns: true if this thread group is a daemon thread group; false otherwise. 
+
 *java.lang.ThreadGroup.isDestroyed()*
 
 public synchronized boolean isDestroyed()
@@ -294,13 +323,16 @@ public synchronized boolean isDestroyed()
 Tests if this thread group has been destroyed. 
 
 
+
     Returns: true if this object is destroyed 
+
 *java.lang.ThreadGroup.list()*
 
 public void list()
 
 Prints information about this thread group to the standard output. This method 
 is useful only for debugging. 
+
 
 
 *java.lang.ThreadGroup.parentOf(ThreadGroup)*
@@ -310,10 +342,12 @@ public final boolean parentOf(java.lang.ThreadGroup g)
 Tests if this thread group is either the thread group argument or one of its 
 ancestor thread groups. 
 
+
     g - a thread group. 
 
     Returns: true if this thread group is the thread group argument or one of its ancestor 
              thread groups; false otherwise. 
+
 *java.lang.ThreadGroup.resume()*
 
 public final void resume()
@@ -325,6 +359,11 @@ this may result in a security exception.
 
 This method then calls the resume method on all the threads in this thread 
 group and in all of its sub groups. 
+
+    Deprecated: This method is used solely in conjunction with
+      <tt>Thread.suspend</tt> and <tt>ThreadGroup.suspend</tt>,
+       both of which have been deprecated, as they are inherently
+       deadlock-prone.  See {@link Thread#suspend} for details.
 
 
 *java.lang.ThreadGroup.setDaemon(boolean)*
@@ -338,6 +377,7 @@ this may result in a security exception.
 
 A daemon thread group is automatically destroyed when its last thread is 
 stopped or its last thread group is destroyed. 
+
 
     daemon - if true, marks this thread group as a daemon thread group; otherwise, marks 
        this thread group as normal. 
@@ -362,6 +402,7 @@ then its maximum priority is simply set to pri.) Then this method is called
 recursively, with pri as its argument, for every thread group that belongs to 
 this thread group. 
 
+
     pri - the new priority of the thread group. 
 
 *java.lang.ThreadGroup.stop()*
@@ -376,6 +417,9 @@ this may result in a security exception.
 This method then calls the stop method on all the threads in this thread group 
 and in all of its subgroups. 
 
+    Deprecated: This method is inherently unsafe.  See
+     {@link Thread#stop} for details.
+
 
 *java.lang.ThreadGroup.suspend()*
 
@@ -389,6 +433,9 @@ this may result in a security exception.
 This method then calls the suspend method on all the threads in this thread 
 group and in all of its subgroups. 
 
+    Deprecated: This method is inherently deadlock-prone.  See
+     {@link Thread#suspend} for details.
+
 
 *java.lang.ThreadGroup.toString()*
 
@@ -397,7 +444,9 @@ public |java.lang.String| toString()
 Returns a string representation of this Thread group. 
 
 
+
     Returns: a string representation of this thread group. 
+
 *java.lang.ThreadGroup.uncaughtException(Thread,Throwable)*
 
 public void uncaughtException(
@@ -423,6 +472,7 @@ to the standard error stream(|java.lang.System|) .
 
 Applications can override this method in subclasses of ThreadGroup to provide 
 alternative handling of uncaught exceptions. 
+
 
     t - the thread that is about to exit. 
     e - the uncaught exception. 

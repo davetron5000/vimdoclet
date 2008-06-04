@@ -89,6 +89,7 @@ synchronization is required then it is recommended that
 (|java.lang.StringBuffer|) be used. 
 
 
+
 *java.lang.StringBuilder()*
 
 public StringBuilder()
@@ -133,6 +134,7 @@ public |java.lang.StringBuilder| append(boolean b)
 
 
 
+
 *java.lang.StringBuilder.append(char)*
 
 public |java.lang.StringBuilder| append(char c)
@@ -140,9 +142,11 @@ public |java.lang.StringBuilder| append(char c)
 
 
 
+
 *java.lang.StringBuilder.append(char[])*
 
 public |java.lang.StringBuilder| append(char[] str)
+
 
 
 
@@ -157,9 +161,11 @@ public |java.lang.StringBuilder| append(
 
 
 
+
 *java.lang.StringBuilder.append(CharSequence)*
 
 public |java.lang.StringBuilder| append(java.lang.CharSequence s)
+
 
 
 
@@ -174,9 +180,11 @@ public |java.lang.StringBuilder| append(
 
 
 
+
 *java.lang.StringBuilder.append(double)*
 
 public |java.lang.StringBuilder| append(double d)
+
 
 
 
@@ -188,9 +196,11 @@ public |java.lang.StringBuilder| append(float f)
 
 
 
+
 *java.lang.StringBuilder.append(int)*
 
 public |java.lang.StringBuilder| append(int i)
+
 
 
 
@@ -202,6 +212,7 @@ public |java.lang.StringBuilder| append(long lng)
 
 
 
+
 *java.lang.StringBuilder.append(Object)*
 
 public |java.lang.StringBuilder| append(java.lang.Object obj)
@@ -209,9 +220,11 @@ public |java.lang.StringBuilder| append(java.lang.Object obj)
 
 
 
+
 *java.lang.StringBuilder.append(String)*
 
 public |java.lang.StringBuilder| append(java.lang.String str)
+
 
 
 
@@ -232,12 +245,15 @@ equal to the character at index k in the old character sequence, if k is less
 than n; otherwise, it is equal to the character at index k-n in the argument 
 sb. 
 
+
     sb - the StringBuffer to append. 
 
     Returns: a reference to this object. 
+
 *java.lang.StringBuilder.appendCodePoint(int)*
 
 public |java.lang.StringBuilder| appendCodePoint(int codePoint)
+
 
 
 
@@ -251,6 +267,7 @@ public |java.lang.StringBuilder| delete(
 
 
 
+
 *java.lang.StringBuilder.deleteCharAt(int)*
 
 public |java.lang.StringBuilder| deleteCharAt(int index)
@@ -258,9 +275,11 @@ public |java.lang.StringBuilder| deleteCharAt(int index)
 
 
 
+
 *java.lang.StringBuilder.indexOf(String)*
 
 public int indexOf(java.lang.String str)
+
 
 
 
@@ -274,11 +293,13 @@ public int indexOf(
 
 
 
+
 *java.lang.StringBuilder.insert(int,boolean)*
 
 public |java.lang.StringBuilder| insert(
   int offset,
   boolean b)
+
 
 
 
@@ -292,11 +313,13 @@ public |java.lang.StringBuilder| insert(
 
 
 
+
 *java.lang.StringBuilder.insert(int,char[])*
 
 public |java.lang.StringBuilder| insert(
   int offset,
   char[] str)
+
 
 
 
@@ -312,11 +335,13 @@ public |java.lang.StringBuilder| insert(
 
 
 
+
 *java.lang.StringBuilder.insert(int,CharSequence)*
 
 public |java.lang.StringBuilder| insert(
   int dstOffset,
   java.lang.CharSequence s)
+
 
 
 
@@ -332,11 +357,13 @@ public |java.lang.StringBuilder| insert(
 
 
 
+
 *java.lang.StringBuilder.insert(int,double)*
 
 public |java.lang.StringBuilder| insert(
   int offset,
   double d)
+
 
 
 
@@ -350,11 +377,13 @@ public |java.lang.StringBuilder| insert(
 
 
 
+
 *java.lang.StringBuilder.insert(int,int)*
 
 public |java.lang.StringBuilder| insert(
   int offset,
   int i)
+
 
 
 
@@ -368,11 +397,13 @@ public |java.lang.StringBuilder| insert(
 
 
 
+
 *java.lang.StringBuilder.insert(int,Object)*
 
 public |java.lang.StringBuilder| insert(
   int offset,
   java.lang.Object obj)
+
 
 
 
@@ -386,9 +417,11 @@ public |java.lang.StringBuilder| insert(
 
 
 
+
 *java.lang.StringBuilder.lastIndexOf(String)*
 
 public int lastIndexOf(java.lang.String str)
+
 
 
 
@@ -398,6 +431,7 @@ public int lastIndexOf(java.lang.String str)
 public int lastIndexOf(
   java.lang.String str,
   int fromIndex)
+
 
 
 
@@ -412,6 +446,7 @@ public |java.lang.StringBuilder| replace(
 
 
 
+
 *java.lang.StringBuilder.reverse()*
 
 public |java.lang.StringBuilder| reverse()
@@ -419,9 +454,11 @@ public |java.lang.StringBuilder| reverse()
 
 
 
+
 *java.lang.StringBuilder.toString()*
 
 public |java.lang.String| toString()
+
 
 
 

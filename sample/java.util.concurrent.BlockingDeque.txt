@@ -1,0 +1,586 @@
+*java.util.concurrent.BlockingDeque* *BlockingDeque* ADequethat additionally sup
+
+public interface interface BlockingDeque<E>
+
+  implements |java.util.concurrent.BlockingQueue|
+             |java.util.Deque|
+
+|java.util.concurrent.BlockingDeque_Description|
+|java.util.concurrent.BlockingDeque_Fields|
+|java.util.concurrent.BlockingDeque_Constructors|
+|java.util.concurrent.BlockingDeque_Methods|
+
+================================================================================
+
+*java.util.concurrent.BlockingDeque_Methods*
+|java.util.concurrent.BlockingDeque.add(E)|Inserts the specified element into t
+|java.util.concurrent.BlockingDeque.addFirst(E)|Inserts the specified element a
+|java.util.concurrent.BlockingDeque.addLast(E)|Inserts the specified element at
+|java.util.concurrent.BlockingDeque.contains(Object)|Returns true if this deque
+|java.util.concurrent.BlockingDeque.element()|Retrieves, but does not remove, t
+|java.util.concurrent.BlockingDeque.iterator()|Returns an iterator over the ele
+|java.util.concurrent.BlockingDeque.offer(E)|Inserts the specified element into
+|java.util.concurrent.BlockingDeque.offer(E,long,TimeUnit)|Inserts the specifie
+|java.util.concurrent.BlockingDeque.offerFirst(E)|Inserts the specified element
+|java.util.concurrent.BlockingDeque.offerFirst(E,long,TimeUnit)|Inserts the spe
+|java.util.concurrent.BlockingDeque.offerLast(E)|Inserts the specified element 
+|java.util.concurrent.BlockingDeque.offerLast(E,long,TimeUnit)|Inserts the spec
+|java.util.concurrent.BlockingDeque.peek()|Retrieves, but does not remove, the 
+|java.util.concurrent.BlockingDeque.poll()|Retrieves and removes the head of th
+|java.util.concurrent.BlockingDeque.poll(long,TimeUnit)|Retrieves and removes t
+|java.util.concurrent.BlockingDeque.pollFirst(long,TimeUnit)|Retrieves and remo
+|java.util.concurrent.BlockingDeque.pollLast(long,TimeUnit)|Retrieves and remov
+|java.util.concurrent.BlockingDeque.push(E)|Pushes an element onto the stack re
+|java.util.concurrent.BlockingDeque.put(E)|Inserts the specified element into t
+|java.util.concurrent.BlockingDeque.putFirst(E)|Inserts the specified element a
+|java.util.concurrent.BlockingDeque.putLast(E)|Inserts the specified element at
+|java.util.concurrent.BlockingDeque.remove()|Retrieves and removes the head of 
+|java.util.concurrent.BlockingDeque.remove(Object)|Removes the first occurrence
+|java.util.concurrent.BlockingDeque.removeFirstOccurrence(Object)|Removes the f
+|java.util.concurrent.BlockingDeque.removeLastOccurrence(Object)|Removes the la
+|java.util.concurrent.BlockingDeque.size()|Returns the number of elements in th
+|java.util.concurrent.BlockingDeque.take()|Retrieves and removes the head of th
+|java.util.concurrent.BlockingDeque.takeFirst()|Retrieves and removes the first
+|java.util.concurrent.BlockingDeque.takeLast()|Retrieves and removes the last e
+
+*java.util.concurrent.BlockingDeque_Description*
+
+A (|java.util.Deque|) that additionally supports blocking operations that wait 
+for the deque to become non-empty when retrieving an element, and wait for 
+space to become available in the deque when storing an element. 
+
+BlockingDeque methods come in four forms, with different ways of handling 
+operations that cannot be satisfied immediately, but may be satisfied at some 
+point in the future: one throws an exception, the second returns a special 
+value (either null or false, depending on the operation), the third blocks the 
+current thread indefinitely until the operation can succeed, and the fourth 
+blocks for only a given maximum time limit before giving up. These methods are 
+summarized in the following table: 
+
+
+
+First Element (Head) 
+
+
+
+Throws exception Special value Blocks Times out 
+
+Insert addFirst(e)(|java.util.concurrent.BlockingDeque|) 
+offerFirst(e)(|java.util.concurrent.BlockingDeque|) 
+putFirst(e)(|java.util.concurrent.BlockingDeque|) offerFirst(e, time, 
+unit)(|java.util.concurrent.BlockingDeque|) 
+
+Remove removeFirst()(|java.util.concurrent.BlockingDeque|) 
+pollFirst()(|java.util.concurrent.BlockingDeque|) 
+takeFirst()(|java.util.concurrent.BlockingDeque|) pollFirst(time, 
+unit)(|java.util.concurrent.BlockingDeque|) 
+
+Examine getFirst()(|java.util.concurrent.BlockingDeque|) 
+peekFirst()(|java.util.concurrent.BlockingDeque|) not applicable not applicable 
+
+Last Element (Tail) 
+
+
+
+Throws exception Special value Blocks Times out 
+
+Insert addLast(e)(|java.util.concurrent.BlockingDeque|) 
+offerLast(e)(|java.util.concurrent.BlockingDeque|) 
+putLast(e)(|java.util.concurrent.BlockingDeque|) offerLast(e, time, 
+unit)(|java.util.concurrent.BlockingDeque|) 
+
+Remove removeLast()(|java.util.concurrent.BlockingDeque|) 
+pollLast()(|java.util.concurrent.BlockingDeque|) 
+takeLast()(|java.util.concurrent.BlockingDeque|) pollLast(time, 
+unit)(|java.util.concurrent.BlockingDeque|) 
+
+Examine getLast()(|java.util.concurrent.BlockingDeque|) 
+peekLast()(|java.util.concurrent.BlockingDeque|) not applicable not applicable 
+
+
+
+Like any (|java.util.concurrent.BlockingQueue|) , a BlockingDeque is thread 
+safe, does not permit null elements, and may (or may not) be 
+capacity-constrained. 
+
+A BlockingDeque implementation may be used directly as a FIFO BlockingQueue. 
+The methods inherited from the BlockingQueue interface are precisely equivalent 
+to BlockingDeque methods as indicated in the following table: 
+
+
+
+BlockingQueue Method Equivalent BlockingDeque Method 
+
+Insert 
+
+add(e)(|java.util.concurrent.BlockingDeque|) 
+addLast(e)(|java.util.concurrent.BlockingDeque|) 
+
+offer(e)(|java.util.concurrent.BlockingDeque|) 
+offerLast(e)(|java.util.concurrent.BlockingDeque|) 
+
+put(e)(|java.util.concurrent.BlockingDeque|) 
+putLast(e)(|java.util.concurrent.BlockingDeque|) 
+
+offer(e, time, unit)(|java.util.concurrent.BlockingDeque|) offerLast(e, time, 
+unit)(|java.util.concurrent.BlockingDeque|) 
+
+Remove 
+
+remove()(|java.util.concurrent.BlockingDeque|) 
+removeFirst()(|java.util.concurrent.BlockingDeque|) 
+
+poll()(|java.util.concurrent.BlockingDeque|) 
+pollFirst()(|java.util.concurrent.BlockingDeque|) 
+
+take()(|java.util.concurrent.BlockingDeque|) 
+takeFirst()(|java.util.concurrent.BlockingDeque|) 
+
+poll(time, unit)(|java.util.concurrent.BlockingDeque|) pollFirst(time, 
+unit)(|java.util.concurrent.BlockingDeque|) 
+
+Examine 
+
+element()(|java.util.concurrent.BlockingDeque|) 
+getFirst()(|java.util.concurrent.BlockingDeque|) 
+
+peek()(|java.util.concurrent.BlockingDeque|) 
+peekFirst()(|java.util.concurrent.BlockingDeque|) 
+
+
+
+Memory consistency effects: As with other concurrent collections, actions in a 
+thread prior to placing an object into aBlockingDequehappen-before actions 
+subsequent to the access or removal of that element from theBlockingDequein 
+another thread. 
+
+This interface is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
+
+
+*java.util.concurrent.BlockingDeque.add(E)*
+
+public boolean add(E e)
+
+Inserts the specified element into the queue represented by this deque (in 
+other words, at the tail of this deque) if it is possible to do so immediately 
+without violating capacity restrictions, returning true upon success and 
+throwing an IllegalStateException if no space is currently available. When 
+using a capacity-restricted deque, it is generally preferable to use 
+offer(|java.util.concurrent.BlockingDeque|) . 
+
+This method is equivalent to addLast(|java.util.concurrent.BlockingDeque|) . 
+
+
+    e - the element to add 
+
+*java.util.concurrent.BlockingDeque.addFirst(E)*
+
+public void addFirst(E e)
+
+Inserts the specified element at the front of this deque if it is possible to 
+do so immediately without violating capacity restrictions, throwing an 
+IllegalStateException if no space is currently available. When using a 
+capacity-restricted deque, it is generally preferable to use 
+offerFirst(|java.util.concurrent.BlockingDeque|) . 
+
+
+    e - the element to add 
+
+*java.util.concurrent.BlockingDeque.addLast(E)*
+
+public void addLast(E e)
+
+Inserts the specified element at the end of this deque if it is possible to do 
+so immediately without violating capacity restrictions, throwing an 
+IllegalStateException if no space is currently available. When using a 
+capacity-restricted deque, it is generally preferable to use 
+offerLast(|java.util.concurrent.BlockingDeque|) . 
+
+
+    e - the element to add 
+
+*java.util.concurrent.BlockingDeque.contains(Object)*
+
+public boolean contains(java.lang.Object o)
+
+Returns true if this deque contains the specified element. More formally, 
+returns true if and only if this deque contains at least one element e such 
+that o.equals(e). 
+
+
+    o - object to be checked for containment in this deque 
+
+    Returns: true if this deque contains the specified element 
+
+*java.util.concurrent.BlockingDeque.element()*
+
+public |E| element()
+
+Retrieves, but does not remove, the head of the queue represented by this deque 
+(in other words, the first element of this deque). This method differs from 
+peek(|java.util.concurrent.BlockingDeque|) only in that it throws an exception 
+if this deque is empty. 
+
+This method is equivalent to getFirst(|java.util.concurrent.BlockingDeque|) . 
+
+
+
+    Returns: the head of this deque 
+
+*java.util.concurrent.BlockingDeque.iterator()*
+
+public |java.util.Iterator|<E> iterator()
+
+Returns an iterator over the elements in this deque in proper sequence. The 
+elements will be returned in order from first (head) to last (tail). 
+
+
+
+    Returns: an iterator over the elements in this deque in proper sequence 
+
+*java.util.concurrent.BlockingDeque.offer(E)*
+
+public boolean offer(E e)
+
+Inserts the specified element into the queue represented by this deque (in 
+other words, at the tail of this deque) if it is possible to do so immediately 
+without violating capacity restrictions, returning true upon success and false 
+if no space is currently available. When using a capacity-restricted deque, 
+this method is generally preferable to the 
+(|java.util.concurrent.BlockingDeque|) method, which can fail to insert an 
+element only by throwing an exception. 
+
+This method is equivalent to offerLast(|java.util.concurrent.BlockingDeque|) . 
+
+
+    e - the element to add 
+
+*java.util.concurrent.BlockingDeque.offer(E,long,TimeUnit)*
+
+public boolean offer(
+  E e,
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.lang.InterruptedException|
+         
+Inserts the specified element into the queue represented by this deque (in 
+other words, at the tail of this deque), waiting up to the specified wait time 
+if necessary for space to become available. 
+
+This method is equivalent to offerLast(|java.util.concurrent.BlockingDeque|) . 
+
+
+    e - the element to add 
+
+    Returns: true if the element was added to this deque, else false 
+
+*java.util.concurrent.BlockingDeque.offerFirst(E)*
+
+public boolean offerFirst(E e)
+
+Inserts the specified element at the front of this deque if it is possible to 
+do so immediately without violating capacity restrictions, returning true upon 
+success and false if no space is currently available. When using a 
+capacity-restricted deque, this method is generally preferable to the 
+addFirst(|java.util.concurrent.BlockingDeque|) method, which can fail to insert 
+an element only by throwing an exception. 
+
+
+    e - the element to add 
+
+*java.util.concurrent.BlockingDeque.offerFirst(E,long,TimeUnit)*
+
+public boolean offerFirst(
+  E e,
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.lang.InterruptedException|
+         
+Inserts the specified element at the front of this deque, waiting up to the 
+specified wait time if necessary for space to become available. 
+
+
+    e - the element to add 
+    timeout - how long to wait before giving up, in units of unit 
+    unit - a TimeUnit determining how to interpret the timeout parameter 
+
+    Returns: true if successful, or false if the specified waiting time elapses before space 
+             is available 
+
+*java.util.concurrent.BlockingDeque.offerLast(E)*
+
+public boolean offerLast(E e)
+
+Inserts the specified element at the end of this deque if it is possible to do 
+so immediately without violating capacity restrictions, returning true upon 
+success and false if no space is currently available. When using a 
+capacity-restricted deque, this method is generally preferable to the 
+addLast(|java.util.concurrent.BlockingDeque|) method, which can fail to insert 
+an element only by throwing an exception. 
+
+
+    e - the element to add 
+
+*java.util.concurrent.BlockingDeque.offerLast(E,long,TimeUnit)*
+
+public boolean offerLast(
+  E e,
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.lang.InterruptedException|
+         
+Inserts the specified element at the end of this deque, waiting up to the 
+specified wait time if necessary for space to become available. 
+
+
+    e - the element to add 
+    timeout - how long to wait before giving up, in units of unit 
+    unit - a TimeUnit determining how to interpret the timeout parameter 
+
+    Returns: true if successful, or false if the specified waiting time elapses before space 
+             is available 
+
+*java.util.concurrent.BlockingDeque.peek()*
+
+public |E| peek()
+
+Retrieves, but does not remove, the head of the queue represented by this deque 
+(in other words, the first element of this deque), or returns null if this 
+deque is empty. 
+
+This method is equivalent to peekFirst(|java.util.concurrent.BlockingDeque|) . 
+
+
+
+    Returns: the head of this deque, or null if this deque is empty 
+
+*java.util.concurrent.BlockingDeque.poll()*
+
+public |E| poll()
+
+Retrieves and removes the head of the queue represented by this deque (in other 
+words, the first element of this deque), or returns null if this deque is 
+empty. 
+
+This method is equivalent to (|java.util.concurrent.BlockingDeque|) . 
+
+
+
+    Returns: the head of this deque, or null if this deque is empty 
+
+*java.util.concurrent.BlockingDeque.poll(long,TimeUnit)*
+
+public |E| poll(
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.lang.InterruptedException|
+         
+Retrieves and removes the head of the queue represented by this deque (in other 
+words, the first element of this deque), waiting up to the specified wait time 
+if necessary for an element to become available. 
+
+This method is equivalent to pollFirst(|java.util.concurrent.BlockingDeque|) . 
+
+
+
+    Returns: the head of this deque, or null if the specified waiting time elapses before an 
+             element is available 
+
+*java.util.concurrent.BlockingDeque.pollFirst(long,TimeUnit)*
+
+public |E| pollFirst(
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.lang.InterruptedException|
+         
+Retrieves and removes the first element of this deque, waiting up to the 
+specified wait time if necessary for an element to become available. 
+
+
+    timeout - how long to wait before giving up, in units of unit 
+    unit - a TimeUnit determining how to interpret the timeout parameter 
+
+    Returns: the head of this deque, or null if the specified waiting time elapses before an 
+             element is available 
+
+*java.util.concurrent.BlockingDeque.pollLast(long,TimeUnit)*
+
+public |E| pollLast(
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.lang.InterruptedException|
+         
+Retrieves and removes the last element of this deque, waiting up to the 
+specified wait time if necessary for an element to become available. 
+
+
+    timeout - how long to wait before giving up, in units of unit 
+    unit - a TimeUnit determining how to interpret the timeout parameter 
+
+    Returns: the tail of this deque, or null if the specified waiting time elapses before an 
+             element is available 
+
+*java.util.concurrent.BlockingDeque.push(E)*
+
+public void push(E e)
+
+Pushes an element onto the stack represented by this deque. In other words, 
+inserts the element at the front of this deque unless it would violate capacity 
+restrictions. 
+
+This method is equivalent to addFirst(|java.util.concurrent.BlockingDeque|) . 
+
+
+
+*java.util.concurrent.BlockingDeque.put(E)*
+
+public void put(E e)
+  throws |java.lang.InterruptedException|
+         
+Inserts the specified element into the queue represented by this deque (in 
+other words, at the tail of this deque), waiting if necessary for space to 
+become available. 
+
+This method is equivalent to putLast(|java.util.concurrent.BlockingDeque|) . 
+
+
+    e - the element to add 
+
+*java.util.concurrent.BlockingDeque.putFirst(E)*
+
+public void putFirst(E e)
+  throws |java.lang.InterruptedException|
+         
+Inserts the specified element at the front of this deque, waiting if necessary 
+for space to become available. 
+
+
+    e - the element to add 
+
+*java.util.concurrent.BlockingDeque.putLast(E)*
+
+public void putLast(E e)
+  throws |java.lang.InterruptedException|
+         
+Inserts the specified element at the end of this deque, waiting if necessary 
+for space to become available. 
+
+
+    e - the element to add 
+
+*java.util.concurrent.BlockingDeque.remove()*
+
+public |E| remove()
+
+Retrieves and removes the head of the queue represented by this deque (in other 
+words, the first element of this deque). This method differs from 
+poll(|java.util.concurrent.BlockingDeque|) only in that it throws an exception 
+if this deque is empty. 
+
+This method is equivalent to removeFirst(|java.util.concurrent.BlockingDeque|) 
+. 
+
+
+
+    Returns: the head of the queue represented by this deque 
+
+*java.util.concurrent.BlockingDeque.remove(Object)*
+
+public boolean remove(java.lang.Object o)
+
+Removes the first occurrence of the specified element from this deque. If the 
+deque does not contain the element, it is unchanged. More formally, removes the 
+first element e such that o.equals(e) (if such an element exists). Returns true 
+if this deque contained the specified element (or equivalently, if this deque 
+changed as a result of the call). 
+
+This method is equivalent to 
+removeFirstOccurrence(|java.util.concurrent.BlockingDeque|) . 
+
+
+    o - element to be removed from this deque, if present 
+
+    Returns: true if this deque changed as a result of the call 
+
+*java.util.concurrent.BlockingDeque.removeFirstOccurrence(Object)*
+
+public boolean removeFirstOccurrence(java.lang.Object o)
+
+Removes the first occurrence of the specified element from this deque. If the 
+deque does not contain the element, it is unchanged. More formally, removes the 
+first element e such that o.equals(e) (if such an element exists). Returns true 
+if this deque contained the specified element (or equivalently, if this deque 
+changed as a result of the call). 
+
+
+    o - element to be removed from this deque, if present 
+
+    Returns: true if an element was removed as a result of this call 
+
+*java.util.concurrent.BlockingDeque.removeLastOccurrence(Object)*
+
+public boolean removeLastOccurrence(java.lang.Object o)
+
+Removes the last occurrence of the specified element from this deque. If the 
+deque does not contain the element, it is unchanged. More formally, removes the 
+last element e such that o.equals(e) (if such an element exists). Returns true 
+if this deque contained the specified element (or equivalently, if this deque 
+changed as a result of the call). 
+
+
+    o - element to be removed from this deque, if present 
+
+    Returns: true if an element was removed as a result of this call 
+
+*java.util.concurrent.BlockingDeque.size()*
+
+public int size()
+
+Returns the number of elements in this deque. 
+
+
+
+    Returns: the number of elements in this deque 
+
+*java.util.concurrent.BlockingDeque.take()*
+
+public |E| take()
+  throws |java.lang.InterruptedException|
+         
+Retrieves and removes the head of the queue represented by this deque (in other 
+words, the first element of this deque), waiting if necessary until an element 
+becomes available. 
+
+This method is equivalent to takeFirst(|java.util.concurrent.BlockingDeque|) . 
+
+
+
+    Returns: the head of this deque 
+
+*java.util.concurrent.BlockingDeque.takeFirst()*
+
+public |E| takeFirst()
+  throws |java.lang.InterruptedException|
+         
+Retrieves and removes the first element of this deque, waiting if necessary 
+until an element becomes available. 
+
+
+
+    Returns: the head of this deque 
+
+*java.util.concurrent.BlockingDeque.takeLast()*
+
+public |E| takeLast()
+  throws |java.lang.InterruptedException|
+         
+Retrieves and removes the last element of this deque, waiting if necessary 
+until an element becomes available. 
+
+
+
+    Returns: the tail of this deque 
+
+

@@ -1,6 +1,6 @@
 *java.lang.reflect.Constructor* *Constructor* Constructor provides information a
 
-public final class Constructor
+public final class Constructor<T>
   extends    |java.lang.reflect.AccessibleObject|
   implements |java.lang.reflect.GenericDeclaration|
              |java.lang.reflect.Member|
@@ -14,7 +14,7 @@ public final class Constructor
 
 *java.lang.reflect.Constructor_Methods*
 |java.lang.reflect.Constructor.equals(Object)|Compares this Constructor against
-|java.lang.reflect.Constructor.getAnnotation(Class)|
+|java.lang.reflect.Constructor.getAnnotation(Class<T>)|
 |java.lang.reflect.Constructor.getDeclaredAnnotations()|
 |java.lang.reflect.Constructor.getDeclaringClass()|Returns the Class object rep
 |java.lang.reflect.Constructor.getExceptionTypes()|Returns an array of Class ob
@@ -28,7 +28,7 @@ public final class Constructor
 |java.lang.reflect.Constructor.hashCode()|Returns a hashcode for this Construct
 |java.lang.reflect.Constructor.isSynthetic()|Returns true if this constructor i
 |java.lang.reflect.Constructor.isVarArgs()|Returns true if this constructor was
-|java.lang.reflect.Constructor.newInstance(Object[])|Uses the constructor repre
+|java.lang.reflect.Constructor.newInstance(Object...)|Uses the constructor repr
 |java.lang.reflect.Constructor.toGenericString()|Returns a string describing th
 |java.lang.reflect.Constructor.toString()|Returns a string describing this Cons
 
@@ -43,6 +43,7 @@ parameters, but throws an IllegalArgumentException if a narrowing conversion
 would occur. 
 
 
+
 *java.lang.reflect.Constructor.equals(Object)*
 
 public boolean equals(java.lang.Object obj)
@@ -52,31 +53,35 @@ objects are the same. Two Constructor objects are the same if they were
 declared by the same class and have the same formal parameter types. 
 
 
-*java.lang.reflect.Constructor.getAnnotation(Class)*
 
-public |java.lang.annotation.Annotation| getAnnotation(java.lang.Class annotationClass)
+*java.lang.reflect.Constructor.getAnnotation(Class<T>)*
+
+public |T| getAnnotation(java.lang.Class<T> annotationClass)
+
 
 
 
 
 *java.lang.reflect.Constructor.getDeclaredAnnotations()*
 
-public |java.lang.annotation.Annotation| getDeclaredAnnotations()
+public |java.lang.annotation.Annotation|[] getDeclaredAnnotations()
+
 
 
 
 
 *java.lang.reflect.Constructor.getDeclaringClass()*
 
-public |java.lang.Class| getDeclaringClass()
+public |java.lang.Class|<T> getDeclaringClass()
 
 Returns the Class object representing the class that declares the constructor 
 represented by this Constructor object. 
 
 
+
 *java.lang.reflect.Constructor.getExceptionTypes()*
 
-public |java.lang.Class| getExceptionTypes()
+public |java.lang.Class|[] getExceptionTypes()
 
 Returns an array of Class objects that represent the types of exceptions 
 declared to be thrown by the underlying constructor represented by this 
@@ -84,11 +89,13 @@ Constructor object. Returns an array of length 0 if the constructor declares no
 exceptions in its throws clause. 
 
 
+
     Returns: the exception types declared as being thrown by the constructor this object 
              represents 
+
 *java.lang.reflect.Constructor.getGenericExceptionTypes()*
 
-public |java.lang.reflect.Type| getGenericExceptionTypes()
+public |java.lang.reflect.Type|[] getGenericExceptionTypes()
 
 Returns an array of Type objects that represent the exceptions declared to be 
 thrown by this Constructor object. Returns an array of length 0 if the 
@@ -101,11 +108,13 @@ If an exception type is a type variable or a parameterized type, it is created.
 Otherwise, it is resolved. 
 
 
+
     Returns: an array of Types that represent the exception types thrown by the underlying 
              method 
+
 *java.lang.reflect.Constructor.getGenericParameterTypes()*
 
-public |java.lang.reflect.Type| getGenericParameterTypes()
+public |java.lang.reflect.Type|[] getGenericParameterTypes()
 
 Returns an array of Type objects that represent the formal parameter types, in 
 declaration order, of the method represented by this Constructor object. 
@@ -119,8 +128,10 @@ If a formal parameter type is a type variable or a parameterized type, it is
 created. Otherwise, it is resolved. 
 
 
+
     Returns: an array of Types that represent the formal parameter types of the underlying 
              method, in declaration order 
+
 *java.lang.reflect.Constructor.getModifiers()*
 
 public int getModifiers()
@@ -128,6 +139,7 @@ public int getModifiers()
 Returns the Java language modifiers for the constructor represented by this 
 Constructor object, as an integer. The Modifier class should be used to decode 
 the modifiers. 
+
 
 
 *java.lang.reflect.Constructor.getName()*
@@ -138,12 +150,13 @@ Returns the name of this constructor, as a string. This is always the same as
 the simple name of the constructor's declaring class. 
 
 
+
 *java.lang.reflect.Constructor.getParameterAnnotations()*
 
-public |java.lang.annotation.Annotation| getParameterAnnotations()
+public |java.lang.annotation.Annotation|[][] getParameterAnnotations()
 
 Returns an array of arrays that represent the annotations on the formal 
-parameters, in declaration order, of the method represented by this Method 
+parameters, in declaration order, of the method represented by this Constructor 
 object. (Returns an array of length zero if the underlying method is 
 parameterless. If the method has one or more parameters, a nested array of 
 length zero is returned for each parameter with no annotations.) The annotation 
@@ -152,21 +165,26 @@ method is free to modify the returned arrays; it will have no effect on the
 arrays returned to other callers. 
 
 
+
     Returns: an array of arrays that represent the annotations on the formal parameters, in 
-             declaration order, of the method represented by this Method object 
+             declaration order, of the method represented by this Constructor 
+             object 
+
 *java.lang.reflect.Constructor.getParameterTypes()*
 
-public |java.lang.Class| getParameterTypes()
+public |java.lang.Class|[] getParameterTypes()
 
 Returns an array of Class objects that represent the formal parameter types, in 
 declaration order, of the constructor represented by this Constructor object. 
 Returns an array of length 0 if the underlying constructor takes no parameters. 
 
 
+
     Returns: the parameter types for the constructor this object represents 
+
 *java.lang.reflect.Constructor.getTypeParameters()*
 
-public |java.lang.reflect.TypeVariable| getTypeParameters()
+public |java.lang.reflect.TypeVariable|[] getTypeParameters()
 
 Returns an array of TypeVariable objects that represent the type variables 
 declared by the generic declaration represented by this GenericDeclaration 
@@ -174,14 +192,17 @@ object, in declaration order. Returns an array of length 0 if the underlying
 generic declaration declares no type variables. 
 
 
+
     Returns: an array of TypeVariable objects that represent the type variables declared by 
              this generic declaration 
+
 *java.lang.reflect.Constructor.hashCode()*
 
 public int hashCode()
 
 Returns a hashcode for this Constructor. The hashcode is the same as the 
 hashcode for the underlying constructor's declaring class name. 
+
 
 
 *java.lang.reflect.Constructor.isSynthetic()*
@@ -192,8 +213,10 @@ Returns true if this constructor is a synthetic constructor; returns false
 otherwise. 
 
 
+
     Returns: true if and only if this constructor is a synthetic constructor as defined by 
              the Java Language Specification. 
+
 *java.lang.reflect.Constructor.isVarArgs()*
 
 public boolean isVarArgs()
@@ -202,11 +225,13 @@ Returns true if this constructor was declared to take a variable number of
 arguments; returns false otherwise. 
 
 
+
     Returns: true if an only if this constructor was declared to take a variable number of 
              arguments. 
-*java.lang.reflect.Constructor.newInstance(Object[])*
 
-public |java.lang.Object| newInstance(java.lang.Object[] initargs)
+*java.lang.reflect.Constructor.newInstance(Object...)*
+
+public |T| newInstance(java.lang.Object[] initargs)
   throws |java.lang.IllegalAccessException|
          |java.lang.IllegalArgumentException|
          |java.lang.InstantiationException|
@@ -221,6 +246,10 @@ reference parameters are subject to method invocation conversions as necessary.
 If the number of formal parameters required by the underlying constructor is 0, 
 the supplied initargs array may be of length 0 or null. 
 
+If the constructor's declaring class is an inner class in a non-static context, 
+the first argument to the constructor needs to be the enclosing instance; see 
+The Java Language Specification, section 15.9.3. 
+
 If the required access and argument checks succeed and the instantiation will 
 proceed, the constructor's declaring class is initialized if it has not already 
 been initialized. 
@@ -228,11 +257,13 @@ been initialized.
 If the constructor completes normally, returns the newly created and 
 initialized instance. 
 
+
     initargs - array of objects to be passed as arguments to the constructor call; values of 
        primitive types are wrapped in a wrapper object of the appropriate type 
        (e.g. a float in a {@link java.lang.Float Float}) 
 
     Returns: a new object created by calling the constructor this object represents 
+
 *java.lang.reflect.Constructor.toGenericString()*
 
 public |java.lang.String| toGenericString()
@@ -254,7 +285,9 @@ protected or private. Only one of these may appear, or none if the constructor
 has default (package) access. 
 
 
+
     Returns: a string describing this Constructor, include type parameters 
+
 *java.lang.reflect.Constructor.toString()*
 
 public |java.lang.String| toString()
@@ -269,6 +302,7 @@ public java.util.Hashtable(int,float)
 The only possible modifiers for constructors are the access modifiers public, 
 protected or private. Only one of these may appear, or none if the constructor 
 has default (package) access. 
+
 
 
 

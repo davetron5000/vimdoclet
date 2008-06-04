@@ -32,7 +32,7 @@ public class Thread
 |java.lang.Thread.countStackFrames()|Counts the number of stack frames in this 
 |java.lang.Thread.currentThread()|Returns a reference to the currently executin
 |java.lang.Thread.destroy()|ThrowsNoSuchMethodError.
-|java.lang.Thread.dumpStack()|Prints a stack trace of the current thread.
+|java.lang.Thread.dumpStack()|Prints a stack trace of the current thread to the
 |java.lang.Thread.enumerate(Thread[])|Copies into the specified array every act
 |java.lang.Thread.getAllStackTraces()|Returns a map of stack traces for all liv
 |java.lang.Thread.getContextClassLoader()|Returns the context ClassLoader for t
@@ -126,172 +126,20 @@ have the same name. If a name is not specified when a thread is created, a new
 name is generated for it. 
 
 
+
 *int_java.lang.Thread.MAX_PRIORITY*
 
-A thread is a thread of execution in a program. The Java Virtual Machine allows 
-an application to have multiple threads of execution running concurrently. 
-
-Every thread has a priority. Threads with higher priority are executed in 
-preference to threads with lower priority. Each thread may or may not also be 
-marked as a daemon. When code running in some thread creates a new Thread 
-object, the new thread has its priority initially set equal to the priority of 
-the creating thread, and is a daemon thread if and only if the creating thread 
-is a daemon. 
-
-When a Java Virtual Machine starts up, there is usually a single non-daemon 
-thread (which typically calls the method named main of some designated class). 
-The Java Virtual Machine continues to execute threads until either of the 
-following occurs: 
-
-The exit method of class Runtime has been called and the security manager has 
-permitted the exit operation to take place. All threads that are not daemon 
-threads have died, either by returning from the call to the run method or by 
-throwing an exception that propagates beyond the run method. 
-
-There are two ways to create a new thread of execution. One is to declare a 
-class to be a subclass of Thread. This subclass should override the run method 
-of class Thread. An instance of the subclass can then be allocated and started. 
-For example, a thread that computes primes larger than a stated value could be 
-written as follows: 
-
-class PrimeThread extends Thread { long minPrime; PrimeThread(long minPrime) { 
-this.minPrime = minPrime; } 
-
-public void run() { // compute primes larger than minPrime ... } } 
-
-The following code would then create a thread and start it running: 
-
-PrimeThread p = new PrimeThread(143); p.start(); 
-
-The other way to create a thread is to declare a class that implements the 
-Runnable interface. That class then implements the run method. An instance of 
-the class can then be allocated, passed as an argument when creating Thread, 
-and started. The same example in this other style looks like the following: 
-
-class PrimeRun implements Runnable { long minPrime; PrimeRun(long minPrime) { 
-this.minPrime = minPrime; } 
-
-public void run() { // compute primes larger than minPrime ... } } 
-
-The following code would then create a thread and start it running: 
-
-PrimeRun p = new PrimeRun(143); new Thread(p).start(); 
-
-Every thread has a name for identification purposes. More than one thread may 
-have the same name. If a name is not specified when a thread is created, a new 
-name is generated for it. 
+The maximum priority that a thread can have. 
 
 
 *int_java.lang.Thread.MIN_PRIORITY*
 
-A thread is a thread of execution in a program. The Java Virtual Machine allows 
-an application to have multiple threads of execution running concurrently. 
-
-Every thread has a priority. Threads with higher priority are executed in 
-preference to threads with lower priority. Each thread may or may not also be 
-marked as a daemon. When code running in some thread creates a new Thread 
-object, the new thread has its priority initially set equal to the priority of 
-the creating thread, and is a daemon thread if and only if the creating thread 
-is a daemon. 
-
-When a Java Virtual Machine starts up, there is usually a single non-daemon 
-thread (which typically calls the method named main of some designated class). 
-The Java Virtual Machine continues to execute threads until either of the 
-following occurs: 
-
-The exit method of class Runtime has been called and the security manager has 
-permitted the exit operation to take place. All threads that are not daemon 
-threads have died, either by returning from the call to the run method or by 
-throwing an exception that propagates beyond the run method. 
-
-There are two ways to create a new thread of execution. One is to declare a 
-class to be a subclass of Thread. This subclass should override the run method 
-of class Thread. An instance of the subclass can then be allocated and started. 
-For example, a thread that computes primes larger than a stated value could be 
-written as follows: 
-
-class PrimeThread extends Thread { long minPrime; PrimeThread(long minPrime) { 
-this.minPrime = minPrime; } 
-
-public void run() { // compute primes larger than minPrime ... } } 
-
-The following code would then create a thread and start it running: 
-
-PrimeThread p = new PrimeThread(143); p.start(); 
-
-The other way to create a thread is to declare a class that implements the 
-Runnable interface. That class then implements the run method. An instance of 
-the class can then be allocated, passed as an argument when creating Thread, 
-and started. The same example in this other style looks like the following: 
-
-class PrimeRun implements Runnable { long minPrime; PrimeRun(long minPrime) { 
-this.minPrime = minPrime; } 
-
-public void run() { // compute primes larger than minPrime ... } } 
-
-The following code would then create a thread and start it running: 
-
-PrimeRun p = new PrimeRun(143); new Thread(p).start(); 
-
-Every thread has a name for identification purposes. More than one thread may 
-have the same name. If a name is not specified when a thread is created, a new 
-name is generated for it. 
+The minimum priority that a thread can have. 
 
 
 *int_java.lang.Thread.NORM_PRIORITY*
 
-A thread is a thread of execution in a program. The Java Virtual Machine allows 
-an application to have multiple threads of execution running concurrently. 
-
-Every thread has a priority. Threads with higher priority are executed in 
-preference to threads with lower priority. Each thread may or may not also be 
-marked as a daemon. When code running in some thread creates a new Thread 
-object, the new thread has its priority initially set equal to the priority of 
-the creating thread, and is a daemon thread if and only if the creating thread 
-is a daemon. 
-
-When a Java Virtual Machine starts up, there is usually a single non-daemon 
-thread (which typically calls the method named main of some designated class). 
-The Java Virtual Machine continues to execute threads until either of the 
-following occurs: 
-
-The exit method of class Runtime has been called and the security manager has 
-permitted the exit operation to take place. All threads that are not daemon 
-threads have died, either by returning from the call to the run method or by 
-throwing an exception that propagates beyond the run method. 
-
-There are two ways to create a new thread of execution. One is to declare a 
-class to be a subclass of Thread. This subclass should override the run method 
-of class Thread. An instance of the subclass can then be allocated and started. 
-For example, a thread that computes primes larger than a stated value could be 
-written as follows: 
-
-class PrimeThread extends Thread { long minPrime; PrimeThread(long minPrime) { 
-this.minPrime = minPrime; } 
-
-public void run() { // compute primes larger than minPrime ... } } 
-
-The following code would then create a thread and start it running: 
-
-PrimeThread p = new PrimeThread(143); p.start(); 
-
-The other way to create a thread is to declare a class that implements the 
-Runnable interface. That class then implements the run method. An instance of 
-the class can then be allocated, passed as an argument when creating Thread, 
-and started. The same example in this other style looks like the following: 
-
-class PrimeRun implements Runnable { long minPrime; PrimeRun(long minPrime) { 
-this.minPrime = minPrime; } 
-
-public void run() { // compute primes larger than minPrime ... } } 
-
-The following code would then create a thread and start it running: 
-
-PrimeRun p = new PrimeRun(143); new Thread(p).start(); 
-
-Every thread has a name for identification purposes. More than one thread may 
-have the same name. If a name is not specified when a thread is created, a new 
-name is generated for it. 
+The default priority that is assigned to a thread. 
 
 
 
@@ -463,7 +311,9 @@ public static int activeCount()
 Returns the number of active threads in the current thread's thread group. 
 
 
+
     Returns: the number of active threads in the current thread's thread group. 
+
 *java.lang.Thread.checkAccess()*
 
 public final void checkAccess()
@@ -474,8 +324,6 @@ thread.
 If there is a security manager, its checkAccess method is called with this 
 thread as its argument. This may result in throwing a SecurityException. 
 
-Note: This method was mistakenly non-final in JDK 1.1. It has been made final 
-in the Java 2 Platform. 
 
 
 *java.lang.Thread.countStackFrames()*
@@ -484,8 +332,13 @@ public native int countStackFrames()
 
 Counts the number of stack frames in this thread. The thread must be suspended. 
 
+    Deprecated: The definition of this call depends on {@link #suspend},
+		   which is deprecated.  Further, the results of this call
+		   were never well-defined.
+
 
     Returns: the number of stack frames in this thread. 
+
 *java.lang.Thread.currentThread()*
 
 public static native |java.lang.Thread| currentThread()
@@ -493,20 +346,36 @@ public static native |java.lang.Thread| currentThread()
 Returns a reference to the currently executing thread object. 
 
 
+
     Returns: the currently executing thread. 
+
 *java.lang.Thread.destroy()*
 
 public void destroy()
 
 Throws (|java.lang.NoSuchMethodError|) . 
 
+    Deprecated: This method was originally designed to destroy this
+     thread without any cleanup. Any monitors it held would have
+     remained locked. However, the method was never implemented.
+     If if were to be implemented, it would be deadlock-prone in
+     much the manner of {@link #suspend}. If the target thread held
+     a lock protecting a critical system resource when it was
+     destroyed, no thread could ever access this resource again.
+     If another thread ever attempted to lock this resource, deadlock
+     would result. Such deadlocks typically manifest themselves as
+     "frozen" processes. For more information, see
+     <a href="{@docRoot}/../technotes/guides/concurrency/threadPrimitiveDeprecation.html">
+     Why are Thread.stop, Thread.suspend and Thread.resume Deprecated?</a>.
+
 
 *java.lang.Thread.dumpStack()*
 
 public static void dumpStack()
 
-Prints a stack trace of the current thread. This method is used only for 
-debugging. 
+Prints a stack trace of the current thread to the standard error stream. This 
+method is used only for debugging. 
+
 
 
 *java.lang.Thread.enumerate(Thread[])*
@@ -521,12 +390,14 @@ First, if there is a security manager, that enumerate method calls the security
 manager's checkAccess method with the thread group as its argument. This may 
 result in throwing a SecurityException. 
 
+
     tarray - an array of Thread objects to copy to 
 
     Returns: the number of threads put into the array 
+
 *java.lang.Thread.getAllStackTraces()*
 
-public static |java.util.Map| getAllStackTraces()
+public static |java.util.Map|<Thread,StackTraceElement[]> getAllStackTraces()
 
 Returns a map of stack traces for all live threads. The map keys are threads 
 and each map value is an array of StackTraceElement that represents the stack 
@@ -544,8 +415,10 @@ as RuntimePermission("modifyThreadGroup") permission to see if it is ok to get
 the stack trace of all threads. 
 
 
+
     Returns: a Map from Thread to an array of StackTraceElement that represents the stack 
              trace of the corresponding thread. 
+
 *java.lang.Thread.getContextClassLoader()*
 
 public |java.lang.ClassLoader| getContextClassLoader()
@@ -564,13 +437,16 @@ RuntimePermission("getClassLoader") permission to see if it's ok to get the
 context ClassLoader.. 
 
 
+
     Returns: the context ClassLoader for this Thread 
+
 *java.lang.Thread.getDefaultUncaughtExceptionHandler()*
 
 public static |java.lang.Thread.UncaughtExceptionHandler| getDefaultUncaughtExceptionHandler()
 
 Returns the default handler invoked when a thread abruptly terminates due to an 
 uncaught exception. If the returned value is null, there is no default. 
+
 
 
 *java.lang.Thread.getId()*
@@ -583,7 +459,9 @@ unchanged during its lifetime. When a thread is terminated, this thread ID may
 be reused. 
 
 
+
     Returns: this thread's ID. 
+
 *java.lang.Thread.getName()*
 
 public final |java.lang.String| getName()
@@ -591,7 +469,9 @@ public final |java.lang.String| getName()
 Returns this thread's name. 
 
 
+
     Returns: this thread's name. 
+
 *java.lang.Thread.getPriority()*
 
 public final int getPriority()
@@ -599,10 +479,12 @@ public final int getPriority()
 Returns this thread's priority. 
 
 
+
     Returns: this thread's priority. 
+
 *java.lang.Thread.getStackTrace()*
 
-public |java.lang.StackTraceElement| getStackTrace()
+public |java.lang.StackTraceElement|[] getStackTrace()
 
 Returns an array of stack trace elements representing the stack dump of this 
 thread. This method will return a zero-length array if this thread has not 
@@ -623,7 +505,9 @@ stack trace information concerning this thread is permitted to return a
 zero-length array from this method. 
 
 
+
     Returns: an array of StackTraceElement, each represents one stack frame. 
+
 *java.lang.Thread.getState()*
 
 public |java.lang.Thread.State| getState()
@@ -632,7 +516,9 @@ Returns the state of this thread. This method is designed for use in monitoring
 of the system state, not for synchronization control. 
 
 
+
     Returns: this thread's state. 
+
 *java.lang.Thread.getThreadGroup()*
 
 public final |java.lang.ThreadGroup| getThreadGroup()
@@ -641,7 +527,9 @@ Returns the thread group to which this thread belongs. This method returns null
 if this thread has died (been stopped). 
 
 
+
     Returns: this thread's thread group. 
+
 *java.lang.Thread.getUncaughtExceptionHandler()*
 
 public |java.lang.Thread.UncaughtExceptionHandler| getUncaughtExceptionHandler()
@@ -650,6 +538,7 @@ Returns the handler invoked when this thread abruptly terminates due to an
 uncaught exception. If this thread has not had an uncaught exception handler 
 explicitly set then this thread's ThreadGroup object is returned, unless this 
 thread has terminated, in which case null is returned. 
+
 
 
 *java.lang.Thread.holdsLock(Object)*
@@ -664,9 +553,11 @@ already holds a specified lock:
 
 assert Thread.holdsLock(obj); 
 
+
     obj - the object on which to test lock ownership 
 
     Returns: true if the current thread holds the monitor lock on the specified object. 
+
 *java.lang.Thread.interrupt()*
 
 public void interrupt()
@@ -697,6 +588,9 @@ wakeup(|java.nio.channels.Selector|) method were invoked.
 If none of the previous conditions hold then this thread's interrupt status 
 will be set. 
 
+Interrupting a thread that is not alive need not have any effect. 
+
+
 
 *java.lang.Thread.interrupted()*
 
@@ -708,8 +602,13 @@ be called twice in succession, the second call would return false (unless the
 current thread were interrupted again, after the first call had cleared its 
 interrupted status and before the second call had examined it). 
 
+A thread interruption ignored because a thread was not alive at the time of the 
+interrupt will be reflected by this method returning false. 
+
+
 
     Returns: true if the current thread has been interrupted; false otherwise. 
+
 *java.lang.Thread.isAlive()*
 
 public final native boolean isAlive()
@@ -718,7 +617,9 @@ Tests if this thread is alive. A thread is alive if it has been started and has
 not yet died. 
 
 
+
     Returns: true if this thread is alive; false otherwise. 
+
 *java.lang.Thread.isDaemon()*
 
 public final boolean isDaemon()
@@ -726,7 +627,9 @@ public final boolean isDaemon()
 Tests if this thread is a daemon thread. 
 
 
+
     Returns: true if this thread is a daemon thread; false otherwise. 
+
 *java.lang.Thread.isInterrupted()*
 
 public boolean isInterrupted()
@@ -734,14 +637,20 @@ public boolean isInterrupted()
 Tests whether this thread has been interrupted. The interrupted status of the 
 thread is unaffected by this method. 
 
+A thread interruption ignored because a thread was not alive at the time of the 
+interrupt will be reflected by this method returning false. 
+
+
 
     Returns: true if this thread has been interrupted; false otherwise. 
+
 *java.lang.Thread.join()*
 
 public final void join()
   throws |java.lang.InterruptedException|
          
 Waits for this thread to die. 
+
 
 
 *java.lang.Thread.join(long)*
@@ -751,6 +660,7 @@ public final synchronized void join(long millis)
          
 Waits at most millis milliseconds for this thread to die. A timeout of 0 means 
 to wait forever. 
+
 
     millis - the time to wait in milliseconds. 
 
@@ -763,6 +673,7 @@ public final synchronized void join(
          
 Waits at most millis milliseconds plus nanos nanoseconds for this thread to 
 die. 
+
 
     millis - the time to wait in milliseconds. 
     nanos - 0-999999 additional nanoseconds to wait. 
@@ -779,6 +690,12 @@ may result in throwing a SecurityException (in the current thread).
 If the thread is alive but suspended, it is resumed and is permitted to make 
 progress in its execution. 
 
+    Deprecated: This method exists solely for use with {@link #suspend},
+     which has been deprecated because it is deadlock-prone.
+     For more information, see 
+     <a href="{@docRoot}/../technotes/guides/concurrency/threadPrimitiveDeprecation.html">Why 
+     are Thread.stop, Thread.suspend and Thread.resume Deprecated?</a>.
+
 
 *java.lang.Thread.run()*
 
@@ -789,6 +706,7 @@ Runnable object's run method is called; otherwise, this method does nothing and
 returns. 
 
 Subclasses of Thread should override this method. 
+
 
 
 *java.lang.Thread.setContextClassLoader(ClassLoader)*
@@ -804,6 +722,7 @@ First, if there is a security manager, its checkPermission method is called
 with a RuntimePermission("setContextClassLoader") permission to see if it's ok 
 to set the context ClassLoader.. 
 
+
     cl - the context ClassLoader for this Thread 
 
 *java.lang.Thread.setDaemon(boolean)*
@@ -818,6 +737,7 @@ This method must be called before the thread is started.
 This method first calls the checkAccess method of this thread with no 
 arguments. This may result in throwing a SecurityException (in the current 
 thread). 
+
 
     on - if true, marks this thread as a daemon thread. 
 
@@ -842,6 +762,7 @@ provided.
 Note that the default uncaught exception handler should not usually defer to 
 the thread's ThreadGroup object, as that could cause infinite recursion. 
 
+
     eh - the object to use as the default uncaught exception handler. If null then there 
        is no default handler. 
 
@@ -853,6 +774,7 @@ Changes the name of this thread to be equal to the argument name.
 
 First the checkAccess method of this thread is called with no arguments. This 
 may result in throwing a SecurityException. 
+
 
     name - the new name for this thread. 
 
@@ -868,6 +790,7 @@ may result in throwing a SecurityException.
 Otherwise, the priority of this thread is set to the smaller of the specified 
 newPriority and the maximum permitted priority of the thread's thread group. 
 
+
     newPriority - priority to set this thread to 
 
 *java.lang.Thread.setUncaughtExceptionHandler(Thread.UncaughtExceptionHandler)*
@@ -879,6 +802,7 @@ exception. A thread can take full control of how it responds to uncaught
 exceptions by having its uncaught exception handler explicitly set. If no such 
 handler is set then the thread's ThreadGroup object acts as its handler. 
 
+
     eh - the object to use as this thread's uncaught exception handler. If null then 
        this thread has no explicit handler. 
 
@@ -888,8 +812,10 @@ public static native void sleep(long millis)
   throws |java.lang.InterruptedException|
          
 Causes the currently executing thread to sleep (temporarily cease execution) 
-for the specified number of milliseconds. The thread does not lose ownership of 
-any monitors. 
+for the specified number of milliseconds, subject to the precision and accuracy 
+of system timers and schedulers. The thread does not lose ownership of any 
+monitors. 
+
 
     millis - the length of time to sleep in milliseconds. 
 
@@ -901,8 +827,10 @@ public static void sleep(
   throws |java.lang.InterruptedException|
          
 Causes the currently executing thread to sleep (cease execution) for the 
-specified number of milliseconds plus the specified number of nanoseconds. The 
+specified number of milliseconds plus the specified number of nanoseconds, 
+subject to the precision and accuracy of system timers and schedulers. The 
 thread does not lose ownership of any monitors. 
+
 
     millis - the length of time to sleep in milliseconds. 
     nanos - 0-999999 additional nanoseconds to sleep. 
@@ -920,6 +848,7 @@ executes its run method).
 
 It is never legal to start a thread more than once. In particular, a thread may 
 not be restarted once it has completed execution. 
+
 
 
 *java.lang.Thread.stop()*
@@ -954,6 +883,25 @@ The top-level error handler that reacts to otherwise uncaught exceptions does
 not print out a message or otherwise notify the application if the uncaught 
 exception is an instance of ThreadDeath. 
 
+    Deprecated: This method is inherently unsafe.  Stopping a thread with
+	     Thread.stop causes it to unlock all of the monitors that it
+	     has locked (as a natural consequence of the unchecked
+	     <code>ThreadDeath</code> exception propagating up the stack).  If
+       any of the objects previously protected by these monitors were in
+       an inconsistent state, the damaged objects become visible to
+       other threads, potentially resulting in arbitrary behavior.  Many
+       uses of <code>stop</code> should be replaced by code that simply
+       modifies some variable to indicate that the target thread should
+       stop running.  The target thread should check this variable  
+       regularly, and return from its run method in an orderly fashion
+       if the variable indicates that it is to stop running.  If the
+       target thread waits for long periods (on a condition variable,
+       for example), the <code>interrupt</code> method should be used to
+       interrupt the wait. 
+       For more information, see 
+       <a href="{@docRoot}/../technotes/guides/concurrency/threadPrimitiveDeprecation.html">Why 
+       are Thread.stop, Thread.suspend and Thread.resume Deprecated?</a>.
+
 
 *java.lang.Thread.stop(Throwable)*
 
@@ -974,13 +922,23 @@ may result in throwing a SecurityException (in the current thread).
 If the argument obj is null, a NullPointerException is thrown (in the current 
 thread). 
 
-The thread represented by this thread is forced to complete whatever it is 
-doing abnormally and to throw the Throwable object obj as an exception. This is 
-an unusual action to take; normally, the stop method that takes no arguments 
+The thread represented by this thread is forced to stop whatever it is doing 
+abnormally and to throw the Throwable object obj as an exception. This is an 
+unusual action to take; normally, the stop method that takes no arguments 
 should be used. 
 
 It is permitted to stop a thread that has not yet been started. If the thread 
 is eventually started, it immediately terminates. 
+
+    Deprecated: This method is inherently unsafe.  See {@link #stop()}
+        for details.  An additional danger of this
+        method is that it may be used to generate exceptions that the
+        target thread is unprepared to handle (including checked
+        exceptions that the thread could not possibly throw, were it
+        not for this method).
+        For more information, see 
+        <a href="{@docRoot}/../technotes/guides/concurrency/threadPrimitiveDeprecation.html">Why 
+        are Thread.stop, Thread.suspend and Thread.resume Deprecated?</a>.
 
     obj - the Throwable object to be thrown. 
 
@@ -996,6 +954,17 @@ may result in throwing a SecurityException (in the current thread).
 If the thread is alive, it is suspended and makes no further progress unless 
 and until it is resumed. 
 
+    Deprecated: This method has been deprecated, as it is
+   inherently deadlock-prone.  If the target thread holds a lock on the
+   monitor protecting a critical system resource when it is suspended, no
+   thread can access this resource until the target thread is resumed. If
+   the thread that would resume the target thread attempts to lock this
+   monitor prior to calling <code>resume</code>, deadlock results.  Such
+   deadlocks typically manifest themselves as "frozen" processes.
+   For more information, see 
+   <a href="{@docRoot}/../technotes/guides/concurrency/threadPrimitiveDeprecation.html">Why 
+   are Thread.stop, Thread.suspend and Thread.resume Deprecated?</a>.
+
 
 *java.lang.Thread.toString()*
 
@@ -1005,13 +974,16 @@ Returns a string representation of this thread, including the thread's name,
 priority, and thread group. 
 
 
+
     Returns: a string representation of this thread. 
+
 *java.lang.Thread.yield()*
 
 public static native void yield()
 
 Causes the currently executing thread object to temporarily pause and allow 
 other threads to execute. 
+
 
 
 

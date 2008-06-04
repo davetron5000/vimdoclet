@@ -1,6 +1,6 @@
 *java.util.LinkedHashMap* *LinkedHashMap* Hash table and linked list implementat
 
-public class LinkedHashMap
+public class LinkedHashMap<K,V>
   extends    |java.util.HashMap|
   implements |java.util.Map|
 
@@ -16,13 +16,13 @@ public class LinkedHashMap
 |java.util.LinkedHashMap(int)|Constructs an empty insertion-ordered LinkedHashM
 |java.util.LinkedHashMap(int,float)|Constructs an empty insertion-ordered Linke
 |java.util.LinkedHashMap(int,float,boolean)|Constructs an empty LinkedHashMap i
-|java.util.LinkedHashMap(Map)|Constructs an insertion-ordered LinkedHashMap ins
+|java.util.LinkedHashMap(Map<?extendsK,?extendsV>)|Constructs an insertion-orde
 
 *java.util.LinkedHashMap_Methods*
-|java.util.LinkedHashMap.clear()|Removes all mappings from this map.
+|java.util.LinkedHashMap.clear()|Removes all of the mappings from this map.
 |java.util.LinkedHashMap.containsValue(Object)|Returns true if this map maps on
-|java.util.LinkedHashMap.get(Object)|Returns the value to which this map maps t
-|java.util.LinkedHashMap.removeEldestEntry(Map.Entry)|Returns true if this map 
+|java.util.LinkedHashMap.get(Object)|Returns the value to which the specified k
+|java.util.LinkedHashMap.removeEldestEntry(Map.Entry<K,V>)|Returns true if this
 
 *java.util.LinkedHashMap_Description*
 
@@ -82,9 +82,11 @@ Note that this implementation is not synchronized. If multiple threads access a
 linked hash map concurrently, and at least one of the threads modifies the map 
 structurally, it must be synchronized externally. This is typically 
 accomplished by synchronizing on some object that naturally encapsulates the 
-map. If no such object exists, the map should be "wrapped" using the 
-Collections.synchronizedMapmethod. This is best done at creation time, to 
-prevent accidental unsynchronized access: 
+map. 
+
+If no such object exists, the map should be "wrapped" using the 
+Collections.synchronizedMap(|java.util.Collections|) method. This is best done 
+at creation time, to prevent accidental unsynchronized access to the map: 
 
 Map m = Collections.synchronizedMap(new LinkedHashMap(...)); 
 
@@ -95,13 +97,13 @@ associated with a key that is already contained in the map is not a structural
 modification. In access-ordered linked hash maps, merely querying the map with 
 get is a structural modification.) 
 
-The iterators returned by the iterator methods of the collections returned by 
+The iterators returned by the iterator method of the collections returned by 
 all of this class's collection view methods are fail-fast: if the map is 
 structurally modified at any time after the iterator is created, in any way 
 except through the iterator's own remove method, the iterator will throw a 
-ConcurrentModificationException. Thus, in the face of concurrent modification, 
-the Iterator fails quickly and cleanly, rather than risking arbitrary, 
-non-deterministic behavior at an undetermined time in the future. 
+(|java.util.ConcurrentModificationException|) . Thus, in the face of concurrent 
+modification, the iterator fails quickly and cleanly, rather than risking 
+arbitrary, non-deterministic behavior at an undetermined time in the future. 
 
 Note that the fail-fast behavior of an iterator cannot be guaranteed as it is, 
 generally speaking, impossible to make any hard guarantees in the presence of 
@@ -110,16 +112,17 @@ ConcurrentModificationException on a best-effort basis. Therefore, it would be
 wrong to write a program that depended on this exception for its correctness: 
 the fail-fast behavior of iterators should be used only to detect bugs. 
 
-This class is a member of the <a href="/../guide/collections/index.html"> Java 
-Collections Framework. 
+This class is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
 
 
 *java.util.LinkedHashMap()*
 
 public LinkedHashMap()
 
-Constructs an empty insertion-ordered LinkedHashMap instance with a default 
-capacity (16) and load factor (0.75). 
+Constructs an empty insertion-ordered LinkedHashMap instance with the default 
+initial capacity (16) and load factor (0.75). 
 
 
 *java.util.LinkedHashMap(int)*
@@ -129,7 +132,7 @@ public LinkedHashMap(int initialCapacity)
 Constructs an empty insertion-ordered LinkedHashMap instance with the specified 
 initial capacity and a default load factor (0.75). 
 
-    initialCapacity - the initial capacity. 
+    initialCapacity - the initial capacity 
 
 *java.util.LinkedHashMap(int,float)*
 
@@ -140,8 +143,8 @@ public LinkedHashMap(
 Constructs an empty insertion-ordered LinkedHashMap instance with the specified 
 initial capacity and load factor. 
 
-    initialCapacity - the initial capacity. 
-    loadFactor - the load factor. 
+    initialCapacity - the initial capacity 
+    loadFactor - the load factor 
 
 *java.util.LinkedHashMap(int,float,boolean)*
 
@@ -153,26 +156,28 @@ public LinkedHashMap(
 Constructs an empty LinkedHashMap instance with the specified initial capacity, 
 load factor and ordering mode. 
 
-    initialCapacity - the initial capacity. 
-    loadFactor - the load factor. 
-    accessOrder - the ordering mode - true for access-order, false for insertion-order. 
+    initialCapacity - the initial capacity 
+    loadFactor - the load factor 
+    accessOrder - the ordering mode - true for access-order, false for insertion-order 
 
-*java.util.LinkedHashMap(Map)*
+*java.util.LinkedHashMap(Map<?extendsK,?extendsV>)*
 
-public LinkedHashMap(java.util.Map m)
+public LinkedHashMap(java.util.Map<? extends K, ? extends V> m)
 
 Constructs an insertion-ordered LinkedHashMap instance with the same mappings 
-as the specified map. The LinkedHashMap instance is created with a a default 
-load factor (0.75) and an initial capacity sufficient to hold the mappings in 
-the specified map. 
+as the specified map. The LinkedHashMap instance is created with a default load 
+factor (0.75) and an initial capacity sufficient to hold the mappings in the 
+specified map. 
 
-    m - the map whose mappings are to be placed in this map. 
+    m - the map whose mappings are to be placed in this map 
 
 *java.util.LinkedHashMap.clear()*
 
 public void clear()
 
-Removes all mappings from this map. 
+Removes all of the mappings from this map. The map will be empty after this 
+call returns. 
+
 
 
 *java.util.LinkedHashMap.containsValue(Object)*
@@ -181,29 +186,36 @@ public boolean containsValue(java.lang.Object value)
 
 Returns true if this map maps one or more keys to the specified value. 
 
-    value - value whose presence in this map is to be tested. 
 
-    Returns: true if this map maps one or more keys to the specified value. 
+    value - value whose presence in this map is to be tested 
+
+    Returns: true if this map maps one or more keys to the specified value 
+
 *java.util.LinkedHashMap.get(Object)*
 
-public |java.lang.Object| get(java.lang.Object key)
+public |V| get(java.lang.Object key)
 
-Returns the value to which this map maps the specified key. Returns null if the 
-map contains no mapping for this key. A return value of null does not 
-necessarily indicate that the map contains no mapping for the key; it's also 
-possible that the map explicitly maps the key to null. The containsKey 
-operation may be used to distinguish these two cases. 
+Returns the value to which the specified key is mapped, ornullif this map 
+contains no mapping for the key. 
 
-    key - key whose associated value is to be returned. 
+More formally, if this map contains a mapping from a keykto a valuevsuch 
+that(key==null ? k==null : key.equals(k)), then this method returnsv; otherwise 
+it returnsnull. (There can be at most one such mapping.) 
 
-    Returns: the value to which this map maps the specified key. 
-*java.util.LinkedHashMap.removeEldestEntry(Map.Entry)*
+A return value ofnulldoes not necessarily indicate that the map contains no 
+mapping for the key; it's also possible that the map explicitly maps the key 
+tonull. The containsKey(|java.util.LinkedHashMap|) operation may be used to 
+distinguish these two cases. 
 
-protected boolean removeEldestEntry(java.util.Map.Entry eldest)
+
+
+*java.util.LinkedHashMap.removeEldestEntry(Map.Entry<K,V>)*
+
+protected boolean removeEldestEntry(java.util.Map.Entry<K, V> eldest)
 
 Returns true if this map should remove its eldest entry. This method is invoked 
 by put and putAll after inserting a new entry into the map. It provides the 
-implementer with the opportunity to remove the eldest entry each time a new one 
+implementor with the opportunity to remove the eldest entry each time a new one 
 is added. This is useful if the map represents a cache: it allows the map to 
 reduce memory consumption by deleting stale entries. 
 
@@ -226,6 +238,7 @@ unspecified.
 This implementation merely returns false (so that this map acts like a normal 
 map - the eldest element is never removed). 
 
+
     eldest - The least recently inserted entry in the map, or if this is an access-ordered 
        map, the least recently accessed entry. This is the entry that will be 
        removed it this method returns true. If the map was empty prior to the 
@@ -235,4 +248,5 @@ map - the eldest element is never removed).
 
     Returns: true if the eldest entry should be removed from the map; false if it should be 
              retained. 
+
 

@@ -24,6 +24,7 @@ then retries execute, unless the executor is shut down, in which case the task
 is discarded. 
 
 
+
 *java.util.concurrent.ThreadPoolExecutor.DiscardOldestPolicy()*
 
 public ThreadPoolExecutor.DiscardOldestPolicy()
@@ -40,6 +41,7 @@ public void rejectedExecution(
 Obtains and ignores the next task that the executor would otherwise execute, if 
 one is immediately available, and then retries execution of task r, unless the 
 executor is shut down, in which case task r is instead discarded. 
+
 
     r - the runnable task requested to be executed 
     e - the executor attempting to execute this task 

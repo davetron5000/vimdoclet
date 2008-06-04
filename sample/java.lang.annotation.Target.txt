@@ -1,6 +1,6 @@
 *java.lang.annotation.Target* *Target* Indicates the kinds of program element to
 
-public interface interface Target
+public interface class Target
 
   implements |java.lang.annotation.Annotation|
 
@@ -10,9 +10,6 @@ public interface interface Target
 |java.lang.annotation.Target_Methods|
 
 ================================================================================
-
-*java.lang.annotation.Target_Methods*
-|java.lang.annotation.Target.value()|
 
 *java.lang.annotation.Target_Description*
 
@@ -39,13 +36,6 @@ illegal:
 
 Target({ElementType.FIELD, ElementType.METHOD, ElementType.FIELD}) public 
 interface Bogus { ... } 
-
-
-*java.lang.annotation.Target.value()*
-
-public |java.lang.annotation.ElementType| value()
-
-
 
 
 

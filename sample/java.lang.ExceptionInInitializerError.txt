@@ -34,6 +34,7 @@ may be accessed via the (|java.lang.Throwable|) method, as well as the
 aforementioned "legacy method." 
 
 
+
 *java.lang.ExceptionInInitializerError()*
 
 public ExceptionInInitializerError()
@@ -73,7 +74,9 @@ Returns the cause of this error (the exception that occurred during a static
 initialization that caused this error to be created). 
 
 
+
     Returns: the cause of this error or null if the cause is nonexistent or unknown. 
+
 *java.lang.ExceptionInInitializerError.getException()*
 
 public |java.lang.Throwable| getException()
@@ -86,6 +89,8 @@ This method predates the general-purpose exception chaining facility. The
 information. 
 
 
+
     Returns: the saved throwable object of this ExceptionInInitializerError, or null if this 
              ExceptionInInitializerError has no saved throwable object. 
+
 

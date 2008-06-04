@@ -12,18 +12,19 @@ public class PropertyResourceBundle
 
 *java.util.PropertyResourceBundle_Constructors*
 |java.util.PropertyResourceBundle(InputStream)|Creates a property resource bund
+|java.util.PropertyResourceBundle(Reader)|Creates a property resource bundle fr
 
 *java.util.PropertyResourceBundle_Methods*
-|java.util.PropertyResourceBundle.getKeys()|Implementation of ResourceBundle.ge
+|java.util.PropertyResourceBundle.getKeys()|Returns an Enumeration of the keys 
 |java.util.PropertyResourceBundle.handleGetObject(String)|
+|java.util.PropertyResourceBundle.handleKeySet()|Returns a Set of the keys cont
 
 *java.util.PropertyResourceBundle_Description*
 
 PropertyResourceBundle is a concrete subclass of ResourceBundle that manages 
 resources for a locale using a set of static strings from a property file. See 
 ResourceBundle(|java.util.ResourceBundle|) for more information about resource 
-bundles. See Properties(|java.util.Properties|) for more information about 
-properties files, in particular the information on character encodings. 
+bundles. 
 
 Unlike other types of resource bundle, you don't subclass 
 PropertyResourceBundle. Instead, you supply properties files containing the 
@@ -60,22 +61,48 @@ objects from the bundle. Keys are case-sensitive.
 
 
 
+Note: PropertyResourceBundle can be constructed either from an InputStream or a 
+Reader, which represents a property file. Constructing a PropertyResourceBundle 
+instance from an InputStream requires that the input stream be encoded in 
+ISO-8859-1. In that case, characters that cannot be represented in ISO-8859-1 
+encoding must be represented by Unicode Escapes, whereas the other constructor 
+which takes a Reader does not have that limitation. 
+
+
 
 *java.util.PropertyResourceBundle(InputStream)*
 
 public PropertyResourceBundle(java.io.InputStream stream)
   throws |java.io.IOException|
          
-Creates a property resource bundle. 
+Creates a property resource bundle from an InputStream(|java.io.InputStream|) . 
+The property file read with this constructor must be encoded in ISO-8859-1. 
 
-    stream - property file to read from. 
+    stream - an InputStream that represents a property file to read from. 
+
+*java.util.PropertyResourceBundle(Reader)*
+
+public PropertyResourceBundle(java.io.Reader reader)
+  throws |java.io.IOException|
+         
+Creates a property resource bundle from a Reader(|java.io.Reader|) . Unlike the 
+constructor 
+PropertyResourceBundle(InputStream)(|java.util.PropertyResourceBundle|) , there 
+is no limitation as to the encoding of the input property file. 
+
+    reader - a Reader that represents a property file to read from. 
 
 *java.util.PropertyResourceBundle.getKeys()*
 
-public |java.util.Enumeration| getKeys()
+public |java.util.Enumeration|<String> getKeys()
 
-Implementation of ResourceBundle.getKeys. 
+Returns an Enumeration of the keys contained in this ResourceBundle and its 
+parent bundles. 
 
+
+
+    Returns: an Enumeration of the keys contained in this ResourceBundle and its parent 
+             bundles. 
 
 *java.util.PropertyResourceBundle.handleGetObject(String)*
 
@@ -83,5 +110,16 @@ public |java.lang.Object| handleGetObject(java.lang.String key)
 
 
 
+
+
+*java.util.PropertyResourceBundle.handleKeySet()*
+
+protected |java.util.Set|<String> handleKeySet()
+
+Returns a Set of the keys contained only in this ResourceBundle. 
+
+
+
+    Returns: a Set of the keys contained only in this ResourceBundle 
 
 

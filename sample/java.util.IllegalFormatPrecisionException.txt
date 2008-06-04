@@ -24,6 +24,7 @@ Unchecked exception thrown when the precision is a negative value other than
 unsupported. 
 
 
+
 *java.util.IllegalFormatPrecisionException(int)*
 
 public IllegalFormatPrecisionException(int p)
@@ -39,6 +40,7 @@ public |java.lang.String| getMessage()
 
 
 
+
 *java.util.IllegalFormatPrecisionException.getPrecision()*
 
 public int getPrecision()
@@ -46,5 +48,7 @@ public int getPrecision()
 Returns the precision 
 
 
+
     Returns: The precision 
+
 

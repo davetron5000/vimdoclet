@@ -28,6 +28,7 @@ EventObject, it is not intended to be Serializable. Appropriate serialization
 methods are implemented to throw NotSerializableException. 
 
 
+
 *java.util.prefs.PreferenceChangeEvent(Preferences,String,String)*
 
 public PreferenceChangeEvent(
@@ -48,7 +49,9 @@ public |java.lang.String| getKey()
 Returns the key of the preference that was changed. 
 
 
+
     Returns: The key of the preference that was changed. 
+
 *java.util.prefs.PreferenceChangeEvent.getNewValue()*
 
 public |java.lang.String| getNewValue()
@@ -56,7 +59,9 @@ public |java.lang.String| getNewValue()
 Returns the new value for the preference. 
 
 
+
     Returns: The new value for the preference, or null if the preference was removed. 
+
 *java.util.prefs.PreferenceChangeEvent.getNode()*
 
 public |java.util.prefs.Preferences| getNode()
@@ -64,5 +69,7 @@ public |java.util.prefs.Preferences| getNode()
 Returns the preference node that emitted the event. 
 
 
+
     Returns: The preference node that emitted the event. 
+
 

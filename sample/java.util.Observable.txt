@@ -50,6 +50,7 @@ observers are considered the same if and only if the equals method returns true
 for them. 
 
 
+
 *java.util.Observable()*
 
 public Observable()
@@ -66,6 +67,7 @@ not the same as some observer already in the set. The order in which
 notifications will be delivered to multiple observers is not specified. See the 
 class comment. 
 
+
     o - an observer to be added. 
 
 *java.util.Observable.clearChanged()*
@@ -78,6 +80,7 @@ method will now return false. This method is called automatically by the
 notifyObservers methods. 
 
 
+
 *java.util.Observable.countObservers()*
 
 public synchronized int countObservers()
@@ -85,13 +88,16 @@ public synchronized int countObservers()
 Returns the number of observers of this Observable object. 
 
 
+
     Returns: the number of observers of this object. 
+
 *java.util.Observable.deleteObserver(Observer)*
 
 public synchronized void deleteObserver(java.util.Observer o)
 
 Deletes an observer from the set of observers of this object. Passing null to 
 this method will have no effect. 
+
 
     o - the observer to be deleted. 
 
@@ -102,6 +108,7 @@ public synchronized void deleteObservers()
 Clears the observer list so that this object no longer has any observers. 
 
 
+
 *java.util.Observable.hasChanged()*
 
 public synchronized boolean hasChanged()
@@ -109,8 +116,10 @@ public synchronized boolean hasChanged()
 Tests if this object has changed. 
 
 
+
     Returns: true if and only if the setChanged method has been called more recently than 
              the clearChanged method on this object; false otherwise. 
+
 *java.util.Observable.notifyObservers()*
 
 public void notifyObservers()
@@ -125,6 +134,7 @@ object and null. In other words, this method is equivalent to:
 notifyObservers(null) 
 
 
+
 *java.util.Observable.notifyObservers(Object)*
 
 public void notifyObservers(java.lang.Object arg)
@@ -136,6 +146,7 @@ this object has no longer changed.
 Each observer has its update method called with two arguments: this observable 
 object and the arg argument. 
 
+
     arg - any object. 
 
 *java.util.Observable.setChanged()*
@@ -144,6 +155,7 @@ protected synchronized void setChanged()
 
 Marks this Observable object as having been changed; the hasChanged method will 
 now return true. 
+
 
 
 

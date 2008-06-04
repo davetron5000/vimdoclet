@@ -25,12 +25,14 @@ This class is for Preferences implementers only. Normal users of the
 Preferences facility should have no need to consult this documentation. 
 
 
+
 *java.util.prefs.PreferencesFactory.systemRoot()*
 
 public |java.util.prefs.Preferences| systemRoot()
 
 Returns the system root preference node. (Multiple calls on this method will 
 return the same object reference.) 
+
 
 
 *java.util.prefs.PreferencesFactory.userRoot()*
@@ -40,6 +42,7 @@ public |java.util.prefs.Preferences| userRoot()
 Returns the user root preference node corresponding to the calling user. In a 
 server, the returned value will typically depend on some implicit 
 client-context. 
+
 
 
 

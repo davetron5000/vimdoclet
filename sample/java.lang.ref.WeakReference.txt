@@ -1,6 +1,6 @@
 *java.lang.ref.WeakReference* *WeakReference* Weak reference objects, which do n
 
-public class WeakReference
+public class WeakReference<T>
   extends    |java.lang.ref.Reference|
 
 |java.lang.ref.WeakReference_Description|
@@ -12,7 +12,7 @@ public class WeakReference
 
 *java.lang.ref.WeakReference_Constructors*
 |java.lang.ref.WeakReference(T)|Creates a new weak reference that refers to the
-|java.lang.ref.WeakReference(T,ReferenceQueue)|Creates a new weak reference tha
+|java.lang.ref.WeakReference(T,ReferenceQueue<?superT>)|Creates a new weak refe
 
 *java.lang.ref.WeakReference_Description*
 
@@ -30,20 +30,21 @@ time it will enqueue those newly-cleared weak references that are registered
 with reference queues. 
 
 
+
 *java.lang.ref.WeakReference(T)*
 
-public WeakReference(java.lang.Object referent)
+public WeakReference(T referent)
 
 Creates a new weak reference that refers to the given object. The new reference 
 is not registered with any queue. 
 
     referent - object the new weak reference will refer to 
 
-*java.lang.ref.WeakReference(T,ReferenceQueue)*
+*java.lang.ref.WeakReference(T,ReferenceQueue<?superT>)*
 
 public WeakReference(
-  java.lang.Object referent,
-  java.lang.ref.ReferenceQueue q)
+  T referent,
+  java.lang.ref.ReferenceQueue<? super T> q)
 
 Creates a new weak reference that refers to the given object and is registered 
 with the given queue. 

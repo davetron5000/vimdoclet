@@ -19,6 +19,7 @@ public class ZipException
 Signals that a Zip exception of some sort has occurred. 
 
 
+
 *java.util.zip.ZipException()*
 
 public ZipException()

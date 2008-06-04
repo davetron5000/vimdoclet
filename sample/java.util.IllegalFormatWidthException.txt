@@ -23,6 +23,7 @@ Unchecked exception thrown when the format width is a negative value other than
 -1 or is otherwise unsupported. 
 
 
+
 *java.util.IllegalFormatWidthException(int)*
 
 public IllegalFormatWidthException(int w)
@@ -38,6 +39,7 @@ public |java.lang.String| getMessage()
 
 
 
+
 *java.util.IllegalFormatWidthException.getWidth()*
 
 public int getWidth()
@@ -45,5 +47,7 @@ public int getWidth()
 Returns the width 
 
 
+
     Returns: 
+
 

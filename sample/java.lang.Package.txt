@@ -13,7 +13,7 @@ public class Package
 ================================================================================
 
 *java.lang.Package_Methods*
-|java.lang.Package.getAnnotation(Class)|
+|java.lang.Package.getAnnotation(Class<A>)|
 |java.lang.Package.getAnnotations()|
 |java.lang.Package.getDeclaredAnnotations()|
 |java.lang.Package.getImplementationTitle()|Return the title of this package.
@@ -26,7 +26,7 @@ public class Package
 |java.lang.Package.getSpecificationVendor()|Return the name of the organization
 |java.lang.Package.getSpecificationVersion()|Returns the version number of the 
 |java.lang.Package.hashCode()|Return the hash code computed from the package na
-|java.lang.Package.isAnnotationPresent(Class)|
+|java.lang.Package.isAnnotationPresent(Class<?extendsAnnotation>)|
 |java.lang.Package.isCompatibleWith(String)|Compare this package's specificatio
 |java.lang.Package.isSealed()|Returns true if this package is sealed.
 |java.lang.Package.isSealed(URL)|Returns true if this package is sealed with re
@@ -75,23 +75,27 @@ the same Package object. The static methods allow a package to be found by name
 or the set of all packages known to the current class loader to be found. 
 
 
-*java.lang.Package.getAnnotation(Class)*
 
-public |java.lang.annotation.Annotation| getAnnotation(java.lang.Class annotationClass)
+*java.lang.Package.getAnnotation(Class<A>)*
+
+public |A| getAnnotation(java.lang.Class<A> annotationClass)
+
 
 
 
 
 *java.lang.Package.getAnnotations()*
 
-public |java.lang.annotation.Annotation| getAnnotations()
+public |java.lang.annotation.Annotation|[] getAnnotations()
+
 
 
 
 
 *java.lang.Package.getDeclaredAnnotations()*
 
-public |java.lang.annotation.Annotation| getDeclaredAnnotations()
+public |java.lang.annotation.Annotation|[] getDeclaredAnnotations()
+
 
 
 
@@ -103,7 +107,9 @@ public |java.lang.String| getImplementationTitle()
 Return the title of this package. 
 
 
+
     Returns: the title of the implementation, null is returned if it is not known. 
+
 *java.lang.Package.getImplementationVendor()*
 
 public |java.lang.String| getImplementationVendor()
@@ -112,7 +118,9 @@ Returns the name of the organization, vendor or company that provided this
 implementation. 
 
 
+
     Returns: the vendor that implemented this package.. 
+
 *java.lang.Package.getImplementationVersion()*
 
 public |java.lang.String| getImplementationVersion()
@@ -124,7 +132,9 @@ other package version strings used for this implementation by this vendor for
 this package. 
 
 
+
     Returns: the version of the implementation, null is returned if it is not known. 
+
 *java.lang.Package.getName()*
 
 public |java.lang.String| getName()
@@ -132,8 +142,12 @@ public |java.lang.String| getName()
 Return the name of this package. 
 
 
-    Returns: The name of this package using the Java language dot notation for the package. 
-             i.e java.lang 
+
+    Returns: The fully-qualified name of this package as defined in the Java Language 
+             Specification, Third Edition 
+
+6.5.3, for example, java.lang 
+
 *java.lang.Package.getPackage(String)*
 
 public static |java.lang.Package| getPackage(java.lang.String name)
@@ -148,13 +162,15 @@ Packages have attributes for versions and specifications only if the class
 loader created the package instance with the appropriate attributes. Typically, 
 those attributes are defined in the manifests that accompany the classes. 
 
+
     name - a package name, for example, java.lang. 
 
     Returns: the package of the requested name. It may be null if no package information is 
              available from the archive or codebase. 
+
 *java.lang.Package.getPackages()*
 
-public static |java.lang.Package| getPackages()
+public static |java.lang.Package|[] getPackages()
 
 Get all the packages currently known for the caller's ClassLoader instance. 
 Those packages correspond to classes loaded via or accessible by name to that 
@@ -164,8 +180,10 @@ only packages corresponding to classes loaded by the bootstrap ClassLoader
 instance will be returned. 
 
 
+
     Returns: a new array of packages known to the callers ClassLoader instance. An zero 
              length array is returned if none are known. 
+
 *java.lang.Package.getSpecificationTitle()*
 
 public |java.lang.String| getSpecificationTitle()
@@ -173,7 +191,9 @@ public |java.lang.String| getSpecificationTitle()
 Return the title of the specification that this package implements. 
 
 
+
     Returns: the specification title, null is returned if it is not known. 
+
 *java.lang.Package.getSpecificationVendor()*
 
 public |java.lang.String| getSpecificationVendor()
@@ -182,7 +202,9 @@ Return the name of the organization, vendor, or company that owns and maintains
 the specification of the classes that implement this package. 
 
 
+
     Returns: the specification vendor, null is returned if it is not known. 
+
 *java.lang.Package.getSpecificationVersion()*
 
 public |java.lang.String| getSpecificationVersion()
@@ -193,7 +215,9 @@ by "."'s and may have leading zeros. When version strings are compared the most
 significant numbers are compared. 
 
 
+
     Returns: the specification version, null is returned if it is not known. 
+
 *java.lang.Package.hashCode()*
 
 public int hashCode()
@@ -201,10 +225,13 @@ public int hashCode()
 Return the hash code computed from the package name. 
 
 
-    Returns: the hash code computed from the package name. 
-*java.lang.Package.isAnnotationPresent(Class)*
 
-public boolean isAnnotationPresent(java.lang.Class annotationClass)
+    Returns: the hash code computed from the package name. 
+
+*java.lang.Package.isAnnotationPresent(Class<?extendsAnnotation>)*
+
+public boolean isAnnotationPresent(java.lang.Class<? extends java.lang.annotation.Annotation> annotationClass)
+
 
 
 
@@ -225,10 +252,12 @@ than the desired value true is returned. If the value is less false is
 returned. If the values are equal the period is skipped and the next pair of 
 components is compared. 
 
+
     desired - the version string of the desired version. 
 
     Returns: true if this package's version number is greater than or equal to the desired 
              version number 
+
 *java.lang.Package.isSealed()*
 
 public boolean isSealed()
@@ -236,7 +265,9 @@ public boolean isSealed()
 Returns true if this package is sealed. 
 
 
+
     Returns: true if the package is sealed, false otherwise 
+
 *java.lang.Package.isSealed(URL)*
 
 public boolean isSealed(java.net.URL url)
@@ -244,9 +275,11 @@ public boolean isSealed(java.net.URL url)
 Returns true if this package is sealed with respect to the specified code 
 source url. 
 
+
     url - the code source url 
 
     Returns: true if this package is sealed with respect to url 
+
 *java.lang.Package.toString()*
 
 public |java.lang.String| toString()
@@ -256,5 +289,7 @@ Returns the string representation of this Package. Its value is the string
 appended. If the package version is defined it is appended. 
 
 
+
     Returns: the string representation of the package. 
+
 

@@ -1,6 +1,6 @@
 *java.util.Hashtable* *Hashtable* This class implements a hashtable, which maps 
 
-public class Hashtable
+public class Hashtable<K,V>
   extends    |java.util.Dictionary|
   implements |java.util.Map|
              |java.lang.Cloneable|
@@ -17,29 +17,29 @@ public class Hashtable
 |java.util.Hashtable()|Constructs a new, empty hashtable with a default initial
 |java.util.Hashtable(int)|Constructs a new, empty hashtable with the specified 
 |java.util.Hashtable(int,float)|Constructs a new, empty hashtable with the spec
-|java.util.Hashtable(Map)|Constructs a new hashtable with the same mappings as 
+|java.util.Hashtable(Map<?extendsK,?extendsV>)|Constructs a new hashtable with 
 
 *java.util.Hashtable_Methods*
 |java.util.Hashtable.clear()|Clears this hashtable so that it contains no keys.
 |java.util.Hashtable.clone()|Creates a shallow copy of this hashtable.
 |java.util.Hashtable.contains(Object)|Tests if some key maps into the specified
 |java.util.Hashtable.containsKey(Object)|Tests if the specified object is a key
-|java.util.Hashtable.containsValue(Object)|Returns true if this Hashtable maps 
+|java.util.Hashtable.containsValue(Object)|Returns true if this hashtable maps 
 |java.util.Hashtable.elements()|Returns an enumeration of the values in this ha
-|java.util.Hashtable.entrySet()|Returns a Set view of the entries contained in 
+|java.util.Hashtable.entrySet()|Returns aSetview of the mappings contained in t
 |java.util.Hashtable.equals(Object)|Compares the specified Object with this Map
 |java.util.Hashtable.get(Object)|Returns the value to which the specified key i
 |java.util.Hashtable.hashCode()|Returns the hash code value for this Map as per
 |java.util.Hashtable.isEmpty()|Tests if this hashtable maps no keys to values.
 |java.util.Hashtable.keys()|Returns an enumeration of the keys in this hashtabl
-|java.util.Hashtable.keySet()|Returns a Set view of the keys contained in this 
-|java.util.Hashtable.put(K,V)|Maps the specified key to the specified   value i
-|java.util.Hashtable.putAll(Map)|Copies all of the mappings from the specified 
+|java.util.Hashtable.keySet()|Returns aSetview of the keys contained in this ma
+|java.util.Hashtable.put(K,V)|Maps the specified key to the specified  value in
+|java.util.Hashtable.putAll(Map<?extendsK,?extendsV>)|Copies all of the mapping
 |java.util.Hashtable.rehash()|Increases the capacity of and internally reorgani
 |java.util.Hashtable.remove(Object)|Removes the key (and its corresponding valu
 |java.util.Hashtable.size()|Returns the number of keys in this hashtable.
 |java.util.Hashtable.toString()|Returns a string representation of this Hashtab
-|java.util.Hashtable.values()|Returns a Collection view of the values contained
+|java.util.Hashtable.values()|Returns aCollectionview of the values contained i
 
 *java.util.Hashtable_Description*
 
@@ -79,27 +79,23 @@ table.
 This example creates a hashtable of numbers. It uses the names of the numbers 
 as keys: 
 
-Hashtable numbers = new Hashtable(); numbers.put("one", new Integer(1)); 
-numbers.put("two", new Integer(2)); numbers.put("three", new Integer(3)); 
+Hashtable numbers = new Hashtable(); numbers.put("one", 1); numbers.put("two", 
+2); numbers.put("three", 3); 
 
 To retrieve a number, use the following code: 
 
-Integer n = (Integer)numbers.get("two"); if (n != null) { 
-System.out.println("two = " + n); } 
+Integer n = numbers.get("two"); if (n != null) { System.out.println("two = " + 
+n); } 
 
-As of the Java 2 platform v1.2, this class has been retrofitted to implement 
-Map, so that it becomes a part of Java's collection framework. Unlike the new 
-collection implementations, Hashtable is synchronized. 
-
-The Iterators returned by the iterator and listIterator methods of the 
-Collections returned by all of Hashtable's "collection view methods" are 
-fail-fast: if the Hashtable is structurally modified at any time after the 
-Iterator is created, in any way except through the Iterator's own remove or add 
-methods, the Iterator will throw a ConcurrentModificationException. Thus, in 
-the face of concurrent modification, the Iterator fails quickly and cleanly, 
-rather than risking arbitrary, non-deterministic behavior at an undetermined 
-time in the future. The Enumerations returned by Hashtable's keys and values 
-methods are not fail-fast. 
+The iterators returned by the iterator method of the collections returned by 
+all of this class's "collection view methods" are fail-fast: if the Hashtable 
+is structurally modified at any time after the iterator is created, in any way 
+except through the iterator's own remove method, the iterator will throw a 
+(|java.util.ConcurrentModificationException|) . Thus, in the face of concurrent 
+modification, the iterator fails quickly and cleanly, rather than risking 
+arbitrary, non-deterministic behavior at an undetermined time in the future. 
+The Enumerations returned by Hashtable's keys and elements methods are not 
+fail-fast. 
 
 Note that the fail-fast behavior of an iterator cannot be guaranteed as it is, 
 generally speaking, impossible to make any hard guarantees in the presence of 
@@ -108,8 +104,11 @@ ConcurrentModificationException on a best-effort basis. Therefore, it would be
 wrong to write a program that depended on this exception for its correctness: 
 the fail-fast behavior of iterators should be used only to detect bugs. 
 
-This class is a member of the <a href="/../guide/collections/index.html"> Java 
-Collections Framework. 
+As of the Java 2 platform v1.2, this class was retrofitted to implement the 
+(|java.util.Map|) interface, making it a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+Unlike the new collection implementations,Hashtableis synchronized. 
+
 
 
 *java.util.Hashtable()*
@@ -117,7 +116,7 @@ Collections Framework.
 public Hashtable()
 
 Constructs a new, empty hashtable with a default initial capacity (11) and load 
-factor, which is 0.75. 
+factor (0.75). 
 
 
 *java.util.Hashtable(int)*
@@ -125,7 +124,7 @@ factor, which is 0.75.
 public Hashtable(int initialCapacity)
 
 Constructs a new, empty hashtable with the specified initial capacity and 
-default load factor, which is 0.75. 
+default load factor (0.75). 
 
     initialCapacity - the initial capacity of the hashtable. 
 
@@ -141,13 +140,13 @@ specified load factor.
     initialCapacity - the initial capacity of the hashtable. 
     loadFactor - the load factor of the hashtable. 
 
-*java.util.Hashtable(Map)*
+*java.util.Hashtable(Map<?extendsK,?extendsV>)*
 
-public Hashtable(java.util.Map t)
+public Hashtable(java.util.Map<? extends K, ? extends V> t)
 
 Constructs a new hashtable with the same mappings as the given Map. The 
 hashtable is created with an initial capacity sufficient to hold the mappings 
-in the given Map and a default load factor, which is 0.75. 
+in the given Map and a default load factor (0.75). 
 
     t - the map whose mappings are to be placed in this map. 
 
@@ -156,6 +155,7 @@ in the given Map and a default load factor, which is 0.75.
 public synchronized void clear()
 
 Clears this hashtable so that it contains no keys. 
+
 
 
 *java.util.Hashtable.clone()*
@@ -167,64 +167,80 @@ itself is copied, but the keys and values are not cloned. This is a relatively
 expensive operation. 
 
 
-    Returns: a clone of the hashtable. 
+
+    Returns: a clone of the hashtable 
+
 *java.util.Hashtable.contains(Object)*
 
 public synchronized boolean contains(java.lang.Object value)
 
 Tests if some key maps into the specified value in this hashtable. This 
-operation is more expensive than the containsKey method. 
+operation is more expensive than the containsKey(|java.util.Hashtable|) method. 
 
-Note that this method is identical in functionality to containsValue, (which is 
-part of the Map interface in the collections framework). 
+Note that this method is identical in functionality to 
+containsValue(|java.util.Hashtable|) , (which is part of the (|java.util.Map|) 
+interface in the collections framework). 
 
-    value - a value to search for. 
+
+    value - a value to search for 
 
     Returns: true if and only if some key maps to the value argument in this hashtable as 
              determined by the equals method; false otherwise. 
+
 *java.util.Hashtable.containsKey(Object)*
 
 public synchronized boolean containsKey(java.lang.Object key)
 
 Tests if the specified object is a key in this hashtable. 
 
-    key - possible key. 
+
+    key - possible key 
 
     Returns: true if and only if the specified object is a key in this hashtable, as 
              determined by the equals method; false otherwise. 
+
 *java.util.Hashtable.containsValue(Object)*
 
 public boolean containsValue(java.lang.Object value)
 
-Returns true if this Hashtable maps one or more keys to this value. 
+Returns true if this hashtable maps one or more keys to this value. 
 
-Note that this method is identical in functionality to contains (which predates 
-the Map interface). 
+Note that this method is identical in functionality to 
+contains(|java.util.Hashtable|) (which predates the (|java.util.Map|) 
+interface). 
 
-    value - value whose presence in this Hashtable is to be tested. 
 
-    Returns: true if this map maps one or more keys to the specified value. 
+    value - value whose presence in this hashtable is to be tested 
+
+    Returns: true if this map maps one or more keys to the specified value 
+
 *java.util.Hashtable.elements()*
 
-public synchronized |java.util.Enumeration| elements()
+public synchronized |java.util.Enumeration|<V> elements()
 
 Returns an enumeration of the values in this hashtable. Use the Enumeration 
 methods on the returned object to fetch the elements sequentially. 
 
 
+
     Returns: an enumeration of the values in this hashtable. 
+
 *java.util.Hashtable.entrySet()*
 
-public |java.util.Set| entrySet()
+public |java.util.Set|<Entry<K,V>> entrySet()
 
-Returns a Set view of the entries contained in this Hashtable. Each element in 
-this collection is a Map.Entry. The Set is backed by the Hashtable, so changes 
-to the Hashtable are reflected in the Set, and vice-versa. The Set supports 
-element removal (which removes the corresponding entry from the Hashtable), but 
-not element addition. 
+Returns a (|java.util.Set|) view of the mappings contained in this map. The set 
+is backed by the map, so changes to the map are reflected in the set, and 
+vice-versa. If the map is modified while an iteration over the set is in 
+progress (except through the iterator's own remove operation, or through the 
+setValue operation on a map entry returned by the iterator) the results of the 
+iteration are undefined. The set supports element removal, which removes the 
+corresponding mapping from the map, via the Iterator.remove, Set.remove, 
+removeAll, retainAll and clear operations. It does not support the add or 
+addAll operations. 
 
 
-    Returns: a set view of the mappings contained in this map. 
+
 *java.util.Hashtable.equals(Object)*
 
 public synchronized boolean equals(java.lang.Object o)
@@ -232,25 +248,35 @@ public synchronized boolean equals(java.lang.Object o)
 Compares the specified Object with this Map for equality, as per the definition 
 in the Map interface. 
 
-    o - object to be compared for equality with this Hashtable 
 
-    Returns: true if the specified Object is equal to this Map. 
+    o - object to be compared for equality with this hashtable 
+
+    Returns: true if the specified Object is equal to this Map 
+
 *java.util.Hashtable.get(Object)*
 
-public synchronized |java.lang.Object| get(java.lang.Object key)
+public synchronized |V| get(java.lang.Object key)
 
-Returns the value to which the specified key is mapped in this hashtable. 
+Returns the value to which the specified key is mapped, ornullif this map 
+contains no mapping for the key. 
 
-    key - a key in the hashtable. 
+More formally, if this map contains a mapping from a keykto a valuevsuch 
+that(key.equals(k)), then this method returnsv; otherwise it returnsnull. 
+(There can be at most one such mapping.) 
 
-    Returns: the value to which the key is mapped in this hashtable; null if the key is not 
-             mapped to any value in this hashtable. 
+
+    key - the key whose associated value is to be returned 
+
+    Returns: the value to which the specified key is mapped, or {@code null} if this map 
+             contains no mapping for the key 
+
 *java.util.Hashtable.hashCode()*
 
 public synchronized int hashCode()
 
 Returns the hash code value for this Map as per the definition in the Map 
 interface. 
+
 
 
 *java.util.Hashtable.isEmpty()*
@@ -260,31 +286,39 @@ public synchronized boolean isEmpty()
 Tests if this hashtable maps no keys to values. 
 
 
+
     Returns: true if this hashtable maps no keys to values; false otherwise. 
+
 *java.util.Hashtable.keys()*
 
-public synchronized |java.util.Enumeration| keys()
+public synchronized |java.util.Enumeration|<K> keys()
 
 Returns an enumeration of the keys in this hashtable. 
 
 
+
     Returns: an enumeration of the keys in this hashtable. 
+
 *java.util.Hashtable.keySet()*
 
-public |java.util.Set| keySet()
+public |java.util.Set|<K> keySet()
 
-Returns a Set view of the keys contained in this Hashtable. The Set is backed 
-by the Hashtable, so changes to the Hashtable are reflected in the Set, and 
-vice-versa. The Set supports element removal (which removes the corresponding 
-entry from the Hashtable), but not element addition. 
+Returns a (|java.util.Set|) view of the keys contained in this map. The set is 
+backed by the map, so changes to the map are reflected in the set, and 
+vice-versa. If the map is modified while an iteration over the set is in 
+progress (except through the iterator's own remove operation), the results of 
+the iteration are undefined. The set supports element removal, which removes 
+the corresponding mapping from the map, via the Iterator.remove, Set.remove, 
+removeAll, retainAll, and clear operations. It does not support the add or 
+addAll operations. 
 
 
-    Returns: a set view of the keys contained in this map. 
+
 *java.util.Hashtable.put(K,V)*
 
-public synchronized |java.lang.Object| put(
-  java.lang.Object key,
-  java.lang.Object value)
+public synchronized |V| put(
+  K key,
+  V value)
 
 Maps the specified key to the specified value in this hashtable. Neither the 
 key nor the value can be null. 
@@ -292,20 +326,23 @@ key nor the value can be null.
 The value can be retrieved by calling the get method with a key that is equal 
 to the original key. 
 
-    key - the hashtable key. 
-    value - the value. 
+
+    key - the hashtable key 
+    value - the value 
 
     Returns: the previous value of the specified key in this hashtable, or null if it did 
-             not have one. 
-*java.util.Hashtable.putAll(Map)*
+             not have one 
 
-public synchronized void putAll(java.util.Map t)
+*java.util.Hashtable.putAll(Map<?extendsK,?extendsV>)*
 
-Copies all of the mappings from the specified Map to this Hashtable These 
-mappings will replace any mappings that this Hashtable had for any of the keys 
-currently in the specified Map. 
+public synchronized void putAll(java.util.Map<? extends K, ? extends V> t)
 
-    t - Mappings to be stored in this map. 
+Copies all of the mappings from the specified map to this hashtable. These 
+mappings will replace any mappings that this hashtable had for any of the keys 
+currently in the specified map. 
+
+
+    t - mappings to be stored in this map 
 
 *java.util.Hashtable.rehash()*
 
@@ -317,17 +354,20 @@ automatically when the number of keys in the hashtable exceeds this hashtable's
 capacity and load factor. 
 
 
+
 *java.util.Hashtable.remove(Object)*
 
-public synchronized |java.lang.Object| remove(java.lang.Object key)
+public synchronized |V| remove(java.lang.Object key)
 
 Removes the key (and its corresponding value) from this hashtable. This method 
 does nothing if the key is not in the hashtable. 
 
-    key - the key that needs to be removed. 
+
+    key - the key that needs to be removed 
 
     Returns: the value to which the key had been mapped in this hashtable, or null if the 
-             key did not have a mapping. 
+             key did not have a mapping 
+
 *java.util.Hashtable.size()*
 
 public synchronized int size()
@@ -335,7 +375,9 @@ public synchronized int size()
 Returns the number of keys in this hashtable. 
 
 
+
     Returns: the number of keys in this hashtable. 
+
 *java.util.Hashtable.toString()*
 
 public synchronized |java.lang.String| toString()
@@ -344,20 +386,25 @@ Returns a string representation of this Hashtable object in the form of a set
 of entries, enclosed in braces and separated by the ASCII characters "," (comma 
 and space). Each entry is rendered as the key, an equals sign =, and the 
 associated element, where the toString method is used to convert the key and 
-element to strings. Overrides to toString method of Object. 
+element to strings. 
 
 
-    Returns: a string representation of this hashtable. 
+
+    Returns: a string representation of this hashtable 
+
 *java.util.Hashtable.values()*
 
-public |java.util.Collection| values()
+public |java.util.Collection|<V> values()
 
-Returns a Collection view of the values contained in this Hashtable. The 
-Collection is backed by the Hashtable, so changes to the Hashtable are 
-reflected in the Collection, and vice-versa. The Collection supports element 
-removal (which removes the corresponding entry from the Hashtable), but not 
-element addition. 
+Returns a (|java.util.Collection|) view of the values contained in this map. 
+The collection is backed by the map, so changes to the map are reflected in the 
+collection, and vice-versa. If the map is modified while an iteration over the 
+collection is in progress (except through the iterator's own remove operation), 
+the results of the iteration are undefined. The collection supports element 
+removal, which removes the corresponding mapping from the map, via the 
+Iterator.remove, Collection.remove, removeAll, retainAll and clear operations. 
+It does not support the add or addAll operations. 
 
 
-    Returns: a collection view of the values contained in this map. 
+
 

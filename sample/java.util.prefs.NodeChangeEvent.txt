@@ -27,6 +27,7 @@ java.util.EventObject, it is not intended to be Serializable. Appropriate
 serialization methods are implemented to throw NotSerializableException. 
 
 
+
 *java.util.prefs.NodeChangeEvent(Preferences,Preferences)*
 
 public NodeChangeEvent(
@@ -45,7 +46,9 @@ public |java.util.prefs.Preferences| getChild()
 Returns the node that was added or removed. 
 
 
+
     Returns: The node that was added or removed. 
+
 *java.util.prefs.NodeChangeEvent.getParent()*
 
 public |java.util.prefs.Preferences| getParent()
@@ -53,5 +56,7 @@ public |java.util.prefs.Preferences| getParent()
 Returns the parent of the node that was added or removed. 
 
 
+
     Returns: The parent Preferences node whose child was added or removed 
+
 

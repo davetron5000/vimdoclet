@@ -32,6 +32,7 @@ cause, and may be accessed via the (|java.lang.Throwable|) method, as well as
 the aforementioned "legacy method." 
 
 
+
 *java.lang.reflect.InvocationTargetException()*
 
 protected InvocationTargetException()
@@ -67,7 +68,9 @@ Returns the cause of this exception (the thrown target exception, which may be
 null). 
 
 
+
     Returns: the cause of this exception. 
+
 *java.lang.reflect.InvocationTargetException.getTargetException()*
 
 public |java.lang.Throwable| getTargetException()
@@ -79,5 +82,7 @@ This method predates the general-purpose exception chaining facility. The
 information. 
 
 
+
     Returns: the thrown target exception (cause of this exception). 
+
 

@@ -1,0 +1,98 @@
+*java.lang.management.MonitorInfo* *MonitorInfo* Information about an object mon
+
+public class MonitorInfo
+  extends    |java.lang.management.LockInfo|
+
+|java.lang.management.MonitorInfo_Description|
+|java.lang.management.MonitorInfo_Fields|
+|java.lang.management.MonitorInfo_Constructors|
+|java.lang.management.MonitorInfo_Methods|
+
+================================================================================
+
+*java.lang.management.MonitorInfo_Constructors*
+|java.lang.management.MonitorInfo(String,int,int,StackTraceElement)|Construct a
+
+*java.lang.management.MonitorInfo_Methods*
+|java.lang.management.MonitorInfo.from(CompositeData)|Returns a MonitorInfo obj
+|java.lang.management.MonitorInfo.getLockedStackDepth()|Returns the depth in th
+|java.lang.management.MonitorInfo.getLockedStackFrame()|Returns the stack frame
+
+*java.lang.management.MonitorInfo_Description*
+
+Information about an object monitor lock. An object monitor is locked when 
+entering a synchronization block or method on that object. 
+
+MXBean Mapping MonitorInfo is mapped to a 
+CompositeData(|javax.management.openmbean.CompositeData|) with attributes as 
+specified in the from(|java.lang.management.MonitorInfo|) method. 
+
+
+
+*java.lang.management.MonitorInfo(String,int,int,StackTraceElement)*
+
+public MonitorInfo(
+  java.lang.String className,
+  int identityHashCode,
+  int stackDepth,
+  java.lang.StackTraceElement stackFrame)
+
+Construct a MonitorInfo object. 
+
+    className - the fully qualified name of the class of the lock object. 
+    identityHashCode - the {@link System#identityHashCode identity hash code} of the lock object. 
+    stackDepth - the depth in the stack trace where the object monitor was locked. 
+    stackFrame - the stack frame that locked the object monitor. 
+
+*java.lang.management.MonitorInfo.from(CompositeData)*
+
+public static |java.lang.management.MonitorInfo| from(javax.management.openmbean.CompositeData cd)
+
+Returns a MonitorInfo object represented by the given CompositeData. The given 
+CompositeData must contain the following attributes as well as the attributes 
+specified in the 
+
+mapped type for the (|java.lang.management.LockInfo|) class: 
+
+
+
+Attribute Name Type 
+
+lockedStackFrame CompositeData as specified in the stackTrace attribute defined 
+in the ThreadInfo.from(|java.lang.management.ThreadInfo|) method. 
+
+
+
+lockedStackDepth java.lang.Integer 
+
+
+
+
+    cd - CompositeData representing a MonitorInfo 
+
+    Returns: a MonitorInfo object represented by cd if cd is not null; null otherwise. 
+
+*java.lang.management.MonitorInfo.getLockedStackDepth()*
+
+public int getLockedStackDepth()
+
+Returns the depth in the stack trace where the object monitor was locked. The 
+depth is the index to the StackTraceElement array returned in the 
+(|java.lang.management.ThreadInfo|) method. 
+
+
+
+    Returns: the depth in the stack trace where the object monitor was locked, or a negative 
+             number if not available. 
+
+*java.lang.management.MonitorInfo.getLockedStackFrame()*
+
+public |java.lang.StackTraceElement| getLockedStackFrame()
+
+Returns the stack frame that locked the object monitor. 
+
+
+
+    Returns: StackTraceElement that locked the object monitor, or null if not available. 
+
+

@@ -1,0 +1,184 @@
+*java.util.zip.DeflaterInputStream* *DeflaterInputStream* Implements an input st
+
+public class DeflaterInputStream
+  extends    |java.io.FilterInputStream|
+
+|java.util.zip.DeflaterInputStream_Description|
+|java.util.zip.DeflaterInputStream_Fields|
+|java.util.zip.DeflaterInputStream_Constructors|
+|java.util.zip.DeflaterInputStream_Methods|
+
+================================================================================
+
+*java.util.zip.DeflaterInputStream_Fields*
+|byte[]_java.util.zip.DeflaterInputStream.buf|
+|java.util.zip.Deflater_java.util.zip.DeflaterInputStream.def|
+
+*java.util.zip.DeflaterInputStream_Constructors*
+|java.util.zip.DeflaterInputStream(InputStream)|Creates a new input stream with
+|java.util.zip.DeflaterInputStream(InputStream,Deflater)|Creates a new input st
+|java.util.zip.DeflaterInputStream(InputStream,Deflater,int)|Creates a new inpu
+
+*java.util.zip.DeflaterInputStream_Methods*
+|java.util.zip.DeflaterInputStream.available()|Returns 0 after EOF has been rea
+|java.util.zip.DeflaterInputStream.close()|Closes this input stream and its und
+|java.util.zip.DeflaterInputStream.mark(int)|This operation is not supported.
+|java.util.zip.DeflaterInputStream.markSupported()|Always returnsfalsebecause t
+|java.util.zip.DeflaterInputStream.read()|Reads a single byte of compressed dat
+|java.util.zip.DeflaterInputStream.read(byte[],int,int)|Reads compressed data i
+|java.util.zip.DeflaterInputStream.reset()|This operation is not supported.
+|java.util.zip.DeflaterInputStream.skip(long)|Skips over and discards data from
+
+*java.util.zip.DeflaterInputStream_Description*
+
+Implements an input stream filter for compressing data in the "deflate" 
+compression format. 
+
+
+
+*byte[]_java.util.zip.DeflaterInputStream.buf*
+
+Input buffer for reading compressed data. 
+
+
+*java.util.zip.Deflater_java.util.zip.DeflaterInputStream.def*
+
+Compressor for this stream. 
+
+
+
+*java.util.zip.DeflaterInputStream(InputStream)*
+
+public DeflaterInputStream(java.io.InputStream in)
+
+Creates a new input stream with a default compressor and buffer size. 
+
+    in - input stream to read the uncompressed data to 
+
+*java.util.zip.DeflaterInputStream(InputStream,Deflater)*
+
+public DeflaterInputStream(
+  java.io.InputStream in,
+  java.util.zip.Deflater defl)
+
+Creates a new input stream with the specified compressor and a default buffer 
+size. 
+
+    in - input stream to read the uncompressed data to 
+    defl - compressor ("deflater") for this stream 
+
+*java.util.zip.DeflaterInputStream(InputStream,Deflater,int)*
+
+public DeflaterInputStream(
+  java.io.InputStream in,
+  java.util.zip.Deflater defl,
+  int bufLen)
+
+Creates a new input stream with the specified compressor and buffer size. 
+
+    in - input stream to read the uncompressed data to 
+    defl - compressor ("deflater") for this stream 
+    bufLen - compression buffer size 
+
+*java.util.zip.DeflaterInputStream.available()*
+
+public int available()
+  throws |java.io.IOException|
+         
+Returns 0 after EOF has been reached, otherwise always return 1. 
+
+Programs should not count on this method to return the actual number of bytes 
+that could be read without blocking 
+
+
+
+    Returns: zero after the end of the underlying input stream has been reached, otherwise 
+             always returns 1 
+
+*java.util.zip.DeflaterInputStream.close()*
+
+public void close()
+  throws |java.io.IOException|
+         
+Closes this input stream and its underlying input stream, discarding any 
+pending uncompressed data. 
+
+
+
+*java.util.zip.DeflaterInputStream.mark(int)*
+
+public void mark(int limit)
+
+This operation is not supported. 
+
+
+    limit - maximum bytes that can be read before invalidating the position marker 
+
+*java.util.zip.DeflaterInputStream.markSupported()*
+
+public boolean markSupported()
+
+Always returnsfalsebecause this input stream does not support the 
+mark()(|java.util.zip.DeflaterInputStream|) and 
+reset()(|java.util.zip.DeflaterInputStream|) methods. 
+
+
+
+    Returns: false, always 
+
+*java.util.zip.DeflaterInputStream.read()*
+
+public int read()
+  throws |java.io.IOException|
+         
+Reads a single byte of compressed data from the input stream. This method will 
+block until some input can be read and compressed. 
+
+
+
+    Returns: a single byte of compressed data, or -1 if the end of the uncompressed input 
+             stream is reached 
+
+*java.util.zip.DeflaterInputStream.read(byte[],int,int)*
+
+public int read(
+  byte[] b,
+  int off,
+  int len)
+  throws |java.io.IOException|
+         
+Reads compressed data into a byte array. This method will block until some 
+input can be read and compressed. 
+
+
+    b - buffer into which the data is read 
+    off - starting offset of the data within {@code b} 
+    len - maximum number of compressed bytes to read into {@code b} 
+
+    Returns: the actual number of bytes read, or -1 if the end of the uncompressed input 
+             stream is reached 
+
+*java.util.zip.DeflaterInputStream.reset()*
+
+public void reset()
+  throws |java.io.IOException|
+         
+This operation is not supported. 
+
+
+
+*java.util.zip.DeflaterInputStream.skip(long)*
+
+public long skip(long n)
+  throws |java.io.IOException|
+         
+Skips over and discards data from the input stream. This method may block until 
+the specified number of bytes are read and skipped. Note: Whilenis given as 
+along, the maximum number of bytes which can be skipped isInteger.MAX_VALUE. 
+
+
+    n - number of bytes to be skipped 
+
+    Returns: the actual number of bytes skipped 
+
+

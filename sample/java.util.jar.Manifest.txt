@@ -36,6 +36,7 @@ Attributes. For information on the Manifest format, please see the
 Manifest format specification. 
 
 
+
 *java.util.jar.Manifest()*
 
 public Manifest()
@@ -67,6 +68,7 @@ public void clear()
 Clears the main Attributes as well as the entries in this Manifest. 
 
 
+
 *java.util.jar.Manifest.clone()*
 
 public |java.lang.Object| clone()
@@ -77,7 +79,9 @@ follows:
 public Object clone() { return new Manifest(this); } 
 
 
+
     Returns: a shallow copy of this Manifest 
+
 *java.util.jar.Manifest.equals(Object)*
 
 public boolean equals(java.lang.Object o)
@@ -85,10 +89,12 @@ public boolean equals(java.lang.Object o)
 Returns true if the specified Object is also a Manifest and has the same main 
 Attributes and entries. 
 
+
     o - the object to be compared 
 
     Returns: true if the specified Object is also a Manifest and has the same main 
              Attributes and entries 
+
 *java.util.jar.Manifest.getAttributes(String)*
 
 public |java.util.jar.Attributes| getAttributes(java.lang.String name)
@@ -97,18 +103,35 @@ Returns the Attributes for the specified entry name. This method is defined as:
 
 return (Attributes)getEntries().get(name) 
 
+Thoughnullis a validname, whengetAttributes(null)is invoked on 
+aManifestobtained from a jar file,nullwill be returned. While jar files 
+themselves do not allownull-named attributes, it is possible to invoke 
+(|java.util.jar.Manifest|) on aManifest, and on that result, invokeputwith a 
+null key and an arbitrary value. Subsequent invocations 
+ofgetAttributes(null)will return the just-putvalue. 
+
+Note that this method does not return the manifest's main attributes; see 
+(|java.util.jar.Manifest|) . 
+
+
     name - entry name 
 
     Returns: the Attributes for the specified entry name 
+
 *java.util.jar.Manifest.getEntries()*
 
-public |java.util.Map| getEntries()
+public |java.util.Map|<String,Attributes> getEntries()
 
 Returns a Map of the entries contained in this Manifest. Each entry is 
-represented by a String name (key) and associated Attributes (value). 
+represented by a String name (key) and associated Attributes (value). The Map 
+permits thenullkey, but no entry with a null key is created by 
+(|java.util.jar.Manifest|) , nor is such an entry written by using 
+(|java.util.jar.Manifest|) . 
+
 
 
     Returns: a Map of the entries contained in this Manifest 
+
 *java.util.jar.Manifest.getMainAttributes()*
 
 public |java.util.jar.Attributes| getMainAttributes()
@@ -116,12 +139,15 @@ public |java.util.jar.Attributes| getMainAttributes()
 Returns the main Attributes for the Manifest. 
 
 
+
     Returns: the main Attributes for the Manifest 
+
 *java.util.jar.Manifest.hashCode()*
 
 public int hashCode()
 
 Returns the hash code for this Manifest. 
+
 
 
 *java.util.jar.Manifest.read(InputStream)*
@@ -131,6 +157,7 @@ public void read(java.io.InputStream is)
          
 Reads the Manifest from the specified InputStream. The entry names and 
 attributes read will be merged in with the current manifest entries. 
+
 
     is - the input stream 
 
@@ -142,6 +169,7 @@ public void write(java.io.OutputStream out)
 Writes the Manifest to the specified OutputStream. 
 Attributes.Name.MANIFEST_VERSION must be set in MainAttributes prior to 
 invoking this method. 
+
 
     out - the output stream 
 

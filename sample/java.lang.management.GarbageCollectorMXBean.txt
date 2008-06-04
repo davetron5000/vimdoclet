@@ -38,6 +38,7 @@ A platform usually includes additional platform-dependent information specific
 to a garbage collection algorithm for monitoring. 
 
 
+
 *java.lang.management.GarbageCollectorMXBean.getCollectionCount()*
 
 public long getCollectionCount()
@@ -46,7 +47,9 @@ Returns the total number of collections that have occurred. This method returns
 -1 if the collection count is undefined for this collector. 
 
 
+
     Returns: the total number of collections that have occurred. 
+
 *java.lang.management.GarbageCollectorMXBean.getCollectionTime()*
 
 public long getCollectionTime()
@@ -61,5 +64,7 @@ collection count has been incremented if the collection elapsed time is very
 short. 
 
 
+
     Returns: the approximate accumulated collection elapsed time in milliseconds. 
+
 

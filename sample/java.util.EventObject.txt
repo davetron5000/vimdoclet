@@ -31,13 +31,10 @@ is logically deemed to be the object upon which the Event in question initially
 occurred upon. 
 
 
+
 *java.lang.Object_java.util.EventObject.source*
 
-The root class from which all event state objects shall be derived. 
-
-All Events are constructed with a reference to the object, the "source", that 
-is logically deemed to be the object upon which the Event in question initially 
-occurred upon. 
+The object on which the Event initially occurred. 
 
 
 
@@ -56,7 +53,9 @@ public |java.lang.Object| getSource()
 The object on which the Event initially occurred. 
 
 
+
     Returns: The object on which the Event initially occurred. 
+
 *java.util.EventObject.toString()*
 
 public |java.lang.String| toString()
@@ -64,5 +63,7 @@ public |java.lang.String| toString()
 Returns a String representation of this EventObject. 
 
 
+
     Returns: A a String representation of this EventObject. 
+
 

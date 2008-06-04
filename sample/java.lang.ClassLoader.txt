@@ -39,11 +39,11 @@ public abstract class ClassLoader
 |java.lang.ClassLoader.getSystemResources(String)|Finds all resources of the sp
 |java.lang.ClassLoader.loadClass(String)|Loads the class with the specified bin
 |java.lang.ClassLoader.loadClass(String,boolean)|Loads the class with the speci
-|java.lang.ClassLoader.resolveClass(Class)|Links the specified class.
+|java.lang.ClassLoader.resolveClass(Class<?>)|Links the specified class.
 |java.lang.ClassLoader.setClassAssertionStatus(String,boolean)|Sets the desired
 |java.lang.ClassLoader.setDefaultAssertionStatus(boolean)|Sets the default asse
 |java.lang.ClassLoader.setPackageAssertionStatus(String,boolean)|Sets the packa
-|java.lang.ClassLoader.setSigners(Class,Object[])|Sets the signers of a class.
+|java.lang.ClassLoader.setSigners(Class<?>,Object[])|Sets the signers of a clas
 
 *java.lang.ClassLoader_Description*
 
@@ -128,6 +128,7 @@ Examples of valid class names include:
 "java.security.KeyStore$Builder$FileBuilder$1" "java.net.URLClassLoader$3$1" 
 
 
+
 *java.lang.ClassLoader()*
 
 protected ClassLoader()
@@ -165,9 +166,10 @@ ignore any command line or persistent assertion status settings and "start with
 a clean slate." 
 
 
+
 *java.lang.ClassLoader.defineClass(byte[],int,int)*
 
-protected final |java.lang.Class| defineClass(
+protected final |java.lang.Class|<?> defineClass(
   byte[] b,
   int off,
   int len)
@@ -177,6 +179,9 @@ Converts an array of bytes into an instance of class Class. Before the Class
 can be used it must be resolved. This method is deprecated in favor of the 
 version that takes a binary name as its first argument, and is more secure. 
 
+    Deprecated: Replaced by {@link #defineClass(String, byte[], int, int)
+ defineClass(String, byte[], int, int)}
+
     b - The bytes that make up the class data. The bytes in positions off through 
        off+len-1 should have the format of a valid class file as defined by the 
        Java Virtual Machine Specification. 
@@ -184,9 +189,10 @@ version that takes a binary name as its first argument, and is more secure.
     len - The length of the class data 
 
     Returns: The Class object that was created from the specified class data 
+
 *java.lang.ClassLoader.defineClass(String,byte[],int,int)*
 
-protected final |java.lang.Class| defineClass(
+protected final |java.lang.Class|<?> defineClass(
   java.lang.String name,
   byte[] b,
   int off,
@@ -209,6 +215,7 @@ To assign a specific ProtectionDomain to the class, use the
 <tt>defineClass</tt>(|java.lang.ClassLoader|) method that takes a 
 ProtectionDomain as one of its arguments. 
 
+
     name - The expected binary name of the class, or null if not known 
     b - The bytes that make up the class data. The bytes in positions off through 
        off+len-1 should have the format of a valid class file as defined by the 
@@ -217,9 +224,10 @@ ProtectionDomain as one of its arguments.
     len - The length of the class data 
 
     Returns: The Class object that was created from the specified class data. 
+
 *java.lang.ClassLoader.defineClass(String,byte[],int,int,ProtectionDomain)*
 
-protected final |java.lang.Class| defineClass(
+protected final |java.lang.Class|<?> defineClass(
   java.lang.String name,
   byte[] b,
   int off,
@@ -247,6 +255,7 @@ packages can only be defined by the bootstrap class loader. If name is not
 null, it must be equal to the binary name of the class specified by the byte 
 array "b", otherwise a (|null|) will be thrown. 
 
+
     name - The expected binary name of the class, or null if not known 
     b - The bytes that make up the class data. The bytes in positions off through 
        off+len-1 should have the format of a valid class file as defined by the 
@@ -256,9 +265,10 @@ array "b", otherwise a (|null|) will be thrown.
     protectionDomain - The ProtectionDomain of the class 
 
     Returns: The Class object created from the data, and optional ProtectionDomain. 
+
 *java.lang.ClassLoader.defineClass(String,ByteBuffer,ProtectionDomain)*
 
-protected final |java.lang.Class| defineClass(
+protected final |java.lang.Class|<?> defineClass(
   java.lang.String name,
   java.nio.ByteBuffer b,
   java.security.ProtectionDomain protectionDomain)
@@ -281,6 +291,7 @@ bBuffer. get(|java.nio.ByteBuffer|) (temp); return
 </tt><i>cl</i><tt>.defineClass(|java.lang.ClassLoader|) (name, temp, 0, 
 temp.length, pd); 
 
+
     name - The expected binary namenull if not known 
     b - The bytes that make up the class data. The bytes from positions b.position() 
        through b.position() + b.limit() -1 should have the format of a valid 
@@ -288,6 +299,7 @@ temp.length, pd);
     protectionDomain - The ProtectionDomain of the class, or null. 
 
     Returns: The Class object created from the data, and optional ProtectionDomain. 
+
 *java.lang.ClassLoader.definePackage(String,String,String,String,String,String,String,URL)*
 
 protected |java.lang.Package| definePackage(
@@ -306,6 +318,7 @@ define the packages for their classes. Packages must be created before the
 class is defined, and package names must be unique within a class loader and 
 cannot be redefined or changed once created. 
 
+
     name - The package name 
     specTitle - The specification title 
     specVersion - The specification version 
@@ -317,9 +330,10 @@ cannot be redefined or changed once created.
        {@link java.net.URL URL} object. Otherwise, the package is not sealed. 
 
     Returns: The newly defined Package object 
+
 *java.lang.ClassLoader.findClass(String)*
 
-protected |java.lang.Class| findClass(java.lang.String name)
+protected |java.lang.Class|<?> findClass(java.lang.String name)
   throws |java.lang.ClassNotFoundException|
          
 Finds the class with the specified binary name. This method should be 
@@ -329,9 +343,11 @@ loading classes, and will be invoked by the
 class loader for the requested class. The default implementation throws a 
 ClassNotFoundException. 
 
+
     name - The binary name of the class 
 
     Returns: The resulting Class object 
+
 *java.lang.ClassLoader.findLibrary(String)*
 
 protected |java.lang.String| findLibrary(java.lang.String libname)
@@ -341,20 +357,24 @@ to locate the native libraries that belong to classes loaded with this class
 loader. If this method returns null, the VM searches the library along the path 
 specified as the "java.library.path" property. 
 
+
     libname - The library name 
 
     Returns: The absolute path of the native library 
+
 *java.lang.ClassLoader.findLoadedClass(String)*
 
-protected final |java.lang.Class| findLoadedClass(java.lang.String name)
+protected final |java.lang.Class|<?> findLoadedClass(java.lang.String name)
 
 Returns the class with the given binary name if this loader has been recorded 
 by the Java virtual machine as an initiating loader of a class with that binary 
 name. Otherwise null is returned. 
 
+
     name - The binary name of the class 
 
     Returns: The Class object, or null if the class has not been loaded 
+
 *java.lang.ClassLoader.findResource(String)*
 
 protected |java.net.URL| findResource(java.lang.String name)
@@ -362,25 +382,29 @@ protected |java.net.URL| findResource(java.lang.String name)
 Finds the resource with the given name. Class loader implementations should 
 override this method to specify where to find resources. 
 
+
     name - The resource name 
 
     Returns: A URL object for reading the resource, or null if the resource could not be 
              found 
+
 *java.lang.ClassLoader.findResources(String)*
 
-protected |java.util.Enumeration| findResources(java.lang.String name)
+protected |java.util.Enumeration|<URL> findResources(java.lang.String name)
   throws |java.io.IOException|
          
 Returns an enumeration of <tt>URL</tt>(|java.net.URL|) objects representing all 
 the resources with the given name. Class loader implementations should override 
 this method to specify where to load resources from. 
 
+
     name - The resource name 
 
     Returns: An enumeration of {@link java.net.URL URL} objects for the resources 
+
 *java.lang.ClassLoader.findSystemClass(String)*
 
-protected final |java.lang.Class| findSystemClass(java.lang.String name)
+protected final |java.lang.Class|<?> findSystemClass(java.lang.String name)
   throws |java.lang.ClassNotFoundException|
          
 Finds a class with the specified binary name, loading it if necessary. 
@@ -391,9 +415,11 @@ ClassLoader associated with it. Subclasses of ClassLoader need not usually
 invoke this method, because most class loaders need to override just 
 (|java.lang.ClassLoader|) . 
 
+
     name - The binary name of the class 
 
     Returns: The Class object for the specified name 
+
 *java.lang.ClassLoader.getPackage(String)*
 
 protected |java.lang.Package| getPackage(java.lang.String name)
@@ -401,17 +427,21 @@ protected |java.lang.Package| getPackage(java.lang.String name)
 Returns a Package that has been defined by this class loader or any of its 
 ancestors. 
 
+
     name - The package name 
 
     Returns: The Package corresponding to the given name, or null if not found 
+
 *java.lang.ClassLoader.getPackages()*
 
-protected |java.lang.Package| getPackages()
+protected |java.lang.Package|[] getPackages()
 
 Returns all of the Packages defined by this class loader and its ancestors. 
 
 
+
     Returns: The array of Package objects defined by this ClassLoader 
+
 *java.lang.ClassLoader.getParent()*
 
 public final |java.lang.ClassLoader| getParent()
@@ -430,7 +460,9 @@ permission to verify access to the parent class loader is permitted. If not, a
 SecurityException will be thrown. 
 
 
+
     Returns: The parent ClassLoader 
+
 *java.lang.ClassLoader.getResource(String)*
 
 public |java.net.URL| getResource(java.lang.String name)
@@ -447,11 +479,13 @@ parent is null the path of the class loader built-in to the virtual machine is
 searched. That failing, this method will invoke (|java.lang.ClassLoader|) to 
 find the resource. 
 
+
     name - The resource name 
 
     Returns: A URL object for reading the resource, or null if the resource could not be 
              found or the invoker doesn't have adequate privileges to get the 
              resource. 
+
 *java.lang.ClassLoader.getResourceAsStream(String)*
 
 public |java.io.InputStream| getResourceAsStream(java.lang.String name)
@@ -461,13 +495,15 @@ Returns an input stream for reading the specified resource.
 The search order is described in the documentation for 
 (|java.lang.ClassLoader|) . 
 
+
     name - The resource name 
 
     Returns: An input stream for reading the resource, or null if the resource could not be 
              found 
+
 *java.lang.ClassLoader.getResources(String)*
 
-public |java.util.Enumeration| getResources(java.lang.String name)
+public |java.util.Enumeration|<URL> getResources(java.lang.String name)
   throws |java.io.IOException|
          
 Finds all the resources with the given name. A resource is some data (images, 
@@ -479,12 +515,14 @@ The name of a resource is a /-separated path name that identifies the resource.
 The search order is described in the documentation for 
 (|java.lang.ClassLoader|) . 
 
+
     name - The resource name 
 
     Returns: An enumeration of {@link java.net.URL URL} objects for the resource. If no 
              resources could be found, the enumeration will be empty. Resources 
              that the class loader doesn't have access to will not be in the 
              enumeration. 
+
 *java.lang.ClassLoader.getSystemClassLoader()*
 
 public static |java.lang.ClassLoader| getSystemClassLoader()
@@ -518,7 +556,9 @@ permission to verify access to the system class loader. If not, a
 SecurityException will be thrown. 
 
 
+
     Returns: The system ClassLoader for delegation, or null if none 
+
 *java.lang.ClassLoader.getSystemResource(String)*
 
 public static |java.net.URL| getSystemResource(java.lang.String name)
@@ -527,10 +567,12 @@ Find a resource of the specified name from the search path used to load
 classes. This method locates the resource through the system class loader (see 
 (|java.lang.ClassLoader|) ). 
 
+
     name - The resource name 
 
     Returns: A {@link java.net.URL URL} object for reading the resource, or null if the 
              resource could not be found 
+
 *java.lang.ClassLoader.getSystemResourceAsStream(String)*
 
 public static |java.io.InputStream| getSystemResourceAsStream(java.lang.String name)
@@ -539,13 +581,15 @@ Open for reading, a resource of the specified name from the search path used to
 load classes. This method locates the resource through the system class loader 
 (see (|java.lang.ClassLoader|) ). 
 
+
     name - The resource name 
 
     Returns: An input stream for reading the resource, or null if the resource could not be 
              found 
+
 *java.lang.ClassLoader.getSystemResources(String)*
 
-public static |java.util.Enumeration| getSystemResources(java.lang.String name)
+public static |java.util.Enumeration|<URL> getSystemResources(java.lang.String name)
   throws |java.io.IOException|
          
 Finds all resources of the specified name from the search path used to load 
@@ -556,12 +600,14 @@ objects.
 The search order is described in the documentation for 
 (|java.lang.ClassLoader|) . 
 
+
     name - The resource name 
 
     Returns: An enumeration of resource {@link java.net.URL URL} objects 
+
 *java.lang.ClassLoader.loadClass(String)*
 
-public |java.lang.Class| loadClass(java.lang.String name)
+public |java.lang.Class|<?> loadClass(java.lang.String name)
   throws |java.lang.ClassNotFoundException|
          
 Loads the class with the specified binary name. This method searches for 
@@ -570,12 +616,14 @@ invoked by the Java virtual machine to resolve class references. Invoking this
 method is equivalent to invoking <tt>loadClass(name, 
 false)</tt>(|java.lang.ClassLoader|) . 
 
+
     name - The binary name of the class 
 
     Returns: The resulting Class object 
+
 *java.lang.ClassLoader.loadClass(String,boolean)*
 
-protected synchronized |java.lang.Class| loadClass(
+protected synchronized |java.lang.Class|<?> loadClass(
   java.lang.String name,
   boolean resolve)
   throws |java.lang.ClassNotFoundException|
@@ -602,18 +650,21 @@ resulting Class object.
 Subclasses of ClassLoader are encouraged to override (|java.lang.ClassLoader|) 
 , rather than this method. 
 
+
     name - The binary name of the class 
     resolve - If true then resolve the class 
 
     Returns: The resulting Class object 
-*java.lang.ClassLoader.resolveClass(Class)*
 
-protected final void resolveClass(java.lang.Class c)
+*java.lang.ClassLoader.resolveClass(Class<?>)*
+
+protected final void resolveClass(java.lang.Class<?> c)
 
 Links the specified class. This (misleadingly named) method may be used by a 
 class loader to link a class. If the class c has already been linked, then this 
 method simply returns. Otherwise, the class is linked as described in the 
 "Execution" chapter of the Java Language Specification. 
+
 
     c - The class to link 
 
@@ -631,8 +682,8 @@ been initialized. (Once a class is initialized, its assertion status cannot
 change.) 
 
 If the named class is not a top-level class, this invocation will have no 
-effect on the actual assertion status of any class, and its return value is 
-undefined. 
+effect on the actual assertion status of any class. 
+
 
     className - The fully qualified class name of the top-level class whose assertion status is 
        to be set. 
@@ -648,6 +699,7 @@ determines whether classes loaded by this class loader and initialized in the
 future will have assertions enabled or disabled by default. This setting may be 
 overridden on a per-package or per-class basis by invoking 
 (|java.lang.ClassLoader|) or (|java.lang.ClassLoader|) . 
+
 
     enabled - true if classes loaded by this class loader will henceforth have assertions 
        enabled by default, false if they will have assertions disabled by 
@@ -678,6 +730,7 @@ Package defaults take precedence over the class loader's default assertion
 status, and may be overridden on a per-class basis by invoking 
 (|java.lang.ClassLoader|) . 
 
+
     packageName - The name of the package whose package default assertion status is to be set. A 
        null value indicates the unnamed package that is "current" (Java 
        Language Specification, section 7.4.2). 
@@ -685,13 +738,14 @@ status, and may be overridden on a per-class basis by invoking
        or any of its subpackages will have assertions enabled by default, false 
        if they will have assertions disabled by default. 
 
-*java.lang.ClassLoader.setSigners(Class,Object[])*
+*java.lang.ClassLoader.setSigners(Class<?>,Object[])*
 
 protected final void setSigners(
-  java.lang.Class c,
+  java.lang.Class<?> c,
   java.lang.Object[] signers)
 
 Sets the signers of a class. This should be invoked after defining a class. 
+
 
     c - The Class object 
     signers - The signers for the class 

@@ -17,7 +17,7 @@ public abstract class Pack200
 *java.util.jar.Pack200_Description*
 
 Transforms a JAR file to or from a packed stream in Pack200 format. Please 
-refer to Network Trasfer Format JSR 200 Specification at 
+refer to Network Transfer Format JSR 200 Specification at 
 http://jcp.org/aboutJava/communityprocess/review/jsr200/index.html 
 
 Typically the packer engine is used by application developers to deploy or host 
@@ -55,11 +55,13 @@ jostream.close(); } catch (IOException ioe) { ioe.printStackTrace(); }
 A Pack200 file compressed with gzip can be hosted on HTTP/1.1 web servers. The 
 deployment applications can use "Accept-Encoding=pack200-gzip". This indicates 
 to the server that the client application desires a version of the file encoded 
-with Pack200 and further compressed with gzip. Please refer to Java Deployment 
-Guide for more details and techniques. 
+with Pack200 and further compressed with gzip. Please refer to <a 
+href="/../technotes/guides/deployment/deployment-guide/pack200.html">Java 
+Deployment Guide for more details and techniques. 
 
 Unless otherwise noted, passing a null argument to a constructor or method in 
 this class will cause a (|java.lang.NullPointerException|) to be thrown. 
+
 
 
 *java.util.jar.Pack200.newPacker()*
@@ -83,7 +85,9 @@ allocate multiple packer engines, or else serialize use of one engine with a
 lock. 
 
 
+
     Returns: A newly allocated Packer engine. 
+
 *java.util.jar.Pack200.newUnpacker()*
 
 public static |java.util.jar.Pack200.Unpacker| newUnpacker()
@@ -105,5 +109,7 @@ allocate multiple unpacker engines, or else serialize use of one engine with a
 lock. 
 
 
+
     Returns: A newly allocated Unpacker engine. 
+
 

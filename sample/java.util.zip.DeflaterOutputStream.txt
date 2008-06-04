@@ -33,18 +33,15 @@ This class implements an output stream filter for compressing data in the
 compression filters, such as GZIPOutputStream. 
 
 
+
 *byte[]_java.util.zip.DeflaterOutputStream.buf*
 
-This class implements an output stream filter for compressing data in the 
-"deflate" compression format. It is also used as the basis for other types of 
-compression filters, such as GZIPOutputStream. 
+Output buffer for writing compressed data. 
 
 
 *java.util.zip.Deflater_java.util.zip.DeflaterOutputStream.def*
 
-This class implements an output stream filter for compressing data in the 
-"deflate" compression format. It is also used as the basis for other types of 
-compression filters, such as GZIPOutputStream. 
+Compressor for this stream. 
 
 
 
@@ -90,12 +87,14 @@ Writes remaining compressed data to the output stream and closes the underlying
 stream. 
 
 
+
 *java.util.zip.DeflaterOutputStream.deflate()*
 
 protected void deflate()
   throws |java.io.IOException|
          
 Writes next block of compressed data to the output stream. 
+
 
 
 *java.util.zip.DeflaterOutputStream.finish()*
@@ -106,6 +105,7 @@ public void finish()
 Finishes writing compressed data to the output stream without closing the 
 underlying stream. Use this method when applying multiple filters in succession 
 to the same output stream. 
+
 
 
 *java.util.zip.DeflaterOutputStream.write(byte[],int,int)*
@@ -119,6 +119,7 @@ public void write(
 Writes an array of bytes to the compressed output stream. This method will 
 block until all the bytes are written. 
 
+
     b - the data to be written 
     off - the start offset of the data 
     len - the length of the data 
@@ -130,6 +131,7 @@ public void write(int b)
          
 Writes a byte to the compressed output stream. This method will block until the 
 byte can be written. 
+
 
     b - the byte to be written 
 

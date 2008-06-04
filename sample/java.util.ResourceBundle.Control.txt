@@ -1,0 +1,502 @@
+*java.util.ResourceBundle.Control* *ResourceBundle.Control* ResourceBundle.Contr
+
+public static class ResourceBundle.Control
+  extends    |java.lang.Object|
+
+|java.util.ResourceBundle.Control_Description|
+|java.util.ResourceBundle.Control_Fields|
+|java.util.ResourceBundle.Control_Constructors|
+|java.util.ResourceBundle.Control_Methods|
+
+================================================================================
+
+*java.util.ResourceBundle.Control_Fields*
+|java.util.List<java.lang.String>_java.util.ResourceBundle.Control.FORMAT_CLASS|
+|java.util.List<java.lang.String>_java.util.ResourceBundle.Control.FORMAT_DEFAULT|
+|java.util.List<java.lang.String>_java.util.ResourceBundle.Control.FORMAT_PROPERTIES|
+|long_java.util.ResourceBundle.Control.TTL_DONT_CACHE|
+|long_java.util.ResourceBundle.Control.TTL_NO_EXPIRATION_CONTROL|
+
+*java.util.ResourceBundle.Control_Constructors*
+|java.util.ResourceBundle.Control()|Sole constructor.
+
+*java.util.ResourceBundle.Control_Methods*
+|java.util.ResourceBundle.Control.getCandidateLocales(String,Locale)|Returns a 
+|java.util.ResourceBundle.Control.getControl(List<String>)|Returns a ResourceBu
+|java.util.ResourceBundle.Control.getFallbackLocale(String,Locale)|Returns a Lo
+|java.util.ResourceBundle.Control.getFormats(String)|Returns a List of Strings 
+|java.util.ResourceBundle.Control.getNoFallbackControl(List<String>)|Returns a 
+|java.util.ResourceBundle.Control.getTimeToLive(String,Locale)|Returns the time
+|java.util.ResourceBundle.Control.needsReload(String,Locale,String,ClassLoader,ResourceBundle,long)|
+|java.util.ResourceBundle.Control.newBundle(String,Locale,String,ClassLoader,boolean)|
+|java.util.ResourceBundle.Control.toBundleName(String,Locale)|Converts the give
+|java.util.ResourceBundle.Control.toResourceName(String,String)|Converts the gi
+
+*java.util.ResourceBundle.Control_Description*
+
+ResourceBundle.Control defines a set of callback methods that are invoked by 
+the ResourceBundle.getBundle(|java.util.ResourceBundle|) factory methods during 
+the bundle loading process. In other words, a ResourceBundle.Control 
+collaborates with the factory methods for loading resource bundles. The default 
+implementation of the callback methods provides the information necessary for 
+the factory methods to perform the default behavior. 
+
+In addition to the callback methods, the 
+toBundleName(|java.util.ResourceBundle.Control|) and 
+toResourceName(|java.util.ResourceBundle.Control|) methods are defined 
+primarily for convenience in implementing the callback methods. However, the 
+toBundleName method could be overridden to provide different conventions in the 
+organization and packaging of localized resources. The toResourceName method is 
+final to avoid use of wrong resource and class name separators. 
+
+Two factory methods, (|java.util.ResourceBundle.Control|) and 
+(|java.util.ResourceBundle.Control|) , provide ResourceBundle.Control instances 
+that implement common variations of the default bundle loading process. 
+
+The formats returned by the getFormats(|java.util.ResourceBundle.Control|) 
+method and candidate locales returned by the 
+getCandidateLocales(|java.util.ResourceBundle.Control|) method must be 
+consistent in all ResourceBundle.getBundle invocations for the same base 
+bundle. Otherwise, the ResourceBundle.getBundle methods may return unintended 
+bundles. For example, if only "java.class" is returned by the getFormats method 
+for the first call to ResourceBundle.getBundle and only "java.properties" for 
+the second call, then the second call will return the class-based one that has 
+been cached during the first call. 
+
+A ResourceBundle.Control instance must be thread-safe if it's simultaneously 
+used by multiple threads. ResourceBundle.getBundle does not synchronize to call 
+the ResourceBundle.Control methods. The default implementations of the methods 
+are thread-safe. 
+
+Applications can specify ResourceBundle.Control instances returned by the 
+getControl factory methods or created from a subclass of ResourceBundle.Control 
+to customize the bundle loading process. The following are examples of changing 
+the default bundle loading process. 
+
+Example 1 
+
+The following code lets ResourceBundle.getBundle look up only properties-based 
+resources. 
+
+
+
+import java.util.*; import static java.util.ResourceBundle.Control.*; ... 
+ResourceBundle bundle = ResourceBundle.getBundle("MyResources", new 
+Locale("fr", "CH"), ResourceBundle.Control.getControl(FORMAT_PROPERTIES)); 
+
+Given the resource bundles in the example in the ResourceBundle.getBundle 
+description, this ResourceBundle.getBundle call loads 
+MyResources_fr_CH.properties whose parent is MyResources_fr.properties whose 
+parent is MyResources.properties. (MyResources_fr_CH.properties is not hidden, 
+but MyResources_fr_CH.class is.) 
+
+Example 2 
+
+The following is an example of loading XML-based bundles using 
+Properties.loadFromXML(|java.util.Properties|) . 
+
+
+
+ResourceBundle rb = ResourceBundle.getBundle("Messages", new 
+ResourceBundle.Control() { public List<String> getFormats(String baseName) { if 
+(baseName == null) throw new NullPointerException(); return 
+Arrays.asList("xml"); } public ResourceBundle newBundle(String baseName, Locale 
+locale, String format, ClassLoader loader, boolean reload) throws 
+IllegalAccessException, InstantiationException, IOException { if (baseName == 
+null || locale == null || format == null || loader == null) throw new 
+NullPointerException(); ResourceBundle bundle = null; if (format.equals("xml")) 
+{ String bundleName = toBundleName(baseName, locale); String resourceName = 
+toResourceName(bundleName, format); InputStream stream = null; if (reload) { 
+URL url = loader.getResource(resourceName); if (url != null) { URLConnection 
+connection = url.openConnection(); if (connection != null) { // Disable caches 
+to get fresh data for // reloading. connection.setUseCaches(false); stream = 
+connection.getInputStream(); } } } else { stream = 
+loader.getResourceAsStream(resourceName); } if (stream != null) { 
+BufferedInputStream bis = new BufferedInputStream(stream); bundle = new 
+XMLResourceBundle(bis); bis.close(); } } return bundle; } }); 
+
+... 
+
+private static class XMLResourceBundle extends ResourceBundle { private 
+Properties props; XMLResourceBundle(InputStream stream) throws IOException { 
+props = new Properties(); props.loadFromXML(stream); } protected Object 
+handleGetObject(String key) { return props.getProperty(key); } public 
+Enumeration<String> getKeys() { ... } } 
+
+
+
+*java.util.List<java.lang.String>_java.util.ResourceBundle.Control.FORMAT_CLASS*
+
+The class-only format List containing "java.class". This List is 
+unmodifiable(|java.util.Collections|) . 
+
+
+*java.util.List<java.lang.String>_java.util.ResourceBundle.Control.FORMAT_DEFAULT*
+
+The default format List, which contains the strings "java.class" and 
+"java.properties", in this order. This List is 
+unmodifiable(|java.util.Collections|) . 
+
+
+*java.util.List<java.lang.String>_java.util.ResourceBundle.Control.FORMAT_PROPERTIES*
+
+The properties-only format List containing "java.properties". This List is 
+unmodifiable(|java.util.Collections|) . 
+
+
+*long_java.util.ResourceBundle.Control.TTL_DONT_CACHE*
+
+The time-to-live constant for not caching loaded resource bundle instances. 
+
+
+*long_java.util.ResourceBundle.Control.TTL_NO_EXPIRATION_CONTROL*
+
+The time-to-live constant for disabling the expiration control for loaded 
+resource bundle instances in the cache. 
+
+
+
+*java.util.ResourceBundle.Control()*
+
+protected ResourceBundle.Control()
+
+Sole constructor. (For invocation by subclass constructors, typically 
+implicit.) 
+
+
+*java.util.ResourceBundle.Control.getCandidateLocales(String,Locale)*
+
+public |java.util.List|<Locale> getCandidateLocales(
+  java.lang.String baseName,
+  java.util.Locale locale)
+
+Returns a List of Locales as candidate locales for baseName and locale. This 
+method is called by the ResourceBundle.getBundle factory method each time the 
+factory method tries finding a resource bundle for a target Locale. 
+
+The sequence of the candidate locales also corresponds to the runtime resource 
+lookup path (also known as the parent chain), if the corresponding resource 
+bundles for the candidate locales exist and their parents are not defined by 
+loaded resource bundles themselves. The last element of the list must be a root 
+locale(|java.util.Locale|) if it is desired to have the base bundle as the 
+terminal of the parent chain. 
+
+If the given locale is equal to Locale.ROOT (the root locale), a List 
+containing only the root Locale must be returned. In this case, the 
+ResourceBundle.getBundle factory method loads only the base bundle as the 
+resulting resource bundle. 
+
+It is not a requirement to return an immutable (unmodifiable) List. However, 
+the returned List must not be mutated after it has been returned by 
+getCandidateLocales. 
+
+The default implementation returns a List containing Locales in the following 
+sequence: 
+
+Locale(language, country, variant) Locale(language, country) Locale(language) 
+Locale.ROOT 
+
+where language, country and variant are the language, country and variant 
+values of the given locale, respectively. Locales where the final component 
+values are empty strings are omitted. 
+
+The default implementation uses an (|java.util.ArrayList|) that overriding 
+implementations may modify before returning it to the caller. However, a 
+subclass must not modify it after it has been returned by getCandidateLocales. 
+
+For example, if the given baseName is "Messages" and the given locale is 
+Locale("ja","","XX"), then a List of Locales: 
+
+Locale("ja", "", "XX") Locale("ja") Locale.ROOT 
+
+is returned. And if the resource bundles for the "ja" and "" Locales are found, 
+then the runtime resource lookup path (parent chain) is: 
+
+Messages_ja -> Messages 
+
+
+    baseName - the base name of the resource bundle, a fully qualified class name 
+    locale - the locale for which a resource bundle is desired 
+
+    Returns: a List of candidate Locales for the given locale 
+
+*java.util.ResourceBundle.Control.getControl(List<String>)*
+
+public static final |java.util.ResourceBundle.Control| getControl(java.util.List<java.lang.String> formats)
+
+Returns a ResourceBundle.Control in which the 
+getFormats(|java.util.ResourceBundle.Control|) method returns the specified 
+formats. The formats must be equal to one of 
+(|java.util.ResourceBundle.Control|) , (|java.util.ResourceBundle.Control|) or 
+(|java.util.ResourceBundle.Control|) . ResourceBundle.Control instances 
+returned by this method are singletons and thread-safe. 
+
+Specifying (|java.util.ResourceBundle.Control|) is equivalent to instantiating 
+the ResourceBundle.Control class, except that this method returns a singleton. 
+
+
+    formats - the formats to be returned by the ResourceBundle.Control.getFormats method 
+
+    Returns: a ResourceBundle.Control supporting the specified formats 
+
+*java.util.ResourceBundle.Control.getFallbackLocale(String,Locale)*
+
+public |java.util.Locale| getFallbackLocale(
+  java.lang.String baseName,
+  java.util.Locale locale)
+
+Returns a Locale to be used as a fallback locale for further resource bundle 
+searches by the ResourceBundle.getBundle factory method. This method is called 
+from the factory method every time when no resulting resource bundle has been 
+found for baseName and locale, where locale is either the parameter for 
+ResourceBundle.getBundle or the previous fallback locale returned by this 
+method. 
+
+The method returns null if no further fallback search is desired. 
+
+The default implementation returns the default 
+<code>Locale</code>(|java.util.Locale|) if the given locale isn't the default 
+one. Otherwise, null is returned. 
+
+
+    baseName - the base name of the resource bundle, a fully qualified class name for which 
+       ResourceBundle.getBundle has been unable to find any resource bundles 
+       (except for the base bundle) 
+    locale - the Locale for which ResourceBundle.getBundle has been unable to find any 
+       resource bundles (except for the base bundle) 
+
+    Returns: a Locale for the fallback search, or null if no further fallback search is 
+             desired. 
+
+*java.util.ResourceBundle.Control.getFormats(String)*
+
+public |java.util.List|<String> getFormats(java.lang.String baseName)
+
+Returns a List of Strings containing formats to be used to load resource 
+bundles for the given baseName. The ResourceBundle.getBundle factory method 
+tries to load resource bundles with formats in the order specified by the list. 
+The list returned by this method must have at least one String. The predefined 
+formats are "java.class" for class-based resource bundles and "java.properties" 
+for properties-based(|java.util.PropertyResourceBundle|) ones. Strings starting 
+with "java." are reserved for future extensions and must not be used by 
+application-defined formats. 
+
+It is not a requirement to return an immutable (unmodifiable) List. However, 
+the returned List must not be mutated after it has been returned by getFormats. 
+
+The default implementation returns (|java.util.ResourceBundle.Control|) so that 
+the ResourceBundle.getBundle factory method looks up first class-based resource 
+bundles, then properties-based ones. 
+
+
+    baseName - the base name of the resource bundle, a fully qualified class name 
+
+    Returns: a List of Strings containing formats for loading resource bundles. 
+
+*java.util.ResourceBundle.Control.getNoFallbackControl(List<String>)*
+
+public static final |java.util.ResourceBundle.Control| getNoFallbackControl(java.util.List<java.lang.String> formats)
+
+Returns a ResourceBundle.Control in which the 
+getFormats(|java.util.ResourceBundle.Control|) method returns the specified 
+formats and the getFallbackLocale(|java.util.ResourceBundle.Control|) method 
+returns null. The formats must be equal to one of 
+(|java.util.ResourceBundle.Control|) , (|java.util.ResourceBundle.Control|) or 
+(|java.util.ResourceBundle.Control|) . ResourceBundle.Control instances 
+returned by this method are singletons and thread-safe. 
+
+
+    formats - the formats to be returned by the ResourceBundle.Control.getFormats method 
+
+    Returns: a ResourceBundle.Control supporting the specified formats with no fallback 
+             Locale support 
+
+*java.util.ResourceBundle.Control.getTimeToLive(String,Locale)*
+
+public long getTimeToLive(
+  java.lang.String baseName,
+  java.util.Locale locale)
+
+Returns the time-to-live (TTL) value for resource bundles that are loaded under 
+this ResourceBundle.Control. Positive time-to-live values specify the number of 
+milliseconds a bundle can remain in the cache without being validated against 
+the source data from which it was constructed. The value 0 indicates that a 
+bundle must be validated each time it is retrieved from the cache. 
+(|java.util.ResourceBundle.Control|) specifies that loaded resource bundles are 
+not put in the cache. (|java.util.ResourceBundle.Control|) specifies that 
+loaded resource bundles are put in the cache with no expiration control. 
+
+The expiration affects only the bundle loading process by the 
+ResourceBundle.getBundle factory method. That is, if the factory method finds a 
+resource bundle in the cache that has expired, the factory method calls the 
+needsReload(|java.util.ResourceBundle.Control|) method to determine whether the 
+resource bundle needs to be reloaded. If needsReload returns true, the cached 
+resource bundle instance is removed from the cache. Otherwise, the instance 
+stays in the cache, updated with the new TTL value returned by this method. 
+
+All cached resource bundles are subject to removal from the cache due to memory 
+constraints of the runtime environment. Returning a large positive value 
+doesn't mean to lock loaded resource bundles in the cache. 
+
+The default implementation returns (|java.util.ResourceBundle.Control|) . 
+
+
+    baseName - the base name of the resource bundle for which the expiration value is 
+       specified. 
+    locale - the locale of the resource bundle for which the expiration value is specified. 
+
+    Returns: the time (0 or a positive millisecond offset from the cached time) to get 
+             loaded bundles expired in the cache, {@link 
+             #TTL_NO_EXPIRATION_CONTROL} to disable the expiration control, or 
+             {@link #TTL_DONT_CACHE} to disable caching. 
+
+*java.util.ResourceBundle.Control.needsReload(String,Locale,String,ClassLoader,ResourceBundle,long)*
+
+public boolean needsReload(
+  java.lang.String baseName,
+  java.util.Locale locale,
+  java.lang.String format,
+  java.lang.ClassLoader loader,
+  java.util.ResourceBundle bundle,
+  long loadTime)
+
+Determines if the expired bundle in the cache needs to be reloaded based on the 
+loading time given by loadTime or some other criteria. The method returns true 
+if reloading is required; false otherwise. loadTime is a millisecond offset 
+since the Calendar Epoch. 
+
+The calling ResourceBundle.getBundle factory method calls this method on the 
+ResourceBundle.Control instance used for its current invocation, not on the 
+instance used in the invocation that originally loaded the resource bundle. 
+
+The default implementation compares loadTime and the last modified time of the 
+source data of the resource bundle. If it's determined that the source data has 
+been modified since loadTime, true is returned. Otherwise, false is returned. 
+This implementation assumes that the given format is the same string as its 
+file suffix if it's not one of the default formats, "java.class" or 
+"java.properties". 
+
+
+    baseName - the base bundle name of the resource bundle, a fully qualified class name 
+    locale - the locale for which the resource bundle should be instantiated 
+    format - the resource bundle format to be loaded 
+    loader - the ClassLoader to use to load the bundle 
+    bundle - the resource bundle instance that has been expired in the cache 
+    loadTime - the time when bundle was loaded and put in the cache 
+
+    Returns: true if the expired bundle needs to be reloaded; false otherwise. 
+
+*java.util.ResourceBundle.Control.newBundle(String,Locale,String,ClassLoader,boolean)*
+
+public |java.util.ResourceBundle| newBundle(
+  java.lang.String baseName,
+  java.util.Locale locale,
+  java.lang.String format,
+  java.lang.ClassLoader loader,
+  boolean reload)
+  throws |java.lang.IllegalAccessException|
+         |java.lang.InstantiationException|
+         |java.io.IOException|
+         
+Instantiates a resource bundle for the given bundle name of the given format 
+and locale, using the given class loader if necessary. This method returns null 
+if there is no resource bundle available for the given parameters. If a 
+resource bundle can't be instantiated due to an unexpected error, the error 
+must be reported by throwing an Error or Exception rather than simply returning 
+null. 
+
+If the reload flag is true, it indicates that this method is being called 
+because the previously loaded resource bundle has expired. 
+
+The default implementation instantiates a ResourceBundle as follows. 
+
+
+
+The bundle name is obtained by calling toBundleName(baseName, 
+locale)(|java.util.ResourceBundle.Control|) . 
+
+If format is "java.class", the (|java.lang.Class|) specified by the bundle name 
+is loaded by calling (|java.lang.ClassLoader|) . Then, a ResourceBundle is 
+instantiated by calling (|java.lang.Class|) . Note that the reload flag is 
+ignored for loading class-based resource bundles in this default 
+implementation. 
+
+If format is "java.properties", toResourceName(bundlename, 
+"properties")(|java.util.ResourceBundle.Control|) is called to get the resource 
+name. If reload is true, load.getResource(|java.lang.ClassLoader|) is called to 
+get a (|java.net.URL|) for creating a (|java.net.URLConnection|) . This 
+URLConnection is used to disable the caches(|java.net.URLConnection|) of the 
+underlying resource loading layers, and to get an 
+<code>InputStream</code>(|java.net.URLConnection|) . Otherwise, 
+loader.getResourceAsStream(|java.lang.ClassLoader|) is called to get an 
+(|java.io.InputStream|) . Then, a (|java.util.PropertyResourceBundle|) is 
+constructed with the InputStream. 
+
+If format is neither "java.class" nor "java.properties", an 
+IllegalArgumentException is thrown. 
+
+
+
+
+    baseName - the base bundle name of the resource bundle, a fully qualified class name 
+    locale - the locale for which the resource bundle should be instantiated 
+    format - the resource bundle format to be loaded 
+    loader - the ClassLoader to use to load the bundle 
+    reload - the flag to indicate bundle reloading; true if reloading an expired resource 
+       bundle, false otherwise 
+
+    Returns: the resource bundle instance, or null if none could be found. 
+
+*java.util.ResourceBundle.Control.toBundleName(String,Locale)*
+
+public |java.lang.String| toBundleName(
+  java.lang.String baseName,
+  java.util.Locale locale)
+
+Converts the given baseName and locale to the bundle name. This method is 
+called from the default implementation of the 
+newBundle(|java.util.ResourceBundle.Control|) and 
+needsReload(|java.util.ResourceBundle.Control|) methods. 
+
+This implementation returns the following value: 
+
+baseName + "_" + language + "_" + country + "_" + variant 
+
+where language, country and variant are the language, country and variant 
+values of locale, respectively. Final component values that are empty Strings 
+are omitted along with the preceding '_'. If all of the values are empty 
+strings, then baseName is returned. 
+
+For example, if baseName is "baseName" and locale is Locale("ja","","XX"), then 
+"baseName_ja__XX" is returned. If the given locale is Locale("en"), then 
+"baseName_en" is returned. 
+
+Overriding this method allows applications to use different conventions in the 
+organization and packaging of localized resources. 
+
+
+    baseName - the base name of the resource bundle, a fully qualified class name 
+    locale - the locale for which a resource bundle should be loaded 
+
+    Returns: the bundle name for the resource bundle 
+
+*java.util.ResourceBundle.Control.toResourceName(String,String)*
+
+public final |java.lang.String| toResourceName(
+  java.lang.String bundleName,
+  java.lang.String suffix)
+
+Converts the given bundleName to the form required by the 
+ClassLoader.getResource(|java.lang.ClassLoader|) method by replacing all 
+occurrences of '.' in bundleName with '/' and appending a '.' and the given 
+file suffix. For example, if bundleName is "foo.bar.MyResources_ja_JP" and 
+suffix is "properties", then "foo/bar/MyResources_ja_JP.properties" is 
+returned. 
+
+
+    bundleName - the bundle name 
+    suffix - the file type suffix 
+
+    Returns: the converted resource name 
+
+

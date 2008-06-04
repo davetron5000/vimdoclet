@@ -26,6 +26,7 @@ constructor in this class will cause a (|java.lang.NullPointerException|) to be
 thrown. 
 
 
+
 *java.util.MissingFormatWidthException(String)*
 
 public MissingFormatWidthException(java.lang.String s)
@@ -41,10 +42,13 @@ public |java.lang.String| getFormatSpecifier()
 Returns the format specifier which does not have a width. 
 
 
+
     Returns: The format specifier which does not have a width 
+
 *java.util.MissingFormatWidthException.getMessage()*
 
 public |java.lang.String| getMessage()
+
 
 
 

@@ -26,6 +26,7 @@ constructor in this class will cause a (|java.lang.NullPointerException|) to be
 thrown. 
 
 
+
 *java.util.IllegalFormatFlagsException(String)*
 
 public IllegalFormatFlagsException(java.lang.String f)
@@ -41,10 +42,13 @@ public |java.lang.String| getFlags()
 Returns the set of flags which contains an illegal combination. 
 
 
+
     Returns: 
+
 *java.util.IllegalFormatFlagsException.getMessage()*
 
 public |java.lang.String| getMessage()
+
 
 
 

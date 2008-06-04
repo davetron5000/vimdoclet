@@ -23,6 +23,7 @@ invoked on a proxy instance, the method invocation is encoded and dispatched to
 the invoke method of its invocation handler. 
 
 
+
 *java.lang.reflect.InvocationHandler.invoke(Object,Method,Object[])*
 
 public |java.lang.Object| invoke(
@@ -34,6 +35,7 @@ public |java.lang.Object| invoke(
 Processes a method invocation on a proxy instance and returns the result. This 
 method will be invoked on an invocation handler when a method is invoked on a 
 proxy instance that it is associated with. 
+
 
     proxy - the proxy instance that the method was invoked on 
     method - the Method instance corresponding to the interface method invoked on the proxy 
@@ -58,4 +60,5 @@ proxy instance that it is associated with.
              method's declared return type as described above, a 
              ClassCastException will be thrown by the method invocation on the 
              proxy instance. 
+
 

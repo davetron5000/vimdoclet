@@ -65,6 +65,7 @@ Unless otherwise specified, passing a null argument to any method in this
 interface will cause a (|java.lang.NullPointerException|) to be thrown. 
 
 
+
 *java.util.Formattable.formatTo(Formatter,int,int,int)*
 
 public void formatTo(
@@ -74,6 +75,7 @@ public void formatTo(
   int precision)
 
 Formats the object using the provided formatter(|java.util.Formatter|) . 
+
 
     formatter - The {@link Formatter formatter}. Implementing classes may call {@link 
        Formatter#out() formatter.out()} or {@link Formatter#locale() 

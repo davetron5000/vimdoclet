@@ -20,6 +20,7 @@ Thrown to indicate that a preferences operation could not complete because of a
 failure in the backing store, or a failure to contact the backing store. 
 
 
+
 *java.util.prefs.BackingStoreException(String)*
 
 public BackingStoreException(java.lang.String s)

@@ -1,6 +1,6 @@
 *java.util.concurrent.Callable* *Callable* A task that returns a result and may 
 
-public interface interface Callable
+public interface interface Callable<V>
 
 
 |java.util.concurrent.Callable_Description|
@@ -27,13 +27,16 @@ The (|java.util.concurrent.Executors|) class contains utility methods to
 convert from other common forms to Callable classes. 
 
 
+
 *java.util.concurrent.Callable.call()*
 
-public |java.lang.Object| call()
+public |V| call()
   throws |java.lang.Exception|
          
 Computes a result, or throws an exception if unable to do so. 
 
 
+
     Returns: computed result 
+
 

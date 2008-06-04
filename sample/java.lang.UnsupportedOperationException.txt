@@ -20,8 +20,9 @@ public class UnsupportedOperationException
 
 Thrown to indicate that the requested operation is not supported. 
 
-This class is a member of the <a href="/../guide/collections/index.html"> Java 
-Collections Framework. 
+This class is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
 
 
 *java.lang.UnsupportedOperationException()*

@@ -25,6 +25,7 @@ interface from Exception, it is not intended to be Serializable. Appropriate
 serialization methods are implemented to throw NotSerializableException. 
 
 
+
 *java.util.InvalidPropertiesFormatException(String)*
 
 public InvalidPropertiesFormatException(java.lang.String message)

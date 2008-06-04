@@ -1,0 +1,93 @@
+*java.lang.management.LockInfo* *LockInfo* Information about a lock.
+
+public class LockInfo
+  extends    |java.lang.Object|
+
+|java.lang.management.LockInfo_Description|
+|java.lang.management.LockInfo_Fields|
+|java.lang.management.LockInfo_Constructors|
+|java.lang.management.LockInfo_Methods|
+
+================================================================================
+
+*java.lang.management.LockInfo_Constructors*
+|java.lang.management.LockInfo(String,int)|Constructs a LockInfo object.
+
+*java.lang.management.LockInfo_Methods*
+|java.lang.management.LockInfo.getClassName()|Returns the fully qualified name 
+|java.lang.management.LockInfo.getIdentityHashCode()|Returns the identity hash 
+|java.lang.management.LockInfo.toString()|Returns a string representation of a 
+
+*java.lang.management.LockInfo_Description*
+
+Information about a lock. A lock can be a built-in object monitor, an ownable 
+synchronizer, or the Condition(|java.util.concurrent.locks.Condition|) object 
+associated with synchronizers. 
+
+An ownable synchronizer is a synchronizer that may be exclusively owned by a 
+thread and uses 
+AbstractOwnableSynchronizer(|java.util.concurrent.locks.AbstractOwnableSynchronizer|)
+(or its subclass) to implement its synchronization property. 
+ReentrantLock(|java.util.concurrent.locks.ReentrantLock|) and 
+ReentrantReadWriteLock(|java.util.concurrent.locks.ReentrantReadWriteLock|) are 
+two examples of ownable synchronizers provided by the platform. 
+
+MXBean Mapping LockInfo is mapped to a 
+CompositeData(|javax.management.openmbean.CompositeData|) as specified in the 
+type mapping rules of MXBeans(|javax.management.MXBean|) . 
+
+
+
+*java.lang.management.LockInfo(String,int)*
+
+public LockInfo(
+  java.lang.String className,
+  int identityHashCode)
+
+Constructs a LockInfo object. 
+
+    className - the fully qualified name of the class of the lock object. 
+    identityHashCode - the {@link System#identityHashCode identity hash code} of the lock object. 
+
+*java.lang.management.LockInfo.getClassName()*
+
+public |java.lang.String| getClassName()
+
+Returns the fully qualified name of the class of the lock object. 
+
+
+
+    Returns: the fully qualified name of the class of the lock object. 
+
+*java.lang.management.LockInfo.getIdentityHashCode()*
+
+public int getIdentityHashCode()
+
+Returns the identity hash code of the lock object returned from the 
+(|java.lang.System|) method. 
+
+
+
+    Returns: the identity hash code of the lock object. 
+
+*java.lang.management.LockInfo.toString()*
+
+public |java.lang.String| toString()
+
+Returns a string representation of a lock. The returned string representation 
+consists of the name of the class of the lock object, the at-sign character 
+`@', and the unsigned hexadecimal representation of the identity hash code of 
+the object. This method returns a string equals to the value of: 
+
+
+
+lock.getClass().getName() + '@' + 
+Integer.toHexString(System.identityHashCode(lock)) 
+
+where lock is the lock object. 
+
+
+
+    Returns: the string representation of a lock. 
+
+

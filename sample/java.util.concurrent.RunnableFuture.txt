@@ -1,0 +1,34 @@
+*java.util.concurrent.RunnableFuture* *RunnableFuture* AFuturethat isRunnable.
+
+public interface interface RunnableFuture<V>
+
+  implements |java.lang.Runnable|
+             |java.util.concurrent.Future|
+
+|java.util.concurrent.RunnableFuture_Description|
+|java.util.concurrent.RunnableFuture_Fields|
+|java.util.concurrent.RunnableFuture_Constructors|
+|java.util.concurrent.RunnableFuture_Methods|
+
+================================================================================
+
+*java.util.concurrent.RunnableFuture_Methods*
+|java.util.concurrent.RunnableFuture.run()|Sets this Future to the result of it
+
+*java.util.concurrent.RunnableFuture_Description*
+
+A (|java.util.concurrent.Future|) that is (|java.lang.Runnable|) . Successful 
+execution of the run method causes completion of the Future and allows access 
+to its results. 
+
+
+
+*java.util.concurrent.RunnableFuture.run()*
+
+public void run()
+
+Sets this Future to the result of its computation unless it has been cancelled. 
+
+
+
+

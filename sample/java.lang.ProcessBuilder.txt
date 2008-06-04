@@ -11,13 +11,13 @@ public final class ProcessBuilder
 ================================================================================
 
 *java.lang.ProcessBuilder_Constructors*
-|java.lang.ProcessBuilder(List)|Constructs a process builder with the specified
-|java.lang.ProcessBuilder(String[])|Constructs a process builder with the speci
+|java.lang.ProcessBuilder(List<String>)|Constructs a process builder with the s
+|java.lang.ProcessBuilder(String...)|Constructs a process builder with the spec
 
 *java.lang.ProcessBuilder_Methods*
 |java.lang.ProcessBuilder.command()|Returns this process builder's operating sy
-|java.lang.ProcessBuilder.command(List)|Sets this process builder's operating s
-|java.lang.ProcessBuilder.command(String[])|Sets this process builder's operati
+|java.lang.ProcessBuilder.command(List<String>)|Sets this process builder's ope
+|java.lang.ProcessBuilder.command(String...)|Sets this process builder's operat
 |java.lang.ProcessBuilder.directory()|Returns this process builder's working di
 |java.lang.ProcessBuilder.directory(File)|Sets this process builder's working d
 |java.lang.ProcessBuilder.environment()|Returns a string map view of this proce
@@ -94,15 +94,16 @@ environment:
 ProcessBuilder pb = new ProcessBuilder("myCommand", "myArg1", "myArg2"); 
 Map<String, String> env = pb.environment(); env.put("VAR1", "myValue"); 
 env.remove("OTHERVAR"); env.put("VAR2", env.get("VAR1") + "suffix"); 
-pb.directory("myDir"); Process p = pb.start(); 
+pb.directory(new File("myDir")); Process p = pb.start(); 
 
 To start a process with an explicit set of environment variables, first call 
 Map.clear()(|java.util.Map|) before adding environment variables. 
 
 
-*java.lang.ProcessBuilder(List)*
 
-public ProcessBuilder(java.util.List command)
+*java.lang.ProcessBuilder(List<String>)*
+
+public ProcessBuilder(java.util.List<java.lang.String> command)
 
 Constructs a process builder with the specified operating system program and 
 arguments. This constructor does not make a copy of the command list. 
@@ -112,7 +113,7 @@ system command.
 
     command - The list containing the program and its arguments 
 
-*java.lang.ProcessBuilder(String[])*
+*java.lang.ProcessBuilder(String...)*
 
 public ProcessBuilder(java.lang.String[] command)
 
@@ -126,27 +127,31 @@ operating system command.
 
 *java.lang.ProcessBuilder.command()*
 
-public |java.util.List| command()
+public |java.util.List|<String> command()
 
 Returns this process builder's operating system program and arguments. The 
 returned list is not a copy. Subsequent updates to the list will be reflected 
 in the state of this process builder. 
 
 
-    Returns: This process builder's program and its arguments 
-*java.lang.ProcessBuilder.command(List)*
 
-public |java.lang.ProcessBuilder| command(java.util.List command)
+    Returns: This process builder's program and its arguments 
+
+*java.lang.ProcessBuilder.command(List<String>)*
+
+public |java.lang.ProcessBuilder| command(java.util.List<java.lang.String> command)
 
 Sets this process builder's operating system program and arguments. This method 
 does not make a copy of the command list. Subsequent updates to the list will 
 be reflected in the state of the process builder. It is not checked whether 
 command corresponds to a valid operating system command. 
 
+
     command - The list containing the program and its arguments 
 
     Returns: This process builder 
-*java.lang.ProcessBuilder.command(String[])*
+
+*java.lang.ProcessBuilder.command(String...)*
 
 public |java.lang.ProcessBuilder| command(java.lang.String[] command)
 
@@ -155,9 +160,11 @@ convenience method that sets the command to a string list containing the same
 strings as the command array, in the same order. It is not checked whether 
 command corresponds to a valid operating system command. 
 
+
     command - A string array containing the program and its arguments 
 
     Returns: This process builder 
+
 *java.lang.ProcessBuilder.directory()*
 
 public |java.io.File| directory()
@@ -171,7 +178,9 @@ the directory named by the system property user.dir, as the working directory
 of the child process. 
 
 
+
     Returns: This process builder's working directory 
+
 *java.lang.ProcessBuilder.directory(File)*
 
 public |java.lang.ProcessBuilder| directory(java.io.File directory)
@@ -184,12 +193,14 @@ this means to use the working directory of the current Java process, usually
 the directory named by the system property user.dir, as the working directory 
 of the child process. 
 
+
     directory - The new working directory 
 
     Returns: This process builder 
+
 *java.lang.ProcessBuilder.environment()*
 
-public |java.util.Map| environment()
+public |java.util.Map|<String,String> environment()
 
 Returns a string map view of this process builder's environment. 
 
@@ -239,7 +250,9 @@ When passing information to a Java subprocess, system properties are generally
 preferred over environment variables. 
 
 
+
     Returns: This process builder's environment 
+
 *java.lang.ProcessBuilder.redirectErrorStream()*
 
 public boolean redirectErrorStream()
@@ -253,7 +266,9 @@ be merged with the standard output, so that both can be read using the
 with the corresponding output. The initial value is false. 
 
 
+
     Returns: This process builder's redirectErrorStream property 
+
 *java.lang.ProcessBuilder.redirectErrorStream(boolean)*
 
 public |java.lang.ProcessBuilder| redirectErrorStream(boolean redirectErrorStream)
@@ -266,9 +281,11 @@ be merged with the standard output, so that both can be read using the
 (|java.lang.Process|) method. This makes it easier to correlate error messages 
 with the corresponding output. The initial value is false. 
 
+
     redirectErrorStream - The new property value 
 
     Returns: This process builder 
+
 *java.lang.ProcessBuilder.start()*
 
 public |java.lang.Process| start()
@@ -302,5 +319,7 @@ Subsequent modifications to this process builder will not affect the returned
 (|java.lang.Process|) . 
 
 
+
     Returns: A new {@link Process} object for managing the subprocess 
+
 

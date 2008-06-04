@@ -23,6 +23,7 @@ ClassCastException:
 Object x = new Integer(0); System.out.println((String)x); 
 
 
+
 *java.lang.ClassCastException()*
 
 public ClassCastException()

@@ -14,7 +14,10 @@ public class ThreadInfo
 |java.lang.management.ThreadInfo.from(CompositeData)|Returns a ThreadInfo objec
 |java.lang.management.ThreadInfo.getBlockedCount()|Returns the total number of 
 |java.lang.management.ThreadInfo.getBlockedTime()|Returns the approximate accum
-|java.lang.management.ThreadInfo.getLockName()|Returns the string representatio
+|java.lang.management.ThreadInfo.getLockedMonitors()|Returns an array ofMonitor
+|java.lang.management.ThreadInfo.getLockedSynchronizers()|Returns an array ofLo
+|java.lang.management.ThreadInfo.getLockInfo()|Returns the LockInfo of an objec
+|java.lang.management.ThreadInfo.getLockName()|Returns theLockInfo#toString str
 |java.lang.management.ThreadInfo.getLockOwnerId()|Returns the ID of the thread 
 |java.lang.management.ThreadInfo.getLockOwnerName()|Returns the name of the thr
 |java.lang.management.ThreadInfo.getStackTrace()|Returns the stack trace of the
@@ -36,17 +39,23 @@ Thread ID. Name of the thread.
 
 Execution information 
 
-Thread state. The object upon which the thread is blocked waiting to enter a 
-synchronization block or waiting to be notified in a 
-Object.wait(|java.lang.Object|) call. The ID of the thread that owns the object 
-that the thread is blocked. Stack trace of the thread. 
+Thread state. The object upon which the thread is blocked due to: 
 
-Synchronization statistics 
+waiting to enter a synchronization block/method, or waiting to be notified in a 
+Object.wait(|java.lang.Object|) method, or parking due to a 
+LockSupport.park(|java.util.concurrent.locks.LockSupport|) call. 
+
+The ID of the thread that owns the object that the thread is blocked. Stack 
+trace of the thread. List of object monitors locked by the thread. List of 
+ownable synchronizers locked by the thread. 
+
+Synchronization Statistics 
 
 The number of times that the thread has blocked for synchronization or waited 
 for notification. The accumulated elapsed time that the thread has blocked for 
-synchronization or waited for notification since thread contention monitoring 
-was enabled. Some Java virtual machine implementation may not support this. The 
+synchronization or waited for notification since thread contention 
+monitoring(|java.lang.management.ThreadMXBean|) was enabled. Some Java virtual 
+machine implementation may not support this. The 
 (|java.lang.management.ThreadMXBean|) method can be used to determine if a Java 
 virtual machine supports this. 
 
@@ -58,12 +67,14 @@ CompositeData(|javax.management.openmbean.CompositeData|) with attributes as
 specified in the from(|java.lang.management.ThreadInfo|) method. 
 
 
+
 *java.lang.management.ThreadInfo.from(CompositeData)*
 
 public static |java.lang.management.ThreadInfo| from(javax.management.openmbean.CompositeData cd)
 
 Returns a ThreadInfo object represented by the given CompositeData. The given 
-CompositeData must contain the following attributes: 
+CompositeData must contain the following attributes unless otherwise specified 
+below: 
 
 
 
@@ -86,6 +97,14 @@ blockedTime java.lang.Long
 waitedCount java.lang.Long 
 
 waitedTime java.lang.Long 
+
+lockInfo javax.management.openmbean.CompositeData - the mapped type for 
+(|java.lang.management.LockInfo|) as specified in the 
+
+type mapping rules of MXBeans(|javax.management.MXBean|) . 
+
+If cd does not contain this attribute, the LockInfo object will be constructed 
+from the value of the lockName attribute. 
 
 lockName java.lang.String 
 
@@ -116,11 +135,29 @@ nativeMethod java.lang.Boolean
 
 
 
+lockedMonitors javax.management.openmbean.CompositeData[] whose element type is 
+the mapped type for (|java.lang.management.MonitorInfo|) as specified in the 
+Monitor.from(|java.lang.management.MonitorInfo|) method. 
+
+If cd does not contain this attribute, this attribute will be set to an empty 
+array. 
+
+lockedSynchronizers javax.management.openmbean.CompositeData[] whose element 
+type is the mapped type for (|java.lang.management.LockInfo|) as specified in 
+the 
+
+type mapping rules of MXBeans(|javax.management.MXBean|) . 
+
+If cd does not contain this attribute, this attribute will be set to an empty 
+array. 
+
+
 
 
     cd - CompositeData representing a ThreadInfo 
 
     Returns: a ThreadInfo object represented by cd if cd is not null; null otherwise. 
+
 *java.lang.management.ThreadInfo.getBlockedCount()*
 
 public long getBlockedCount()
@@ -130,7 +167,9 @@ ThreadInfo blocked to enter or reenter a monitor. I.e. the number of times a
 thread has been in the BLOCKED(|java.lang.Thread.State|) state. 
 
 
+
     Returns: the total number of times that the thread entered the BLOCKED state. 
+
 *java.lang.management.ThreadInfo.getBlockedTime()*
 
 public long getBlockedTime()
@@ -146,65 +185,124 @@ The Java virtual machine may measure the time with a high resolution timer.
 This statistic is reset when the thread contention monitoring is reenabled. 
 
 
+
     Returns: the approximate accumulated elapsed time in milliseconds that a thread entered 
              the BLOCKED state; -1 if thread contention monitoring is disabled. 
+
+*java.lang.management.ThreadInfo.getLockedMonitors()*
+
+public |java.lang.management.MonitorInfo|[] getLockedMonitors()
+
+Returns an array of (|java.lang.management.MonitorInfo|) objects, each of which 
+represents an object monitor currently locked by the thread associated with 
+this ThreadInfo. If no locked monitor was requested for this thread info or no 
+monitor is locked by the thread, this method will return a zero-length array. 
+
+
+
+    Returns: an array of MonitorInfo objects representing the object monitors locked by the 
+             thread. 
+
+*java.lang.management.ThreadInfo.getLockedSynchronizers()*
+
+public |java.lang.management.LockInfo|[] getLockedSynchronizers()
+
+Returns an array of (|java.lang.management.LockInfo|) objects, each of which 
+represents an ownable synchronizer currently locked by the thread associated 
+with this ThreadInfo. If no locked synchronizer was requested for this thread 
+info or no synchronizer is locked by the thread, this method will return a 
+zero-length array. 
+
+
+
+    Returns: an array of LockInfo objects representing the ownable synchronizers locked by 
+             the thread. 
+
+*java.lang.management.ThreadInfo.getLockInfo()*
+
+public |java.lang.management.LockInfo| getLockInfo()
+
+Returns the LockInfo of an object for which the thread associated with this 
+ThreadInfo is blocked waiting. A thread can be blocked waiting for one of the 
+following: 
+
+an object monitor to be acquired for entering or reentering a synchronization 
+block/method. The thread is in the BLOCKED(|java.lang.Thread.State|) state 
+waiting to enter the synchronized statement or method. 
+
+an object monitor to be notified by another thread. The thread is in the 
+WAITING(|java.lang.Thread.State|) or TIMED_WAITING(|java.lang.Thread.State|) 
+state due to a call to the Object.wait(|java.lang.Object|) method. 
+
+a synchronization object responsible for the thread parking. The thread is in 
+the WAITING(|java.lang.Thread.State|) or 
+TIMED_WAITING(|java.lang.Thread.State|) state due to a call to the 
+LockSupport.park(|java.util.concurrent.locks.LockSupport|) method. The 
+synchronization object is the object returned from 
+LockSupport.getBlocker(|java.util.concurrent.locks.LockSupport|) method. 
+Typically it is an ownable synchronizer or a 
+Condition(|java.util.concurrent.locks.Condition|) . 
+
+This method returns null if the thread is not in any of the above conditions. 
+
+
+
+    Returns: LockInfo of an object for which the thread is blocked waiting if any; null 
+             otherwise. 
+
 *java.lang.management.ThreadInfo.getLockName()*
 
 public |java.lang.String| getLockName()
 
-Returns the string representation of the monitor lock that the thread 
-associated with this ThreadInfo is blocked to enter or waiting to be notified 
-through the Object.wait(|java.lang.Object|) method. The returned string 
-representation of a monitor lock consists of the name of the class of which the 
-object is an instance, the at-sign character `@', and the unsigned hexadecimal 
-representation of the identity hash code of the object. The returned string may 
-not be unique depending on the implementation of the (|java.lang.System|) 
-method. This method returns a string equals to the value of: 
+Returns the string representation(|java.lang.management.LockInfo|) of an object 
+for which the thread associated with this ThreadInfo is blocked waiting. This 
+method is equivalent to calling: 
 
 
 
-lock.getClass().getName() + '@' + 
-Integer.toHexString(System.identityHashCode(lock)) 
+getLockInfo().toString() 
 
-where lock is the monitor lock object. 
-
-If the thread is not blocking to enter on any monitor object, or is not waiting 
-on a monitor object for notification in a Object.wait call, this method returns 
-null. 
+This method will return null if this thread is not blocked waiting for any 
+object or if the object is not owned by any thread. 
 
 
-    Returns: the string representation of the monitor lock that the thread is blocking to 
-             enter or waiting to be notified through the Object.wait method if 
-             any; null otherwise. 
+
+    Returns: the string representation of the object on which the thread is blocked if any; 
+             null otherwise. 
+
 *java.lang.management.ThreadInfo.getLockOwnerId()*
 
 public long getLockOwnerId()
 
-Returns the ID of the thread which holds the monitor lock of an object on which 
-the thread associated with this ThreadInfo is blocking. This method will return 
--1 if this thread is not blocked or waiting on any monitor, or if the monitor 
-lock is not held by any thread. 
+Returns the ID of the thread which owns the object for which the thread 
+associated with this ThreadInfo is blocked waiting. This method will return -1 
+if this thread is not blocked waiting for any object or if the object is not 
+owned by any thread. 
 
 
-    Returns: the thread ID of the owner thread of the monitor lock of the object this thread 
-             is blocking on; -1 if this thread is not blocked or waiting on any 
-             monitor, or if the monitor lock is not held by any thread. 
+
+    Returns: the thread ID of the owner thread of the object this thread is blocked on; -1 
+             if this thread is not blocked or if the object lis not owned by 
+             any thread. 
+
 *java.lang.management.ThreadInfo.getLockOwnerName()*
 
 public |java.lang.String| getLockOwnerName()
 
-Returns the name of the thread which holds the monitor lock of an object on 
-which the thread associated with this ThreadInfo is blocking. This method will 
-return null if this thread is not blocked or waiting on any monitor, or if the 
-monitor lock is not held by any thread. 
+Returns the name of the thread which owns the object for which the thread 
+associated with this ThreadInfo is blocked waiting. This method will return 
+null if this thread is not blocked waiting for any object or if the object is 
+not owned by any thread. 
 
 
-    Returns: the name of the thread that holds the monitor lock of the object this thread is 
-             blocking on; null if this thread is not blocked or waiting on any 
-             monitor, or if the monitor lock is not held by any thread. 
+
+    Returns: the name of the thread that owns the object this thread is blocked on; null if 
+             this thread is not blocked or if the object is not owned by any 
+             thread. 
+
 *java.lang.management.ThreadInfo.getStackTrace()*
 
-public |java.lang.StackTraceElement| getStackTrace()
+public |java.lang.StackTraceElement|[] getStackTrace()
 
 Returns the stack trace of the thread associated with this ThreadInfo. If no 
 stack trace was requested for this thread info, this method will return a 
@@ -220,7 +318,9 @@ has no stack trace information concerning the thread associated with this
 ThreadInfo is permitted to return a zero-length array from this method. 
 
 
+
     Returns: an array of StackTraceElement objects of the thread. 
+
 *java.lang.management.ThreadInfo.getThreadId()*
 
 public long getThreadId()
@@ -228,7 +328,9 @@ public long getThreadId()
 Returns the ID of the thread associated with this ThreadInfo. 
 
 
+
     Returns: the ID of the associated thread. 
+
 *java.lang.management.ThreadInfo.getThreadName()*
 
 public |java.lang.String| getThreadName()
@@ -236,7 +338,9 @@ public |java.lang.String| getThreadName()
 Returns the name of the thread associated with this ThreadInfo. 
 
 
+
     Returns: the name of the associated thread. 
+
 *java.lang.management.ThreadInfo.getThreadState()*
 
 public |java.lang.Thread.State| getThreadState()
@@ -244,7 +348,9 @@ public |java.lang.Thread.State| getThreadState()
 Returns the state of the thread associated with this ThreadInfo. 
 
 
+
     Returns: Thread.State of the associated thread. 
+
 *java.lang.management.ThreadInfo.getWaitedCount()*
 
 public long getWaitedCount()
@@ -255,8 +361,10 @@ been in the WAITING(|java.lang.Thread.State|) or
 TIMED_WAITING(|java.lang.Thread.State|) state. 
 
 
+
     Returns: the total number of times that the thread was in the WAITING or TIMED_WAITING 
              state. 
+
 *java.lang.management.ThreadInfo.getWaitedTime()*
 
 public long getWaitedTime()
@@ -273,9 +381,11 @@ The Java virtual machine may measure the time with a high resolution timer.
 This statistic is reset when the thread contention monitoring is reenabled. 
 
 
+
     Returns: the approximate accumulated elapsed time in milliseconds that a thread has been 
              in the WAITING or TIMED_WAITING state; -1 if thread contention 
              monitoring is disabled. 
+
 *java.lang.management.ThreadInfo.isInNative()*
 
 public boolean isInNative()
@@ -286,7 +396,9 @@ virtual machine support code or the compiled native code generated by the
 virtual machine. 
 
 
+
     Returns: true if the thread is executing native code; false otherwise. 
+
 *java.lang.management.ThreadInfo.isSuspended()*
 
 public boolean isSuspended()
@@ -295,13 +407,22 @@ Tests if the thread associated with this ThreadInfo is suspended. This method
 returns true if (|java.lang.Thread|) has been called. 
 
 
+
     Returns: true if the thread is suspended; false otherwise. 
+
 *java.lang.management.ThreadInfo.toString()*
 
 public |java.lang.String| toString()
 
-Returns a string representation of this thread info. 
+Returns a string representation of this thread info. The format of this string 
+depends on the implementation. The returned string will typically include the 
+thread name(|java.lang.management.ThreadInfo|) , the thread 
+ID(|java.lang.management.ThreadInfo|) , its 
+state(|java.lang.management.ThreadInfo|) , and a stack 
+trace(|java.lang.management.ThreadInfo|) if any. 
+
 
 
     Returns: a string representation of this thread info. 
+
 

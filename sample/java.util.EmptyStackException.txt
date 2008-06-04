@@ -18,6 +18,7 @@ public class EmptyStackException
 Thrown by methods in the Stack class to indicate that the stack is empty. 
 
 
+
 *java.util.EmptyStackException()*
 
 public EmptyStackException()

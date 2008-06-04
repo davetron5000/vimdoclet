@@ -19,17 +19,21 @@ public final class StrictMath
 |java.lang.StrictMath.abs(float)|Returns the absolute value of a float value.
 |java.lang.StrictMath.abs(int)|Returns the absolute value of an int value..
 |java.lang.StrictMath.abs(long)|Returns the absolute value of a long value.
-|java.lang.StrictMath.acos(double)|Returns the arc cosine of an angle, in the r
-|java.lang.StrictMath.asin(double)|Returns the arc sine of an angle, in the ran
-|java.lang.StrictMath.atan(double)|Returns the arc tangent of an angle, in the 
-|java.lang.StrictMath.atan2(double,double)|Converts rectangular coordinates (x,
+|java.lang.StrictMath.acos(double)|Returns the arc cosine of a value; the retur
+|java.lang.StrictMath.asin(double)|Returns the arc sine of a value; the returne
+|java.lang.StrictMath.atan(double)|Returns the arc tangent of a value; the retu
+|java.lang.StrictMath.atan2(double,double)|Returns the angle theta from the con
 |java.lang.StrictMath.cbrt(double)|Returns the cube root of a double value.
 |java.lang.StrictMath.ceil(double)|Returns the smallest (closest to negative in
+|java.lang.StrictMath.copySign(double,double)|Returns the first floating-point 
+|java.lang.StrictMath.copySign(float,float)|Returns the first floating-point ar
 |java.lang.StrictMath.cos(double)|Returns the trigonometric cosine of an angle.
 |java.lang.StrictMath.cosh(double)|Returns the hyperbolic cosine of a double va
 |java.lang.StrictMath.exp(double)|Returns Euler's number e raised to the power 
 |java.lang.StrictMath.expm1(double)|Returns ex-1.
 |java.lang.StrictMath.floor(double)|Returns the largest (closest to positive in
+|java.lang.StrictMath.getExponent(double)|Returns the unbiased exponent used in
+|java.lang.StrictMath.getExponent(float)|Returns the unbiased exponent used in 
 |java.lang.StrictMath.hypot(double,double)|Returns sqrt(x2+y2)  without interme
 |java.lang.StrictMath.IEEEremainder(double,double)|Computes the remainder opera
 |java.lang.StrictMath.log(double)|Returns the natural logarithm (base e) of a d
@@ -43,11 +47,17 @@ public final class StrictMath
 |java.lang.StrictMath.min(float,float)|Returns the smaller of two float values.
 |java.lang.StrictMath.min(int,int)|Returns the smaller of two int values.
 |java.lang.StrictMath.min(long,long)|Returns the smaller of two long values.
+|java.lang.StrictMath.nextAfter(double,double)|Returns the floating-point numbe
+|java.lang.StrictMath.nextAfter(float,double)|Returns the floating-point number
+|java.lang.StrictMath.nextUp(double)|Returns the floating-point value adjacent 
+|java.lang.StrictMath.nextUp(float)|Returns the floating-point value adjacent t
 |java.lang.StrictMath.pow(double,double)|Returns the value of the first argumen
 |java.lang.StrictMath.random()|Returns a double value with a positive sign, gre
 |java.lang.StrictMath.rint(double)|Returns the double value that is closest in 
 |java.lang.StrictMath.round(double)|Returns the closest long to the argument.
 |java.lang.StrictMath.round(float)|Returns the closest int to the argument.
+|java.lang.StrictMath.scalb(double,int)|Returnd  2scaleFactor rounded as if per
+|java.lang.StrictMath.scalb(float,int)|Returnf  2scaleFactor rounded as if perf
 |java.lang.StrictMath.signum(double)|Returns the signum function of the argumen
 |java.lang.StrictMath.signum(float)|Returns the signum function of the argument
 |java.lang.StrictMath.sin(double)|Returns the trigonometric sine of an angle.
@@ -82,48 +92,17 @@ acos, atan, exp, log, log10, cbrt, atan2, pow, sinh, cosh, tanh, hypot, expm1,
 and log1p. 
 
 
+
 *double_java.lang.StrictMath.E*
 
-The class StrictMath contains methods for performing basic numeric operations 
-such as the elementary exponential, logarithm, square root, and trigonometric 
-functions. 
-
-To help ensure portability of Java programs, the definitions of some of the 
-numeric functions in this package require that they produce the same results as 
-certain published algorithms. These algorithms are available from the 
-well-known network library netlib as the package "Freely Distributable Math 
-Library," fdlibm. These algorithms, which are written in the C programming 
-language, are then to be understood as executed with all floating-point 
-operations following the rules of Java floating-point arithmetic. 
-
-The Java math library is defined with respect to fdlibm version 5.3. Where 
-fdlibm provides more than one definition for a function (such as acos), use the 
-"IEEE 754 core function" version (residing in a file whose name begins with the 
-letter e). The methods which require fdlibm semantics are sin, cos, tan, asin, 
-acos, atan, exp, log, log10, cbrt, atan2, pow, sinh, cosh, tanh, hypot, expm1, 
-and log1p. 
+The double value that is closer than any other to e, the base of the natural 
+logarithms. 
 
 
 *double_java.lang.StrictMath.PI*
 
-The class StrictMath contains methods for performing basic numeric operations 
-such as the elementary exponential, logarithm, square root, and trigonometric 
-functions. 
-
-To help ensure portability of Java programs, the definitions of some of the 
-numeric functions in this package require that they produce the same results as 
-certain published algorithms. These algorithms are available from the 
-well-known network library netlib as the package "Freely Distributable Math 
-Library," fdlibm. These algorithms, which are written in the C programming 
-language, are then to be understood as executed with all floating-point 
-operations following the rules of Java floating-point arithmetic. 
-
-The Java math library is defined with respect to fdlibm version 5.3. Where 
-fdlibm provides more than one definition for a function (such as acos), use the 
-"IEEE 754 core function" version (residing in a file whose name begins with the 
-letter e). The methods which require fdlibm semantics are sin, cos, tan, asin, 
-acos, atan, exp, log, log10, cbrt, atan2, pow, sinh, cosh, tanh, hypot, expm1, 
-and log1p. 
+The double value that is closer than any other to pi, the ratio of the 
+circumference of a circle to its diameter. 
 
 
 
@@ -139,9 +118,11 @@ result is positive infinity. If the argument is NaN, the result is NaN. In
 other words, the result is the same as the value of the expression: 
 Double.longBitsToDouble((Double.doubleToLongBits(a)<<1)>>>1) 
 
+
     a - the argument whose absolute value is to be determined 
 
     Returns: the absolute value of the argument. 
+
 *java.lang.StrictMath.abs(float)*
 
 public static float abs(float a)
@@ -155,9 +136,11 @@ other words, the result is the same as the value of the expression:
 
 Float.intBitsToFloat(0x7fffffff & Float.floatToIntBits(a)) 
 
+
     a - the argument whose absolute value is to be determined 
 
     Returns: the absolute value of the argument. 
+
 *java.lang.StrictMath.abs(int)*
 
 public static int abs(int a)
@@ -170,9 +153,11 @@ Note that if the argument is equal to the value of Integer.MIN_VALUE, the most
 negative representable int value, the result is that same value, which is 
 negative. 
 
+
     a - the argument whose absolute value is to be determined. 
 
     Returns: the absolute value of the argument. 
+
 *java.lang.StrictMath.abs(long)*
 
 public static long abs(long a)
@@ -185,65 +170,75 @@ Note that if the argument is equal to the value of Long.MIN_VALUE, the most
 negative representable long value, the result is that same value, which is 
 negative. 
 
+
     a - the argument whose absolute value is to be determined. 
 
     Returns: the absolute value of the argument. 
+
 *java.lang.StrictMath.acos(double)*
 
 public static native double acos(double a)
 
-Returns the arc cosine of an angle, in the range of 0.0 through pi. Special 
-case: If the argument is NaN or its absolute value is greater than 1, then the 
-result is NaN. 
+Returns the arc cosine of a value; the returned angle is in the range 0.0 
+through pi. Special case: If the argument is NaN or its absolute value is 
+greater than 1, then the result is NaN. 
+
 
     a - the value whose arc cosine is to be returned. 
 
     Returns: the arc cosine of the argument. 
+
 *java.lang.StrictMath.asin(double)*
 
 public static native double asin(double a)
 
-Returns the arc sine of an angle, in the range of -pi/2 through pi/2. Special 
-cases: If the argument is NaN or its absolute value is greater than 1, then the 
-result is NaN. If the argument is zero, then the result is a zero with the same 
-sign as the argument. 
+Returns the arc sine of a value; the returned angle is in the range -pi/2 
+through pi/2. Special cases: If the argument is NaN or its absolute value is 
+greater than 1, then the result is NaN. If the argument is zero, then the 
+result is a zero with the same sign as the argument. 
+
 
     a - the value whose arc sine is to be returned. 
 
     Returns: the arc sine of the argument. 
+
 *java.lang.StrictMath.atan(double)*
 
 public static native double atan(double a)
 
-Returns the arc tangent of an angle, in the range of -pi/2 through pi/2. 
-Special cases: If the argument is NaN, then the result is NaN. If the argument 
-is zero, then the result is a zero with the same sign as the argument. 
+Returns the arc tangent of a value; the returned angle is in the range -pi/2 
+through pi/2. Special cases: If the argument is NaN, then the result is NaN. If 
+the argument is zero, then the result is a zero with the same sign as the 
+argument. 
+
 
     a - the value whose arc tangent is to be returned. 
 
     Returns: the arc tangent of the argument. 
+
 *java.lang.StrictMath.atan2(double,double)*
 
 public static native double atan2(
   double y,
   double x)
 
-Converts rectangular coordinates (x,y) to polar (r,theta). This method computes 
-the phase theta by computing an arc tangent of y/x in the range of -pi to pi. 
-Special cases: If either argument is NaN, then the result is NaN. If the first 
-argument is positive zero and the second argument is positive, or the first 
-argument is positive and finite and the second argument is positive infinity, 
-then the result is positive zero. If the first argument is negative zero and 
-the second argument is positive, or the first argument is negative and finite 
-and the second argument is positive infinity, then the result is negative zero. 
-If the first argument is positive zero and the second argument is negative, or 
-the first argument is positive and finite and the second argument is negative 
-infinity, then the result is the double value closest to pi. If the first 
-argument is negative zero and the second argument is negative, or the first 
-argument is negative and finite and the second argument is negative infinity, 
-then the result is the double value closest to -pi. If the first argument is 
-positive and the second argument is positive zero or negative zero, or the 
-first argument is positive infinity and the second argument is finite, then the 
+Returns the angle theta from the conversion of rectangular coordinates (x,y) to 
+polar coordinates (r,theta). This method computes the phase theta by computing 
+an arc tangent of y/x in the range of -pi to pi. Special cases: If either 
+argument is NaN, then the result is NaN. If the first argument is positive zero 
+and the second argument is positive, or the first argument is positive and 
+finite and the second argument is positive infinity, then the result is 
+positive zero. If the first argument is negative zero and the second argument 
+is positive, or the first argument is negative and finite and the second 
+argument is positive infinity, then the result is negative zero. If the first 
+argument is positive zero and the second argument is negative, or the first 
+argument is positive and finite and the second argument is negative infinity, 
+then the result is the double value closest to pi. If the first argument is 
+negative zero and the second argument is negative, or the first argument is 
+negative and finite and the second argument is negative infinity, then the 
+result is the double value closest to -pi. If the first argument is positive 
+and the second argument is positive zero or negative zero, or the first 
+argument is positive infinity and the second argument is finite, then the 
 result is the double value closest to pi/2. If the first argument is negative 
 and the second argument is positive zero or negative zero, or the first 
 argument is negative infinity and the second argument is finite, then the 
@@ -255,11 +250,13 @@ negative infinity and the second argument is positive infinity, then the result
 is the double value closest to -pi/4. If both arguments are negative infinity, 
 then the result is the double value closest to -3*pi/4. 
 
+
     y - the ordinate coordinate 
     x - the abscissa coordinate 
 
     Returns: the theta component of the point (r,theta) in polar coordinates that 
              corresponds to the point (x,y) in Cartesian coordinates. 
+
 *java.lang.StrictMath.cbrt(double)*
 
 public static native double cbrt(double a)
@@ -280,9 +277,11 @@ argument.
 
 
 
+
     a - a value. 
 
     Returns: the cube root of a. 
+
 *java.lang.StrictMath.ceil(double)*
 
 public static native double ceil(double a)
@@ -296,11 +295,45 @@ the argument. If the argument value is less than zero but greater than -1.0,
 then the result is negative zero. Note that the value of StrictMath.ceil(x) is 
 exactly the value of -StrictMath.floor(-x). 
 
+
     a - a value. 
 
     Returns: the smallest (closest to negative infinity) floating-point value that is 
              greater than or equal to the argument and is equal to a 
              mathematical integer. 
+
+*java.lang.StrictMath.copySign(double,double)*
+
+public static double copySign(
+  double magnitude,
+  double sign)
+
+Returns the first floating-point argument with the sign of the second 
+floating-point argument. For this method, a NaNsignargument is always treated 
+as if it were positive. 
+
+
+    magnitude - the parameter providing the magnitude of the result 
+    sign - the parameter providing the sign of the result 
+
+    Returns: a value with the magnitude of {@code magnitude} and the sign of {@code sign}. 
+
+*java.lang.StrictMath.copySign(float,float)*
+
+public static float copySign(
+  float magnitude,
+  float sign)
+
+Returns the first floating-point argument with the sign of the second 
+floating-point argument. For this method, a NaNsignargument is always treated 
+as if it were positive. 
+
+
+    magnitude - the parameter providing the magnitude of the result 
+    sign - the parameter providing the sign of the result 
+
+    Returns: a value with the magnitude of {@code magnitude} and the sign of {@code sign}. 
+
 *java.lang.StrictMath.cos(double)*
 
 public static native double cos(double a)
@@ -308,9 +341,11 @@ public static native double cos(double a)
 Returns the trigonometric cosine of an angle. Special cases: If the argument is 
 NaN or an infinity, then the result is NaN. 
 
+
     a - an angle, in radians. 
 
     Returns: the cosine of the argument. 
+
 *java.lang.StrictMath.cosh(double)*
 
 public static native double cosh(double x)
@@ -328,9 +363,11 @@ If the argument is zero, then the result is 1.0.
 
 
 
+
     x - The number whose hyperbolic cosine is to be returned. 
 
     Returns: The hyperbolic cosine of x. 
+
 *java.lang.StrictMath.exp(double)*
 
 public static native double exp(double a)
@@ -340,9 +377,11 @@ If the argument is NaN, the result is NaN. If the argument is positive
 infinity, then the result is positive infinity. If the argument is negative 
 infinity, then the result is positive zero. 
 
+
     a - the exponent to raise e to. 
 
     Returns: the value ea, where e is the base of the natural logarithms. 
+
 *java.lang.StrictMath.expm1(double)*
 
 public static native double expm1(double x)
@@ -363,9 +402,11 @@ argument.
 
 
 
+
     x - the exponent to raise e to in the computation of ex-1. 
 
     Returns: the value ex-1. 
+
 *java.lang.StrictMath.floor(double)*
 
 public static native double floor(double a)
@@ -376,10 +417,40 @@ cases: If the argument value is already equal to a mathematical integer, then
 the result is the same as the argument. If the argument is NaN or an infinity 
 or positive zero or negative zero, then the result is the same as the argument. 
 
+
     a - a value. 
 
     Returns: the largest (closest to positive infinity) floating-point value that less than 
              or equal to the argument and is equal to a mathematical integer. 
+
+*java.lang.StrictMath.getExponent(double)*
+
+public static int getExponent(double d)
+
+Returns the unbiased exponent used in the representation of adouble. Special 
+cases: 
+
+If the argument is NaN or infinite, then the result is (|java.lang.Double|) + 
+1. If the argument is zero or subnormal, then the result is 
+(|java.lang.Double|) -1. 
+
+
+    d - a {@code double} value 
+
+*java.lang.StrictMath.getExponent(float)*
+
+public static int getExponent(float f)
+
+Returns the unbiased exponent used in the representation of afloat. Special 
+cases: 
+
+If the argument is NaN or infinite, then the result is (|java.lang.Float|) + 1. 
+If the argument is zero or subnormal, then the result is (|java.lang.Float|) 
+-1. 
+
+
+    f - a {@code float} value 
+
 *java.lang.StrictMath.hypot(double,double)*
 
 public static native double hypot(
@@ -397,10 +468,12 @@ NaN.
 
 
 
+
     x - a value 
     y - a value 
 
     Returns: sqrt(x2+y2) without intermediate overflow or underflow 
+
 *java.lang.StrictMath.IEEEremainder(double,double)*
 
 public static native double IEEEremainder(
@@ -417,10 +490,12 @@ first argument is infinite, or the second argument is positive zero or negative
 zero, then the result is NaN. If the first argument is finite and the second 
 argument is infinite, then the result is the same as the first argument. 
 
+
     f1 - the dividend. 
     f2 - the divisor. 
 
     Returns: the remainder when f1 is divided by f2. 
+
 *java.lang.StrictMath.log(double)*
 
 public static native double log(double a)
@@ -430,9 +505,11 @@ argument is NaN or less than zero, then the result is NaN. If the argument is
 positive infinity, then the result is positive infinity. If the argument is 
 positive zero or negative zero, then the result is negative infinity. 
 
+
     a - a value 
 
     Returns: the value lna, the natural logarithm of a. 
+
 *java.lang.StrictMath.log10(double)*
 
 public static native double log10(double a)
@@ -444,9 +521,11 @@ argument is positive infinity, then the result is positive infinity. If the
 argument is positive zero or negative zero, then the result is negative 
 infinity. If the argument is equal to 10n for integer n, then the result is n. 
 
+
     a - a value 
 
     Returns: the base 10 logarithm of a. 
+
 *java.lang.StrictMath.log1p(double)*
 
 public static native double log1p(double x)
@@ -470,9 +549,11 @@ argument.
 
 
 
+
     x - a value 
 
     Returns: the value ln(x+1), the natural log of x+1 
+
 *java.lang.StrictMath.max(double,double)*
 
 public static double max(
@@ -486,10 +567,12 @@ numerical comparison operators, this method considers negative zero to be
 strictly smaller than positive zero. If one argument is positive zero and the 
 other negative zero, the result is positive zero. 
 
+
     a - an argument. 
     b - another argument. 
 
     Returns: the larger of a and b. 
+
 *java.lang.StrictMath.max(float,float)*
 
 public static float max(
@@ -503,10 +586,12 @@ numerical comparison operators, this method considers negative zero to be
 strictly smaller than positive zero. If one argument is positive zero and the 
 other negative zero, the result is positive zero. 
 
+
     a - an argument. 
     b - another argument. 
 
     Returns: the larger of a and b. 
+
 *java.lang.StrictMath.max(int,int)*
 
 public static int max(
@@ -517,10 +602,12 @@ Returns the greater of two int values. That is, the result is the argument
 closer to the value of Integer.MAX_VALUE. If the arguments have the same value, 
 the result is that same value. 
 
+
     a - an argument. 
     b - another argument. 
 
     Returns: the larger of a and b. 
+
 *java.lang.StrictMath.max(long,long)*
 
 public static long max(
@@ -531,10 +618,12 @@ Returns the greater of two long values. That is, the result is the argument
 closer to the value of Long.MAX_VALUE. If the arguments have the same value, 
 the result is that same value. 
 
+
     a - an argument. 
     b - another argument. 
 
     Returns: the larger of a and b. 
+
 *java.lang.StrictMath.min(double,double)*
 
 public static double min(
@@ -548,10 +637,12 @@ numerical comparison operators, this method considers negative zero to be
 strictly smaller than positive zero. If one argument is positive zero and the 
 other is negative zero, the result is negative zero. 
 
+
     a - an argument. 
     b - another argument. 
 
     Returns: the smaller of a and b. 
+
 *java.lang.StrictMath.min(float,float)*
 
 public static float min(
@@ -565,10 +656,12 @@ numerical comparison operators, this method considers negative zero to be
 strictly smaller than positive zero. If one argument is positive zero and the 
 other is negative zero, the result is negative zero. 
 
+
     a - an argument. 
     b - another argument. 
 
     Returns: the smaller of a and b. 
+
 *java.lang.StrictMath.min(int,int)*
 
 public static int min(
@@ -579,10 +672,12 @@ Returns the smaller of two int values. That is, the result the argument closer
 to the value of Integer.MIN_VALUE. If the arguments have the same value, the 
 result is that same value. 
 
+
     a - an argument. 
     b - another argument. 
 
     Returns: the smaller of a and b. 
+
 *java.lang.StrictMath.min(long,long)*
 
 public static long min(
@@ -593,10 +688,128 @@ Returns the smaller of two long values. That is, the result is the argument
 closer to the value of Long.MIN_VALUE. If the arguments have the same value, 
 the result is that same value. 
 
+
     a - an argument. 
     b - another argument. 
 
     Returns: the smaller of a and b. 
+
+*java.lang.StrictMath.nextAfter(double,double)*
+
+public static double nextAfter(
+  double start,
+  double direction)
+
+Returns the floating-point number adjacent to the first argument in the 
+direction of the second argument. If both arguments compare as equal the second 
+argument is returned. 
+
+Special cases: 
+
+If either argument is a NaN, then NaN is returned. 
+
+If both arguments are signed zeros,directionis returned unchanged (as implied 
+by the requirement of returning the second argument if the arguments compare as 
+equal). 
+
+Ifstartis (|java.lang.Double|) anddirectionhas a value such that the result 
+should have a smaller magnitude, then a zero with the same sign asstartis 
+returned. 
+
+Ifstartis infinite anddirectionhas a value such that the result should have a 
+smaller magnitude, (|java.lang.Double|) with the same sign asstartis returned. 
+
+Ifstartis equal to (|java.lang.Double|) anddirectionhas a value such that the 
+result should have a larger magnitude, an infinity with same sign asstartis 
+returned. 
+
+
+    start - starting floating-point value 
+    direction - value indicating which of {@code start}'s neighbors or {@code start} should be 
+       returned 
+
+    Returns: The floating-point number adjacent to {@code start} in the direction of {@code 
+             direction}. 
+
+*java.lang.StrictMath.nextAfter(float,double)*
+
+public static float nextAfter(
+  float start,
+  double direction)
+
+Returns the floating-point number adjacent to the first argument in the 
+direction of the second argument. If both arguments compare as equal a value 
+equivalent to the second argument is returned. 
+
+Special cases: 
+
+If either argument is a NaN, then NaN is returned. 
+
+If both arguments are signed zeros, a value equivalent todirectionis returned. 
+
+Ifstartis (|java.lang.Float|) anddirectionhas a value such that the result 
+should have a smaller magnitude, then a zero with the same sign asstartis 
+returned. 
+
+Ifstartis infinite anddirectionhas a value such that the result should have a 
+smaller magnitude, (|java.lang.Float|) with the same sign asstartis returned. 
+
+Ifstartis equal to (|java.lang.Float|) anddirectionhas a value such that the 
+result should have a larger magnitude, an infinity with same sign asstartis 
+returned. 
+
+
+    start - starting floating-point value 
+    direction - value indicating which of {@code start}'s neighbors or {@code start} should be 
+       returned 
+
+    Returns: The floating-point number adjacent to {@code start} in the direction of {@code 
+             direction}. 
+
+*java.lang.StrictMath.nextUp(double)*
+
+public static double nextUp(double d)
+
+Returns the floating-point value adjacent todin the direction of positive 
+infinity. This method is semantically equivalent tonextAfter(d, 
+Double.POSITIVE_INFINITY); however, anextUpimplementation may run faster than 
+its equivalentnextAftercall. 
+
+Special Cases: 
+
+If the argument is NaN, the result is NaN. 
+
+If the argument is positive infinity, the result is positive infinity. 
+
+If the argument is zero, the result is (|java.lang.Double|) 
+
+
+    d - starting floating-point value 
+
+    Returns: The adjacent floating-point value closer to positive infinity. 
+
+*java.lang.StrictMath.nextUp(float)*
+
+public static float nextUp(float f)
+
+Returns the floating-point value adjacent tofin the direction of positive 
+infinity. This method is semantically equivalent tonextAfter(f, 
+Float.POSITIVE_INFINITY); however, anextUpimplementation may run faster than 
+its equivalentnextAftercall. 
+
+Special Cases: 
+
+If the argument is NaN, the result is NaN. 
+
+If the argument is positive infinity, the result is positive infinity. 
+
+If the argument is zero, the result is (|java.lang.Float|) 
+
+
+    f - starting floating-point value 
+
+    Returns: The adjacent floating-point value closer to positive infinity. 
+
 *java.lang.StrictMath.pow(double,double)*
 
 public static native double pow(
@@ -701,10 +914,12 @@ method <tt>floor</tt>(|java.lang.StrictMath|) . A value is a fixed point of a
 one-argument method if and only if the result of applying the method to the 
 value is equal to the value.) 
 
+
     a - 
     b - the exponent. 
 
     Returns: the value ab. 
+
 *java.lang.StrictMath.random()*
 
 public static double random()
@@ -725,7 +940,9 @@ great rate, it may reduce contention for each thread to have its own
 pseudorandom number generator. 
 
 
+
     Returns: a pseudorandom double greater than or equal to 0.0 and less than 1.0. 
+
 *java.lang.StrictMath.rint(double)*
 
 public static double rint(double a)
@@ -738,9 +955,11 @@ mathematical integer, then the result is the same as the argument. If the
 argument is NaN or an infinity or positive zero or negative zero, then the 
 result is the same as the argument. 
 
+
     a - a value. 
 
     Returns: the closest floating-point value to a that is equal to a mathematical integer. 
+
 *java.lang.StrictMath.round(double)*
 
 public static long round(double a)
@@ -757,9 +976,11 @@ Long.MIN_VALUE, the result is equal to the value of Long.MIN_VALUE. If the
 argument is positive infinity or any value greater than or equal to the value 
 of Long.MAX_VALUE, the result is equal to the value of Long.MAX_VALUE. 
 
+
     a - a floating-point value to be rounded to a long. 
 
     Returns: the value of the argument rounded to the nearest long value. 
+
 *java.lang.StrictMath.round(float)*
 
 public static int round(float a)
@@ -777,9 +998,67 @@ the argument is positive infinity or any value greater than or equal to the
 value of Integer.MAX_VALUE, the result is equal to the value of 
 Integer.MAX_VALUE. 
 
+
     a - a floating-point value to be rounded to an integer. 
 
     Returns: the value of the argument rounded to the nearest int value. 
+
+*java.lang.StrictMath.scalb(double,int)*
+
+public static double scalb(
+  double d,
+  int scaleFactor)
+
+Returnd 2scaleFactor rounded as if performed by a single correctly rounded 
+floating-point multiply to a member of the double value set. See the Java 
+Language Specification for a discussion of floating-point value sets. If the 
+exponent of the result is between (|java.lang.Double|) and (|java.lang.Double|) 
+, the answer is calculated exactly. If the exponent of the result would be 
+larger thanDouble.MAX_EXPONENT, an infinity is returned. Note that if the 
+result is subnormal, precision may be lost; that is, whenscalb(x, n)is 
+subnormal,scalb(scalb(x, n), -n)may not equal x. When the result is non-NaN, 
+the result has the same sign asd. 
+
+Special cases: 
+
+If the first argument is NaN, NaN is returned. If the first argument is 
+infinite, then an infinity of the same sign is returned. If the first argument 
+is zero, then a zero of the same sign is returned. 
+
+
+    d - number to be scaled by a power of two. 
+    scaleFactor - power of 2 used to scale {@code d} 
+
+    Returns: {@code d} 2{@code scaleFactor} 
+
+*java.lang.StrictMath.scalb(float,int)*
+
+public static float scalb(
+  float f,
+  int scaleFactor)
+
+Returnf 2scaleFactor rounded as if performed by a single correctly rounded 
+floating-point multiply to a member of the float value set. See the Java 
+Language Specification for a discussion of floating-point value sets. If the 
+exponent of the result is between (|java.lang.Float|) and (|java.lang.Float|) , 
+the answer is calculated exactly. If the exponent of the result would be larger 
+thanFloat.MAX_EXPONENT, an infinity is returned. Note that if the result is 
+subnormal, precision may be lost; that is, whenscalb(x, n)is 
+subnormal,scalb(scalb(x, n), -n)may not equal x. When the result is non-NaN, 
+the result has the same sign asf. 
+
+Special cases: 
+
+If the first argument is NaN, NaN is returned. If the first argument is 
+infinite, then an infinity of the same sign is returned. If the first argument 
+is zero, then a zero of the same sign is returned. 
+
+
+    f - number to be scaled by a power of two. 
+    scaleFactor - power of 2 used to scale {@code f} 
+
+    Returns: {@code f} 2{@code scaleFactor} 
+
 *java.lang.StrictMath.signum(double)*
 
 public static double signum(double d)
@@ -792,9 +1071,11 @@ Special Cases:
 If the argument is NaN, then the result is NaN. If the argument is positive 
 zero or negative zero, then the result is the same as the argument. 
 
+
     d - the floating-point value whose signum is to be returned 
 
     Returns: the signum function of the argument 
+
 *java.lang.StrictMath.signum(float)*
 
 public static float signum(float f)
@@ -807,9 +1088,11 @@ Special Cases:
 If the argument is NaN, then the result is NaN. If the argument is positive 
 zero or negative zero, then the result is the same as the argument. 
 
+
     f - the floating-point value whose signum is to be returned 
 
     Returns: the signum function of the argument 
+
 *java.lang.StrictMath.sin(double)*
 
 public static native double sin(double a)
@@ -818,9 +1101,11 @@ Returns the trigonometric sine of an angle. Special cases: If the argument is
 NaN or an infinity, then the result is NaN. If the argument is zero, then the 
 result is a zero with the same sign as the argument. 
 
+
     a - an angle, in radians. 
 
     Returns: the sine of the argument. 
+
 *java.lang.StrictMath.sinh(double)*
 
 public static native double sinh(double x)
@@ -840,9 +1125,11 @@ argument.
 
 
 
+
     x - The number whose hyperbolic sine is to be returned. 
 
     Returns: The hyperbolic sine of x. 
+
 *java.lang.StrictMath.sqrt(double)*
 
 public static native double sqrt(double a)
@@ -854,9 +1141,11 @@ argument is positive zero or negative zero, then the result is the same as the
 argument. Otherwise, the result is the double value closest to the true 
 mathematical square root of the argument value. 
 
+
     a - a value. 
 
     Returns: the positive square root of a. 
+
 *java.lang.StrictMath.tan(double)*
 
 public static native double tan(double a)
@@ -865,9 +1154,11 @@ Returns the trigonometric tangent of an angle. Special cases: If the argument
 is NaN or an infinity, then the result is NaN. If the argument is zero, then 
 the result is a zero with the same sign as the argument. 
 
+
     a - an angle, in radians. 
 
     Returns: the tangent of the argument. 
+
 *java.lang.StrictMath.tanh(double)*
 
 public static native double tanh(double x)
@@ -890,9 +1181,11 @@ If the argument is negative infinity, then the result is -1.0.
 
 
 
+
     x - The number whose hyperbolic tangent is to be returned. 
 
     Returns: The hyperbolic tangent of x. 
+
 *java.lang.StrictMath.toDegrees(double)*
 
 public static double toDegrees(double angrad)
@@ -901,9 +1194,11 @@ Converts an angle measured in radians to an approximately equivalent angle
 measured in degrees. The conversion from radians to degrees is generally 
 inexact; users should not expect cos(toRadians(90.0)) to exactly equal 0.0. 
 
+
     angrad - an angle, in radians 
 
     Returns: the measurement of the angle angrad in degrees. 
+
 *java.lang.StrictMath.toRadians(double)*
 
 public static double toRadians(double angdeg)
@@ -912,9 +1207,11 @@ Converts an angle measured in degrees to an approximately equivalent angle
 measured in radians. The conversion from degrees to radians is generally 
 inexact. 
 
+
     angdeg - an angle, in degrees 
 
     Returns: the measurement of the angle angdeg in radians. 
+
 *java.lang.StrictMath.ulp(double)*
 
 public static double ulp(double d)
@@ -930,9 +1227,11 @@ negative infinity, then the result is positive infinity. If the argument is
 positive or negative zero, then the result is Double.MIN_VALUE. If the argument 
 is Double.MAX_VALUE, then the result is equal to 2971. 
 
+
     d - the floating-point value whose ulp is to be returned 
 
     Returns: the size of an ulp of the argument 
+
 *java.lang.StrictMath.ulp(float)*
 
 public static float ulp(float f)
@@ -948,7 +1247,9 @@ negative infinity, then the result is positive infinity. If the argument is
 positive or negative zero, then the result is Float.MIN_VALUE. If the argument 
 is Float.MAX_VALUE, then the result is equal to 2104. 
 
+
     f - the floating-point value whose ulp is to be returned 
 
     Returns: the size of an ulp of the argument 
+
 

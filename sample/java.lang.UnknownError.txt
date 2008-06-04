@@ -20,6 +20,7 @@ Thrown when an unknown but serious exception has occurred in the Java Virtual
 Machine. 
 
 
+
 *java.lang.UnknownError()*
 
 public UnknownError()

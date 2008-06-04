@@ -1,0 +1,97 @@
+*java.util.spi.LocaleNameProvider* *LocaleNameProvider* An abstract class for se
+
+public abstract class LocaleNameProvider
+  extends    |java.util.spi.LocaleServiceProvider|
+
+|java.util.spi.LocaleNameProvider_Description|
+|java.util.spi.LocaleNameProvider_Fields|
+|java.util.spi.LocaleNameProvider_Constructors|
+|java.util.spi.LocaleNameProvider_Methods|
+
+================================================================================
+
+*java.util.spi.LocaleNameProvider_Constructors*
+|java.util.spi.LocaleNameProvider()|Sole constructor.
+
+*java.util.spi.LocaleNameProvider_Methods*
+|java.util.spi.LocaleNameProvider.getDisplayCountry(String,Locale)|Returns a lo
+|java.util.spi.LocaleNameProvider.getDisplayLanguage(String,Locale)|Returns a l
+|java.util.spi.LocaleNameProvider.getDisplayVariant(String,Locale)|Returns a lo
+
+*java.util.spi.LocaleNameProvider_Description*
+
+An abstract class for service providers that provide localized names for the 
+Locale(|java.util.Locale|) class. 
+
+
+
+*java.util.spi.LocaleNameProvider()*
+
+protected LocaleNameProvider()
+
+Sole constructor. (For invocation by subclass constructors, typically 
+implicit.) 
+
+
+*java.util.spi.LocaleNameProvider.getDisplayCountry(String,Locale)*
+
+public abstract |java.lang.String| getDisplayCountry(
+  java.lang.String countryCode,
+  java.util.Locale locale)
+
+Returns a localized name for the given ISO 3166 country code and the given 
+locale that is appropriate for display to the user. For example, if countryCode 
+is "FR" and locale is en_US, getDisplayCountry() will return "France"; if 
+countryCode is "US" and locale is fr_FR, getDisplayCountry() will return 
+"Etats-Unis". If the name returned cannot be localized according to locale, 
+(say, the provider does not have a Japanese name for Croatia), this method 
+returns null. 
+
+
+    countryCode - the ISO 3166 country code string in the form of two upper-case letters between 
+       'A' (U+0041) and 'Z' (U+005A) 
+    locale - the desired locale 
+
+    Returns: the name of the given country code for the specified locale, or null if it's 
+             not available. 
+
+*java.util.spi.LocaleNameProvider.getDisplayLanguage(String,Locale)*
+
+public abstract |java.lang.String| getDisplayLanguage(
+  java.lang.String languageCode,
+  java.util.Locale locale)
+
+Returns a localized name for the given ISO 639 language code and the given 
+locale that is appropriate for display to the user. For example, if 
+languageCode is "fr" and locale is en_US, getDisplayLanguage() will return 
+"French"; if languageCode is "en" and locale is fr_FR, getDisplayLanguage() 
+will return "anglais". If the name returned cannot be localized according to 
+locale, (say, the provider does not have a Japanese name for Croatian), this 
+method returns null. 
+
+
+    languageCode - the ISO 639 language code string in the form of two lower-case letters between 
+       'a' (U+0061) and 'z' (U+007A) 
+    locale - the desired locale 
+
+    Returns: the name of the given language code for the specified locale, or null if it's 
+             not available. 
+
+*java.util.spi.LocaleNameProvider.getDisplayVariant(String,Locale)*
+
+public abstract |java.lang.String| getDisplayVariant(
+  java.lang.String variant,
+  java.util.Locale locale)
+
+Returns a localized name for the given variant code and the given locale that 
+is appropriate for display to the user. If the name returned cannot be 
+localized according to locale, this method returns null. 
+
+
+    variant - the variant string 
+    locale - the desired locale 
+
+    Returns: the name of the given variant string for the specified locale, or null if it's 
+             not available. 
+
+

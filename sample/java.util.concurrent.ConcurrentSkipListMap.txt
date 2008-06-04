@@ -1,0 +1,601 @@
+*java.util.concurrent.ConcurrentSkipListMap* *ConcurrentSkipListMap* A scalable 
+
+public class ConcurrentSkipListMap<K,V>
+  extends    |java.util.AbstractMap|
+  implements |java.util.concurrent.ConcurrentNavigableMap|
+             |java.lang.Cloneable|
+             |java.io.Serializable|
+
+|java.util.concurrent.ConcurrentSkipListMap_Description|
+|java.util.concurrent.ConcurrentSkipListMap_Fields|
+|java.util.concurrent.ConcurrentSkipListMap_Constructors|
+|java.util.concurrent.ConcurrentSkipListMap_Methods|
+
+================================================================================
+
+*java.util.concurrent.ConcurrentSkipListMap_Constructors*
+|java.util.concurrent.ConcurrentSkipListMap()|Constructs a new, empty map, sort
+|java.util.concurrent.ConcurrentSkipListMap(Comparator<?superK>)|Constructs a n
+|java.util.concurrent.ConcurrentSkipListMap(Map<?extendsK,?extendsV>)|Construct
+|java.util.concurrent.ConcurrentSkipListMap(SortedMap<K,?extendsV>)|Constructs 
+
+*java.util.concurrent.ConcurrentSkipListMap_Methods*
+|java.util.concurrent.ConcurrentSkipListMap.ceilingEntry(K)|Returns a key-value
+|java.util.concurrent.ConcurrentSkipListMap.ceilingKey(K)|
+|java.util.concurrent.ConcurrentSkipListMap.clear()|Removes all of the mappings
+|java.util.concurrent.ConcurrentSkipListMap.clone()|Returns a shallow copy of t
+|java.util.concurrent.ConcurrentSkipListMap.comparator()|
+|java.util.concurrent.ConcurrentSkipListMap.containsKey(Object)|Returns true if
+|java.util.concurrent.ConcurrentSkipListMap.containsValue(Object)|Returns true 
+|java.util.concurrent.ConcurrentSkipListMap.descendingKeySet()|
+|java.util.concurrent.ConcurrentSkipListMap.descendingMap()|
+|java.util.concurrent.ConcurrentSkipListMap.entrySet()|Returns aSetview of the 
+|java.util.concurrent.ConcurrentSkipListMap.equals(Object)|Compares the specifi
+|java.util.concurrent.ConcurrentSkipListMap.firstEntry()|Returns a key-value ma
+|java.util.concurrent.ConcurrentSkipListMap.firstKey()|
+|java.util.concurrent.ConcurrentSkipListMap.floorEntry(K)|Returns a key-value m
+|java.util.concurrent.ConcurrentSkipListMap.floorKey(K)|
+|java.util.concurrent.ConcurrentSkipListMap.get(Object)|Returns the value to wh
+|java.util.concurrent.ConcurrentSkipListMap.headMap(K)|
+|java.util.concurrent.ConcurrentSkipListMap.headMap(K,boolean)|
+|java.util.concurrent.ConcurrentSkipListMap.higherEntry(K)|Returns a key-value 
+|java.util.concurrent.ConcurrentSkipListMap.higherKey(K)|
+|java.util.concurrent.ConcurrentSkipListMap.isEmpty()|Returns true if this map 
+|java.util.concurrent.ConcurrentSkipListMap.keySet()|Returns aNavigableSetview 
+|java.util.concurrent.ConcurrentSkipListMap.lastEntry()|Returns a key-value map
+|java.util.concurrent.ConcurrentSkipListMap.lastKey()|
+|java.util.concurrent.ConcurrentSkipListMap.lowerEntry(K)|Returns a key-value m
+|java.util.concurrent.ConcurrentSkipListMap.lowerKey(K)|
+|java.util.concurrent.ConcurrentSkipListMap.navigableKeySet()|
+|java.util.concurrent.ConcurrentSkipListMap.pollFirstEntry()|Removes and return
+|java.util.concurrent.ConcurrentSkipListMap.pollLastEntry()|Removes and returns
+|java.util.concurrent.ConcurrentSkipListMap.put(K,V)|Associates the specified v
+|java.util.concurrent.ConcurrentSkipListMap.putIfAbsent(K,V)|
+|java.util.concurrent.ConcurrentSkipListMap.remove(Object)|Removes the mapping 
+|java.util.concurrent.ConcurrentSkipListMap.remove(Object,Object)|
+|java.util.concurrent.ConcurrentSkipListMap.replace(K,V)|
+|java.util.concurrent.ConcurrentSkipListMap.replace(K,V,V)|
+|java.util.concurrent.ConcurrentSkipListMap.size()|Returns the number of key-va
+|java.util.concurrent.ConcurrentSkipListMap.subMap(K,boolean,K,boolean)|
+|java.util.concurrent.ConcurrentSkipListMap.subMap(K,K)|
+|java.util.concurrent.ConcurrentSkipListMap.tailMap(K)|
+|java.util.concurrent.ConcurrentSkipListMap.tailMap(K,boolean)|
+|java.util.concurrent.ConcurrentSkipListMap.values()|Returns aCollectionview of
+
+*java.util.concurrent.ConcurrentSkipListMap_Description*
+
+A scalable concurrent (|java.util.concurrent.ConcurrentNavigableMap|) 
+implementation. The map is sorted according to the natural 
+ordering(|java.lang.Comparable|) of its keys, or by a (|java.util.Comparator|) 
+provided at map creation time, depending on which constructor is used. 
+
+This class implements a concurrent variant of SkipLists providing expected 
+average log(n) time cost for the containsKey, get, put and remove operations 
+and their variants. Insertion, removal, update, and access operations safely 
+execute concurrently by multiple threads. Iterators are weakly consistent, 
+returning elements reflecting the state of the map at some point at or since 
+the creation of the iterator. They do not throw 
+(|java.util.ConcurrentModificationException|) , and may proceed concurrently 
+with other operations. Ascending key ordered views and their iterators are 
+faster than descending ones. 
+
+All Map.Entry pairs returned by methods in this class and its views represent 
+snapshots of mappings at the time they were produced. They do not support the 
+Entry.setValue method. (Note however that it is possible to change mappings in 
+the associated map using put, putIfAbsent, or replace, depending on exactly 
+which effect you need.) 
+
+Beware that, unlike in most collections, the size method is not a constant-time 
+operation. Because of the asynchronous nature of these maps, determining the 
+current number of elements requires a traversal of the elements. Additionally, 
+the bulk operations putAll, equals, and clear are not guaranteed to be 
+performed atomically. For example, an iterator operating concurrently with a 
+putAll operation might view only some of the added elements. 
+
+This class and its views and iterators implement all of the optional methods of 
+the (|java.util.Map|) and (|java.util.Iterator|) interfaces. Like most other 
+concurrent collections, this class does not permit the use of null keys or 
+values because some null return values cannot be reliably distinguished from 
+the absence of elements. 
+
+This class is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap()*
+
+public ConcurrentSkipListMap()
+
+Constructs a new, empty map, sorted according to the natural 
+ordering(|java.lang.Comparable|) of the keys. 
+
+
+*java.util.concurrent.ConcurrentSkipListMap(Comparator<?superK>)*
+
+public ConcurrentSkipListMap(java.util.Comparator<? super K> comparator)
+
+Constructs a new, empty map, sorted according to the specified comparator. 
+
+    comparator - the comparator that will be used to order this map. If null, the {@linkplain 
+       Comparable natural ordering} of the keys will be used. 
+
+*java.util.concurrent.ConcurrentSkipListMap(Map<?extendsK,?extendsV>)*
+
+public ConcurrentSkipListMap(java.util.Map<? extends K, ? extends V> m)
+
+Constructs a new map containing the same mappings as the given map, sorted 
+according to the natural ordering(|java.lang.Comparable|) of the keys. 
+
+    m - the map whose mappings are to be placed in this map 
+
+*java.util.concurrent.ConcurrentSkipListMap(SortedMap<K,?extendsV>)*
+
+public ConcurrentSkipListMap(java.util.SortedMap<K, ? extends V> m)
+
+Constructs a new map containing the same mappings and using the same ordering 
+as the specified sorted map. 
+
+    m - the sorted map whose mappings are to be placed in this map, and whose 
+       comparator is to be used to sort this map 
+
+*java.util.concurrent.ConcurrentSkipListMap.ceilingEntry(K)*
+
+public |java.util.Map.Entry|<K,V> ceilingEntry(K key)
+
+Returns a key-value mapping associated with the least key greater than or equal 
+to the given key, or null if there is no such entry. The returned entry does 
+not support the Entry.setValue method. 
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.ceilingKey(K)*
+
+public |K| ceilingKey(K key)
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.clear()*
+
+public void clear()
+
+Removes all of the mappings from this map. 
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.clone()*
+
+public |java.util.concurrent.ConcurrentSkipListMap|<K,V> clone()
+
+Returns a shallow copy of this ConcurrentSkipListMap instance. (The keys and 
+values themselves are not cloned.) 
+
+
+
+    Returns: a shallow copy of this map 
+
+*java.util.concurrent.ConcurrentSkipListMap.comparator()*
+
+public |java.util.Comparator|<? super K> comparator()
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.containsKey(Object)*
+
+public boolean containsKey(java.lang.Object key)
+
+Returns true if this map contains a mapping for the specified key. 
+
+
+    key - key whose presence in this map is to be tested 
+
+    Returns: true if this map contains a mapping for the specified key 
+
+*java.util.concurrent.ConcurrentSkipListMap.containsValue(Object)*
+
+public boolean containsValue(java.lang.Object value)
+
+Returns true if this map maps one or more keys to the specified value. This 
+operation requires time linear in the map size. 
+
+
+    value - value whose presence in this map is to be tested 
+
+    Returns: true if a mapping to value exists; false otherwise 
+
+*java.util.concurrent.ConcurrentSkipListMap.descendingKeySet()*
+
+public |java.util.NavigableSet|<K> descendingKeySet()
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.descendingMap()*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> descendingMap()
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.entrySet()*
+
+public |java.util.Set|<Entry<K,V>> entrySet()
+
+Returns a (|java.util.Set|) view of the mappings contained in this map. The 
+set's iterator returns the entries in ascending key order. The set is backed by 
+the map, so changes to the map are reflected in the set, and vice-versa. The 
+set supports element removal, which removes the corresponding mapping from the 
+map, via the Iterator.remove, Set.remove, removeAll, retainAll and clear 
+operations. It does not support the add or addAll operations. 
+
+The view's iterator is a "weakly consistent" iterator that will never throw 
+(|java.util.ConcurrentModificationException|) , and guarantees to traverse 
+elements as they existed upon construction of the iterator, and may (but is not 
+guaranteed to) reflect any modifications subsequent to construction. 
+
+The Map.Entry elements returned by iterator.next() do not support the setValue 
+operation. 
+
+
+
+    Returns: a set view of the mappings contained in this map, sorted in ascending key order 
+
+*java.util.concurrent.ConcurrentSkipListMap.equals(Object)*
+
+public boolean equals(java.lang.Object o)
+
+Compares the specified object with this map for equality. Returns true if the 
+given object is also a map and the two maps represent the same mappings. More 
+formally, two maps m1 and m2 represent the same mappings if 
+m1.entrySet().equals(m2.entrySet()). This operation may return misleading 
+results if either map is concurrently modified during execution of this method. 
+
+
+    o - object to be compared for equality with this map 
+
+    Returns: true if the specified object is equal to this map 
+
+*java.util.concurrent.ConcurrentSkipListMap.firstEntry()*
+
+public |java.util.Map.Entry|<K,V> firstEntry()
+
+Returns a key-value mapping associated with the least key in this map, or null 
+if the map is empty. The returned entry does not support the Entry.setValue 
+method. 
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.firstKey()*
+
+public |K| firstKey()
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.floorEntry(K)*
+
+public |java.util.Map.Entry|<K,V> floorEntry(K key)
+
+Returns a key-value mapping associated with the greatest key less than or equal 
+to the given key, or null if there is no such key. The returned entry does not 
+support the Entry.setValue method. 
+
+
+    key - the key 
+
+*java.util.concurrent.ConcurrentSkipListMap.floorKey(K)*
+
+public |K| floorKey(K key)
+
+
+
+
+    key - the key 
+
+*java.util.concurrent.ConcurrentSkipListMap.get(Object)*
+
+public |V| get(java.lang.Object key)
+
+Returns the value to which the specified key is mapped, ornullif this map 
+contains no mapping for the key. 
+
+More formally, if this map contains a mapping from a keykto a valuevsuch 
+thatkeycompares equal tokaccording to the map's ordering, then this method 
+returnsv; otherwise it returnsnull. (There can be at most one such mapping.) 
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.headMap(K)*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> headMap(K toKey)
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.headMap(K,boolean)*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> headMap(
+  K toKey,
+  boolean inclusive)
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.higherEntry(K)*
+
+public |java.util.Map.Entry|<K,V> higherEntry(K key)
+
+Returns a key-value mapping associated with the least key strictly greater than 
+the given key, or null if there is no such key. The returned entry does not 
+support the Entry.setValue method. 
+
+
+    key - the key 
+
+*java.util.concurrent.ConcurrentSkipListMap.higherKey(K)*
+
+public |K| higherKey(K key)
+
+
+
+
+    key - the key 
+
+*java.util.concurrent.ConcurrentSkipListMap.isEmpty()*
+
+public boolean isEmpty()
+
+Returns true if this map contains no key-value mappings. 
+
+
+
+    Returns: true if this map contains no key-value mappings 
+
+*java.util.concurrent.ConcurrentSkipListMap.keySet()*
+
+public |java.util.NavigableSet|<K> keySet()
+
+Returns a (|java.util.NavigableSet|) view of the keys contained in this map. 
+The set's iterator returns the keys in ascending order. The set is backed by 
+the map, so changes to the map are reflected in the set, and vice-versa. The 
+set supports element removal, which removes the corresponding mapping from the 
+map, via theIterator.remove,Set.remove,removeAll,retainAll, andclearoperations. 
+It does not support theaddoraddAlloperations. 
+
+The view'siteratoris a "weakly consistent" iterator that will never throw 
+(|java.util.ConcurrentModificationException|) , and guarantees to traverse 
+elements as they existed upon construction of the iterator, and may (but is not 
+guaranteed to) reflect any modifications subsequent to construction. 
+
+This method is equivalent to methodnavigableKeySet. 
+
+
+
+    Returns: a navigable set view of the keys in this map 
+
+*java.util.concurrent.ConcurrentSkipListMap.lastEntry()*
+
+public |java.util.Map.Entry|<K,V> lastEntry()
+
+Returns a key-value mapping associated with the greatest key in this map, or 
+null if the map is empty. The returned entry does not support the 
+Entry.setValue method. 
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.lastKey()*
+
+public |K| lastKey()
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.lowerEntry(K)*
+
+public |java.util.Map.Entry|<K,V> lowerEntry(K key)
+
+Returns a key-value mapping associated with the greatest key strictly less than 
+the given key, or null if there is no such key. The returned entry does not 
+support the Entry.setValue method. 
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.lowerKey(K)*
+
+public |K| lowerKey(K key)
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.navigableKeySet()*
+
+public |java.util.NavigableSet|<K> navigableKeySet()
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.pollFirstEntry()*
+
+public |java.util.Map.Entry|<K,V> pollFirstEntry()
+
+Removes and returns a key-value mapping associated with the least key in this 
+map, or null if the map is empty. The returned entry does not support the 
+Entry.setValue method. 
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.pollLastEntry()*
+
+public |java.util.Map.Entry|<K,V> pollLastEntry()
+
+Removes and returns a key-value mapping associated with the greatest key in 
+this map, or null if the map is empty. The returned entry does not support the 
+Entry.setValue method. 
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.put(K,V)*
+
+public |V| put(
+  K key,
+  V value)
+
+Associates the specified value with the specified key in this map. If the map 
+previously contained a mapping for the key, the old value is replaced. 
+
+
+    key - key with which the specified value is to be associated 
+    value - value to be associated with the specified key 
+
+    Returns: the previous value associated with the specified key, or null if there was no 
+             mapping for the key 
+
+*java.util.concurrent.ConcurrentSkipListMap.putIfAbsent(K,V)*
+
+public |V| putIfAbsent(
+  K key,
+  V value)
+
+
+
+
+
+    Returns: the previous value associated with the specified key, or null if there was no 
+             mapping for the key 
+
+*java.util.concurrent.ConcurrentSkipListMap.remove(Object)*
+
+public |V| remove(java.lang.Object key)
+
+Removes the mapping for the specified key from this map if present. 
+
+
+    key - key for which mapping should be removed 
+
+    Returns: the previous value associated with the specified key, or null if there was no 
+             mapping for the key 
+
+*java.util.concurrent.ConcurrentSkipListMap.remove(Object,Object)*
+
+public boolean remove(
+  java.lang.Object key,
+  java.lang.Object value)
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.replace(K,V)*
+
+public |V| replace(
+  K key,
+  V value)
+
+
+
+
+
+    Returns: the previous value associated with the specified key, or null if there was no 
+             mapping for the key 
+
+*java.util.concurrent.ConcurrentSkipListMap.replace(K,V,V)*
+
+public boolean replace(
+  K key,
+  V oldValue,
+  V newValue)
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.size()*
+
+public int size()
+
+Returns the number of key-value mappings in this map. If this map contains more 
+than Integer.MAX_VALUE elements, it returns Integer.MAX_VALUE. 
+
+Beware that, unlike in most collections, this method is NOT a constant-time 
+operation. Because of the asynchronous nature of these maps, determining the 
+current number of elements requires traversing them all to count them. 
+Additionally, it is possible for the size to change during execution of this 
+method, in which case the returned result will be inaccurate. Thus, this method 
+is typically not very useful in concurrent applications. 
+
+
+
+    Returns: the number of elements in this map 
+
+*java.util.concurrent.ConcurrentSkipListMap.subMap(K,boolean,K,boolean)*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> subMap(
+  K fromKey,
+  boolean fromInclusive,
+  K toKey,
+  boolean toInclusive)
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.subMap(K,K)*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> subMap(
+  K fromKey,
+  K toKey)
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.tailMap(K)*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> tailMap(K fromKey)
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.tailMap(K,boolean)*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> tailMap(
+  K fromKey,
+  boolean inclusive)
+
+
+
+
+
+*java.util.concurrent.ConcurrentSkipListMap.values()*
+
+public |java.util.Collection|<V> values()
+
+Returns a (|java.util.Collection|) view of the values contained in this map. 
+The collection's iterator returns the values in ascending order of the 
+corresponding keys. The collection is backed by the map, so changes to the map 
+are reflected in the collection, and vice-versa. The collection supports 
+element removal, which removes the corresponding mapping from the map, via the 
+Iterator.remove, Collection.remove, removeAll, retainAll and clear operations. 
+It does not support the add or addAll operations. 
+
+The view's iterator is a "weakly consistent" iterator that will never throw 
+(|java.util.ConcurrentModificationException|) , and guarantees to traverse 
+elements as they existed upon construction of the iterator, and may (but is not 
+guaranteed to) reflect any modifications subsequent to construction. 
+
+
+
+

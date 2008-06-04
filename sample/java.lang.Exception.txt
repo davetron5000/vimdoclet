@@ -22,6 +22,7 @@ The class Exception and its subclasses are a form of Throwable that indicates
 conditions that a reasonable application might want to catch. 
 
 
+
 *java.lang.Exception()*
 
 public Exception()

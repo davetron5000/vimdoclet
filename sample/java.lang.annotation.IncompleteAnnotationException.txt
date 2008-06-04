@@ -11,7 +11,7 @@ public class IncompleteAnnotationException
 ================================================================================
 
 *java.lang.annotation.IncompleteAnnotationException_Constructors*
-|java.lang.annotation.IncompleteAnnotationException(Class,String)|Constructs an
+|java.lang.annotation.IncompleteAnnotationException(Class<?extendsAnnotation>,String)|
 
 *java.lang.annotation.IncompleteAnnotationException_Methods*
 |java.lang.annotation.IncompleteAnnotationException.annotationType()|Returns th
@@ -25,10 +25,11 @@ annotation was compiled (or serialized). This exception will not be thrown if
 the new element has a default value. 
 
 
-*java.lang.annotation.IncompleteAnnotationException(Class,String)*
+
+*java.lang.annotation.IncompleteAnnotationException(Class<?extendsAnnotation>,String)*
 
 public IncompleteAnnotationException(
-  java.lang.Class annotationType,
+  java.lang.Class<? extends java.lang.annotation.Annotation> annotationType,
   java.lang.String elementName)
 
 Constructs an IncompleteAnnotationException to indicate that the named element 
@@ -39,12 +40,14 @@ was missing from the specified annotation type.
 
 *java.lang.annotation.IncompleteAnnotationException.annotationType()*
 
-public |java.lang.Class| annotationType()
+public |java.lang.Class|<? extends java.lang.annotation.Annotation> annotationType()
 
 Returns the Class object for the annotation type with the missing element. 
 
 
+
     Returns: the Class object for the annotation type with the missing element 
+
 *java.lang.annotation.IncompleteAnnotationException.elementName()*
 
 public |java.lang.String| elementName()
@@ -52,5 +55,7 @@ public |java.lang.String| elementName()
 Returns the name of the missing element. 
 
 
+
     Returns: the name of the missing element 
+
 

@@ -1,0 +1,608 @@
+*java.util.concurrent.LinkedBlockingDeque* *LinkedBlockingDeque* An optionally-b
+
+public class LinkedBlockingDeque<E>
+  extends    |java.util.AbstractQueue|
+  implements |java.util.concurrent.BlockingDeque|
+             |java.io.Serializable|
+
+|java.util.concurrent.LinkedBlockingDeque_Description|
+|java.util.concurrent.LinkedBlockingDeque_Fields|
+|java.util.concurrent.LinkedBlockingDeque_Constructors|
+|java.util.concurrent.LinkedBlockingDeque_Methods|
+
+================================================================================
+
+*java.util.concurrent.LinkedBlockingDeque_Constructors*
+|java.util.concurrent.LinkedBlockingDeque()|Creates a LinkedBlockingDeque with 
+|java.util.concurrent.LinkedBlockingDeque(Collection<?extendsE>)|Creates a Link
+|java.util.concurrent.LinkedBlockingDeque(int)|Creates a LinkedBlockingDeque wi
+
+*java.util.concurrent.LinkedBlockingDeque_Methods*
+|java.util.concurrent.LinkedBlockingDeque.add(E)|Inserts the specified element 
+|java.util.concurrent.LinkedBlockingDeque.addFirst(E)|
+|java.util.concurrent.LinkedBlockingDeque.addLast(E)|
+|java.util.concurrent.LinkedBlockingDeque.clear()|Atomically removes all of the
+|java.util.concurrent.LinkedBlockingDeque.contains(Object)|Returns true if this
+|java.util.concurrent.LinkedBlockingDeque.descendingIterator()|Returns an itera
+|java.util.concurrent.LinkedBlockingDeque.drainTo(Collection<?superE>)|
+|java.util.concurrent.LinkedBlockingDeque.drainTo(Collection<?superE>,int)|
+|java.util.concurrent.LinkedBlockingDeque.element()|Retrieves, but does not rem
+|java.util.concurrent.LinkedBlockingDeque.getFirst()|
+|java.util.concurrent.LinkedBlockingDeque.getLast()|
+|java.util.concurrent.LinkedBlockingDeque.iterator()|Returns an iterator over t
+|java.util.concurrent.LinkedBlockingDeque.offer(E)|
+|java.util.concurrent.LinkedBlockingDeque.offer(E,long,TimeUnit)|
+|java.util.concurrent.LinkedBlockingDeque.offerFirst(E)|
+|java.util.concurrent.LinkedBlockingDeque.offerFirst(E,long,TimeUnit)|
+|java.util.concurrent.LinkedBlockingDeque.offerLast(E)|
+|java.util.concurrent.LinkedBlockingDeque.offerLast(E,long,TimeUnit)|
+|java.util.concurrent.LinkedBlockingDeque.peek()|
+|java.util.concurrent.LinkedBlockingDeque.peekFirst()|
+|java.util.concurrent.LinkedBlockingDeque.peekLast()|
+|java.util.concurrent.LinkedBlockingDeque.poll()|
+|java.util.concurrent.LinkedBlockingDeque.poll(long,TimeUnit)|
+|java.util.concurrent.LinkedBlockingDeque.pollFirst()|
+|java.util.concurrent.LinkedBlockingDeque.pollFirst(long,TimeUnit)|
+|java.util.concurrent.LinkedBlockingDeque.pollLast()|
+|java.util.concurrent.LinkedBlockingDeque.pollLast(long,TimeUnit)|
+|java.util.concurrent.LinkedBlockingDeque.pop()|
+|java.util.concurrent.LinkedBlockingDeque.push(E)|
+|java.util.concurrent.LinkedBlockingDeque.put(E)|
+|java.util.concurrent.LinkedBlockingDeque.putFirst(E)|
+|java.util.concurrent.LinkedBlockingDeque.putLast(E)|
+|java.util.concurrent.LinkedBlockingDeque.remainingCapacity()|Returns the numbe
+|java.util.concurrent.LinkedBlockingDeque.remove()|Retrieves and removes the he
+|java.util.concurrent.LinkedBlockingDeque.remove(Object)|Removes the first occu
+|java.util.concurrent.LinkedBlockingDeque.removeFirst()|
+|java.util.concurrent.LinkedBlockingDeque.removeFirstOccurrence(Object)|
+|java.util.concurrent.LinkedBlockingDeque.removeLast()|
+|java.util.concurrent.LinkedBlockingDeque.removeLastOccurrence(Object)|
+|java.util.concurrent.LinkedBlockingDeque.size()|Returns the number of elements
+|java.util.concurrent.LinkedBlockingDeque.take()|
+|java.util.concurrent.LinkedBlockingDeque.takeFirst()|
+|java.util.concurrent.LinkedBlockingDeque.takeLast()|
+|java.util.concurrent.LinkedBlockingDeque.toArray()|Returns an array containing
+|java.util.concurrent.LinkedBlockingDeque.toArray(T[])|Returns an array contain
+|java.util.concurrent.LinkedBlockingDeque.toString()|
+
+*java.util.concurrent.LinkedBlockingDeque_Description*
+
+An optionally-bounded blocking deque(|java.util.concurrent.BlockingDeque|) 
+based on linked nodes. 
+
+The optional capacity bound constructor argument serves as a way to prevent 
+excessive expansion. The capacity, if unspecified, is equal to 
+(|java.lang.Integer|) . Linked nodes are dynamically created upon each 
+insertion unless this would bring the deque above capacity. 
+
+Most operations run in constant time (ignoring time spent blocking). Exceptions 
+include remove(|java.util.concurrent.LinkedBlockingDeque|) , 
+removeFirstOccurrence(|java.util.concurrent.LinkedBlockingDeque|) , 
+removeLastOccurrence(|java.util.concurrent.LinkedBlockingDeque|) , 
+contains(|java.util.concurrent.LinkedBlockingDeque|) , 
+iterator.remove()(|java.util.concurrent.LinkedBlockingDeque|) , and the bulk 
+operations, all of which run in linear time. 
+
+This class and its iterator implement all of the optional methods of the 
+(|java.util.Collection|) and (|java.util.Iterator|) interfaces. 
+
+This class is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
+
+
+*java.util.concurrent.LinkedBlockingDeque()*
+
+public LinkedBlockingDeque()
+
+Creates a LinkedBlockingDeque with a capacity of (|java.lang.Integer|) . 
+
+
+*java.util.concurrent.LinkedBlockingDeque(Collection<?extendsE>)*
+
+public LinkedBlockingDeque(java.util.Collection<? extends E> c)
+
+Creates a LinkedBlockingDeque with a capacity of (|java.lang.Integer|) , 
+initially containing the elements of the given collection, added in traversal 
+order of the collection's iterator. 
+
+    c - the collection of elements to initially contain 
+
+*java.util.concurrent.LinkedBlockingDeque(int)*
+
+public LinkedBlockingDeque(int capacity)
+
+Creates a LinkedBlockingDeque with the given (fixed) capacity. 
+
+    capacity - the capacity of this deque 
+
+*java.util.concurrent.LinkedBlockingDeque.add(E)*
+
+public boolean add(E e)
+
+Inserts the specified element at the end of this deque unless it would violate 
+capacity restrictions. When using a capacity-restricted deque, it is generally 
+preferable to use method offer(|java.util.concurrent.LinkedBlockingDeque|) . 
+
+This method is equivalent to (|java.util.concurrent.LinkedBlockingDeque|) . 
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.addFirst(E)*
+
+public void addFirst(E e)
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.addLast(E)*
+
+public void addLast(E e)
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.clear()*
+
+public void clear()
+
+Atomically removes all of the elements from this deque. The deque will be empty 
+after this call returns. 
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.contains(Object)*
+
+public boolean contains(java.lang.Object o)
+
+Returns true if this deque contains the specified element. More formally, 
+returns true if and only if this deque contains at least one element e such 
+that o.equals(e). 
+
+
+    o - object to be checked for containment in this deque 
+
+    Returns: true if this deque contains the specified element 
+
+*java.util.concurrent.LinkedBlockingDeque.descendingIterator()*
+
+public |java.util.Iterator|<E> descendingIterator()
+
+Returns an iterator over the elements in this deque in reverse sequential 
+order. The elements will be returned in order from last (tail) to first (head). 
+The returned Iterator is a "weakly consistent" iterator that will never throw 
+(|java.util.ConcurrentModificationException|) , and guarantees to traverse 
+elements as they existed upon construction of the iterator, and may (but is not 
+guaranteed to) reflect any modifications subsequent to construction. 
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.drainTo(Collection<?superE>)*
+
+public int drainTo(java.util.Collection<? super E> c)
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.drainTo(Collection<?superE>,int)*
+
+public int drainTo(
+  java.util.Collection<? super E> c,
+  int maxElements)
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.element()*
+
+public |E| element()
+
+Retrieves, but does not remove, the head of the queue represented by this 
+deque. This method differs from 
+peek(|java.util.concurrent.LinkedBlockingDeque|) only in that it throws an 
+exception if this deque is empty. 
+
+This method is equivalent to 
+getFirst(|java.util.concurrent.LinkedBlockingDeque|) . 
+
+
+
+    Returns: the head of the queue represented by this deque 
+
+*java.util.concurrent.LinkedBlockingDeque.getFirst()*
+
+public |E| getFirst()
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.getLast()*
+
+public |E| getLast()
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.iterator()*
+
+public |java.util.Iterator|<E> iterator()
+
+Returns an iterator over the elements in this deque in proper sequence. The 
+elements will be returned in order from first (head) to last (tail). The 
+returned Iterator is a "weakly consistent" iterator that will never throw 
+(|java.util.ConcurrentModificationException|) , and guarantees to traverse 
+elements as they existed upon construction of the iterator, and may (but is not 
+guaranteed to) reflect any modifications subsequent to construction. 
+
+
+
+    Returns: an iterator over the elements in this deque in proper sequence 
+
+*java.util.concurrent.LinkedBlockingDeque.offer(E)*
+
+public boolean offer(E e)
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.offer(E,long,TimeUnit)*
+
+public boolean offer(
+  E e,
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.offerFirst(E)*
+
+public boolean offerFirst(E e)
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.offerFirst(E,long,TimeUnit)*
+
+public boolean offerFirst(
+  E e,
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.offerLast(E)*
+
+public boolean offerLast(E e)
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.offerLast(E,long,TimeUnit)*
+
+public boolean offerLast(
+  E e,
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.peek()*
+
+public |E| peek()
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.peekFirst()*
+
+public |E| peekFirst()
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.peekLast()*
+
+public |E| peekLast()
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.poll()*
+
+public |E| poll()
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.poll(long,TimeUnit)*
+
+public |E| poll(
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.pollFirst()*
+
+public |E| pollFirst()
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.pollFirst(long,TimeUnit)*
+
+public |E| pollFirst(
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.pollLast()*
+
+public |E| pollLast()
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.pollLast(long,TimeUnit)*
+
+public |E| pollLast(
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.pop()*
+
+public |E| pop()
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.push(E)*
+
+public void push(E e)
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.put(E)*
+
+public void put(E e)
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.putFirst(E)*
+
+public void putFirst(E e)
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.putLast(E)*
+
+public void putLast(E e)
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.remainingCapacity()*
+
+public int remainingCapacity()
+
+Returns the number of additional elements that this deque can ideally (in the 
+absence of memory or resource constraints) accept without blocking. This is 
+always equal to the initial capacity of this deque less the current size of 
+this deque. 
+
+Note that you cannot always tell if an attempt to insert an element will 
+succeed by inspecting remainingCapacity because it may be the case that another 
+thread is about to insert or remove an element. 
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.remove()*
+
+public |E| remove()
+
+Retrieves and removes the head of the queue represented by this deque. This 
+method differs from poll(|java.util.concurrent.LinkedBlockingDeque|) only in 
+that it throws an exception if this deque is empty. 
+
+This method is equivalent to 
+removeFirst(|java.util.concurrent.LinkedBlockingDeque|) . 
+
+
+
+    Returns: the head of the queue represented by this deque 
+
+*java.util.concurrent.LinkedBlockingDeque.remove(Object)*
+
+public boolean remove(java.lang.Object o)
+
+Removes the first occurrence of the specified element from this deque. If the 
+deque does not contain the element, it is unchanged. More formally, removes the 
+first element e such that o.equals(e) (if such an element exists). Returns true 
+if this deque contained the specified element (or equivalently, if this deque 
+changed as a result of the call). 
+
+This method is equivalent to 
+removeFirstOccurrence(|java.util.concurrent.LinkedBlockingDeque|) . 
+
+
+    o - element to be removed from this deque, if present 
+
+    Returns: true if this deque changed as a result of the call 
+
+*java.util.concurrent.LinkedBlockingDeque.removeFirst()*
+
+public |E| removeFirst()
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.removeFirstOccurrence(Object)*
+
+public boolean removeFirstOccurrence(java.lang.Object o)
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.removeLast()*
+
+public |E| removeLast()
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.removeLastOccurrence(Object)*
+
+public boolean removeLastOccurrence(java.lang.Object o)
+
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.size()*
+
+public int size()
+
+Returns the number of elements in this deque. 
+
+
+
+    Returns: the number of elements in this deque 
+
+*java.util.concurrent.LinkedBlockingDeque.take()*
+
+public |E| take()
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.takeFirst()*
+
+public |E| takeFirst()
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.takeLast()*
+
+public |E| takeLast()
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.LinkedBlockingDeque.toArray()*
+
+public |java.lang.Object|[] toArray()
+
+Returns an array containing all of the elements in this deque, in proper 
+sequence (from first to last element). 
+
+The returned array will be "safe" in that no references to it are maintained by 
+this deque. (In other words, this method must allocate a new array). The caller 
+is thus free to modify the returned array. 
+
+This method acts as bridge between array-based and collection-based APIs. 
+
+
+
+    Returns: an array containing all of the elements in this deque 
+
+*java.util.concurrent.LinkedBlockingDeque.toArray(T[])*
+
+public |T|[] toArray(T[] a)
+
+Returns an array containing all of the elements in this deque, in proper 
+sequence; the runtime type of the returned array is that of the specified 
+array. If the deque fits in the specified array, it is returned therein. 
+Otherwise, a new array is allocated with the runtime type of the specified 
+array and the size of this deque. 
+
+If this deque fits in the specified array with room to spare (i.e., the array 
+has more elements than this deque), the element in the array immediately 
+following the end of the deque is set to null. 
+
+Like the (|java.util.concurrent.LinkedBlockingDeque|) method, this method acts 
+as bridge between array-based and collection-based APIs. Further, this method 
+allows precise control over the runtime type of the output array, and may, 
+under certain circumstances, be used to save allocation costs. 
+
+Suppose x is a deque known to contain only strings. The following code can be 
+used to dump the deque into a newly allocated array of String: 
+
+
+
+String[] y = x.toArray(new String[0]); 
+
+Note that toArray(new Object[0]) is identical in function to toArray(). 
+
+
+    a - the array into which the elements of the deque are to be stored, if it is big 
+       enough; otherwise, a new array of the same runtime type is allocated for 
+       this purpose 
+
+    Returns: an array containing all of the elements in this deque 
+
+*java.util.concurrent.LinkedBlockingDeque.toString()*
+
+public |java.lang.String| toString()
+
+
+
+
+
+

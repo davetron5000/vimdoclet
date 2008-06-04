@@ -277,6 +277,7 @@ notification mechanism described above for the usage threshold in a similar
 fashion. 
 
 
+
 *java.lang.management.MemoryPoolMXBean.getCollectionUsage()*
 
 public |java.lang.management.MemoryUsage| getCollectionUsage()
@@ -291,9 +292,11 @@ MBeanServer access: The mapped type of MemoryUsage is CompositeData with
 attributes as specified in MemoryUsage(|java.lang.management.MemoryUsage|) . 
 
 
+
     Returns: a {@link MemoryUsage} representing the memory usage of this memory pool after 
              the Java virtual machine most recently expended effort in 
              recycling unused objects; null if this method is not supported. 
+
 *java.lang.management.MemoryPoolMXBean.getCollectionUsageThreshold()*
 
 public long getCollectionUsageThreshold()
@@ -303,7 +306,9 @@ default value is zero. The collection usage threshold can be changed via the
 setCollectionUsageThreshold(|java.lang.management.MemoryPoolMXBean|) method. 
 
 
+
     Returns: the collection usage threshold of this memory pool in bytes. 
+
 *java.lang.management.MemoryPoolMXBean.getCollectionUsageThresholdCount()*
 
 public long getCollectionUsageThresholdCount()
@@ -312,18 +317,22 @@ Returns the number of times that the Java virtual machine has detected that the
 memory usage has reached or exceeded the collection usage threshold. 
 
 
+
     Returns: the number of times that the memory usage has reached or exceeded the 
              collection usage threshold. 
+
 *java.lang.management.MemoryPoolMXBean.getMemoryManagerNames()*
 
-public |java.lang.String| getMemoryManagerNames()
+public |java.lang.String|[] getMemoryManagerNames()
 
 Returns the name of memory managers that manages this memory pool. Each memory 
 pool will be managed by at least one memory manager. 
 
 
+
     Returns: an array of String objects, each is the name of a memory manager managing this 
              memory pool. 
+
 *java.lang.management.MemoryPoolMXBean.getName()*
 
 public |java.lang.String| getName()
@@ -331,7 +340,9 @@ public |java.lang.String| getName()
 Returns the name representing this memory pool. 
 
 
+
     Returns: the name of this memory pool. 
+
 *java.lang.management.MemoryPoolMXBean.getPeakUsage()*
 
 public |java.lang.management.MemoryUsage| getPeakUsage()
@@ -344,8 +355,10 @@ MBeanServer access: The mapped type of MemoryUsage is CompositeData with
 attributes as specified in MemoryUsage(|java.lang.management.MemoryUsage|) . 
 
 
+
     Returns: a {@link MemoryUsage} object representing the peak memory usage; or null if 
              this pool is not valid. 
+
 *java.lang.management.MemoryPoolMXBean.getType()*
 
 public |java.lang.management.MemoryType| getType()
@@ -356,7 +369,9 @@ MBeanServer access: The mapped type of MemoryType is String and the value is
 the name of the MemoryType. 
 
 
+
     Returns: the type of this memory pool. 
+
 *java.lang.management.MemoryPoolMXBean.getUsage()*
 
 public |java.lang.management.MemoryUsage| getUsage()
@@ -377,7 +392,9 @@ MBeanServer access: The mapped type of MemoryUsage is CompositeData with
 attributes as specified in MemoryUsage(|java.lang.management.MemoryUsage|) . 
 
 
+
     Returns: a {@link MemoryUsage} object; or null if this pool not valid. 
+
 *java.lang.management.MemoryPoolMXBean.getUsageThreshold()*
 
 public long getUsageThreshold()
@@ -388,7 +405,9 @@ threshold can be changed via the
 setUsageThreshold(|java.lang.management.MemoryPoolMXBean|) method. 
 
 
+
     Returns: the usage threshold value of this memory pool in bytes. 
+
 *java.lang.management.MemoryPoolMXBean.getUsageThresholdCount()*
 
 public long getUsageThresholdCount()
@@ -397,8 +416,10 @@ Returns the number of times that the memory usage has crossed the usage
 threshold. 
 
 
+
     Returns: the number of times that the memory usage has crossed its usage threshold 
              value. 
+
 *java.lang.management.MemoryPoolMXBean.isCollectionUsageThresholdExceeded()*
 
 public boolean isCollectionUsageThresholdExceeded()
@@ -410,9 +431,11 @@ machine to perform any garbage collection other than its normal automatic
 memory management. 
 
 
+
     Returns: true if the memory usage of this memory pool reaches or exceeds the collection 
              usage threshold value in the most recent collection; false 
              otherwise. 
+
 *java.lang.management.MemoryPoolMXBean.isCollectionUsageThresholdSupported()*
 
 public boolean isCollectionUsageThresholdSupported()
@@ -420,8 +443,10 @@ public boolean isCollectionUsageThresholdSupported()
 Tests if this memory pool supports a collection usage threshold. 
 
 
+
     Returns: true if this memory pool supports the collection usage threshold; false 
              otherwise. 
+
 *java.lang.management.MemoryPoolMXBean.isUsageThresholdExceeded()*
 
 public boolean isUsageThresholdExceeded()
@@ -430,8 +455,10 @@ Tests if the memory usage of this memory pool reaches or exceeds its usage
 threshold value. 
 
 
+
     Returns: true if the memory usage of this memory pool reaches or exceeds the threshold 
              value; false otherwise. 
+
 *java.lang.management.MemoryPoolMXBean.isUsageThresholdSupported()*
 
 public boolean isUsageThresholdSupported()
@@ -439,7 +466,9 @@ public boolean isUsageThresholdSupported()
 Tests if this memory pool supports usage threshold. 
 
 
+
     Returns: true if this memory pool supports usage threshold; false otherwise. 
+
 *java.lang.management.MemoryPoolMXBean.isValid()*
 
 public boolean isValid()
@@ -449,14 +478,17 @@ becomes invalid once the Java virtual machine removes it from the memory
 system. 
 
 
+
     Returns: true if the memory pool is valid in the running Java virtual machine; false 
              otherwise. 
+
 *java.lang.management.MemoryPoolMXBean.resetPeakUsage()*
 
 public void resetPeakUsage()
 
 Resets the peak memory usage statistic of this memory pool to the current 
 memory usage. 
+
 
 
 *java.lang.management.MemoryPoolMXBean.setCollectionUsageThreshold(long)*
@@ -472,6 +504,7 @@ The collection usage threshold crossing checking is enabled in this memory pool
 if the threshold is set to a positive value. The collection usage threshold 
 crossing checking is disabled if it is set to zero. 
 
+
     threhsold - the new collection usage threshold value in bytes. Must be non-negative. 
 
 *java.lang.management.MemoryPoolMXBean.setUsageThreshold(long)*
@@ -482,6 +515,7 @@ Sets the threshold of this memory pool to the given threshold value if this
 memory pool supports the usage threshold. The usage threshold crossing checking 
 is enabled in this memory pool if the threshold is set to a positive value. The 
 usage threshold crossing checking is disabled if it is set to zero. 
+
 
     threshold - the new threshold value in bytes. Must be non-negative. 
 

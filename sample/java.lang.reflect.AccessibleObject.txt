@@ -15,11 +15,11 @@ public class AccessibleObject
 |java.lang.reflect.AccessibleObject()|Constructor: only used by the Java Virtua
 
 *java.lang.reflect.AccessibleObject_Methods*
-|java.lang.reflect.AccessibleObject.getAnnotation(Class)|
+|java.lang.reflect.AccessibleObject.getAnnotation(Class<T>)|
 |java.lang.reflect.AccessibleObject.getAnnotations()|
 |java.lang.reflect.AccessibleObject.getDeclaredAnnotations()|
 |java.lang.reflect.AccessibleObject.isAccessible()|Get the value of the accessi
-|java.lang.reflect.AccessibleObject.isAnnotationPresent(Class)|
+|java.lang.reflect.AccessibleObject.isAnnotationPresent(Class<?extendsAnnotation>)|
 |java.lang.reflect.AccessibleObject.setAccessible(AccessibleObject[],boolean)|C
 |java.lang.reflect.AccessibleObject.setAccessible(boolean)|Set the accessible f
 
@@ -39,6 +39,7 @@ other persistence mechanisms, to manipulate objects in a manner that would
 normally be prohibited. 
 
 
+
 *java.lang.reflect.AccessibleObject()*
 
 protected AccessibleObject()
@@ -46,23 +47,26 @@ protected AccessibleObject()
 Constructor: only used by the Java Virtual Machine. 
 
 
-*java.lang.reflect.AccessibleObject.getAnnotation(Class)*
+*java.lang.reflect.AccessibleObject.getAnnotation(Class<T>)*
 
-public |java.lang.annotation.Annotation| getAnnotation(java.lang.Class annotationClass)
+public |T| getAnnotation(java.lang.Class<T> annotationClass)
+
 
 
 
 
 *java.lang.reflect.AccessibleObject.getAnnotations()*
 
-public |java.lang.annotation.Annotation| getAnnotations()
+public |java.lang.annotation.Annotation|[] getAnnotations()
+
 
 
 
 
 *java.lang.reflect.AccessibleObject.getDeclaredAnnotations()*
 
-public |java.lang.annotation.Annotation| getDeclaredAnnotations()
+public |java.lang.annotation.Annotation|[] getDeclaredAnnotations()
+
 
 
 
@@ -74,10 +78,13 @@ public boolean isAccessible()
 Get the value of the accessible flag for this object. 
 
 
-    Returns: the value of the object's accessible flag 
-*java.lang.reflect.AccessibleObject.isAnnotationPresent(Class)*
 
-public boolean isAnnotationPresent(java.lang.Class annotationClass)
+    Returns: the value of the object's accessible flag 
+
+*java.lang.reflect.AccessibleObject.isAnnotationPresent(Class<?extendsAnnotation>)*
+
+public boolean isAnnotationPresent(java.lang.Class<? extends java.lang.annotation.Annotation> annotationClass)
+
 
 
 
@@ -104,6 +111,7 @@ the element for which the exception occurred; the accessibility of elements
 beyond (and including) the element for which the exception occurred is 
 unchanged. 
 
+
     array - the array of AccessibleObjects 
     flag - the new value for the accessible flag in each object 
 
@@ -127,6 +135,7 @@ may not be changed (for example, if this element object is a
 A SecurityException is raised if this object is a 
 (|java.lang.reflect.Constructor|) object for the class java.lang.Class, and 
 flag is true. 
+
 
     flag - the new value for the accessible flag 
 

@@ -22,6 +22,7 @@ not conform to the appropriate XML document type for a collection of
 preferences, as per the (|java.util.prefs.Preferences|) specification. 
 
 
+
 *java.util.prefs.InvalidPreferencesFormatException(String)*
 
 public InvalidPreferencesFormatException(java.lang.String message)

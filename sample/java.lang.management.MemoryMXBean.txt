@@ -148,6 +148,7 @@ emitter = (NotificationEmitter) mbean; MyListener listener = new MyListener();
 emitter.addNotificationListener(listener, null, null); 
 
 
+
 *java.lang.management.MemoryMXBean.gc()*
 
 public void gc()
@@ -156,6 +157,7 @@ Runs the garbage collector. The call gc() is effectively equivalent to the
 call: 
 
 System.gc() 
+
 
 
 *java.lang.management.MemoryMXBean.getHeapMemoryUsage()*
@@ -177,7 +179,9 @@ MBeanServer access: The mapped type of MemoryUsage is CompositeData with
 attributes as specified in MemoryUsage(|java.lang.management.MemoryUsage|) . 
 
 
+
     Returns: a {@link MemoryUsage} object representing the heap memory usage. 
+
 *java.lang.management.MemoryMXBean.getNonHeapMemoryUsage()*
 
 public |java.lang.management.MemoryUsage| getNonHeapMemoryUsage()
@@ -193,7 +197,9 @@ MBeanServer access: The mapped type of MemoryUsage is CompositeData with
 attributes as specified in MemoryUsage(|java.lang.management.MemoryUsage|) . 
 
 
+
     Returns: a {@link MemoryUsage} object representing the non-heap memory usage. 
+
 *java.lang.management.MemoryMXBean.getObjectPendingFinalizationCount()*
 
 public int getObjectPendingFinalizationCount()
@@ -201,7 +207,9 @@ public int getObjectPendingFinalizationCount()
 Returns the approximate number of objects for which finalization is pending. 
 
 
+
     Returns: the approximate number objects for which finalization is pending. 
+
 *java.lang.management.MemoryMXBean.isVerbose()*
 
 public boolean isVerbose()
@@ -209,7 +217,9 @@ public boolean isVerbose()
 Tests if verbose output for the memory system is enabled. 
 
 
+
     Returns: true if verbose output for the memory system is enabled; false otherwise. 
+
 *java.lang.management.MemoryMXBean.setVerbose(boolean)*
 
 public void setVerbose(boolean value)
@@ -220,6 +230,7 @@ are implementation dependent. Typically, a Java virtual machine implementation
 prints a message whenever it frees memory at garbage collection. 
 
 Each invocation of this method enables or disables verbose output globally. 
+
 
     value - true to enable verbose output; false to disable. 
 

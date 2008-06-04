@@ -26,6 +26,7 @@ constructor in this class will cause a (|java.lang.NullPointerException|) to be
 thrown. 
 
 
+
 *java.util.UnknownFormatConversionException(String)*
 
 public UnknownFormatConversionException(java.lang.String s)
@@ -41,10 +42,13 @@ public |java.lang.String| getConversion()
 Returns the unknown conversion. 
 
 
+
     Returns: The unknown conversion. 
+
 *java.util.UnknownFormatConversionException.getMessage()*
 
 public |java.lang.String| getMessage()
+
 
 
 

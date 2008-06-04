@@ -26,6 +26,7 @@ constructor in this class will cause a (|java.lang.NullPointerException|) to be
 thrown. 
 
 
+
 *java.util.UnknownFormatFlagsException(String)*
 
 public UnknownFormatFlagsException(java.lang.String f)
@@ -41,10 +42,13 @@ public |java.lang.String| getFlags()
 Returns the set of flags which contains an unknown flag. 
 
 
+
     Returns: 
+
 *java.util.UnknownFormatFlagsException.getMessage()*
 
 public |java.lang.String| getMessage()
+
 
 
 

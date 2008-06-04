@@ -1,0 +1,29 @@
+*java.util.zip.ZipError* *ZipError* Signals that an unrecoverable error has occu
+
+public class ZipError
+  extends    |java.lang.InternalError|
+
+|java.util.zip.ZipError_Description|
+|java.util.zip.ZipError_Fields|
+|java.util.zip.ZipError_Constructors|
+|java.util.zip.ZipError_Methods|
+
+================================================================================
+
+*java.util.zip.ZipError_Constructors*
+|java.util.zip.ZipError(String)|Constructs a ZipError with the given detail mes
+
+*java.util.zip.ZipError_Description*
+
+Signals that an unrecoverable error has occurred. 
+
+
+
+*java.util.zip.ZipError(String)*
+
+public ZipError(java.lang.String s)
+
+Constructs a ZipError with the given detail message. 
+
+    s - the {@code String} containing a detail message 
+

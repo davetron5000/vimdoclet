@@ -11,8 +11,8 @@ public class InputMismatchException
 ================================================================================
 
 *java.util.InputMismatchException_Constructors*
-|java.util.InputMismatchException()|Constructs a InputMismatchException with nu
-|java.util.InputMismatchException(String)|Constructs a InputMismatchException, 
+|java.util.InputMismatchException()|Constructs an InputMismatchException with n
+|java.util.InputMismatchException(String)|Constructs an InputMismatchException,
 
 *java.util.InputMismatchException_Description*
 
@@ -21,18 +21,19 @@ pattern for the expected type, or that the token is out of range for the
 expected type. 
 
 
+
 *java.util.InputMismatchException()*
 
 public InputMismatchException()
 
-Constructs a InputMismatchException with null as its error message string. 
+Constructs an InputMismatchException with null as its error message string. 
 
 
 *java.util.InputMismatchException(String)*
 
 public InputMismatchException(java.lang.String s)
 
-Constructs a InputMismatchException, saving a reference to the error message 
+Constructs an InputMismatchException, saving a reference to the error message 
 string s for later retrieval by the getMessage method. 
 
     s - the detail message. 

@@ -1,6 +1,6 @@
 *java.util.concurrent.CompletionService* *CompletionService* A service that deco
 
-public interface interface CompletionService
+public interface interface CompletionService<V>
 
 
 |java.util.concurrent.CompletionService_Description|
@@ -13,7 +13,7 @@ public interface interface CompletionService
 *java.util.concurrent.CompletionService_Methods*
 |java.util.concurrent.CompletionService.poll()|Retrieves and removes the Future
 |java.util.concurrent.CompletionService.poll(long,TimeUnit)|Retrieves and remov
-|java.util.concurrent.CompletionService.submit(Callable)|Submits a value-return
+|java.util.concurrent.CompletionService.submit(Callable<V>)|Submits a value-ret
 |java.util.concurrent.CompletionService.submit(Runnable,V)|Submits a Runnable t
 |java.util.concurrent.CompletionService.take()|Retrieves and removes the Future
 
@@ -28,27 +28,33 @@ a program or system, and then acted upon in a different part of the program
 when the reads complete, possibly in a different order than they were 
 requested. 
 
-
-
 Typically, a CompletionService relies on a separate 
 (|java.util.concurrent.Executor|) to actually execute the tasks, in which case 
 the CompletionService only manages an internal completion queue. The 
 (|java.util.concurrent.ExecutorCompletionService|) class provides an 
 implementation of this approach. 
 
+Memory consistency effects: Actions in a thread prior to submitting a task to 
+aCompletionServicehappen-before actions taken by that task, which in turn 
+happen-before actions following a successful return from the 
+correspondingtake(). 
+
+
 
 *java.util.concurrent.CompletionService.poll()*
 
-public |java.util.concurrent.Future| poll()
+public |java.util.concurrent.Future|<V> poll()
 
 Retrieves and removes the Future representing the next completed task or null 
 if none are present. 
 
 
-    Returns: the Future representing the next completed task, or null if none are present. 
+
+    Returns: the Future representing the next completed task, or null if none are present 
+
 *java.util.concurrent.CompletionService.poll(long,TimeUnit)*
 
-public |java.util.concurrent.Future| poll(
+public |java.util.concurrent.Future|<V> poll(
   long timeout,
   java.util.concurrent.TimeUnit unit)
   throws |java.lang.InterruptedException|
@@ -56,44 +62,52 @@ public |java.util.concurrent.Future| poll(
 Retrieves and removes the Future representing the next completed task, waiting 
 if necessary up to the specified wait time if none are yet present. 
 
+
     timeout - how long to wait before giving up, in units of unit 
     unit - a TimeUnit determining how to interpret the timeout parameter 
 
     Returns: the Future representing the next completed task or null if the specified 
-             waiting time elapses before one is present. 
-*java.util.concurrent.CompletionService.submit(Callable)*
+             waiting time elapses before one is present 
 
-public |java.util.concurrent.Future| submit(java.util.concurrent.Callable task)
+*java.util.concurrent.CompletionService.submit(Callable<V>)*
+
+public |java.util.concurrent.Future|<V> submit(java.util.concurrent.Callable<V> task)
 
 Submits a value-returning task for execution and returns a Future representing 
 the pending results of the task. Upon completion, this task may be taken or 
 polled. 
 
+
     task - the task to submit 
 
     Returns: a Future representing pending completion of the task 
+
 *java.util.concurrent.CompletionService.submit(Runnable,V)*
 
-public |java.util.concurrent.Future| submit(
+public |java.util.concurrent.Future|<V> submit(
   java.lang.Runnable task,
-  java.lang.Object result)
+  V result)
 
 Submits a Runnable task for execution and returns a Future representing that 
-task.Upon completion, this task may be taken or polled. 
+task. Upon completion, this task may be taken or polled. 
+
 
     task - the task to submit 
     result - the result to return upon successful completion 
 
     Returns: a Future representing pending completion of the task, and whose get() method 
              will return the given result value upon completion 
+
 *java.util.concurrent.CompletionService.take()*
 
-public |java.util.concurrent.Future| take()
+public |java.util.concurrent.Future|<V> take()
   throws |java.lang.InterruptedException|
          
 Retrieves and removes the Future representing the next completed task, waiting 
 if none are yet present. 
 
 
+
     Returns: the Future representing the next completed task 
+
 

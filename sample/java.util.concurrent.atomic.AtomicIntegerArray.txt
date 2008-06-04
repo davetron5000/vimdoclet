@@ -1,4 +1,4 @@
-*java.util.concurrent.atomic.AtomicIntegerArray* *AtomicIntegerArray* An int arr
+*java.util.concurrent.atomic.AtomicIntegerArray* *AtomicIntegerArray* Anintarray
 
 public class AtomicIntegerArray
   extends    |java.lang.Object|
@@ -12,36 +12,38 @@ public class AtomicIntegerArray
 ================================================================================
 
 *java.util.concurrent.atomic.AtomicIntegerArray_Constructors*
-|java.util.concurrent.atomic.AtomicIntegerArray(int)|Create a new AtomicInteger
-|java.util.concurrent.atomic.AtomicIntegerArray(int[])|Create a new AtomicInteg
+|java.util.concurrent.atomic.AtomicIntegerArray(int)|Creates a new AtomicIntege
+|java.util.concurrent.atomic.AtomicIntegerArray(int[])|Creates a new AtomicInte
 
 *java.util.concurrent.atomic.AtomicIntegerArray_Methods*
 |java.util.concurrent.atomic.AtomicIntegerArray.addAndGet(int,int)|Atomically a
 |java.util.concurrent.atomic.AtomicIntegerArray.compareAndSet(int,int,int)|Atom
 |java.util.concurrent.atomic.AtomicIntegerArray.decrementAndGet(int)|Atomically
-|java.util.concurrent.atomic.AtomicIntegerArray.get(int)|Get the current value 
+|java.util.concurrent.atomic.AtomicIntegerArray.get(int)|Gets the current value
 |java.util.concurrent.atomic.AtomicIntegerArray.getAndAdd(int,int)|Atomically a
 |java.util.concurrent.atomic.AtomicIntegerArray.getAndDecrement(int)|Atomically
 |java.util.concurrent.atomic.AtomicIntegerArray.getAndIncrement(int)|Atomically
-|java.util.concurrent.atomic.AtomicIntegerArray.getAndSet(int,int)|Set the elem
+|java.util.concurrent.atomic.AtomicIntegerArray.getAndSet(int,int)|Atomically s
 |java.util.concurrent.atomic.AtomicIntegerArray.incrementAndGet(int)|Atomically
+|java.util.concurrent.atomic.AtomicIntegerArray.lazySet(int,int)|Eventually set
 |java.util.concurrent.atomic.AtomicIntegerArray.length()|Returns the length of 
-|java.util.concurrent.atomic.AtomicIntegerArray.set(int,int)|Set the element at
+|java.util.concurrent.atomic.AtomicIntegerArray.set(int,int)|Sets the element a
 |java.util.concurrent.atomic.AtomicIntegerArray.toString()|Returns the String r
 |java.util.concurrent.atomic.AtomicIntegerArray.weakCompareAndSet(int,int,int)|
 
 *java.util.concurrent.atomic.AtomicIntegerArray_Description*
 
-An int array in which elements may be updated atomically. See the 
+Anintarray in which elements may be updated atomically. See the 
 (|java.util.concurrent.atomic|) package specification for description of the 
 properties of atomic variables. 
+
 
 
 *java.util.concurrent.atomic.AtomicIntegerArray(int)*
 
 public AtomicIntegerArray(int length)
 
-Create a new AtomicIntegerArray of given length. 
+Creates a new AtomicIntegerArray of given length. 
 
     length - the length of the array 
 
@@ -49,7 +51,7 @@ Create a new AtomicIntegerArray of given length.
 
 public AtomicIntegerArray(int[] array)
 
-Create a new AtomicIntegerArray with the same length as, and all elements 
+Creates a new AtomicIntegerArray with the same length as, and all elements 
 copied from, the given array. 
 
     array - the array to copy elements from 
@@ -60,12 +62,14 @@ public final int addAndGet(
   int i,
   int delta)
 
-Atomically add the given value to element at index i. 
+Atomically adds the given value to the element at indexi. 
+
 
     i - the index 
     delta - the value to add 
 
-    Returns: the updated value; 
+    Returns: the updated value 
+
 *java.util.concurrent.atomic.AtomicIntegerArray.compareAndSet(int,int,int)*
 
 public final boolean compareAndSet(
@@ -73,8 +77,9 @@ public final boolean compareAndSet(
   int expect,
   int update)
 
-Atomically set the value to the given updated value if the current value == the 
-expected value. 
+Atomically sets the element at positionito the given updated value if the 
+current value==the expected value. 
+
 
     i - the index 
     expect - the expected value 
@@ -82,75 +87,103 @@ expected value.
 
     Returns: true if successful. False return indicates that the actual value was not equal 
              to the expected value. 
+
 *java.util.concurrent.atomic.AtomicIntegerArray.decrementAndGet(int)*
 
 public final int decrementAndGet(int i)
 
-Atomically decrement by one the element at index i. 
+Atomically decrements by one the element at indexi. 
+
 
     i - the index 
 
-    Returns: the updated value; 
+    Returns: the updated value 
+
 *java.util.concurrent.atomic.AtomicIntegerArray.get(int)*
 
 public final int get(int i)
 
-Get the current value at position i. 
+Gets the current value at positioni. 
+
 
     i - the index 
 
     Returns: the current value 
+
 *java.util.concurrent.atomic.AtomicIntegerArray.getAndAdd(int,int)*
 
 public final int getAndAdd(
   int i,
   int delta)
 
-Atomically add the given value to element at index i. 
+Atomically adds the given value to the element at indexi. 
+
 
     i - the index 
     delta - the value to add 
 
-    Returns: the previous value; 
+    Returns: the previous value 
+
 *java.util.concurrent.atomic.AtomicIntegerArray.getAndDecrement(int)*
 
 public final int getAndDecrement(int i)
 
-Atomically decrement by one the element at index i. 
+Atomically decrements by one the element at indexi. 
+
 
     i - the index 
 
-    Returns: the previous value; 
+    Returns: the previous value 
+
 *java.util.concurrent.atomic.AtomicIntegerArray.getAndIncrement(int)*
 
 public final int getAndIncrement(int i)
 
-Atomically increment by one the element at index i. 
+Atomically increments by one the element at indexi. 
+
 
     i - the index 
 
-    Returns: the previous value; 
+    Returns: the previous value 
+
 *java.util.concurrent.atomic.AtomicIntegerArray.getAndSet(int,int)*
 
 public final int getAndSet(
   int i,
   int newValue)
 
-Set the element at position i to the given value and return the old value. 
+Atomically sets the element at positionito the given value and returns the old 
+value. 
+
 
     i - the index 
     newValue - the new value 
 
     Returns: the previous value 
+
 *java.util.concurrent.atomic.AtomicIntegerArray.incrementAndGet(int)*
 
 public final int incrementAndGet(int i)
 
-Atomically increment by one the element at index i. 
+Atomically increments by one the element at indexi. 
+
 
     i - the index 
 
-    Returns: the updated value; 
+    Returns: the updated value 
+
+*java.util.concurrent.atomic.AtomicIntegerArray.lazySet(int,int)*
+
+public final void lazySet(
+  int i,
+  int newValue)
+
+Eventually sets the element at positionito the given value. 
+
+
+    i - the index 
+    newValue - the new value 
+
 *java.util.concurrent.atomic.AtomicIntegerArray.length()*
 
 public final int length()
@@ -158,14 +191,17 @@ public final int length()
 Returns the length of the array. 
 
 
+
     Returns: the length of the array 
+
 *java.util.concurrent.atomic.AtomicIntegerArray.set(int,int)*
 
 public final void set(
   int i,
   int newValue)
 
-Set the element at position i to the given value. 
+Sets the element at positionito the given value. 
+
 
     i - the index 
     newValue - the new value 
@@ -177,7 +213,9 @@ public |java.lang.String| toString()
 Returns the String representation of the current values of array. 
 
 
+
     Returns: the String representation of the current values of array. 
+
 *java.util.concurrent.atomic.AtomicIntegerArray.weakCompareAndSet(int,int,int)*
 
 public final boolean weakCompareAndSet(
@@ -185,12 +223,17 @@ public final boolean weakCompareAndSet(
   int expect,
   int update)
 
-Atomically set the value to the given updated value if the current value == the 
-expected value. May fail spuriously. 
+Atomically sets the element at positionito the given updated value if the 
+current value==the expected value. 
+
+May fail spuriously and does not provide ordering guarantees, so is only rarely 
+an appropriate alternative tocompareAndSet. 
+
 
     i - the index 
     expect - the expected value 
     update - the new value 
 
     Returns: true if successful. 
+
 

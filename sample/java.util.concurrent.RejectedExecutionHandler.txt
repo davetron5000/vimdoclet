@@ -19,6 +19,7 @@ A handler for tasks that cannot be executed by a
 (|java.util.concurrent.ThreadPoolExecutor|) . 
 
 
+
 *java.util.concurrent.RejectedExecutionHandler.rejectedExecution(Runnable,ThreadPoolExecutor)*
 
 public void rejectedExecution(
@@ -26,13 +27,14 @@ public void rejectedExecution(
   java.util.concurrent.ThreadPoolExecutor executor)
 
 Method that may be invoked by a (|java.util.concurrent.ThreadPoolExecutor|) 
-when execute cannot accept a task. This may occur when no more threads or queue 
-slots are available because their bounds would be exceeded, or upon shutdown of 
-the Executor. 
+when execute(|java.util.concurrent.ThreadPoolExecutor|) cannot accept a task. 
+This may occur when no more threads or queue slots are available because their 
+bounds would be exceeded, or upon shutdown of the Executor. 
 
-In the absence other alternatives, the method may throw an unchecked 
+In the absence of other alternatives, the method may throw an unchecked 
 (|java.util.concurrent.RejectedExecutionException|) , which will be propagated 
-to the caller of execute. 
+to the caller ofexecute. 
+
 
     r - the runnable task requested to be executed 
     executor - the executor attempting to execute this task 

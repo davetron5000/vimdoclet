@@ -1,6 +1,6 @@
 *java.util.concurrent.ArrayBlockingQueue* *ArrayBlockingQueue* A boundedBlocking
 
-public class ArrayBlockingQueue
+public class ArrayBlockingQueue<E>
   extends    |java.util.AbstractQueue|
   implements |java.util.concurrent.BlockingQueue|
              |java.io.Serializable|
@@ -15,26 +15,27 @@ public class ArrayBlockingQueue
 *java.util.concurrent.ArrayBlockingQueue_Constructors*
 |java.util.concurrent.ArrayBlockingQueue(int)|Creates an ArrayBlockingQueue wit
 |java.util.concurrent.ArrayBlockingQueue(int,boolean)|Creates an ArrayBlockingQ
-|java.util.concurrent.ArrayBlockingQueue(int,boolean,Collection)|Creates an Arr
+|java.util.concurrent.ArrayBlockingQueue(int,boolean,Collection<?extendsE>)|Cre
 
 *java.util.concurrent.ArrayBlockingQueue_Methods*
+|java.util.concurrent.ArrayBlockingQueue.add(E)|Inserts the specified element a
 |java.util.concurrent.ArrayBlockingQueue.clear()|Atomically removes all of the 
-|java.util.concurrent.ArrayBlockingQueue.contains(Object)|
-|java.util.concurrent.ArrayBlockingQueue.drainTo(Collection)|
-|java.util.concurrent.ArrayBlockingQueue.drainTo(Collection,int)|
+|java.util.concurrent.ArrayBlockingQueue.contains(Object)|Returns true if this 
+|java.util.concurrent.ArrayBlockingQueue.drainTo(Collection<?superE>)|
+|java.util.concurrent.ArrayBlockingQueue.drainTo(Collection<?superE>,int)|
 |java.util.concurrent.ArrayBlockingQueue.iterator()|Returns an iterator over th
 |java.util.concurrent.ArrayBlockingQueue.offer(E)|Inserts the specified element
 |java.util.concurrent.ArrayBlockingQueue.offer(E,long,TimeUnit)|Inserts the spe
 |java.util.concurrent.ArrayBlockingQueue.peek()|
 |java.util.concurrent.ArrayBlockingQueue.poll()|
 |java.util.concurrent.ArrayBlockingQueue.poll(long,TimeUnit)|
-|java.util.concurrent.ArrayBlockingQueue.put(E)|Adds the specified element to t
+|java.util.concurrent.ArrayBlockingQueue.put(E)|Inserts the specified element a
 |java.util.concurrent.ArrayBlockingQueue.remainingCapacity()|Returns the number
 |java.util.concurrent.ArrayBlockingQueue.remove(Object)|Removes a single instan
 |java.util.concurrent.ArrayBlockingQueue.size()|Returns the number of elements 
 |java.util.concurrent.ArrayBlockingQueue.take()|
-|java.util.concurrent.ArrayBlockingQueue.toArray()|
-|java.util.concurrent.ArrayBlockingQueue.toArray(T[])|
+|java.util.concurrent.ArrayBlockingQueue.toArray()|Returns an array containing 
+|java.util.concurrent.ArrayBlockingQueue.toArray(T[])|Returns an array containi
 |java.util.concurrent.ArrayBlockingQueue.toString()|
 
 *java.util.concurrent.ArrayBlockingQueue_Description*
@@ -48,9 +49,9 @@ operations obtain elements at the head of the queue.
 
 This is a classic bounded buffer, in which a fixed-sized array holds elements 
 inserted by producers and extracted by consumers. Once created, the capacity 
-cannot be increased. Attempts to put an element to a full queue will result in 
-the put operation blocking; attempts to retrieve an element from an empty queue 
-will similarly block. 
+cannot be increased. Attempts to put an element into a full queue will result 
+in the operation blocking; attempts to take an element from an empty queue will 
+similarly block. 
 
 This class supports an optional fairness policy for ordering waiting producer 
 and consumer threads. By default, this ordering is not guaranteed. However, a 
@@ -61,8 +62,9 @@ avoids starvation.
 This class and its iterator implement all of the optional methods of the 
 (|java.util.Collection|) and (|java.util.Iterator|) interfaces. 
 
-This class is a member of the <a href="/../guide/collections/index.html"> Java 
-Collections Framework. 
+This class is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
 
 
 *java.util.concurrent.ArrayBlockingQueue(int)*
@@ -87,12 +89,12 @@ access policy.
     fair - if true then queue accesses for threads blocked on insertion or removal, are 
        processed in FIFO order; if false the access order is unspecified. 
 
-*java.util.concurrent.ArrayBlockingQueue(int,boolean,Collection)*
+*java.util.concurrent.ArrayBlockingQueue(int,boolean,Collection<?extendsE>)*
 
 public ArrayBlockingQueue(
   int capacity,
   boolean fair,
-  java.util.Collection c)
+  java.util.Collection<? extends E> c)
 
 Creates an ArrayBlockingQueue with the given (fixed) capacity, the specified 
 access policy and initially containing the elements of the given collection, 
@@ -103,6 +105,19 @@ added in traversal order of the collection's iterator.
        processed in FIFO order; if false the access order is unspecified. 
     c - the collection of elements to initially contain 
 
+*java.util.concurrent.ArrayBlockingQueue.add(E)*
+
+public boolean add(E e)
+
+Inserts the specified element at the tail of this queue if it is possible to do 
+so immediately without exceeding the queue's capacity, returning true upon 
+success and throwing an IllegalStateException if this queue is full. 
+
+
+    e - the element to add 
+
+    Returns: true (as specified by {@link Collection#add}) 
+
 *java.util.concurrent.ArrayBlockingQueue.clear()*
 
 public void clear()
@@ -111,32 +126,41 @@ Atomically removes all of the elements from this queue. The queue will be empty
 after this call returns. 
 
 
+
 *java.util.concurrent.ArrayBlockingQueue.contains(Object)*
 
 public boolean contains(java.lang.Object o)
 
+Returns true if this queue contains the specified element. More formally, 
+returns true if and only if this queue contains at least one element e such 
+that o.equals(e). 
+
+
+    o - object to be checked for containment in this queue 
+
+    Returns: true if this queue contains the specified element 
+
+*java.util.concurrent.ArrayBlockingQueue.drainTo(Collection<?superE>)*
+
+public int drainTo(java.util.Collection<? super E> c)
 
 
 
-*java.util.concurrent.ArrayBlockingQueue.drainTo(Collection)*
-
-public int drainTo(java.util.Collection c)
 
 
-
-
-*java.util.concurrent.ArrayBlockingQueue.drainTo(Collection,int)*
+*java.util.concurrent.ArrayBlockingQueue.drainTo(Collection<?superE>,int)*
 
 public int drainTo(
-  java.util.Collection c,
+  java.util.Collection<? super E> c,
   int maxElements)
+
 
 
 
 
 *java.util.concurrent.ArrayBlockingQueue.iterator()*
 
-public |java.util.Iterator| iterator()
+public |java.util.Iterator|<E> iterator()
 
 Returns an iterator over the elements in this queue in proper sequence. The 
 returned Iterator is a "weakly consistent" iterator that will never throw 
@@ -145,51 +169,53 @@ elements as they existed upon construction of the iterator, and may (but is not
 guaranteed to) reflect any modifications subsequent to construction. 
 
 
-    Returns: an iterator over the elements in this queue in proper sequence. 
+
+    Returns: an iterator over the elements in this queue in proper sequence 
+
 *java.util.concurrent.ArrayBlockingQueue.offer(E)*
 
-public boolean offer(java.lang.Object o)
+public boolean offer(E e)
 
-Inserts the specified element at the tail of this queue if possible, returning 
-immediately if this queue is full. 
+Inserts the specified element at the tail of this queue if it is possible to do 
+so immediately without exceeding the queue's capacity, returning true upon 
+success and false if this queue is full. This method is generally preferable to 
+method (|java.util.concurrent.ArrayBlockingQueue|) , which can fail to insert 
+an element only by throwing an exception. 
 
-    o - the element to add. 
 
-    Returns: true if it was possible to add the element to this queue, else false 
+
 *java.util.concurrent.ArrayBlockingQueue.offer(E,long,TimeUnit)*
 
 public boolean offer(
-  java.lang.Object o,
+  E e,
   long timeout,
   java.util.concurrent.TimeUnit unit)
   throws |java.lang.InterruptedException|
          
-Inserts the specified element at the tail of this queue, waiting if necessary 
-up to the specified wait time for space to become available. 
+Inserts the specified element at the tail of this queue, waiting up to the 
+specified wait time for space to become available if the queue is full. 
 
-    o - the element to add 
-    timeout - how long to wait before giving up, in units of unit 
-    unit - a TimeUnit determining how to interpret the timeout parameter 
 
-    Returns: true if successful, or false if the specified waiting time elapses before space 
-             is available. 
+
 *java.util.concurrent.ArrayBlockingQueue.peek()*
 
-public |java.lang.Object| peek()
+public |E| peek()
+
 
 
 
 
 *java.util.concurrent.ArrayBlockingQueue.poll()*
 
-public |java.lang.Object| poll()
+public |E| poll()
+
 
 
 
 
 *java.util.concurrent.ArrayBlockingQueue.poll(long,TimeUnit)*
 
-public |java.lang.Object| poll(
+public |E| poll(
   long timeout,
   java.util.concurrent.TimeUnit unit)
   throws |java.lang.InterruptedException|
@@ -197,26 +223,30 @@ public |java.lang.Object| poll(
 
 
 
+
 *java.util.concurrent.ArrayBlockingQueue.put(E)*
 
-public void put(java.lang.Object o)
+public void put(E e)
   throws |java.lang.InterruptedException|
          
-Adds the specified element to the tail of this queue, waiting if necessary for 
-space to become available. 
+Inserts the specified element at the tail of this queue, waiting for space to 
+become available if the queue is full. 
 
-    o - the element to add 
+
 
 *java.util.concurrent.ArrayBlockingQueue.remainingCapacity()*
 
 public int remainingCapacity()
 
-Returns the number of elements that this queue can ideally (in the absence of 
-memory or resource constraints) accept without blocking. This is always equal 
-to the initial capacity of this queue less the current size of this queue. Note 
-that you cannot always tell if an attempt to add an element will succeed by 
-inspecting remainingCapacity because it may be the case that a waiting consumer 
-is ready to take an element out of an otherwise full queue. 
+Returns the number of additional elements that this queue can ideally (in the 
+absence of memory or resource constraints) accept without blocking. This is 
+always equal to the initial capacity of this queue less the current size of 
+this queue. 
+
+Note that you cannot always tell if an attempt to insert an element will 
+succeed by inspecting remainingCapacity because it may be the case that another 
+thread is about to insert or remove an element. 
+
 
 
 *java.util.concurrent.ArrayBlockingQueue.remove(Object)*
@@ -224,8 +254,15 @@ is ready to take an element out of an otherwise full queue.
 public boolean remove(java.lang.Object o)
 
 Removes a single instance of the specified element from this queue, if it is 
-present. 
+present. More formally, removes an element e such that o.equals(e), if this 
+queue contains one or more such elements. Returns true if this queue contained 
+the specified element (or equivalently, if this queue changed as a result of 
+the call). 
 
+
+    o - element to be removed from this queue, if present 
+
+    Returns: true if this queue changed as a result of the call 
 
 *java.util.concurrent.ArrayBlockingQueue.size()*
 
@@ -234,32 +271,74 @@ public int size()
 Returns the number of elements in this queue. 
 
 
-    Returns: the number of elements in this queue. 
+
+    Returns: the number of elements in this queue 
+
 *java.util.concurrent.ArrayBlockingQueue.take()*
 
-public |java.lang.Object| take()
+public |E| take()
   throws |java.lang.InterruptedException|
          
 
 
 
+
 *java.util.concurrent.ArrayBlockingQueue.toArray()*
 
-public |java.lang.Object| toArray()
+public |java.lang.Object|[] toArray()
+
+Returns an array containing all of the elements in this queue, in proper 
+sequence. 
+
+The returned array will be "safe" in that no references to it are maintained by 
+this queue. (In other words, this method must allocate a new array). The caller 
+is thus free to modify the returned array. 
+
+This method acts as bridge between array-based and collection-based APIs. 
 
 
 
+    Returns: an array containing all of the elements in this queue 
 
 *java.util.concurrent.ArrayBlockingQueue.toArray(T[])*
 
-public |java.lang.Object| toArray(java.lang.Object[] a)
+public |T|[] toArray(T[] a)
+
+Returns an array containing all of the elements in this queue, in proper 
+sequence; the runtime type of the returned array is that of the specified 
+array. If the queue fits in the specified array, it is returned therein. 
+Otherwise, a new array is allocated with the runtime type of the specified 
+array and the size of this queue. 
+
+If this queue fits in the specified array with room to spare (i.e., the array 
+has more elements than this queue), the element in the array immediately 
+following the end of the queue is set to null. 
+
+Like the (|java.util.concurrent.ArrayBlockingQueue|) method, this method acts 
+as bridge between array-based and collection-based APIs. Further, this method 
+allows precise control over the runtime type of the output array, and may, 
+under certain circumstances, be used to save allocation costs. 
+
+Suppose x is a queue known to contain only strings. The following code can be 
+used to dump the queue into a newly allocated array of String: 
 
 
 
+String[] y = x.toArray(new String[0]); 
+
+Note that toArray(new Object[0]) is identical in function to toArray(). 
+
+
+    a - the array into which the elements of the queue are to be stored, if it is big 
+       enough; otherwise, a new array of the same runtime type is allocated for 
+       this purpose 
+
+    Returns: an array containing all of the elements in this queue 
 
 *java.util.concurrent.ArrayBlockingQueue.toString()*
 
 public |java.lang.String| toString()
+
 
 
 

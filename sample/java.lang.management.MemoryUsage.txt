@@ -79,6 +79,7 @@ CompositeData(|javax.management.openmbean.CompositeData|) with attributes as
 specified in the from(|java.lang.management.MemoryUsage|) method. 
 
 
+
 *java.lang.management.MemoryUsage(long,long,long,long)*
 
 public MemoryUsage(
@@ -116,9 +117,11 @@ max java.lang.Long
 
 
 
+
     cd - CompositeData representing a MemoryUsage 
 
     Returns: a MemoryUsage object represented by cd if cd is not null; null otherwise. 
+
 *java.lang.management.MemoryUsage.getCommitted()*
 
 public long getCommitted()
@@ -128,7 +131,9 @@ machine to use. This amount of memory is guaranteed for the Java virtual
 machine to use. 
 
 
+
     Returns: the amount of committed memory in bytes. 
+
 *java.lang.management.MemoryUsage.getInit()*
 
 public long getInit()
@@ -138,7 +143,9 @@ requests from the operating system for memory management. This method returns
 -1 if the initial memory size is undefined. 
 
 
+
     Returns: the initial size of memory in bytes; -1 if undefined. 
+
 *java.lang.management.MemoryUsage.getMax()*
 
 public long getMax()
@@ -152,7 +159,9 @@ may fail to allocate memory even if the amount of used memory does not exceed
 this maximum size. 
 
 
+
     Returns: the maximum amount of memory in bytes; -1 if undefined. 
+
 *java.lang.management.MemoryUsage.getUsed()*
 
 public long getUsed()
@@ -160,12 +169,15 @@ public long getUsed()
 Returns the amount of used memory in bytes. 
 
 
+
     Returns: the amount of used memory in bytes. 
+
 *java.lang.management.MemoryUsage.toString()*
 
 public |java.lang.String| toString()
 
 Returns a descriptive representation of this memory usage. 
+
 
 
 

@@ -11,6 +11,8 @@ public interface interface ThreadMXBean
 ================================================================================
 
 *java.lang.management.ThreadMXBean_Methods*
+|java.lang.management.ThreadMXBean.dumpAllThreads(boolean,boolean)|Returns the 
+|java.lang.management.ThreadMXBean.findDeadlockedThreads()|Finds cycles of thre
 |java.lang.management.ThreadMXBean.findMonitorDeadlockedThreads()|Finds cycles 
 |java.lang.management.ThreadMXBean.getAllThreadIds()|Returns all live thread ID
 |java.lang.management.ThreadMXBean.getCurrentThreadCpuTime()|Returns the total 
@@ -21,11 +23,14 @@ public interface interface ThreadMXBean
 |java.lang.management.ThreadMXBean.getThreadCpuTime(long)|Returns the total CPU
 |java.lang.management.ThreadMXBean.getThreadInfo(long)|Returns the thread info 
 |java.lang.management.ThreadMXBean.getThreadInfo(long[])|Returns the thread inf
+|java.lang.management.ThreadMXBean.getThreadInfo(long[],boolean,boolean)|Return
 |java.lang.management.ThreadMXBean.getThreadInfo(long[],int)|Returns the thread
 |java.lang.management.ThreadMXBean.getThreadInfo(long,int)|Returns a thread inf
 |java.lang.management.ThreadMXBean.getThreadUserTime(long)|Returns the CPU time
 |java.lang.management.ThreadMXBean.getTotalStartedThreadCount()|Returns the tot
 |java.lang.management.ThreadMXBean.isCurrentThreadCpuTimeSupported()|Tests if t
+|java.lang.management.ThreadMXBean.isObjectMonitorUsageSupported()|Tests if the
+|java.lang.management.ThreadMXBean.isSynchronizerUsageSupported()|Tests if the 
 |java.lang.management.ThreadMXBean.isThreadContentionMonitoringEnabled()|Tests 
 |java.lang.management.ThreadMXBean.isThreadContentionMonitoringSupported()|Test
 |java.lang.management.ThreadMXBean.isThreadCpuTimeEnabled()|Tests if thread CPU
@@ -75,18 +80,74 @@ enable/disable this support respectively. Enabling thread CPU measurement could
 be expensive in some Java virtual machine implementations. 
 
 Thread Contention Monitoring Some Java virtual machines may support thread 
-contention monitoring. The (|java.lang.management.ThreadMXBean|) method can be 
-used to determine if a Java virtual machine supports thread contention 
-monitoring. 
+contention monitoring. When thread contention monitoring is enabled, the 
+accumulated elapsed time that the thread has blocked for synchronization or 
+waited for notification will be collected and returned in the ThreadInfo 
+object. 
 
-The thread contention monitoring is disabled by default. The 
+The (|java.lang.management.ThreadMXBean|) method can be used to determine if a 
+Java virtual machine supports thread contention monitoring. The thread 
+contention monitoring is disabled by default. The 
 (|java.lang.management.ThreadMXBean|) method can be used to enable thread 
 contention monitoring. 
 
+Synchronization Information and Deadlock Detection Some Java virtual machines 
+may support monitoring of object monitor 
+usage(|java.lang.management.ThreadMXBean|) and ownable synchronizer 
+usage(|java.lang.management.ThreadMXBean|) . The 
+(|java.lang.management.ThreadMXBean|) and (|java.lang.management.ThreadMXBean|) 
+methods can be used to obtain the thread stack trace and synchronization 
+information including which <i>lock</i>(|java.lang.management.LockInfo|) a 
+thread is blocked to acquire or waiting on and which locks the thread currently 
+owns. 
+
+The ThreadMXBean interface provides the (|java.lang.management.ThreadMXBean|) 
+and (|java.lang.management.ThreadMXBean|) methods to find deadlocks in the 
+running application. 
+
+
+
+*java.lang.management.ThreadMXBean.dumpAllThreads(boolean,boolean)*
+
+public |java.lang.management.ThreadInfo|[] dumpAllThreads(
+  boolean lockedMonitors,
+  boolean lockedSynchronizers)
+
+Returns the thread info for all live threads with stack trace and 
+synchronization information. Some threads included in the returned array may 
+have been terminated when this method returns. 
+
+This method returns an array of (|java.lang.management.ThreadInfo|) objects as 
+specified in the (|java.lang.management.ThreadMXBean|) method. 
+
+
+    lockedMonitors - if true, dump all locked monitors. 
+    lockedSynchronizers - if true, dump all locked ownable synchronizers. 
+
+    Returns: an array of {@link ThreadInfo} for all live threads. 
+
+*java.lang.management.ThreadMXBean.findDeadlockedThreads()*
+
+public long[] findDeadlockedThreads()
+
+Finds cycles of threads that are in deadlock waiting to acquire object monitors 
+or ownable synchronizers. 
+
+Threads are deadlocked in a cycle waiting for a lock of these two types if each 
+thread owns one lock while trying to acquire another lock already held by 
+another thread in the cycle. 
+
+This method is designed for troubleshooting use, but not for synchronization 
+control. It might be an expensive operation. 
+
+
+
+    Returns: an array of IDs of the threads that are deadlocked waiting for object monitors 
+             or ownable synchronizers, if any; null otherwise. 
 
 *java.lang.management.ThreadMXBean.findMonitorDeadlockedThreads()*
 
-public long findMonitorDeadlockedThreads()
+public long[] findMonitorDeadlockedThreads()
 
 Finds cycles of threads that are in deadlock waiting to acquire object 
 monitors. That is, threads that are blocked waiting to enter a synchronization 
@@ -102,24 +163,33 @@ blocked waiting for a monitor owned by thread A.
 This method is designed for troubleshooting use, but not for synchronization 
 control. It might be an expensive operation. 
 
+This method finds deadlocks involving only object monitors. To find deadlocks 
+involving both object monitors and ownable synchronizers, the 
+findDeadlockedThreads(|java.lang.management.ThreadMXBean|) method should be 
+used. 
+
+
 
     Returns: an array of IDs of the threads that are monitor deadlocked, if any; null 
              otherwise. 
+
 *java.lang.management.ThreadMXBean.getAllThreadIds()*
 
-public long getAllThreadIds()
+public long[] getAllThreadIds()
 
 Returns all live thread IDs. Some threads included in the returned array may 
 have been terminated when this method returns. 
 
 
+
     Returns: an array of long, each is a thread ID. 
+
 *java.lang.management.ThreadMXBean.getCurrentThreadCpuTime()*
 
 public long getCurrentThreadCpuTime()
 
 Returns the total CPU time for the current thread in nanoseconds. The returned 
-value is of nanoseconds precison but not necessarily nanoseconds accuracy. If 
+value is of nanoseconds precision but not necessarily nanoseconds accuracy. If 
 the implementation distinguishes between user mode time and system mode time, 
 the returned CPU time is the amount of time that the current thread has 
 executed in user mode or system mode. 
@@ -131,14 +201,16 @@ getThreadCpuTime(|java.lang.management.ThreadMXBean|)
 (Thread.currentThread().getId()); 
 
 
+
     Returns: the total CPU time for the current thread if CPU time measurement is enabled; 
              -1 otherwise. 
+
 *java.lang.management.ThreadMXBean.getCurrentThreadUserTime()*
 
 public long getCurrentThreadUserTime()
 
 Returns the CPU time that the current thread has executed in user mode in 
-nanoseconds. The returned value is of nanoseconds precison but not necessarily 
+nanoseconds. The returned value is of nanoseconds precision but not necessarily 
 nanoseconds accuracy. 
 
 This is a convenient method for local management use and is equivalent to 
@@ -148,8 +220,10 @@ getThreadUserTime(|java.lang.management.ThreadMXBean|)
 (Thread.currentThread().getId()); 
 
 
+
     Returns: the user-level CPU time for the current thread if CPU time measurement is 
              enabled; -1 otherwise. 
+
 *java.lang.management.ThreadMXBean.getDaemonThreadCount()*
 
 public int getDaemonThreadCount()
@@ -157,7 +231,9 @@ public int getDaemonThreadCount()
 Returns the current number of live daemon threads. 
 
 
+
     Returns: the current number of live daemon threads. 
+
 *java.lang.management.ThreadMXBean.getPeakThreadCount()*
 
 public int getPeakThreadCount()
@@ -166,7 +242,9 @@ Returns the peak live thread count since the Java virtual machine started or
 peak was reset. 
 
 
+
     Returns: the peak live thread count. 
+
 *java.lang.management.ThreadMXBean.getThreadCount()*
 
 public int getThreadCount()
@@ -175,7 +253,9 @@ Returns the current number of live threads including both daemon and non-daemon
 threads. 
 
 
+
     Returns: the current number of live threads. 
+
 *java.lang.management.ThreadMXBean.getThreadCpuTime(long)*
 
 public long getThreadCpuTime(long id)
@@ -194,11 +274,13 @@ If CPU time measurement is enabled after the thread has started, the Java
 virtual machine implementation may choose any time up to and including the time 
 that the capability is enabled as the point where CPU time measurement starts. 
 
+
     id - the thread ID of a thread 
 
     Returns: the total CPU time for a thread of the specified ID if the thread of the 
              specified ID exists, the thread is alive, and CPU time measurement 
              is enabled; -1 otherwise. 
+
 *java.lang.management.ThreadMXBean.getThreadInfo(long)*
 
 public |java.lang.management.ThreadInfo| getThreadInfo(long id)
@@ -208,55 +290,115 @@ This method is equivalent to calling: getThreadInfo(id,
 0);(|java.lang.management.ThreadMXBean|) 
 
 This method returns a ThreadInfo object representing the thread information for 
-the thread of the specified ID. The stack trace in the returned ThreadInfo 
-object will be an empty array of StackTraceElement. 
+the thread of the specified ID. The stack trace, locked monitors, and locked 
+synchronizers in the returned ThreadInfo object will be empty. 
 
 If a thread of the given ID is not alive or does not exist, this method will 
 return null. A thread is alive if it has been started and has not yet died. 
 
 MBeanServer access: The mapped type of ThreadInfo is CompositeData with 
-attributes as specified in ThreadInfo(|java.lang.management.ThreadInfo|) . 
+attributes as specified in the 
+ThreadInfo.from(|java.lang.management.ThreadInfo|) method. 
+
 
     id - the thread ID of the thread. Must be positive. 
 
-    Returns: a {@link ThreadInfo} object for the thread of the given ID with no stack trace; 
-             null if the thread of the given ID is not alive or it does not 
-             exist. 
+    Returns: a {@link ThreadInfo} object for the thread of the given ID with no stack trace, 
+             no locked monitor and no synchronizer info; null if the thread of 
+             the given ID is not alive or it does not exist. 
+
 *java.lang.management.ThreadMXBean.getThreadInfo(long[])*
 
-public |java.lang.management.ThreadInfo| getThreadInfo(long[] ids)
+public |java.lang.management.ThreadInfo|[] getThreadInfo(long[] ids)
 
 Returns the thread info for each thread whose ID is in the input array ids with 
 no stack trace. This method is equivalent to calling: 
 
 getThreadInfo(|java.lang.management.ThreadMXBean|) (ids, 0); 
 
-This method returns an array of the ThreadInfo objects. The stack trace in each 
-ThreadInfo object will be an empty array of StackTraceElement. 
+This method returns an array of the ThreadInfo objects. The stack trace, locked 
+monitors, and locked synchronizers in each ThreadInfo object will be empty. 
 
 If a thread of a given ID is not alive or does not exist, the corresponding 
 element in the returned array will contain null. A thread is alive if it has 
 been started and has not yet died. 
 
 MBeanServer access: The mapped type of ThreadInfo is CompositeData with 
-attributes as specified in ThreadInfo(|java.lang.management.ThreadInfo|) . 
+attributes as specified in the 
+ThreadInfo.from(|java.lang.management.ThreadInfo|) method. 
 
-    ids - an array of thread IDs 
+
+    ids - an array of thread IDs. 
+
+    Returns: an array of the {@link ThreadInfo} objects, each containing information about a 
+             thread whose ID is in the corresponding element of the input array 
+             of IDs with no stack trace, no locked monitor and no synchronizer 
+             info. 
+
+*java.lang.management.ThreadMXBean.getThreadInfo(long[],boolean,boolean)*
+
+public |java.lang.management.ThreadInfo|[] getThreadInfo(
+  long[] ids,
+  boolean lockedMonitors,
+  boolean lockedSynchronizers)
+
+Returns the thread info for each thread whose ID is in the input array ids, 
+with stack trace and synchronization information. 
+
+This method obtains a snapshot of the thread information for each thread 
+including: 
+
+the entire stack trace, the object monitors currently locked by the thread if 
+lockedMonitors is true, and the ownable synchronizers currently locked by the 
+thread if lockedSynchronizers is true. 
+
+This method returns an array of the ThreadInfo objects, each is the thread 
+information about the thread with the same index as in the ids array. If a 
+thread of the given ID is not alive or does not exist, null will be set in the 
+corresponding element in the returned array. A thread is alive if it has been 
+started and has not yet died. 
+
+If a thread does not lock any object monitor or lockedMonitors is false, the 
+returned ThreadInfo object will have an empty MonitorInfo array. Similarly, if 
+a thread does not lock any synchronizer or lockedSynchronizers is false, the 
+returned ThreadInfo object will have an empty LockInfo array. 
+
+When both lockedMonitors and lockedSynchronizers parameters are false, it is 
+equivalent to calling: 
+
+getThreadInfo(ids, Integer.MAX_VALUE)(|java.lang.management.ThreadMXBean|) 
+
+
+
+This method is designed for troubleshooting use, but not for synchronization 
+control. It might be an expensive operation. 
+
+MBeanServer access: The mapped type of ThreadInfo is CompositeData with 
+attributes as specified in the 
+ThreadInfo.from(|java.lang.management.ThreadInfo|) method. 
+
+
+    ids - an array of thread IDs. 
+    lockedMonitors - if true, retrieves all locked monitors. 
+    lockedSynchronizers - if true, retrieves all locked ownable synchronizers. 
 
     Returns: an array of the {@link ThreadInfo} objects, each containing information about a 
              thread whose ID is in the corresponding element of the input array 
              of IDs. 
+
 *java.lang.management.ThreadMXBean.getThreadInfo(long[],int)*
 
-public |java.lang.management.ThreadInfo| getThreadInfo(
+public |java.lang.management.ThreadInfo|[] getThreadInfo(
   long[] ids,
   int maxDepth)
 
-Returns the thread info for each thread whose ID is in the input array ids. The 
-maxDepth parameter indicates the maximum number of StackTraceElement to be 
+Returns the thread info for each thread whose ID is in the input array ids, 
+with stack trace of a specified number of stack trace elements. The maxDepth 
+parameter indicates the maximum number of (|java.lang.StackTraceElement|) to be 
 retrieved from the stack trace. If maxDepth == Integer.MAX_VALUE, the entire 
 stack trace of the thread will be dumped. If maxDepth == 0, no stack trace of 
-the thread will be dumped. 
+the thread will be dumped. This method does not obtain the locked monitors and 
+locked synchronizers of the threads. 
 
 When the Java virtual machine has no stack trace information about a thread or 
 maxDepth == 0, the stack trace in the ThreadInfo object will be an empty array 
@@ -269,7 +411,9 @@ corresponding element in the returned array. A thread is alive if it has been
 started and has not yet died. 
 
 MBeanServer access: The mapped type of ThreadInfo is CompositeData with 
-attributes as specified in ThreadInfo(|java.lang.management.ThreadInfo|) . 
+attributes as specified in the 
+ThreadInfo.from(|java.lang.management.ThreadInfo|) method. 
+
 
     ids - an array of thread IDs 
     maxDepth - the maximum number of entries in the stack trace to be dumped. 
@@ -278,18 +422,21 @@ attributes as specified in ThreadInfo(|java.lang.management.ThreadInfo|) .
 
     Returns: an array of the {@link ThreadInfo} objects, each containing information about a 
              thread whose ID is in the corresponding element of the input array 
-             of IDs. 
+             of IDs with no locked monitor and synchronizer info. 
+
 *java.lang.management.ThreadMXBean.getThreadInfo(long,int)*
 
 public |java.lang.management.ThreadInfo| getThreadInfo(
   long id,
   int maxDepth)
 
-Returns a thread info for a thread of the specified id. The maxDepth parameter 
-indicates the maximum number of StackTraceElement to be retrieved from the 
+Returns a thread info for a thread of the specified id, with stack trace of a 
+specified number of stack trace elements. The maxDepth parameter indicates the 
+maximum number of (|java.lang.StackTraceElement|) to be retrieved from the 
 stack trace. If maxDepth == Integer.MAX_VALUE, the entire stack trace of the 
 thread will be dumped. If maxDepth == 0, no stack trace of the thread will be 
-dumped. 
+dumped. This method does not obtain the locked monitors and locked 
+synchronizers of the thread. 
 
 When the Java virtual machine has no stack trace information about a thread or 
 maxDepth == 0, the stack trace in the ThreadInfo object will be an empty array 
@@ -299,15 +446,19 @@ If a thread of the given ID is not alive or does not exist, this method will
 return null. A thread is alive if it has been started and has not yet died. 
 
 MBeanServer access: The mapped type of ThreadInfo is CompositeData with 
-attributes as specified in ThreadInfo(|java.lang.management.ThreadInfo|) . 
+attributes as specified in the 
+ThreadInfo.from(|java.lang.management.ThreadInfo|) method. 
+
 
     id - the thread ID of the thread. Must be positive. 
     maxDepth - the maximum number of entries in the stack trace to be dumped. 
        Integer.MAX_VALUE could be used to request the entire stack to be 
        dumped. 
 
-    Returns: a {@link ThreadInfo} of the thread of the given ID. null if the thread of the 
-             given ID is not alive or it does not exist. 
+    Returns: a {@link ThreadInfo} of the thread of the given ID with no locked monitor and 
+             synchronizer info. null if the thread of the given ID is not alive 
+             or it does not exist. 
+
 *java.lang.management.ThreadMXBean.getThreadUserTime(long)*
 
 public long getThreadUserTime(long id)
@@ -324,11 +475,13 @@ If CPU time measurement is enabled after the thread has started, the Java
 virtual machine implementation may choose any time up to and including the time 
 that the capability is enabled as the point where CPU time measurement starts. 
 
+
     id - the thread ID of a thread 
 
     Returns: the user-level CPU time for a thread of the specified ID if the thread of the 
              specified ID exists, the thread is alive, and CPU time measurement 
              is enabled; -1 otherwise. 
+
 *java.lang.management.ThreadMXBean.getTotalStartedThreadCount()*
 
 public long getTotalStartedThreadCount()
@@ -337,7 +490,9 @@ Returns the total number of threads created and also started since the Java
 virtual machine started. 
 
 
+
     Returns: the total number of threads started. 
+
 *java.lang.management.ThreadMXBean.isCurrentThreadCpuTimeSupported()*
 
 public boolean isCurrentThreadCpuTimeSupported()
@@ -347,8 +502,34 @@ thread. This method returns true if (|java.lang.management.ThreadMXBean|)
 returns true. 
 
 
+
     Returns: true if the Java virtual machine supports CPU time measurement for current 
              thread; false otherwise. 
+
+*java.lang.management.ThreadMXBean.isObjectMonitorUsageSupported()*
+
+public boolean isObjectMonitorUsageSupported()
+
+Tests if the Java virtual machine supports monitoring of object monitor usage. 
+
+
+
+    Returns: true if the Java virtual machine supports monitoring of object monitor usage; 
+             false otherwise. 
+
+*java.lang.management.ThreadMXBean.isSynchronizerUsageSupported()*
+
+public boolean isSynchronizerUsageSupported()
+
+Tests if the Java virtual machine supports monitoring of 
+
+ownable synchronizer usage. 
+
+
+
+    Returns: true if the Java virtual machine supports monitoring of ownable synchronizer 
+             usage; false otherwise. 
+
 *java.lang.management.ThreadMXBean.isThreadContentionMonitoringEnabled()*
 
 public boolean isThreadContentionMonitoringEnabled()
@@ -356,7 +537,9 @@ public boolean isThreadContentionMonitoringEnabled()
 Tests if thread contention monitoring is enabled. 
 
 
+
     Returns: true if thread contention monitoring is enabled; false otherwise. 
+
 *java.lang.management.ThreadMXBean.isThreadContentionMonitoringSupported()*
 
 public boolean isThreadContentionMonitoringSupported()
@@ -364,8 +547,10 @@ public boolean isThreadContentionMonitoringSupported()
 Tests if the Java virtual machine supports thread contention monitoring. 
 
 
+
     Returns: true if the Java virtual machine supports thread contention monitoring; false 
              otherwise. 
+
 *java.lang.management.ThreadMXBean.isThreadCpuTimeEnabled()*
 
 public boolean isThreadCpuTimeEnabled()
@@ -373,7 +558,9 @@ public boolean isThreadCpuTimeEnabled()
 Tests if thread CPU time measurement is enabled. 
 
 
+
     Returns: true if thread CPU time measurement is enabled; false otherwise. 
+
 *java.lang.management.ThreadMXBean.isThreadCpuTimeSupported()*
 
 public boolean isThreadCpuTimeSupported()
@@ -384,13 +571,16 @@ measurement for any thread will also support CPU time measurement for the
 current thread. 
 
 
+
     Returns: true if the Java virtual machine supports CPU time measurement for any thread; 
              false otherwise. 
+
 *java.lang.management.ThreadMXBean.resetPeakThreadCount()*
 
 public void resetPeakThreadCount()
 
 Resets the peak thread count to the current number of live threads. 
+
 
 
 *java.lang.management.ThreadMXBean.setThreadContentionMonitoringEnabled(boolean)*
@@ -400,6 +590,7 @@ public void setThreadContentionMonitoringEnabled(boolean enable)
 Enables or disables thread contention monitoring. Thread contention monitoring 
 is disabled by default. 
 
+
     enable - true to enable; false to disable. 
 
 *java.lang.management.ThreadMXBean.setThreadCpuTimeEnabled(boolean)*
@@ -408,6 +599,7 @@ public void setThreadCpuTimeEnabled(boolean enable)
 
 Enables or disables thread CPU time measurement. The default is platform 
 dependent. 
+
 
     enable - true to enable; false to disable. 
 

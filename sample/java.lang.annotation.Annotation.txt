@@ -23,11 +23,13 @@ that manually extends this one does not define an annotation type. Also note
 that this interface does not itself define an annotation type. 
 
 
+
 *java.lang.annotation.Annotation.annotationType()*
 
-public |java.lang.Class| annotationType()
+public |java.lang.Class|<? extends java.lang.annotation.Annotation> annotationType()
 
 Returns the annotation type of this annotation. 
+
 
 
 *java.lang.annotation.Annotation.equals(Object)*
@@ -58,8 +60,10 @@ Two corresponding array typed members x and y are considered equal if
 Arrays.equals(x, y), for the appropriate overloading of (|java.util.Arrays|) . 
 
 
+
     Returns: true if the specified object represents an annotation that is logically 
              equivalent to this one, otherwise false 
+
 *java.lang.annotation.Annotation.hashCode()*
 
 public int hashCode()
@@ -91,7 +95,9 @@ overloading of Arrays.hashCode(|java.util.Arrays|) on the value. (There is one
 overloading for each primitive type, and one for object reference types.) 
 
 
+
     Returns: the hash code of this annotation 
+
 *java.lang.annotation.Annotation.toString()*
 
 public |java.lang.String| toString()
@@ -103,5 +109,7 @@ as typical:
 com.acme.util.Name(first=Alfred, middle=E., last=Neuman) 
 
 
+
     Returns: a string representation of this annotation 
+
 

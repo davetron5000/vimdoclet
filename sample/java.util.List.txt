@@ -1,6 +1,6 @@
 *java.util.List* *List* An ordered collection (also known as a sequence).
 
-public interface interface List
+public interface interface List<E>
 
   implements |java.util.Collection|
 
@@ -14,24 +14,24 @@ public interface interface List
 *java.util.List_Methods*
 |java.util.List.add(E)|Appends the specified element to the end of this list (o
 |java.util.List.add(int,E)|Inserts the specified element at the specified posit
-|java.util.List.addAll(Collection)|Appends all of the elements in the specified
-|java.util.List.addAll(int,Collection)|Inserts all of the elements in the speci
+|java.util.List.addAll(Collection<?extendsE>)|Appends all of the elements in th
+|java.util.List.addAll(int,Collection<?extendsE>)|Inserts all of the elements i
 |java.util.List.clear()|Removes all of the elements from this list (optional op
 |java.util.List.contains(Object)|Returns true if this list contains the specifi
-|java.util.List.containsAll(Collection)|Returns true if this list contains all 
+|java.util.List.containsAll(Collection<?>)|Returns true if this list contains a
 |java.util.List.equals(Object)|Compares the specified object with this list for
 |java.util.List.get(int)|Returns the element at the specified position in this 
 |java.util.List.hashCode()|Returns the hash code value for this list.
-|java.util.List.indexOf(Object)|Returns the index in this list of the first occ
+|java.util.List.indexOf(Object)|Returns the index of the first occurrence of th
 |java.util.List.isEmpty()|Returns true if this list contains no elements.
 |java.util.List.iterator()|Returns an iterator over the elements in this list i
-|java.util.List.lastIndexOf(Object)|Returns the index in this list of the last 
-|java.util.List.listIterator()|Returns a list iterator of the elements in this 
+|java.util.List.lastIndexOf(Object)|Returns the index of the last occurrence of
+|java.util.List.listIterator()|Returns a list iterator over the elements in thi
 |java.util.List.listIterator(int)|Returns a list iterator of the elements in th
 |java.util.List.remove(int)|Removes the element at the specified position in th
-|java.util.List.remove(Object)|Removes the first occurrence in this list of the
-|java.util.List.removeAll(Collection)|Removes from this list all the elements t
-|java.util.List.retainAll(Collection)|Retains only the elements in this list th
+|java.util.List.remove(Object)|Removes the first occurrence of the specified el
+|java.util.List.removeAll(Collection<?>)|Removes from this list all of its elem
+|java.util.List.retainAll(Collection<?>)|Retains only the elements in this list
 |java.util.List.set(int,E)|Replaces the element at the specified position in th
 |java.util.List.size()|Returns the number of elements in this list.
 |java.util.List.subList(int,int)|Returns a view of the portion of this list bet
@@ -79,7 +79,7 @@ multiple elements at an arbitrary point in the list.
 
 Note: While it is permissible for lists to contain themselves as elements, 
 extreme caution is advised: the equals and hashCode methods are no longer well 
-defined on a such a list. 
+defined on such a list. 
 
 Some list implementations have restrictions on the elements that they may 
 contain. For example, some implementations prohibit null elements, and some 
@@ -94,13 +94,14 @@ list may throw an exception or it may succeed, at the option of the
 implementation. Such exceptions are marked as "optional" in the specification 
 for this interface. 
 
-This interface is a member of the <a href="/../guide/collections/index.html"> 
-Java Collections Framework. 
+This interface is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
 
 
 *java.util.List.add(E)*
 
-public boolean add(java.lang.Object o)
+public boolean add(E e)
 
 Appends the specified element to the end of this list (optional operation). 
 
@@ -110,61 +111,69 @@ and others will impose restrictions on the type of elements that may be added.
 List classes should clearly specify in their documentation any restrictions on 
 what elements may be added. 
 
-    o - element to be appended to this list. 
 
-    Returns: true (as per the general contract of the Collection.add method). 
+    e - element to be appended to this list 
+
+    Returns: true (as specified by {@link Collection#add}) 
+
 *java.util.List.add(int,E)*
 
 public void add(
   int index,
-  java.lang.Object element)
+  E element)
 
 Inserts the specified element at the specified position in this list (optional 
 operation). Shifts the element currently at that position (if any) and any 
 subsequent elements to the right (adds one to their indices). 
 
-    index - index at which the specified element is to be inserted. 
-    element - element to be inserted. 
 
-*java.util.List.addAll(Collection)*
+    index - index at which the specified element is to be inserted 
+    element - element to be inserted 
 
-public boolean addAll(java.util.Collection c)
+*java.util.List.addAll(Collection<?extendsE>)*
+
+public boolean addAll(java.util.Collection<? extends E> c)
 
 Appends all of the elements in the specified collection to the end of this 
 list, in the order that they are returned by the specified collection's 
-iterator (optional operation). The behavior of this operation is unspecified if 
+iterator (optional operation). The behavior of this operation is undefined if 
 the specified collection is modified while the operation is in progress. (Note 
 that this will occur if the specified collection is this list, and it's 
 nonempty.) 
 
-    c - collection whose elements are to be added to this list. 
 
-    Returns: true if this list changed as a result of the call. 
-*java.util.List.addAll(int,Collection)*
+    c - collection containing elements to be added to this list 
+
+    Returns: true if this list changed as a result of the call 
+
+*java.util.List.addAll(int,Collection<?extendsE>)*
 
 public boolean addAll(
   int index,
-  java.util.Collection c)
+  java.util.Collection<? extends E> c)
 
 Inserts all of the elements in the specified collection into this list at the 
 specified position (optional operation). Shifts the element currently at that 
 position (if any) and any subsequent elements to the right (increases their 
 indices). The new elements will appear in this list in the order that they are 
 returned by the specified collection's iterator. The behavior of this operation 
-is unspecified if the specified collection is modified while the operation is 
-in progress. (Note that this will occur if the specified collection is this 
-list, and it's nonempty.) 
+is undefined if the specified collection is modified while the operation is in 
+progress. (Note that this will occur if the specified collection is this list, 
+and it's nonempty.) 
 
-    index - index at which to insert first element from the specified collection. 
-    c - elements to be inserted into this list. 
 
-    Returns: true if this list changed as a result of the call. 
+    index - index at which to insert the first element from the specified collection 
+    c - collection containing elements to be added to this list 
+
+    Returns: true if this list changed as a result of the call 
+
 *java.util.List.clear()*
 
 public void clear()
 
-Removes all of the elements from this list (optional operation). This list will 
-be empty after this call returns (unless it throws an exception). 
+Removes all of the elements from this list (optional operation). The list will 
+be empty after this call returns. 
+
 
 
 *java.util.List.contains(Object)*
@@ -175,19 +184,23 @@ Returns true if this list contains the specified element. More formally,
 returns true if and only if this list contains at least one element e such that 
 (o==null?e==null:o.equals(e)). 
 
-    o - element whose presence in this list is to be tested. 
 
-    Returns: true if this list contains the specified element. 
-*java.util.List.containsAll(Collection)*
+    o - element whose presence in this list is to be tested 
 
-public boolean containsAll(java.util.Collection c)
+    Returns: true if this list contains the specified element 
+
+*java.util.List.containsAll(Collection<?>)*
+
+public boolean containsAll(java.util.Collection<?> c)
 
 Returns true if this list contains all of the elements of the specified 
 collection. 
 
-    c - collection to be checked for containment in this list. 
 
-    Returns: true if this list contains all of the elements of the specified collection. 
+    c - collection to be checked for containment in this list 
+
+    Returns: true if this list contains all of the elements of the specified collection 
+
 *java.util.List.equals(Object)*
 
 public boolean equals(java.lang.Object o)
@@ -200,18 +213,22 @@ two lists are defined to be equal if they contain the same elements in the same
 order. This definition ensures that the equals method works properly across 
 different implementations of the List interface. 
 
-    o - the object to be compared for equality with this list. 
 
-    Returns: true if the specified object is equal to this list. 
+    o - the object to be compared for equality with this list 
+
+    Returns: true if the specified object is equal to this list 
+
 *java.util.List.get(int)*
 
-public |java.lang.Object| get(int index)
+public |E| get(int index)
 
 Returns the element at the specified position in this list. 
 
-    index - index of element to return. 
 
-    Returns: the element at the specified position in this list. 
+    index - index of the element to return 
+
+    Returns: the element at the specified position in this list 
+
 *java.util.List.hashCode()*
 
 public int hashCode()
@@ -219,28 +236,32 @@ public int hashCode()
 Returns the hash code value for this list. The hash code of a list is defined 
 to be the result of the following calculation: 
 
-hashCode = 1; Iterator i = list.iterator(); while (i.hasNext()) { Object obj = 
-i.next(); hashCode = 31*hashCode + (obj==null ? 0 : obj.hashCode()); } 
+int hashCode = 1; Iterator<E> i = list.iterator(); while (i.hasNext()) { E obj 
+= i.next(); hashCode = 31*hashCode + (obj==null ? 0 : obj.hashCode()); } 
 
 This ensures that list1.equals(list2) implies that 
 list1.hashCode()==list2.hashCode() for any two lists, list1 and list2, as 
-required by the general contract of Object.hashCode. 
+required by the general contract of (|java.lang.Object|) . 
 
 
-    Returns: the hash code value for this list. 
+
+    Returns: the hash code value for this list 
+
 *java.util.List.indexOf(Object)*
 
 public int indexOf(java.lang.Object o)
 
-Returns the index in this list of the first occurrence of the specified 
-element, or -1 if this list does not contain this element. More formally, 
-returns the lowest index i such that (o==null ? get(i)==null : 
-o.equals(get(i))), or -1 if there is no such index. 
+Returns the index of the first occurrence of the specified element in this 
+list, or -1 if this list does not contain the element. More formally, returns 
+the lowest index i such that (o==null?get(i)==null:o.equals(get(i))), or -1 if 
+there is no such index. 
 
-    o - element to search for. 
 
-    Returns: the index in this list of the first occurrence of the specified element, or -1 
-             if this list does not contain this element. 
+    o - element to search for 
+
+    Returns: the index of the first occurrence of the specified element in this list, or -1 
+             if this list does not contain the element 
+
 *java.util.List.isEmpty()*
 
 public boolean isEmpty()
@@ -248,108 +269,131 @@ public boolean isEmpty()
 Returns true if this list contains no elements. 
 
 
-    Returns: true if this list contains no elements. 
+
+    Returns: true if this list contains no elements 
+
 *java.util.List.iterator()*
 
-public |java.util.Iterator| iterator()
+public |java.util.Iterator|<E> iterator()
 
 Returns an iterator over the elements in this list in proper sequence. 
 
 
-    Returns: an iterator over the elements in this list in proper sequence. 
+
+    Returns: an iterator over the elements in this list in proper sequence 
+
 *java.util.List.lastIndexOf(Object)*
 
 public int lastIndexOf(java.lang.Object o)
 
-Returns the index in this list of the last occurrence of the specified element, 
-or -1 if this list does not contain this element. More formally, returns the 
-highest index i such that (o==null ? get(i)==null : o.equals(get(i))), or -1 if 
+Returns the index of the last occurrence of the specified element in this list, 
+or -1 if this list does not contain the element. More formally, returns the 
+highest index i such that (o==null?get(i)==null:o.equals(get(i))), or -1 if 
 there is no such index. 
 
-    o - element to search for. 
 
-    Returns: the index in this list of the last occurrence of the specified element, or -1 
-             if this list does not contain this element. 
+    o - element to search for 
+
+    Returns: the index of the last occurrence of the specified element in this list, or -1 
+             if this list does not contain the element 
+
 *java.util.List.listIterator()*
 
-public |java.util.ListIterator| listIterator()
+public |java.util.ListIterator|<E> listIterator()
 
-Returns a list iterator of the elements in this list (in proper sequence). 
+Returns a list iterator over the elements in this list (in proper sequence). 
 
 
-    Returns: a list iterator of the elements in this list (in proper sequence). 
+
+    Returns: a list iterator over the elements in this list (in proper sequence) 
+
 *java.util.List.listIterator(int)*
 
-public |java.util.ListIterator| listIterator(int index)
+public |java.util.ListIterator|<E> listIterator(int index)
 
 Returns a list iterator of the elements in this list (in proper sequence), 
 starting at the specified position in this list. The specified index indicates 
-the first element that would be returned by an initial call to the next method. 
-An initial call to the previous method would return the element with the 
-specified index minus one. 
+the first element that would be returned by an initial call to 
+next(|java.util.ListIterator|) . An initial call to 
+previous(|java.util.ListIterator|) would return the element with the specified 
+index minus one. 
+
 
     index - index of first element to be returned from the list iterator (by a call to the 
-       next method). 
+       next method) 
 
     Returns: a list iterator of the elements in this list (in proper sequence), starting at 
-             the specified position in this list. 
+             the specified position in this list 
+
 *java.util.List.remove(int)*
 
-public |java.lang.Object| remove(int index)
+public |E| remove(int index)
 
 Removes the element at the specified position in this list (optional 
 operation). Shifts any subsequent elements to the left (subtracts one from 
 their indices). Returns the element that was removed from the list. 
 
-    index - the index of the element to removed. 
 
-    Returns: the element previously at the specified position. 
+    index - the index of the element to be removed 
+
+    Returns: the element previously at the specified position 
+
 *java.util.List.remove(Object)*
 
 public boolean remove(java.lang.Object o)
 
-Removes the first occurrence in this list of the specified element (optional 
-operation). If this list does not contain the element, it is unchanged. More 
-formally, removes the element with the lowest index i such that (o==null ? 
-get(i)==null : o.equals(get(i))) (if such an element exists). 
+Removes the first occurrence of the specified element from this list, if it is 
+present (optional operation). If this list does not contain the element, it is 
+unchanged. More formally, removes the element with the lowest index i such that 
+(o==null?get(i)==null:o.equals(get(i))) (if such an element exists). Returns 
+true if this list contained the specified element (or equivalently, if this 
+list changed as a result of the call). 
 
-    o - element to be removed from this list, if present. 
 
-    Returns: true if this list contained the specified element. 
-*java.util.List.removeAll(Collection)*
+    o - element to be removed from this list, if present 
 
-public boolean removeAll(java.util.Collection c)
+    Returns: true if this list contained the specified element 
 
-Removes from this list all the elements that are contained in the specified 
+*java.util.List.removeAll(Collection<?>)*
+
+public boolean removeAll(java.util.Collection<?> c)
+
+Removes from this list all of its elements that are contained in the specified 
 collection (optional operation). 
 
-    c - collection that defines which elements will be removed from this list. 
 
-    Returns: true if this list changed as a result of the call. 
-*java.util.List.retainAll(Collection)*
+    c - collection containing elements to be removed from this list 
 
-public boolean retainAll(java.util.Collection c)
+    Returns: true if this list changed as a result of the call 
+
+*java.util.List.retainAll(Collection<?>)*
+
+public boolean retainAll(java.util.Collection<?> c)
 
 Retains only the elements in this list that are contained in the specified 
 collection (optional operation). In other words, removes from this list all the 
 elements that are not contained in the specified collection. 
 
-    c - collection that defines which elements this set will retain. 
 
-    Returns: true if this list changed as a result of the call. 
+    c - collection containing elements to be retained in this list 
+
+    Returns: true if this list changed as a result of the call 
+
 *java.util.List.set(int,E)*
 
-public |java.lang.Object| set(
+public |E| set(
   int index,
-  java.lang.Object element)
+  E element)
 
 Replaces the element at the specified position in this list with the specified 
 element (optional operation). 
 
-    index - index of element to replace. 
-    element - element to be stored at the specified position. 
 
-    Returns: the element previously at the specified position. 
+    index - index of the element to replace 
+    element - element to be stored at the specified position 
+
+    Returns: the element previously at the specified position 
+
 *java.util.List.size()*
 
 public int size()
@@ -358,10 +402,12 @@ Returns the number of elements in this list. If this list contains more than
 Integer.MAX_VALUE elements, returns Integer.MAX_VALUE. 
 
 
-    Returns: the number of elements in this list. 
+
+    Returns: the number of elements in this list 
+
 *java.util.List.subList(int,int)*
 
-public |java.util.List| subList(
+public |java.util.List|<E> subList(
   int fromIndex,
   int toIndex)
 
@@ -388,30 +434,65 @@ via the returned list. (Structural modifications are those that change the size
 of this list, or otherwise perturb it in such a fashion that iterations in 
 progress may yield incorrect results.) 
 
-    fromIndex - low endpoint (inclusive) of the subList. 
-    toIndex - high endpoint (exclusive) of the subList. 
 
-    Returns: a view of the specified range within this list. 
+    fromIndex - low endpoint (inclusive) of the subList 
+    toIndex - high endpoint (exclusive) of the subList 
+
+    Returns: a view of the specified range within this list 
+
 *java.util.List.toArray()*
 
-public |java.lang.Object| toArray()
+public |java.lang.Object|[] toArray()
 
-Returns an array containing all of the elements in this list in proper 
-sequence. Obeys the general contract of the Collection.toArray method. 
+Returns an array containing all of the elements in this list in proper sequence 
+(from first to last element). 
+
+The returned array will be "safe" in that no references to it are maintained by 
+this list. (In other words, this method must allocate a new array even if this 
+list is backed by an array). The caller is thus free to modify the returned 
+array. 
+
+This method acts as bridge between array-based and collection-based APIs. 
 
 
-    Returns: an array containing all of the elements in this list in proper sequence. 
+
+    Returns: an array containing all of the elements in this list in proper sequence 
+
 *java.util.List.toArray(T[])*
 
-public |java.lang.Object| toArray(java.lang.Object[] a)
+public |T|[] toArray(T[] a)
 
-Returns an array containing all of the elements in this list in proper 
-sequence; the runtime type of the returned array is that of the specified 
-array. Obeys the general contract of the Collection.toArray(Object[]) method. 
+Returns an array containing all of the elements in this list in proper sequence 
+(from first to last element); the runtime type of the returned array is that of 
+the specified array. If the list fits in the specified array, it is returned 
+therein. Otherwise, a new array is allocated with the runtime type of the 
+specified array and the size of this list. 
+
+If the list fits in the specified array with room to spare (i.e., the array has 
+more elements than the list), the element in the array immediately following 
+the end of the list is set to null. (This is useful in determining the length 
+of the list only if the caller knows that the list does not contain any null 
+elements.) 
+
+Like the (|java.util.List|) method, this method acts as bridge between 
+array-based and collection-based APIs. Further, this method allows precise 
+control over the runtime type of the output array, and may, under certain 
+circumstances, be used to save allocation costs. 
+
+Suppose x is a list known to contain only strings. The following code can be 
+used to dump the list into a newly allocated array of String: 
+
+
+
+String[] y = x.toArray(new String[0]); 
+
+Note that toArray(new Object[0]) is identical in function to toArray(). 
+
 
     a - the array into which the elements of this list are to be stored, if it is big 
        enough; otherwise, a new array of the same runtime type is allocated for 
        this purpose. 
 
-    Returns: an array containing the elements of this list. 
+    Returns: an array containing the elements of this list 
+
 

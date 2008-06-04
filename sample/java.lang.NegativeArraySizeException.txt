@@ -19,6 +19,7 @@ public class NegativeArraySizeException
 Thrown if an application tries to create an array with negative size. 
 
 
+
 *java.lang.NegativeArraySizeException()*
 
 public NegativeArraySizeException()

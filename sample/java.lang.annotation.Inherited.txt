@@ -1,6 +1,6 @@
 *java.lang.annotation.Inherited* *Inherited* Indicates that an annotation type i
 
-public interface interface Inherited
+public interface class Inherited
 
   implements |java.lang.annotation.Annotation|
 
@@ -26,5 +26,6 @@ Note that this meta-annotation type has no effect if the annotated type is used
 to annotate anything other than a class. Note also that this meta-annotation 
 only causes annotations to be inherited from superclasses; annotations on 
 implemented interfaces have no effect. 
+
 
 

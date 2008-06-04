@@ -33,9 +33,10 @@ method that equates any two instances that share the same generic type
 declaration and have equal type parameters. 
 
 
+
 *java.lang.reflect.ParameterizedType.getActualTypeArguments()*
 
-public |java.lang.reflect.Type| getActualTypeArguments()
+public |java.lang.reflect.Type|[] getActualTypeArguments()
 
 Returns an array of Type objects representing the actual type arguments to this 
 type. 
@@ -44,7 +45,9 @@ Note that in some cases, the returned array be empty. This can occur if this
 type represents a non-parameterized type nested within a parameterized type. 
 
 
+
     Returns: an array of Type objects representing the actual type arguments to this type 
+
 *java.lang.reflect.ParameterizedType.getOwnerType()*
 
 public |java.lang.reflect.Type| getOwnerType()
@@ -55,8 +58,10 @@ example, if this type isO.I, return a representation ofO.
 If this type is a top-level type, null is returned. 
 
 
+
     Returns: a Type object representing the type that this type is a member of. If this type 
              is a top-level type, null is returned 
+
 *java.lang.reflect.ParameterizedType.getRawType()*
 
 public |java.lang.reflect.Type| getRawType()
@@ -65,5 +70,7 @@ Returns the Type object representing the class or interface that declared this
 type. 
 
 
+
     Returns: the Type object representing the class or interface that declared this type 
+
 

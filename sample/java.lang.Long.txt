@@ -16,7 +16,7 @@ public final class Long
 |long_java.lang.Long.MAX_VALUE|
 |long_java.lang.Long.MIN_VALUE|
 |int_java.lang.Long.SIZE|
-|java.lang.Class_java.lang.Long.TYPE|
+|java.lang.Class<java.lang.Long>_java.lang.Long.TYPE|
 
 *java.lang.Long_Constructors*
 |java.lang.Long(long)|Constructs a newly allocated Long object that  represents
@@ -34,10 +34,10 @@ public final class Long
 |java.lang.Long.getLong(String,long)|Determines the long value of the system pr
 |java.lang.Long.getLong(String,Long)|Returns the long value of the system prope
 |java.lang.Long.hashCode()|Returns a hash code for this Long.
-|java.lang.Long.highestOneBit(long)|Returns an long value with at most a single
+|java.lang.Long.highestOneBit(long)|Returns a long value with at most a single 
 |java.lang.Long.intValue()|Returns the value of this Long as an  int.
 |java.lang.Long.longValue()|Returns the value of this Long as a  long value.
-|java.lang.Long.lowestOneBit(long)|Returns an long value with at most a single 
+|java.lang.Long.lowestOneBit(long)|Returns a long value with at most a single o
 |java.lang.Long.numberOfLeadingZeros(long)|Returns the number of zero bits prec
 |java.lang.Long.numberOfTrailingZeros(long)|Returns the number of zero bits fol
 |java.lang.Long.parseLong(String)|Parses the string argument as a signed decima
@@ -75,72 +75,26 @@ as highestOneBit(|java.lang.Long|) and numberOfTrailingZeros(|java.lang.Long|)
 Wesley, 2002). 
 
 
+
 *long_java.lang.Long.MAX_VALUE*
 
-The Long class wraps a value of the primitive type long in an object. An object 
-of type Long contains a single field whose type is long. 
-
-
-
-In addition, this class provides several methods for converting a long to a 
-String and a String to a long, as well as other constants and methods useful 
-when dealing with a long. 
-
-Implementation note: The implementations of the "bit twiddling" methods (such 
-as highestOneBit(|java.lang.Long|) and numberOfTrailingZeros(|java.lang.Long|) 
-) are based on material from Henry S. Warren, Jr.'s Hacker's Delight, (Addison 
-Wesley, 2002). 
+A constant holding the maximum value a long can have, 263-1. 
 
 
 *long_java.lang.Long.MIN_VALUE*
 
-The Long class wraps a value of the primitive type long in an object. An object 
-of type Long contains a single field whose type is long. 
-
-
-
-In addition, this class provides several methods for converting a long to a 
-String and a String to a long, as well as other constants and methods useful 
-when dealing with a long. 
-
-Implementation note: The implementations of the "bit twiddling" methods (such 
-as highestOneBit(|java.lang.Long|) and numberOfTrailingZeros(|java.lang.Long|) 
-) are based on material from Henry S. Warren, Jr.'s Hacker's Delight, (Addison 
-Wesley, 2002). 
+A constant holding the minimum value a long can have, -263. 
 
 
 *int_java.lang.Long.SIZE*
 
-The Long class wraps a value of the primitive type long in an object. An object 
-of type Long contains a single field whose type is long. 
+The number of bits used to represent a long value in two's complement binary 
+form. 
 
 
+*java.lang.Class<java.lang.Long>_java.lang.Long.TYPE*
 
-In addition, this class provides several methods for converting a long to a 
-String and a String to a long, as well as other constants and methods useful 
-when dealing with a long. 
-
-Implementation note: The implementations of the "bit twiddling" methods (such 
-as highestOneBit(|java.lang.Long|) and numberOfTrailingZeros(|java.lang.Long|) 
-) are based on material from Henry S. Warren, Jr.'s Hacker's Delight, (Addison 
-Wesley, 2002). 
-
-
-*java.lang.Class_java.lang.Long.TYPE*
-
-The Long class wraps a value of the primitive type long in an object. An object 
-of type Long contains a single field whose type is long. 
-
-
-
-In addition, this class provides several methods for converting a long to a 
-String and a String to a long, as well as other constants and methods useful 
-when dealing with a long. 
-
-Implementation note: The implementations of the "bit twiddling" methods (such 
-as highestOneBit(|java.lang.Long|) and numberOfTrailingZeros(|java.lang.Long|) 
-) are based on material from Henry S. Warren, Jr.'s Hacker's Delight, (Addison 
-Wesley, 2002). 
+The Class instance representing the primitive type long. 
 
 
 
@@ -173,13 +127,16 @@ the specified long value. This function is sometimes referred to as the
 population count. 
 
 
+
     Returns: the number of one-bits in the two's complement binary representation of the 
              specified long value. 
+
 *java.lang.Long.byteValue()*
 
 public byte byteValue()
 
 Returns the value of this Long as a byte. 
+
 
 
 *java.lang.Long.compareTo(Long)*
@@ -188,12 +145,14 @@ public int compareTo(java.lang.Long anotherLong)
 
 Compares two Long objects numerically. 
 
+
     anotherLong - the Long to be compared. 
 
     Returns: the value 0 if this Long is equal to the argument Long; a value less than 0 if 
              this Long is numerically less than the argument Long; and a value 
              greater than 0 if this Long is numerically greater than the 
              argument Long (signed comparison). 
+
 *java.lang.Long.decode(String)*
 
 public static |java.lang.Long| decode(java.lang.String nm)
@@ -221,14 +180,17 @@ must represent a positive value or a (|java.lang.NumberFormatException|) will
 be thrown. The result is negated if first character of the specified String is 
 the minus sign. No whitespace characters are permitted in the String. 
 
+
     nm - the String to decode. 
 
     Returns: a Long object holding the long value represented by nm 
+
 *java.lang.Long.doubleValue()*
 
 public double doubleValue()
 
 Returns the value of this Long as a double. 
+
 
 
 *java.lang.Long.equals(Object)*
@@ -239,14 +201,17 @@ Compares this object to the specified object. The result is true if and only if
 the argument is not null and is a Long object that contains the same long value 
 as this object. 
 
+
     obj - the object to compare with. 
 
     Returns: true if the objects are the same; false otherwise. 
+
 *java.lang.Long.floatValue()*
 
 public float floatValue()
 
 Returns the value of this Long as a float. 
+
 
 
 *java.lang.Long.getLong(String)*
@@ -269,9 +234,11 @@ In other words, this method returns a Long object equal to the value of:
 
 getLong(nm, null) 
 
+
     nm - property name. 
 
     Returns: the Long value of the property. 
+
 *java.lang.Long.getLong(String,long)*
 
 public static |java.lang.Long| getLong(
@@ -303,10 +270,12 @@ result;
 to avoid the unnecessary allocation of a Long object when the default value is 
 not needed. 
 
+
     nm - property name. 
     val - default value. 
 
     Returns: the Long value of the property. 
+
 *java.lang.Long.getLong(String,Long)*
 
 public static |java.lang.Long| getLong(
@@ -335,10 +304,12 @@ The second argument is the default value. The default value is returned if
 there is no property of the specified name, if the property does not have the 
 correct numeric format, or if the specified name is empty or null. 
 
+
     nm - property name. 
     val - default value. 
 
     Returns: the Long value of the property. 
+
 *java.lang.Long.hashCode()*
 
 public int hashCode()
@@ -350,25 +321,30 @@ hashcode is the value of the expression:
 (int)(this.longValue()^(this.longValue()>>>32)) 
 
 
+
     Returns: a hash code value for this object. 
+
 *java.lang.Long.highestOneBit(long)*
 
 public static long highestOneBit(long i)
 
-Returns an long value with at most a single one-bit, in the position of the 
+Returns a long value with at most a single one-bit, in the position of the 
 highest-order ("leftmost") one-bit in the specified long value. Returns zero if 
 the specified value has no one-bits in its two's complement binary 
 representation, that is, if it is equal to zero. 
 
 
-    Returns: an long value with a single one-bit, in the position of the highest-order 
+
+    Returns: a long value with a single one-bit, in the position of the highest-order 
              one-bit in the specified value, or zero if the specified value is 
              itself equal to zero. 
+
 *java.lang.Long.intValue()*
 
 public int intValue()
 
 Returns the value of this Long as an int. 
+
 
 
 *java.lang.Long.longValue()*
@@ -378,19 +354,22 @@ public long longValue()
 Returns the value of this Long as a long value. 
 
 
+
 *java.lang.Long.lowestOneBit(long)*
 
 public static long lowestOneBit(long i)
 
-Returns an long value with at most a single one-bit, in the position of the 
+Returns a long value with at most a single one-bit, in the position of the 
 lowest-order ("rightmost") one-bit in the specified long value. Returns zero if 
 the specified value has no one-bits in its two's complement binary 
 representation, that is, if it is equal to zero. 
 
 
-    Returns: an long value with a single one-bit, in the position of the lowest-order 
-             one-bit in the specified value, or zero if the specified value is 
-             itself equal to zero. 
+
+    Returns: a long value with a single one-bit, in the position of the lowest-order one-bit 
+             in the specified value, or zero if the specified value is itself 
+             equal to zero. 
+
 *java.lang.Long.numberOfLeadingZeros(long)*
 
 public static int numberOfLeadingZeros(long i)
@@ -407,9 +386,11 @@ floor(log2(x)) = 63 - numberOfLeadingZeros(x) ceil(log2(x)) = 64 -
 numberOfLeadingZeros(x - 1) 
 
 
+
     Returns: the number of zero bits preceding the highest-order ("leftmost") one-bit in the 
              two's complement binary representation of the specified long 
              value, or 64 if the value is equal to zero. 
+
 *java.lang.Long.numberOfTrailingZeros(long)*
 
 public static int numberOfTrailingZeros(long i)
@@ -420,9 +401,11 @@ value. Returns 64 if the specified value has no one-bits in its two's
 complement representation, in other words if it is equal to zero. 
 
 
+
     Returns: the number of zero bits following the lowest-order ("rightmost") one-bit in the 
              two's complement binary representation of the specified long 
              value, or 64 if the value is equal to zero. 
+
 *java.lang.Long.parseLong(String)*
 
 public static long parseLong(java.lang.String s)
@@ -438,9 +421,11 @@ Note that neither the character L ('u004C') nor l ('u006C') is permitted to
 appear at the end of the string as a type indicator, as would be permitted in 
 Java programming language source code. 
 
+
     s - a String containing the long representation to be parsed 
 
     Returns: the long represented by the argument in decimal. 
+
 *java.lang.Long.parseLong(String,int)*
 
 public static long parseLong(
@@ -478,10 +463,12 @@ returns 102L parseLong("99", 8) throws a NumberFormatException
 parseLong("Hazelnut", 10) throws a NumberFormatException parseLong("Hazelnut", 
 36) returns 1356099454469L 
 
+
     s - the String containing the long representation to be parsed. 
     radix - the radix to be used while parsing s. 
 
     Returns: the long represented by the string argument in the specified radix. 
+
 *java.lang.Long.reverse(long)*
 
 public static long reverse(long i)
@@ -490,7 +477,9 @@ Returns the value obtained by reversing the order of the bits in the two's
 complement binary representation of the specified long value. 
 
 
+
     Returns: the value obtained by reversing order of the bits in the specified long value. 
+
 *java.lang.Long.reverseBytes(long)*
 
 public static long reverseBytes(long i)
@@ -499,7 +488,9 @@ Returns the value obtained by reversing the order of the bytes in the two's
 complement representation of the specified long value. 
 
 
+
     Returns: the value obtained by reversing the bytes in the specified long value. 
+
 *java.lang.Long.rotateLeft(long,int)*
 
 public static long rotateLeft(
@@ -518,8 +509,10 @@ the rotation distance can be ignored, even if the distance is negative:
 rotateLeft(val, distance) == rotateLeft(val, distance & 0x3F). 
 
 
+
     Returns: the value obtained by rotating the two's complement binary representation of 
              the specified long value left by the specified number of bits. 
+
 *java.lang.Long.rotateRight(long,int)*
 
 public static long rotateRight(
@@ -538,13 +531,16 @@ the rotation distance can be ignored, even if the distance is negative:
 rotateRight(val, distance) == rotateRight(val, distance & 0x3F). 
 
 
+
     Returns: the value obtained by rotating the two's complement binary representation of 
              the specified long value right by the specified number of bits. 
+
 *java.lang.Long.shortValue()*
 
 public short shortValue()
 
 Returns the value of this Long as a short. 
+
 
 
 *java.lang.Long.signum(long)*
@@ -556,7 +552,9 @@ Returns the signum function of the specified long value. (The return value is
 if the specified value is positive.) 
 
 
+
     Returns: the signum function of the specified long value. 
+
 *java.lang.Long.toBinaryString(long)*
 
 public static |java.lang.String| toBinaryString(long i)
@@ -572,10 +570,12 @@ otherwise, the first character of the representation of the unsigned magnitude
 will not be the zero character. The characters '0' ('u0030') and '1' ('u0031') 
 are used as binary digits. 
 
+
     i - a long to be converted to a string. 
 
     Returns: the string representation of the unsigned long value represented by the 
              argument in binary (base2). 
+
 *java.lang.Long.toHexString(long)*
 
 public static |java.lang.String| toHexString(long i)
@@ -599,10 +599,12 @@ on the result:
 
 Long.toHexString(n).toUpperCase() 
 
+
     i - a long to be converted to a string. 
 
     Returns: the string representation of the unsigned long value represented by the 
              argument in hexadecimal (base16). 
+
 *java.lang.Long.toOctalString(long)*
 
 public static |java.lang.String| toOctalString(long i)
@@ -623,10 +625,12 @@ used as octal digits:
 
 These are the characters 'u0030' through 'u0037'. 
 
+
     i - a long to be converted to a string. 
 
     Returns: the string representation of the unsigned long value represented by the 
              argument in octal (base8). 
+
 *java.lang.Long.toString()*
 
 public |java.lang.String| toString()
@@ -636,7 +640,9 @@ to signed decimal representation and returned as a string, exactly as if the
 long value were given as an argument to the (|java.lang.Long|) method. 
 
 
+
     Returns: a string representation of the value of this object in base10. 
+
 *java.lang.Long.toString(long)*
 
 public static |java.lang.String| toString(long i)
@@ -646,9 +652,11 @@ converted to signed decimal representation and returned as a string, exactly as
 if the argument and the radix 10 were given as arguments to the 
 (|java.lang.Long|) method. 
 
+
     i - a long to be converted. 
 
     Returns: a string representation of the argument in base10. 
+
 *java.lang.Long.toString(long,int)*
 
 public static |java.lang.String| toString(
@@ -681,10 +689,12 @@ the result:
 
 Long.toString(n, 16).toUpperCase() 
 
+
     i - a longto be converted to a string. 
     radix - the radix to use in the string representation. 
 
     Returns: a string representation of the argument in the specified radix. 
+
 *java.lang.Long.valueOf(long)*
 
 public static |java.lang.Long| valueOf(long l)
@@ -695,9 +705,11 @@ the constructor (|java.lang.Long|) , as this method is likely to yield
 significantly better space and time performance by caching frequently requested 
 values. 
 
+
     l - a long value. 
 
     Returns: a Long instance representing l. 
+
 *java.lang.Long.valueOf(String)*
 
 public static |java.lang.Long| valueOf(java.lang.String s)
@@ -714,9 +726,11 @@ In other words, this method returns a Long object equal to the value of:
 
 new Long(Long.parseLong(s)) 
 
+
     s - the string to be parsed. 
 
     Returns: a Long object holding the value represented by the string argument. 
+
 *java.lang.Long.valueOf(String,int)*
 
 public static |java.lang.Long| valueOf(
@@ -735,9 +749,11 @@ In other words, this method returns a Long object equal to the value of:
 
 new Long(Long.parseLong(s, radix)) 
 
+
     s - the string to be parsed 
     radix - the radix to be used in interpreting s 
 
     Returns: a Long object holding the value represented by the string argument in the 
              specified radix. 
+
 

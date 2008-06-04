@@ -16,7 +16,7 @@ public final class Byte
 |byte_java.lang.Byte.MAX_VALUE|
 |byte_java.lang.Byte.MIN_VALUE|
 |int_java.lang.Byte.SIZE|
-|java.lang.Class_java.lang.Byte.TYPE|
+|java.lang.Class<java.lang.Byte>_java.lang.Byte.TYPE|
 
 *java.lang.Byte_Constructors*
 |java.lang.Byte(byte)|Constructs a newly allocated Byte object that  represents
@@ -53,52 +53,26 @@ String and a String to a byte, as well as other constants and methods useful
 when dealing with a byte. 
 
 
+
 *byte_java.lang.Byte.MAX_VALUE*
 
-The Byte class wraps a value of primitive type byte in an object. An object of 
-type Byte contains a single field whose type is byte. 
-
-
-
-In addition, this class provides several methods for converting a byte to a 
-String and a String to a byte, as well as other constants and methods useful 
-when dealing with a byte. 
+A constant holding the maximum value a byte can have, 27-1. 
 
 
 *byte_java.lang.Byte.MIN_VALUE*
 
-The Byte class wraps a value of primitive type byte in an object. An object of 
-type Byte contains a single field whose type is byte. 
-
-
-
-In addition, this class provides several methods for converting a byte to a 
-String and a String to a byte, as well as other constants and methods useful 
-when dealing with a byte. 
+A constant holding the minimum value a byte can have, -27. 
 
 
 *int_java.lang.Byte.SIZE*
 
-The Byte class wraps a value of primitive type byte in an object. An object of 
-type Byte contains a single field whose type is byte. 
+The number of bits used to represent a byte value in two's complement binary 
+form. 
 
 
+*java.lang.Class<java.lang.Byte>_java.lang.Byte.TYPE*
 
-In addition, this class provides several methods for converting a byte to a 
-String and a String to a byte, as well as other constants and methods useful 
-when dealing with a byte. 
-
-
-*java.lang.Class_java.lang.Byte.TYPE*
-
-The Byte class wraps a value of primitive type byte in an object. An object of 
-type Byte contains a single field whose type is byte. 
-
-
-
-In addition, this class provides several methods for converting a byte to a 
-String and a String to a byte, as well as other constants and methods useful 
-when dealing with a byte. 
+The Class instance representing the primitive type byte. 
 
 
 
@@ -129,11 +103,13 @@ public byte byteValue()
 Returns the value of this Byte as a byte. 
 
 
+
 *java.lang.Byte.compareTo(Byte)*
 
 public int compareTo(java.lang.Byte anotherByte)
 
 Compares two Byte objects numerically. 
+
 
     anotherByte - the Byte to be compared. 
 
@@ -141,6 +117,7 @@ Compares two Byte objects numerically.
              this Byte is numerically less than the argument Byte; and a value 
              greater than 0 if this Byte is numerically greater than the 
              argument Byte (signed comparison). 
+
 *java.lang.Byte.decode(String)*
 
 public static |java.lang.Byte| decode(java.lang.String nm)
@@ -168,14 +145,17 @@ must represent a positive value or a (|java.lang.NumberFormatException|) will
 be thrown. The result is negated if first character of the specified String is 
 the minus sign. No whitespace characters are permitted in the String. 
 
+
     nm - the String to decode. 
 
     Returns: a Byte object holding the byte value represented by nm 
+
 *java.lang.Byte.doubleValue()*
 
 public double doubleValue()
 
 Returns the value of this Byte as a double. 
+
 
 
 *java.lang.Byte.equals(Object)*
@@ -186,14 +166,17 @@ Compares this object to the specified object. The result is true if and only if
 the argument is not null and is a Byte object that contains the same byte value 
 as this object. 
 
+
     obj - the object to compare with 
 
     Returns: true if the objects are the same; false otherwise. 
+
 *java.lang.Byte.floatValue()*
 
 public float floatValue()
 
 Returns the value of this Byte as a float. 
+
 
 
 *java.lang.Byte.hashCode()*
@@ -203,6 +186,7 @@ public int hashCode()
 Returns a hash code for this Byte. 
 
 
+
 *java.lang.Byte.intValue()*
 
 public int intValue()
@@ -210,11 +194,13 @@ public int intValue()
 Returns the value of this Byte as an int. 
 
 
+
 *java.lang.Byte.longValue()*
 
 public long longValue()
 
 Returns the value of this Byte as a long. 
+
 
 
 *java.lang.Byte.parseByte(String)*
@@ -228,9 +214,11 @@ ASCII minus sign '-' ('u002D') to indicate a negative value. The resulting byte
 value is returned, exactly as if the argument and the radix 10 were given as 
 arguments to the (|java.lang.Byte|) method. 
 
+
     s - a String containing the byte representation to be parsed 
 
     Returns: the byte value represented by the argument in decimal 
+
 *java.lang.Byte.parseByte(String,int)*
 
 public static byte parseByte(
@@ -259,15 +247,18 @@ is longer than length 1.
 
 The value represented by the string is not a value of type byte. 
 
+
     s - the String containing the byte representation to be parsed 
     radix - the radix to be used while parsing s 
 
     Returns: the byte value represented by the string argument in the specified radix 
+
 *java.lang.Byte.shortValue()*
 
 public short shortValue()
 
 Returns the value of this Byte as a short. 
+
 
 
 *java.lang.Byte.toString()*
@@ -279,7 +270,9 @@ to signed decimal representation and returned as a string, exactly as if the
 byte value were given as an argument to the (|java.lang.Byte|) method. 
 
 
+
     Returns: a string representation of the value of this object in base10. 
+
 *java.lang.Byte.toString(byte)*
 
 public static |java.lang.String| toString(byte b)
@@ -287,9 +280,11 @@ public static |java.lang.String| toString(byte b)
 Returns a new String object representing the specified byte. The radix is 
 assumed to be 10. 
 
+
     b - the byte to be converted 
 
     Returns: the string representation of the specified byte 
+
 *java.lang.Byte.valueOf(byte)*
 
 public static |java.lang.Byte| valueOf(byte b)
@@ -300,9 +295,11 @@ the constructor (|java.lang.Byte|) , as this method is likely to yield
 significantly better space and time performance by caching frequently requested 
 values. 
 
+
     b - a byte value. 
 
     Returns: a Byte instance representing b. 
+
 *java.lang.Byte.valueOf(String)*
 
 public static |java.lang.Byte| valueOf(java.lang.String s)
@@ -316,9 +313,11 @@ this method returns a Byte object equal to the value of:
 
 new Byte(Byte.parseByte(s)) 
 
+
     s - the string to be parsed 
 
     Returns: a Byte object holding the value represented by the string argument 
+
 *java.lang.Byte.valueOf(String,int)*
 
 public static |java.lang.Byte| valueOf(
@@ -336,9 +335,11 @@ value of:
 
 new Byte(Byte.parseByte(s, radix)) 
 
+
     s - the string to be parsed 
     radix - the radix to be used in interpreting s 
 
     Returns: a Byte object holding the value represented by the string argument in the 
              specified radix. 
+
 

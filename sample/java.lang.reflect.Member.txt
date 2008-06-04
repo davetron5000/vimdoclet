@@ -26,28 +26,31 @@ Member is an interface that reflects identifying information about a single
 member (a field or a method) or a constructor. 
 
 
+
 *int_java.lang.reflect.Member.DECLARED*
 
-Member is an interface that reflects identifying information about a single 
-member (a field or a method) or a constructor. 
+Identifies the set of declared members of a class or interface. Inherited 
+members are not included. 
 
 
 *int_java.lang.reflect.Member.PUBLIC*
 
-Member is an interface that reflects identifying information about a single 
-member (a field or a method) or a constructor. 
+Identifies the set of all public members of a class or interface, including 
+inherited members. 
 
 
 
 *java.lang.reflect.Member.getDeclaringClass()*
 
-public |java.lang.Class| getDeclaringClass()
+public |java.lang.Class|<?> getDeclaringClass()
 
 Returns the Class object representing the class or interface that declares the 
 member or constructor represented by this Member. 
 
 
+
     Returns: an object representing the declaring class of the underlying member 
+
 *java.lang.reflect.Member.getModifiers()*
 
 public int getModifiers()
@@ -57,7 +60,9 @@ by this Member, as an integer. The Modifier class should be used to decode the
 modifiers in the integer. 
 
 
+
     Returns: the Java language modifiers for the underlying member 
+
 *java.lang.reflect.Member.getName()*
 
 public |java.lang.String| getName()
@@ -66,7 +71,9 @@ Returns the simple name of the underlying member or constructor represented by
 this Member. 
 
 
+
     Returns: the simple name of the underlying member 
+
 *java.lang.reflect.Member.isSynthetic()*
 
 public boolean isSynthetic()
@@ -75,5 +82,7 @@ Returns true if this member was introduced by the compiler; returns false
 otherwise. 
 
 
+
     Returns: true if and only if this member was introduced by the compiler. 
+
 

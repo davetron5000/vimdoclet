@@ -1,6 +1,6 @@
 *java.lang.annotation.Documented* *Documented* Indicates that annotations with a
 
-public interface interface Documented
+public interface class Documented
 
   implements |java.lang.annotation.Annotation|
 
@@ -18,5 +18,6 @@ similar tools by default. This type should be used to annotate the declarations
 of types whose annotations affect the use of annotated elements by their 
 clients. If a type declaration is annotated with Documented, its annotations 
 become part of the public API of the annotated elements. 
+
 
 

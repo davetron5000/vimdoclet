@@ -50,6 +50,7 @@ asynchronously or concurrently with respect to the Java process that owns the
 Process object. 
 
 
+
 *java.lang.Process()*
 
 public Process()
@@ -65,6 +66,7 @@ Kills the subprocess. The subprocess represented by this Process object is
 forcibly terminated. 
 
 
+
 *java.lang.Process.exitValue()*
 
 public abstract int exitValue()
@@ -72,8 +74,10 @@ public abstract int exitValue()
 Returns the exit value for the subprocess. 
 
 
+
     Returns: the exit value of the subprocess represented by this Process object. by 
              convention, the value 0 indicates normal termination. 
+
 *java.lang.Process.getErrorStream()*
 
 public abstract |java.io.InputStream| getErrorStream()
@@ -84,7 +88,9 @@ error output stream of the process represented by this Process object.
 Implementation note: It is a good idea for the input stream to be buffered. 
 
 
+
     Returns: the input stream connected to the error stream of the subprocess. 
+
 *java.lang.Process.getInputStream()*
 
 public abstract |java.io.InputStream| getInputStream()
@@ -95,7 +101,9 @@ standard output stream of the process represented by this Process object.
 Implementation note: It is a good idea for the input stream to be buffered. 
 
 
+
     Returns: the input stream connected to the normal output of the subprocess. 
+
 *java.lang.Process.getOutputStream()*
 
 public abstract |java.io.OutputStream| getOutputStream()
@@ -106,7 +114,9 @@ the standard input stream of the process represented by this Process object.
 Implementation note: It is a good idea for the output stream to be buffered. 
 
 
+
     Returns: the output stream connected to the normal input of the subprocess. 
+
 *java.lang.Process.waitFor()*
 
 public abstract int waitFor()
@@ -118,5 +128,7 @@ subprocess has already terminated. If the subprocess has not yet terminated,
 the calling thread will be blocked until the subprocess exits. 
 
 
+
     Returns: the exit value of the process. By convention, 0 indicates normal termination. 
+
 

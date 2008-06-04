@@ -43,6 +43,7 @@ If the calling method is interested in retrieving the named property then it
 would have to test the element to see if it is a proxy class. 
 
 
+
 *java.util.EventListenerProxy(EventListener)*
 
 public EventListenerProxy(java.util.EventListener listener)
@@ -58,5 +59,7 @@ public |java.util.EventListener| getListener()
 
 
 
+
     Returns: The listener associated with this proxy. 
+
 

@@ -34,6 +34,7 @@ Typically, this is the point at which the throwable corresponding to the stack
 trace was created. 
 
 
+
 *java.lang.StackTraceElement(String,String,String,int)*
 
 public StackTraceElement(
@@ -72,10 +73,12 @@ where equals is defined as:
 static boolean equals(Object a, Object b) { return a==b || (a != null 
 a.equals(b)); } 
 
+
     obj - the object to be compared with this stack trace element. 
 
     Returns: true if the specified object is another StackTraceElement instance representing 
              the same execution point as this instance. 
+
 *java.lang.StackTraceElement.getClassName()*
 
 public |java.lang.String| getClassName()
@@ -84,8 +87,10 @@ Returns the fully qualified name of the class containing the execution point
 represented by this stack trace element. 
 
 
+
     Returns: the fully qualified name of the Class containing the execution point 
              represented by this stack trace element. 
+
 *java.lang.StackTraceElement.getFileName()*
 
 public |java.lang.String| getFileName()
@@ -97,8 +102,10 @@ Specification, Section 4.7.7). In some systems, the name may refer to some
 source code unit other than a file, such as an entry in source repository. 
 
 
+
     Returns: the name of the file containing the execution point represented by this stack 
              trace element, or null if this information is unavailable. 
+
 *java.lang.StackTraceElement.getLineNumber()*
 
 public int getLineNumber()
@@ -109,9 +116,11 @@ LineNumberTable attribute of the relevant class file (as per The Java Virtual
 Machine Specification, Section 4.7.8). 
 
 
+
     Returns: the line number of the source line containing the execution point represented 
              by this stack trace element, or a negative number if this 
              information is unavailable. 
+
 *java.lang.StackTraceElement.getMethodName()*
 
 public |java.lang.String| getMethodName()
@@ -123,13 +132,16 @@ class initializer, this method will return the appropriate special method name,
 Specification. 
 
 
+
     Returns: the name of the method containing the execution point represented by this stack 
              trace element. 
+
 *java.lang.StackTraceElement.hashCode()*
 
 public int hashCode()
 
 Returns a hash code value for this stack trace element. 
+
 
 
 *java.lang.StackTraceElement.isNativeMethod()*
@@ -140,8 +152,10 @@ Returns true if the method containing the execution point represented by this
 stack trace element is a native method. 
 
 
+
     Returns: true if the method containing the execution point represented by this stack 
              trace element is a native method. 
+
 *java.lang.StackTraceElement.toString()*
 
 public |java.lang.String| toString()
@@ -164,6 +178,7 @@ line number are available.
 "MyClass.mash(Native Method)" - As above, but neither the file name nor the 
 line number are available, and the method containing the execution point is 
 known to be a native method. 
+
 
 
 

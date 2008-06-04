@@ -45,6 +45,7 @@ running. The current runtime can be obtained from the getRuntime method.
 An application cannot create its own instance of this class. 
 
 
+
 *java.lang.Runtime.addShutdownHook(Thread)*
 
 public void addShutdownHook(java.lang.Thread hook)
@@ -87,6 +88,8 @@ and should therefore be coded defensively. They should, in particular, be
 written to be thread-safe and to avoid deadlocks insofar as possible. They 
 should also not rely blindly upon services that may have registered their own 
 shutdown hooks and therefore may themselves in the process of shutting down. 
+Attempts to use other thread-based services such as the AWT event-dispatch 
+thread, for example, may lead to deadlocks. 
 
 Shutdown hooks should also finish their work quickly. When a program invokes 
 exit(|java.lang.Runtime|) the expectation is that the virtual machine will 
@@ -111,6 +114,7 @@ structures or attempting to access nonexistent memory. If the virtual machine
 aborts then no guarantee can be made about whether or not any shutdown hooks 
 will be run. 
 
+
     hook - An initialized but unstarted {@link Thread} object 
 
 *java.lang.Runtime.availableProcessors()*
@@ -125,8 +129,10 @@ therefore occasionally poll this property and adjust their resource usage
 appropriately. 
 
 
+
     Returns: the maximum number of processors available to the virtual machine; never 
              smaller than one 
+
 *java.lang.Runtime.exec(String)*
 
 public |java.lang.Process| exec(java.lang.String command)
@@ -138,9 +144,11 @@ This is a convenience method. An invocation of the form exec(command) behaves
 in exactly the same way as the invocation exec(|java.lang.Runtime|) (command, 
 null, null). 
 
+
     command - a specified system command. 
 
     Returns: A new {@link Process} object for managing the subprocess 
+
 *java.lang.Runtime.exec(String[])*
 
 public |java.lang.Process| exec(java.lang.String[] cmdarray)
@@ -152,9 +160,11 @@ This is a convenience method. An invocation of the form exec(cmdarray) behaves
 in exactly the same way as the invocation exec(|java.lang.Runtime|) (cmdarray, 
 null, null). 
 
+
     cmdarray - array containing the command to call and its arguments. 
 
     Returns: A new {@link Process} object for managing the subprocess 
+
 *java.lang.Runtime.exec(String[],String[])*
 
 public |java.lang.Process| exec(
@@ -169,12 +179,14 @@ This is a convenience method. An invocation of the form exec(cmdarray, envp)
 behaves in exactly the same way as the invocation exec(|java.lang.Runtime|) 
 (cmdarray, envp, null). 
 
+
     cmdarray - array containing the command to call and its arguments. 
     envp - array of strings, each element of which has environment variable settings in 
        the format name=value, or null if the subprocess should inherit the 
        environment of the current process. 
 
     Returns: A new {@link Process} object for managing the subprocess 
+
 *java.lang.Runtime.exec(String[],String[],File)*
 
 public |java.lang.Process| exec(
@@ -217,6 +229,7 @@ denied. The working directory does not exist.
 In such cases an exception will be thrown. The exact nature of the exception is 
 system-dependent, but it will always be a subclass of (|java.io.IOException|) . 
 
+
     cmdarray - array containing the command to call and its arguments. 
     envp - array of strings, each element of which has environment variable settings in 
        the format name=value, or null if the subprocess should inherit the 
@@ -225,6 +238,7 @@ system-dependent, but it will always be a subclass of (|java.io.IOException|) .
        inherit the working directory of the current process. 
 
     Returns: A new {@link Process} object for managing the subprocess 
+
 *java.lang.Runtime.exec(String,String[])*
 
 public |java.lang.Process| exec(
@@ -239,12 +253,14 @@ This is a convenience method. An invocation of the form exec(command, envp)
 behaves in exactly the same way as the invocation exec(|java.lang.Runtime|) 
 (command, envp, null). 
 
+
     command - a specified system command. 
     envp - array of strings, each element of which has environment variable settings in 
        the format name=value, or null if the subprocess should inherit the 
        environment of the current process. 
 
     Returns: A new {@link Process} object for managing the subprocess 
+
 *java.lang.Runtime.exec(String,String[],File)*
 
 public |java.lang.Process| exec(
@@ -267,6 +283,7 @@ More precisely, the command string is broken into tokens using a
 character categories. The tokens produced by the tokenizer are then placed in 
 the new string array cmdarray, in the same order. 
 
+
     command - a specified system command. 
     envp - array of strings, each element of which has environment variable settings in 
        the format name=value, or null if the subprocess should inherit the 
@@ -275,6 +292,7 @@ the new string array cmdarray, in the same order.
        inherit the working directory of the current process. 
 
     Returns: A new {@link Process} object for managing the subprocess 
+
 *java.lang.Runtime.exit(int)*
 
 public void exit(int status)
@@ -300,6 +318,7 @@ status code if the status is nonzero; otherwise, it blocks indefinitely.
 The System.exit(|java.lang.System|) method is the conventional and convenient 
 means of invoking this method. 
 
+
     status - Termination status. By convention, a nonzero status code indicates abnormal 
        termination. 
 
@@ -311,8 +330,10 @@ Returns the amount of free memory in the Java Virtual Machine. Calling the gc
 method may result in increasing the value returned by freeMemory. 
 
 
+
     Returns: an approximation to the total amount of memory currently available for future 
              allocated objects, measured in bytes. 
+
 *java.lang.Runtime.gc()*
 
 public native void gc()
@@ -331,6 +352,7 @@ The method (|java.lang.System|) is the conventional and convenient means of
 invoking this method. 
 
 
+
 *java.lang.Runtime.getLocalizedInputStream(InputStream)*
 
 public |java.io.InputStream| getLocalizedInputStream(java.io.InputStream in)
@@ -344,9 +366,15 @@ character set to Unicode.
 If the argument is already a localized stream, it may be returned as the 
 result. 
 
+    Deprecated: As of JDK&nbsp;1.1, the preferred way to translate a byte
+ stream in the local encoding into a character stream in Unicode is via
+ the <code>InputStreamReader</code> and <code>BufferedReader</code>
+ classes.
+
     in - InputStream to localize 
 
     Returns: a localized input stream 
+
 *java.lang.Runtime.getLocalizedOutputStream(OutputStream)*
 
 public |java.io.OutputStream| getLocalizedOutputStream(java.io.OutputStream out)
@@ -359,9 +387,15 @@ stream, they are automatically converted to the local character set.
 If the argument is already a localized stream, it may be returned as the 
 result. 
 
+    Deprecated: As of JDK&nbsp;1.1, the preferred way to translate a
+ Unicode character stream into a byte stream in the local encoding is via
+ the <code>OutputStreamWriter</code>, <code>BufferedWriter</code>, and
+ <code>PrintWriter</code> classes.
+
     out - OutputStream to localize 
 
     Returns: a localized output stream 
+
 *java.lang.Runtime.getRuntime()*
 
 public static |java.lang.Runtime| getRuntime()
@@ -371,7 +405,9 @@ of the methods of class Runtime are instance methods and must be invoked with
 respect to the current runtime object. 
 
 
+
     Returns: the Runtime object associated with the current Java application. 
+
 *java.lang.Runtime.halt(int)*
 
 public void halt(int status)
@@ -386,6 +422,7 @@ been enabled. If the shutdown sequence has already been initiated then this
 method does not wait for any running shutdown hooks or finalizers to finish 
 their work. 
 
+
     status - Termination status. By convention, a nonzero status code indicates abnormal 
        termination. If the {@link Runtime#exit exit} (equivalently, {@link 
        System#exit(int) System.exit}) method has already been invoked then this 
@@ -396,8 +433,8 @@ their work.
 public void load(java.lang.String filename)
 
 Loads the specified filename as a dynamic library. The filename argument must 
-be a complete path name. From java_g it will automagically insert "_g" before 
-the ".so" (for example Runtime.getRuntime().load("/home/avh/lib/libX11.so");). 
+be a complete path name, (for example 
+Runtime.getRuntime().load("/home/avh/lib/libX11.so");). 
 
 First, if there is a security manager, its checkLink method is called with the 
 filename as its argument. This may result in a security exception. 
@@ -408,6 +445,7 @@ native code to be loaded.
 
 The method (|java.lang.System|) is the conventional and convenient means of 
 invoking this method. 
+
 
     filename - the file to load. 
 
@@ -438,6 +476,7 @@ as well.
 If this method is called more than once with the same library name, the second 
 and subsequent calls are ignored. 
 
+
     libname - the name of the library. 
 
 *java.lang.Runtime.maxMemory()*
@@ -449,18 +488,22 @@ to use. If there is no inherent limit then the value (|java.lang.Long|) will be
 returned. 
 
 
+
     Returns: the maximum amount of memory that the virtual machine will attempt to use, 
              measured in bytes 
+
 *java.lang.Runtime.removeShutdownHook(Thread)*
 
 public boolean removeShutdownHook(java.lang.Thread hook)
 
 De-registers a previously-registered virtual-machine shutdown hook. 
 
+
     hook - the hook to remove 
 
     Returns: true if the specified hook had previously been registered and was successfully 
              de-registered, false otherwise. 
+
 *java.lang.Runtime.runFinalization()*
 
 public void runFinalization()
@@ -479,6 +522,7 @@ The method (|java.lang.System|) is the conventional and convenient means of
 invoking this method. 
 
 
+
 *java.lang.Runtime.runFinalizersOnExit(boolean)*
 
 public static void runFinalizersOnExit(boolean value)
@@ -491,6 +535,11 @@ on exit is disabled.
 If there is a security manager, its checkExit method is first called with 0 as 
 its argument to ensure the exit is allowed. This could result in a 
 SecurityException. 
+
+    Deprecated: This method is inherently unsafe.  It may result in
+ 	    finalizers being called on live objects while other threads are
+      concurrently manipulating those objects, resulting in erratic
+	    behavior or deadlock.
 
     value - true to enable finalization on exit, false to disable 
 
@@ -505,8 +554,10 @@ Note that the amount of memory required to hold an object of any given type may
 be implementation-dependent. 
 
 
+
     Returns: the total amount of memory currently available for current and future objects, 
              measured in bytes. 
+
 *java.lang.Runtime.traceInstructions(boolean)*
 
 public native void traceInstructions(boolean on)
@@ -521,6 +572,7 @@ dependent.
 
 If the boolean argument is false, this method causes the virtual machine to 
 stop performing the detailed instruction trace it is performing. 
+
 
     on - true to enable instruction tracing; false to disable this feature. 
 
@@ -537,6 +589,7 @@ it does not support this feature.
 
 Calling this method with argument false suggests that the virtual machine cease 
 emitting per-call debugging information. 
+
 
     on - true to enable instruction tracing; false to disable this feature. 
 

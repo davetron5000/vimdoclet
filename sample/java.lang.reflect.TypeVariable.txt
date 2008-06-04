@@ -1,6 +1,6 @@
 *java.lang.reflect.TypeVariable* *TypeVariable* TypeVariable is the common super
 
-public interface interface TypeVariable
+public interface interface TypeVariable<D extends java.lang.reflect.GenericDeclaration>
 
   implements |java.lang.reflect.Type|
 
@@ -34,13 +34,11 @@ instances representing a type variable must be equal() to each other. As a
 consequence, users of type variables must not rely on the identity of instances 
 of classes implementing this interface. 
 
-The type parameter D represents the type of generic declaration that declared 
-the underlying type variable. 
 
 
 *java.lang.reflect.TypeVariable.getBounds()*
 
-public |java.lang.reflect.Type| getBounds()
+public |java.lang.reflect.Type|[] getBounds()
 
 Returns an array of Type objects representing the upper bound(s) of this type 
 variable. Note that if no upper bound is explicitly declared, the upper bound 
@@ -52,16 +50,20 @@ details of the creation process for parameterized types). Otherwise, B is
 resolved. 
 
 
+
     Returns: an array of Types representing the upper bound(s) of this type variable 
+
 *java.lang.reflect.TypeVariable.getGenericDeclaration()*
 
-public |java.lang.reflect.GenericDeclaration| getGenericDeclaration()
+public |D| getGenericDeclaration()
 
 Returns the GenericDeclaration object representing the generic declaration 
 declared this type variable. 
 
 
+
     Returns: the generic declaration declared for this type variable. 
+
 *java.lang.reflect.TypeVariable.getName()*
 
 public |java.lang.String| getName()
@@ -69,5 +71,7 @@ public |java.lang.String| getName()
 Returns the name of this type variable, as it occurs in the source code. 
 
 
+
     Returns: the name of this type variable, as it appears in the source code 
+
 

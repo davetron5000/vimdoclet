@@ -1,0 +1,174 @@
+*java.util.concurrent.ConcurrentNavigableMap* *ConcurrentNavigableMap* AConcurre
+
+public interface interface ConcurrentNavigableMap<K,V>
+
+  implements |java.util.concurrent.ConcurrentMap|
+             |java.util.NavigableMap|
+
+|java.util.concurrent.ConcurrentNavigableMap_Description|
+|java.util.concurrent.ConcurrentNavigableMap_Fields|
+|java.util.concurrent.ConcurrentNavigableMap_Constructors|
+|java.util.concurrent.ConcurrentNavigableMap_Methods|
+
+================================================================================
+
+*java.util.concurrent.ConcurrentNavigableMap_Methods*
+|java.util.concurrent.ConcurrentNavigableMap.descendingKeySet()|Returns a rever
+|java.util.concurrent.ConcurrentNavigableMap.descendingMap()|Returns a reverse 
+|java.util.concurrent.ConcurrentNavigableMap.headMap(K)|
+|java.util.concurrent.ConcurrentNavigableMap.headMap(K,boolean)|
+|java.util.concurrent.ConcurrentNavigableMap.keySet()|Returns aNavigableSetview
+|java.util.concurrent.ConcurrentNavigableMap.navigableKeySet()|Returns aNavigab
+|java.util.concurrent.ConcurrentNavigableMap.subMap(K,boolean,K,boolean)|
+|java.util.concurrent.ConcurrentNavigableMap.subMap(K,K)|
+|java.util.concurrent.ConcurrentNavigableMap.tailMap(K)|
+|java.util.concurrent.ConcurrentNavigableMap.tailMap(K,boolean)|
+
+*java.util.concurrent.ConcurrentNavigableMap_Description*
+
+A (|java.util.concurrent.ConcurrentMap|) supporting (|java.util.NavigableMap|) 
+operations, and recursively so for its navigable sub-maps. 
+
+This interface is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
+
+
+*java.util.concurrent.ConcurrentNavigableMap.descendingKeySet()*
+
+public |java.util.NavigableSet|<K> descendingKeySet()
+
+Returns a reverse order (|java.util.NavigableSet|) view of the keys contained 
+in this map. The set's iterator returns the keys in descending order. The set 
+is backed by the map, so changes to the map are reflected in the set, and 
+vice-versa. The set supports element removal, which removes the corresponding 
+mapping from the map, via theIterator.remove,Set.remove,removeAll,retainAll, 
+andclearoperations. It does not support theaddoraddAlloperations. 
+
+The view'siteratoris a "weakly consistent" iterator that will never throw 
+(|java.util.ConcurrentModificationException|) , and guarantees to traverse 
+elements as they existed upon construction of the iterator, and may (but is not 
+guaranteed to) reflect any modifications subsequent to construction. 
+
+
+
+    Returns: a reverse order navigable set view of the keys in this map 
+
+*java.util.concurrent.ConcurrentNavigableMap.descendingMap()*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> descendingMap()
+
+Returns a reverse order view of the mappings contained in this map. The 
+descending map is backed by this map, so changes to the map are reflected in 
+the descending map, and vice-versa. 
+
+The returned map has an ordering equivalent to 
+Collections.reverseOrder(|java.util.Collections|) (comparator()). The 
+expressionm.descendingMap().descendingMap()returns a view ofmessentially 
+equivalent tom. 
+
+
+
+    Returns: a reverse order view of this map 
+
+*java.util.concurrent.ConcurrentNavigableMap.headMap(K)*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> headMap(K toKey)
+
+
+
+
+
+*java.util.concurrent.ConcurrentNavigableMap.headMap(K,boolean)*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> headMap(
+  K toKey,
+  boolean inclusive)
+
+
+
+
+
+*java.util.concurrent.ConcurrentNavigableMap.keySet()*
+
+public |java.util.NavigableSet|<K> keySet()
+
+Returns a (|java.util.NavigableSet|) view of the keys contained in this map. 
+The set's iterator returns the keys in ascending order. The set is backed by 
+the map, so changes to the map are reflected in the set, and vice-versa. The 
+set supports element removal, which removes the corresponding mapping from the 
+map, via theIterator.remove,Set.remove,removeAll,retainAll, andclearoperations. 
+It does not support theaddoraddAlloperations. 
+
+The view'siteratoris a "weakly consistent" iterator that will never throw 
+(|java.util.ConcurrentModificationException|) , and guarantees to traverse 
+elements as they existed upon construction of the iterator, and may (but is not 
+guaranteed to) reflect any modifications subsequent to construction. 
+
+This method is equivalent to methodnavigableKeySet. 
+
+
+
+    Returns: a navigable set view of the keys in this map 
+
+*java.util.concurrent.ConcurrentNavigableMap.navigableKeySet()*
+
+public |java.util.NavigableSet|<K> navigableKeySet()
+
+Returns a (|java.util.NavigableSet|) view of the keys contained in this map. 
+The set's iterator returns the keys in ascending order. The set is backed by 
+the map, so changes to the map are reflected in the set, and vice-versa. The 
+set supports element removal, which removes the corresponding mapping from the 
+map, via theIterator.remove,Set.remove,removeAll,retainAll, andclearoperations. 
+It does not support theaddoraddAlloperations. 
+
+The view'siteratoris a "weakly consistent" iterator that will never throw 
+(|java.util.ConcurrentModificationException|) , and guarantees to traverse 
+elements as they existed upon construction of the iterator, and may (but is not 
+guaranteed to) reflect any modifications subsequent to construction. 
+
+
+
+    Returns: a navigable set view of the keys in this map 
+
+*java.util.concurrent.ConcurrentNavigableMap.subMap(K,boolean,K,boolean)*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> subMap(
+  K fromKey,
+  boolean fromInclusive,
+  K toKey,
+  boolean toInclusive)
+
+
+
+
+
+*java.util.concurrent.ConcurrentNavigableMap.subMap(K,K)*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> subMap(
+  K fromKey,
+  K toKey)
+
+
+
+
+
+*java.util.concurrent.ConcurrentNavigableMap.tailMap(K)*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> tailMap(K fromKey)
+
+
+
+
+
+*java.util.concurrent.ConcurrentNavigableMap.tailMap(K,boolean)*
+
+public |java.util.concurrent.ConcurrentNavigableMap|<K,V> tailMap(
+  K fromKey,
+  boolean inclusive)
+
+
+
+
+
+

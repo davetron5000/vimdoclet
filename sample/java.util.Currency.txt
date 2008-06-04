@@ -23,14 +23,13 @@ public final class Currency
 *java.util.Currency_Description*
 
 Represents a currency. Currencies are identified by their ISO 4217 currency 
-codes. See the 
-
-ISO 4217 maintenance agency for more information, including a table of currency 
-codes. 
+codes. Visit the BSi web site for more information, including a table of 
+currency codes. 
 
 The class is designed so that there's never more than one Currency instance for 
 any given currency. Therefore, there's no public constructor. You obtain a 
 Currency instance using the getInstance methods. 
+
 
 
 *java.util.Currency.getCurrencyCode()*
@@ -40,7 +39,9 @@ public |java.lang.String| getCurrencyCode()
 Gets the ISO 4217 currency code of this currency. 
 
 
+
     Returns: the ISO 4217 currency code of this currency. 
+
 *java.util.Currency.getDefaultFractionDigits()*
 
 public int getDefaultFractionDigits()
@@ -51,7 +52,9 @@ Japanese Yen it's 0. In the case of pseudo-currencies, such as IMF Special
 Drawing Rights, -1 is returned. 
 
 
+
     Returns: the default number of fraction digits used with this currency 
+
 *java.util.Currency.getInstance(Locale)*
 
 public static |java.util.Currency| getInstance(java.util.Locale locale)
@@ -66,18 +69,22 @@ local time of the respective countries.
 The method returns null for territories that don't have a currency, such as 
 Antarctica. 
 
+
     locale - the locale for whose country a Currency instance is needed 
 
     Returns: the Currency instance for the country of the given locale, or null 
+
 *java.util.Currency.getInstance(String)*
 
 public static |java.util.Currency| getInstance(java.lang.String currencyCode)
 
 Returns the Currency instance for the given currency code. 
 
+
     currencyCode - the ISO 4217 code of the currency 
 
     Returns: the Currency instance for the given currency code 
+
 *java.util.Currency.getSymbol()*
 
 public |java.lang.String| getSymbol()
@@ -88,7 +95,9 @@ locales it may be "US$". If no symbol can be determined, the ISO 4217 currency
 code is returned. 
 
 
+
     Returns: the symbol of this currency for the default locale 
+
 *java.util.Currency.getSymbol(Locale)*
 
 public |java.lang.String| getSymbol(java.util.Locale locale)
@@ -98,9 +107,11 @@ US Dollar, the symbol is "$" if the specified locale is the US, while for other
 locales it may be "US$". If no symbol can be determined, the ISO 4217 currency 
 code is returned. 
 
+
     locale - the locale for which a display name for this currency is needed 
 
     Returns: the symbol of this currency for the specified locale 
+
 *java.util.Currency.toString()*
 
 public |java.lang.String| toString()
@@ -108,5 +119,7 @@ public |java.lang.String| toString()
 Returns the ISO 4217 currency code of this currency. 
 
 
+
     Returns: the ISO 4217 currency code of this currency 
+
 

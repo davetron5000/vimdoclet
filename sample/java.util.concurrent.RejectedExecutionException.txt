@@ -22,6 +22,7 @@ Exception thrown by an (|java.util.concurrent.Executor|) when a task cannot be
 accepted for execution. 
 
 
+
 *java.util.concurrent.RejectedExecutionException()*
 
 public RejectedExecutionException()

@@ -31,15 +31,18 @@ an MBeanServer is:
 ,name=manager's name 
 
 
+
 *java.lang.management.MemoryManagerMXBean.getMemoryPoolNames()*
 
-public |java.lang.String| getMemoryPoolNames()
+public |java.lang.String|[] getMemoryPoolNames()
 
 Returns the name of memory pools that this memory manager manages. 
 
 
+
     Returns: an array of String objects, each is the name of a memory pool that this memory 
              manager manages. 
+
 *java.lang.management.MemoryManagerMXBean.getName()*
 
 public |java.lang.String| getName()
@@ -47,7 +50,9 @@ public |java.lang.String| getName()
 Returns the name representing this memory manager. 
 
 
+
     Returns: the name of this memory manager. 
+
 *java.lang.management.MemoryManagerMXBean.isValid()*
 
 public boolean isValid()
@@ -57,6 +62,8 @@ manager becomes invalid once the Java virtual machine removes it from the
 memory system. 
 
 
+
     Returns: true if the memory manager is valid in the Java virtual machine; false 
              otherwise. 
+
 

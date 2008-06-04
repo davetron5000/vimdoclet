@@ -31,6 +31,7 @@ around a set of formatted records. The getHeader and getTail methods can be
 used to obtain these strings. 
 
 
+
 *java.util.logging.Formatter()*
 
 protected Formatter()
@@ -49,9 +50,11 @@ version of the LogRecord's message field. The Formatter.formatMessage
 convenience method can (optionally) be used to localize and format the message 
 field. 
 
+
     record - the log record to be formatted. 
 
     Returns: the formatted log record 
+
 *java.util.logging.Formatter.formatMessage(LogRecord)*
 
 public synchronized |java.lang.String| formatMessage(java.util.logging.LogRecord record)
@@ -71,9 +74,11 @@ Otherwise no formatting is performed.
 
 
 
+
     record - the log record containing the raw message 
 
     Returns: a localized and formatted message 
+
 *java.util.logging.Formatter.getHead(Handler)*
 
 public |java.lang.String| getHead(java.util.logging.Handler h)
@@ -83,9 +88,11 @@ Return the header string for a set of formatted records.
 This base class returns an empty string, but this may be overriden by 
 subclasses. 
 
+
     h - The target handler (can be null) 
 
     Returns: header string 
+
 *java.util.logging.Formatter.getTail(Handler)*
 
 public |java.lang.String| getTail(java.util.logging.Handler h)
@@ -95,7 +102,9 @@ Return the tail string for a set of formatted records.
 This base class returns an empty string, but this may be overriden by 
 subclasses. 
 
+
     h - The target handler (can be null) 
 
     Returns: 
+
 

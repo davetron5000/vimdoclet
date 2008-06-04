@@ -26,6 +26,7 @@ RuntimeException that might be thrown during the execution of the method but
 not caught. 
 
 
+
 *java.lang.RuntimeException()*
 
 public RuntimeException()

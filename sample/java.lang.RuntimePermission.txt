@@ -80,10 +80,12 @@ variable This would allow code to read the value, or determine the existence,
 of a particular environment variable. This is dangerous if the variable 
 contains confidential data. 
 
-exitVM Halting of the Java Virtual Machine This allows an attacker to mount a 
-denial-of-service attack by automatically forcing the virtual machine to halt. 
-Note: The "exitVM" permission is automatically granted to all code loaded from 
-the application class path, thus enabling applications to terminate themselves. 
+exitVM.{exit status} Halting of the Java Virtual Machine with the specified 
+exit status This allows an attacker to mount a denial-of-service attack by 
+automatically forcing the virtual machine to halt. Note: The "exitVM.*" 
+permission is automatically granted to all code loaded from the application 
+class path, thus enabling applications to terminate themselves. Also, the 
+"exitVM" permission is equivalent to "exitVM.*". 
 
 shutdownHooks Registration and cancellation of virtual-machine shutdown hooks 
 This allows an attacker to register a malicious shutdown hook that interferes 
@@ -120,6 +122,12 @@ code to obtain policy information for a particular code source. While obtaining
 policy information does not compromise the security of the system, it does give 
 attackers additional information, such as local file names for example, to 
 better aim an attack. 
+
+getFileSystemAttributes Retrieval of file system attributes This allows code to 
+obtain file system information such as disk usage or disk space available to 
+the caller. This is potentially dangerous because it discloses information 
+about the system hardware configuration and some information about the caller's 
+privilege to write files. 
 
 readFileDescriptor Reading of file descriptors This would allow code to read 
 the particular file associated with the file descriptor read. This is dangerous 
@@ -182,6 +190,7 @@ preferences backing store if the user running the code has sufficient OS
 privileges to read/write to that backing store. The actual backing store may 
 reside within a traditional filesystem directory or within a registry depending 
 on the platform OS 
+
 
 
 

@@ -20,6 +20,7 @@ Thrown if the Java Virtual Machine cannot find an appropriate native-language
 definition of a method declared native. 
 
 
+
 *java.lang.UnsatisfiedLinkError()*
 
 public UnsatisfiedLinkError()

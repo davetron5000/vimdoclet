@@ -69,6 +69,7 @@ public final class Scanner
 |java.util.Scanner.nextShort(int)|Scans the next token of the input as a short.
 |java.util.Scanner.radix()|Returns this scanner's default radix.
 |java.util.Scanner.remove()|The remove operation is not supported by this imple
+|java.util.Scanner.reset()|Resets this scanner.
 |java.util.Scanner.skip(Pattern)|Skips input that matches the specified pattern
 |java.util.Scanner.skip(String)|Skips input that matches a pattern constructed 
 |java.util.Scanner.toString()|Returns the string representation of this Scanner
@@ -116,7 +117,10 @@ Scanner(input); s.findInLine("(\\d+) fish (\\d+) fish (\\w+) fish (\\w+)");
 MatchResult result = s.match(); for (int i=1; i 
 
 The default whitespace delimiter used by a scanner is as recognized by 
-(|java.lang.Character|) . isWhitespace(|java.lang.Character|) . 
+(|java.lang.Character|) . isWhitespace(|java.lang.Character|) . The 
+(|java.util.Scanner|) method will reset the value of the scanner's delimiter to 
+the default whitespace delimiter regardless of whether it was previously 
+changed. 
 
 A scanning operation may block waiting for input. 
 
@@ -158,14 +162,18 @@ Unless otherwise mentioned, passing a null parameter into any method of a
 Scanner will cause a NullPointerException to be thrown. 
 
 A scanner will default to interpreting numbers as decimal unless a different 
-radix has been set by using the (|java.util.Scanner|) method. 
+radix has been set by using the (|java.util.Scanner|) method. The 
+(|java.util.Scanner|) method will reset the value of the scanner's radix to 10 
+regardless of whether it was previously changed. 
 
 Localized numbers 
 
 An instance of this class is capable of scanning numbers in the standard 
 formats as well as in the formats of the scanner's locale. A scanner's initial 
 locale is the value returned by the (|java.util.Locale|) method; it may be 
-changed via the (|java.util.Scanner|) method. 
+changed via the (|java.util.Scanner|) method. The (|java.util.Scanner|) method 
+will reset the value of the scanner's locale to the initial locale regardless 
+of whether it was previously changed. 
 
 The localized formats are defined in terms of the following parameters, which 
 for a particular locale are taken from that locale's 
@@ -185,7 +193,7 @@ getNegativePrefix()(|java.text.DecimalFormat|) LocalNegativeSuffix The string
 that appears after a negative number (may be empty), i.e.,df. 
 getNegativeSuffix()(|java.text.DecimalFormat|) LocalNaN The string that 
 represents not-a-number for floating-point values, i.e.,dfs. 
-getInfinity()(|java.text.DecimalFormatSymbols|) LocalInfinity The string that 
+getNaN()(|java.text.DecimalFormatSymbols|) LocalInfinity The string that 
 represents infinity for floating-point values, i.e.,dfs. 
 getInfinity()(|java.text.DecimalFormatSymbols|) 
 
@@ -277,6 +285,7 @@ Float:: = Decimal
 
 
 Whitespace is not significant in the above regular expressions. 
+
 
 
 *java.util.Scanner(File)*
@@ -385,6 +394,7 @@ Attempting to perform search operations after a scanner has been closed will
 result in an (|java.lang.IllegalStateException|) . 
 
 
+
 *java.util.Scanner.delimiter()*
 
 public |java.util.regex.Pattern| delimiter()
@@ -392,7 +402,9 @@ public |java.util.regex.Pattern| delimiter()
 Returns the Pattern this Scanner is currently using to match delimiters. 
 
 
+
     Returns: this scanner's delimiting pattern. 
+
 *java.util.Scanner.findInLine(Pattern)*
 
 public |java.lang.String| findInLine(java.util.regex.Pattern pattern)
@@ -408,9 +420,11 @@ Since this method continues to search through the input looking for the
 specified pattern, it may buffer all of the input searching for the desired 
 token if no line separators are present. 
 
+
     pattern - the pattern to scan for 
 
     Returns: the text that matched the specified pattern 
+
 *java.util.Scanner.findInLine(String)*
 
 public |java.lang.String| findInLine(java.lang.String pattern)
@@ -421,9 +435,11 @@ specified string, ignoring delimiters.
 An invocation of this method of the form findInLine(pattern) behaves in exactly 
 the same way as the invocation findInLine(Pattern.compile(pattern)). 
 
+
     pattern - a string specifying the pattern to search for 
 
     Returns: the text that matched the specified pattern 
+
 *java.util.Scanner.findWithinHorizon(Pattern,int)*
 
 public |java.lang.String| findWithinHorizon(
@@ -451,9 +467,11 @@ this case it may buffer all of the input searching for the pattern.
 
 If horizon is negative, then an IllegalArgumentException is thrown. 
 
+
     pattern - the pattern to scan for 
 
     Returns: the text that matched the specified pattern 
+
 *java.util.Scanner.findWithinHorizon(String,int)*
 
 public |java.lang.String| findWithinHorizon(
@@ -467,9 +485,11 @@ An invocation of this method of the form findWithinHorizon(pattern) behaves in
 exactly the same way as the invocation 
 findWithinHorizon(Pattern.compile(pattern, horizon)). 
 
+
     pattern - a string specifying the pattern to search for 
 
     Returns: the text that matched the specified pattern 
+
 *java.util.Scanner.hasNext()*
 
 public boolean hasNext()
@@ -479,7 +499,9 @@ block while waiting for input to scan. The scanner does not advance past any
 input. 
 
 
+
     Returns: true if and only if this scanner has another token 
+
 *java.util.Scanner.hasNext(Pattern)*
 
 public boolean hasNext(java.util.regex.Pattern pattern)
@@ -489,10 +511,12 @@ complete token is prefixed and postfixed by input that matches the delimiter
 pattern. This method may block while waiting for input. The scanner does not 
 advance past any input. 
 
+
     pattern - the pattern to scan for 
 
     Returns: true if and only if this scanner has another token matching the specified 
              pattern 
+
 *java.util.Scanner.hasNext(String)*
 
 public boolean hasNext(java.lang.String pattern)
@@ -503,10 +527,12 @@ specified string. The scanner does not advance past any input.
 An invocation of this method of the form hasNext(pattern) behaves in exactly 
 the same way as the invocation hasNext(Pattern.compile(pattern)). 
 
+
     pattern - a string specifying the pattern to scan 
 
     Returns: true if and only if this scanner has another token matching the specified 
              pattern 
+
 *java.util.Scanner.hasNextBigDecimal()*
 
 public boolean hasNextBigDecimal()
@@ -516,7 +542,9 @@ BigDecimal using the (|java.util.Scanner|) method. The scanner does not advance
 past any input. 
 
 
+
     Returns: true if and only if this scanner's next token is a valid BigDecimal 
+
 *java.util.Scanner.hasNextBigInteger()*
 
 public boolean hasNextBigInteger()
@@ -526,7 +554,9 @@ BigInteger in the default radix using the (|java.util.Scanner|) method. The
 scanner does not advance past any input. 
 
 
+
     Returns: true if and only if this scanner's next token is a valid BigInteger 
+
 *java.util.Scanner.hasNextBigInteger(int)*
 
 public boolean hasNextBigInteger(int radix)
@@ -535,9 +565,11 @@ Returns true if the next token in this scanner's input can be interpreted as a
 BigInteger in the specified radix using the (|java.util.Scanner|) method. The 
 scanner does not advance past any input. 
 
+
     radix - the radix used to interpret the token as an integer 
 
     Returns: true if and only if this scanner's next token is a valid BigInteger 
+
 *java.util.Scanner.hasNextBoolean()*
 
 public boolean hasNextBoolean()
@@ -547,7 +579,9 @@ boolean value using a case insensitive pattern created from the string
 "true|false". The scanner does not advance past the input that matched. 
 
 
+
     Returns: true if and only if this scanner's next token is a valid boolean value 
+
 *java.util.Scanner.hasNextByte()*
 
 public boolean hasNextByte()
@@ -557,7 +591,9 @@ byte value in the default radix using the (|java.util.Scanner|) method. The
 scanner does not advance past any input. 
 
 
+
     Returns: true if and only if this scanner's next token is a valid byte value 
+
 *java.util.Scanner.hasNextByte(int)*
 
 public boolean hasNextByte(int radix)
@@ -566,9 +602,11 @@ Returns true if the next token in this scanner's input can be interpreted as a
 byte value in the specified radix using the (|java.util.Scanner|) method. The 
 scanner does not advance past any input. 
 
+
     radix - the radix used to interpret the token as a byte value 
 
     Returns: true if and only if this scanner's next token is a valid byte value 
+
 *java.util.Scanner.hasNextDouble()*
 
 public boolean hasNextDouble()
@@ -578,7 +616,9 @@ double value using the (|java.util.Scanner|) method. The scanner does not
 advance past any input. 
 
 
+
     Returns: true if and only if this scanner's next token is a valid double value 
+
 *java.util.Scanner.hasNextFloat()*
 
 public boolean hasNextFloat()
@@ -588,7 +628,9 @@ float value using the (|java.util.Scanner|) method. The scanner does not
 advance past any input. 
 
 
+
     Returns: true if and only if this scanner's next token is a valid float value 
+
 *java.util.Scanner.hasNextInt()*
 
 public boolean hasNextInt()
@@ -598,7 +640,9 @@ int value in the default radix using the (|java.util.Scanner|) method. The
 scanner does not advance past any input. 
 
 
+
     Returns: true if and only if this scanner's next token is a valid int value 
+
 *java.util.Scanner.hasNextInt(int)*
 
 public boolean hasNextInt(int radix)
@@ -607,9 +651,11 @@ Returns true if the next token in this scanner's input can be interpreted as an
 int value in the specified radix using the (|java.util.Scanner|) method. The 
 scanner does not advance past any input. 
 
+
     radix - the radix used to interpret the token as an int value 
 
     Returns: true if and only if this scanner's next token is a valid int value 
+
 *java.util.Scanner.hasNextLine()*
 
 public boolean hasNextLine()
@@ -618,7 +664,9 @@ Returns true if there is another line in the input of this scanner. This method
 may block while waiting for input. The scanner does not advance past any input. 
 
 
+
     Returns: true if and only if this scanner has another line of input 
+
 *java.util.Scanner.hasNextLong()*
 
 public boolean hasNextLong()
@@ -628,7 +676,9 @@ long value in the default radix using the (|java.util.Scanner|) method. The
 scanner does not advance past any input. 
 
 
+
     Returns: true if and only if this scanner's next token is a valid long value 
+
 *java.util.Scanner.hasNextLong(int)*
 
 public boolean hasNextLong(int radix)
@@ -637,9 +687,11 @@ Returns true if the next token in this scanner's input can be interpreted as a
 long value in the specified radix using the (|java.util.Scanner|) method. The 
 scanner does not advance past any input. 
 
+
     radix - the radix used to interpret the token as a long value 
 
     Returns: true if and only if this scanner's next token is a valid long value 
+
 *java.util.Scanner.hasNextShort()*
 
 public boolean hasNextShort()
@@ -649,8 +701,10 @@ short value in the default radix using the (|java.util.Scanner|) method. The
 scanner does not advance past any input. 
 
 
+
     Returns: true if and only if this scanner's next token is a valid short value in the 
              default radix 
+
 *java.util.Scanner.hasNextShort(int)*
 
 public boolean hasNextShort(int radix)
@@ -659,10 +713,12 @@ Returns true if the next token in this scanner's input can be interpreted as a
 short value in the specified radix using the (|java.util.Scanner|) method. The 
 scanner does not advance past any input. 
 
+
     radix - the radix used to interpret the token as a short value 
 
     Returns: true if and only if this scanner's next token is a valid short value in the 
              specified radix 
+
 *java.util.Scanner.ioException()*
 
 public |java.io.IOException| ioException()
@@ -671,7 +727,9 @@ Returns the IOException last thrown by this Scanner's underlying Readable. This
 method returns null if no such exception exists. 
 
 
+
     Returns: the last exception thrown by this scanner's readable 
+
 *java.util.Scanner.locale()*
 
 public |java.util.Locale| locale()
@@ -682,7 +740,9 @@ A scanner's locale affects many elements of its default primitive matching
 regular expressions; see localized numbers above. 
 
 
+
     Returns: this scanner's locale 
+
 *java.util.Scanner.match()*
 
 public |java.util.regex.MatchResult| match()
@@ -699,7 +759,9 @@ Similarly the (|java.util.Scanner|) , (|java.util.Scanner|) , and
 (|java.util.Scanner|) methods will make a match available if they succeed. 
 
 
+
     Returns: a match result for the last match operation 
+
 *java.util.Scanner.next()*
 
 public |java.lang.String| next()
@@ -710,7 +772,9 @@ method may block while waiting for input to scan, even if a previous invocation
 of (|java.util.Scanner|) returned true. 
 
 
+
     Returns: the next token 
+
 *java.util.Scanner.next(Pattern)*
 
 public |java.lang.String| next(java.util.regex.Pattern pattern)
@@ -720,9 +784,11 @@ block while waiting for input to scan, even if a previous invocation of
 (|java.util.Scanner|) returned true. If the match is successful, the scanner 
 advances past the input that matched the pattern. 
 
+
     pattern - the pattern to scan for 
 
     Returns: the next token 
+
 *java.util.Scanner.next(String)*
 
 public |java.lang.String| next(java.lang.String pattern)
@@ -734,9 +800,11 @@ matched the pattern.
 An invocation of this method of the form next(pattern) behaves in exactly the 
 same way as the invocation next(Pattern.compile(pattern)). 
 
+
     pattern - a string specifying the pattern to scan 
 
     Returns: the next token 
+
 *java.util.Scanner.nextBigDecimal()*
 
 public |java.math.BigDecimal| nextBigDecimal()
@@ -750,7 +818,9 @@ Character.digit(|java.lang.Character|) , and passing the resulting string to
 the BigDecimal(String)(|java.math.BigDecimal|) constructor. 
 
 
+
     Returns: the BigDecimal scanned from the input 
+
 *java.util.Scanner.nextBigInteger()*
 
 public |java.math.BigInteger| nextBigInteger()
@@ -762,7 +832,9 @@ the same way as the invocation nextBigInteger(radix), where radix is the
 default radix of this scanner. 
 
 
+
     Returns: the BigInteger scanned from the input 
+
 *java.util.Scanner.nextBigInteger(int)*
 
 public |java.math.BigInteger| nextBigInteger(int radix)
@@ -776,9 +848,11 @@ Character.digit(|java.lang.Character|) , and passing the resulting string to
 the BigInteger(String, int)(|java.math.BigInteger|) constructor with the 
 specified radix. 
 
+
     radix - the radix used to interpret the token 
 
     Returns: the BigInteger scanned from the input 
+
 *java.util.Scanner.nextBoolean()*
 
 public boolean nextBoolean()
@@ -789,7 +863,9 @@ translated into a valid boolean value. If the match is successful, the scanner
 advances past the input that matched. 
 
 
+
     Returns: the boolean scanned from the input 
+
 *java.util.Scanner.nextByte()*
 
 public byte nextByte()
@@ -801,7 +877,9 @@ way as the invocation nextByte(radix), where radix is the default radix of this
 scanner. 
 
 
+
     Returns: the byte scanned from the input 
+
 *java.util.Scanner.nextByte(int)*
 
 public byte nextByte(int radix)
@@ -819,9 +897,11 @@ prepending a negative sign (-) if the locale specific negative prefixes and
 suffixes were present, and passing the resulting string to 
 Byte.parseByte(|java.lang.Byte|) with the specified radix. 
 
+
     radix - the radix used to interpret the token as a byte value 
 
     Returns: the byte scanned from the input 
+
 *java.util.Scanner.nextDouble()*
 
 public double nextDouble()
@@ -842,7 +922,9 @@ or infinity strings, then either "Nan" or "Infinity" is passed to
 Double.parseDouble(|java.lang.Double|) as appropriate. 
 
 
+
     Returns: the double scanned from the input 
+
 *java.util.Scanner.nextFloat()*
 
 public float nextFloat()
@@ -863,7 +945,9 @@ infinity strings, then either "Nan" or "Infinity" is passed to
 Float.parseFloat(|java.lang.Float|) as appropriate. 
 
 
+
     Returns: the float scanned from the input 
+
 *java.util.Scanner.nextInt()*
 
 public int nextInt()
@@ -875,7 +959,9 @@ way as the invocation nextInt(radix), where radix is the default radix of this
 scanner. 
 
 
+
     Returns: the int scanned from the input 
+
 *java.util.Scanner.nextInt(int)*
 
 public int nextInt(int radix)
@@ -893,9 +979,11 @@ prepending a negative sign (-) if the locale specific negative prefixes and
 suffixes were present, and passing the resulting string to 
 Integer.parseInt(|java.lang.Integer|) with the specified radix. 
 
+
     radix - the radix used to interpret the token as an int value 
 
     Returns: the int scanned from the input 
+
 *java.util.Scanner.nextLine()*
 
 public |java.lang.String| nextLine()
@@ -911,7 +999,9 @@ separator, it may buffer all of the input searching for the line to skip if no
 line separators are present. 
 
 
+
     Returns: the line that was skipped 
+
 *java.util.Scanner.nextLong()*
 
 public long nextLong()
@@ -923,7 +1013,9 @@ way as the invocation nextLong(radix), where radix is the default radix of this
 scanner. 
 
 
+
     Returns: the long scanned from the input 
+
 *java.util.Scanner.nextLong(int)*
 
 public long nextLong(int radix)
@@ -934,16 +1026,18 @@ value as described below. If the translation is successful, the scanner
 advances past the input that matched. 
 
 If the next token matches the Integer regular expression defined above then the 
-token is converted into an long value as if by removing all locale specific 
+token is converted into a long value as if by removing all locale specific 
 prefixes, group separators, and locale specific suffixes, then mapping 
 non-ASCII digits into ASCII digits via Character.digit(|java.lang.Character|) , 
 prepending a negative sign (-) if the locale specific negative prefixes and 
 suffixes were present, and passing the resulting string to 
 Long.parseLong(|java.lang.Long|) with the specified radix. 
 
+
     radix - the radix used to interpret the token as an int value 
 
     Returns: the long scanned from the input 
+
 *java.util.Scanner.nextShort()*
 
 public short nextShort()
@@ -955,7 +1049,9 @@ same way as the invocation nextShort(radix), where radix is the default radix
 of this scanner. 
 
 
+
     Returns: the short scanned from the input 
+
 *java.util.Scanner.nextShort(int)*
 
 public short nextShort(int radix)
@@ -973,9 +1069,11 @@ prepending a negative sign (-) if the locale specific negative prefixes and
 suffixes were present, and passing the resulting string to 
 Short.parseShort(|java.lang.Short|) with the specified radix. 
 
+
     radix - the radix used to interpret the token as a short value 
 
     Returns: the short scanned from the input 
+
 *java.util.Scanner.radix()*
 
 public int radix()
@@ -986,13 +1084,38 @@ A scanner's radix affects elements of its default number matching regular
 expressions; see localized numbers above. 
 
 
+
     Returns: the default radix of this scanner 
+
 *java.util.Scanner.remove()*
 
 public void remove()
 
 The remove operation is not supported by this implementation of Iterator. 
 
+
+
+*java.util.Scanner.reset()*
+
+public |java.util.Scanner| reset()
+
+Resets this scanner. 
+
+Resetting a scanner discards all of its explicit state information which may 
+have been changed by invocations of (|java.util.Scanner|) , 
+(|java.util.Scanner|) , or (|java.util.Scanner|) . 
+
+An invocation of this method of the form scanner.reset() behaves in exactly the 
+same way as the invocation 
+
+
+
+scanner.useDelimiter("\\p{javaWhitespace}+") .useLocale(Locale.getDefault()) 
+.useRadix(10); 
+
+
+
+    Returns: 
 
 *java.util.Scanner.skip(Pattern)*
 
@@ -1012,9 +1135,11 @@ Note that it is possible to skip something without risking a
 NoSuchElementException by using a pattern that can match nothing, e.g., 
 sc.skip("[ \t]*"). 
 
+
     pattern - a string specifying the pattern to skip over 
 
     Returns: 
+
 *java.util.Scanner.skip(String)*
 
 public |java.util.Scanner| skip(java.lang.String pattern)
@@ -1024,9 +1149,11 @@ Skips input that matches a pattern constructed from the specified string.
 An invocation of this method of the form skip(pattern) behaves in exactly the 
 same way as the invocation skip(Pattern.compile(pattern)). 
 
+
     pattern - a string specifying the pattern to skip over 
 
     Returns: 
+
 *java.util.Scanner.toString()*
 
 public |java.lang.String| toString()
@@ -1036,16 +1163,20 @@ a Scanner contains information that may be useful for debugging. The exact
 format is unspecified. 
 
 
+
     Returns: The string representation of this scanner 
+
 *java.util.Scanner.useDelimiter(Pattern)*
 
 public |java.util.Scanner| useDelimiter(java.util.regex.Pattern pattern)
 
 Sets this scanner's delimiting pattern to the specified pattern. 
 
+
     pattern - A delimiting pattern 
 
     Returns: 
+
 *java.util.Scanner.useDelimiter(String)*
 
 public |java.util.Scanner| useDelimiter(java.lang.String pattern)
@@ -1054,11 +1185,16 @@ Sets this scanner's delimiting pattern to a pattern constructed from the
 specified String. 
 
 An invocation of this method of the form useDelimiter(pattern) behaves in 
-exactly the same way as the invocation hasDelimiter(Pattern.compile(pattern)). 
+exactly the same way as the invocation useDelimiter(Pattern.compile(pattern)). 
+
+Invoking the (|java.util.Scanner|) method will set the scanner's delimiter to 
+the default. 
+
 
     pattern - A string specifying a delimiting pattern 
 
     Returns: 
+
 *java.util.Scanner.useLocale(Locale)*
 
 public |java.util.Scanner| useLocale(java.util.Locale locale)
@@ -1068,9 +1204,14 @@ Sets this scanner's locale to the specified locale.
 A scanner's locale affects many elements of its default primitive matching 
 regular expressions; see localized numbers above. 
 
+Invoking the (|java.util.Scanner|) method will set the scanner's locale to the 
+initial locale. 
+
+
     locale - A string specifying the locale to use 
 
     Returns: 
+
 *java.util.Scanner.useRadix(int)*
 
 public |java.util.Scanner| useRadix(int radix)
@@ -1083,7 +1224,11 @@ expressions; see localized numbers above.
 If the radix is less than Character.MIN_RADIX or greater than 
 Character.MAX_RADIX, then an IllegalArgumentException is thrown. 
 
+Invoking the (|java.util.Scanner|) method will set the scanner's radix to 10. 
+
+
     radix - The radix to use when scanning numbers 
 
     Returns: 
+
 

@@ -23,6 +23,7 @@ Normally, this error is caught by the compiler; this error can only occur at
 run time if the definition of a class has incompatibly changed. 
 
 
+
 *java.lang.InstantiationError()*
 
 public InstantiationError()

@@ -67,13 +67,19 @@ action, for example:
 
 if (barrier.await() == 0) { // log the completion of this iteration } 
 
-The CyclicBarrier uses a fast-fail all-or-none breakage model for failed 
-synchronization attempts: If a thread leaves a barrier point prematurely 
-because of interruption, failure, or timeout, all other threads, even those 
-that have not yet resumed from a previous 
-(|java.util.concurrent.CyclicBarrier|) , will also leave abnormally via 
-(|java.util.concurrent.BrokenBarrierException|) (or InterruptedException if 
-they too were interrupted at about the same time). 
+The CyclicBarrier uses an all-or-none breakage model for failed synchronization 
+attempts: If a thread leaves a barrier point prematurely because of 
+interruption, failure, or timeout, all other threads waiting at that barrier 
+point will also leave abnormally via 
+(|java.util.concurrent.BrokenBarrierException|) (or 
+(|java.lang.InterruptedException|) if they too were interrupted at about the 
+same time). 
+
+Memory consistency effects: Actions in a thread prior to 
+callingawait()happen-before actions that are part of the barrier action, which 
+in turn happen-before actions following a successful return from the 
+correspondingawait()in other threads. 
+
 
 
 *java.util.concurrent.CyclicBarrier(int)*
@@ -81,11 +87,11 @@ they too were interrupted at about the same time).
 public CyclicBarrier(int parties)
 
 Creates a new CyclicBarrier that will trip when the given number of parties 
-(threads) are waiting upon it, and does not perform a predefined action upon 
-each barrier. 
+(threads) are waiting upon it, and does not perform a predefined action when 
+the barrier is tripped. 
 
     parties - the number of threads that must invoke {@link #await} before the barrier is 
-       tripped. 
+       tripped 
 
 *java.util.concurrent.CyclicBarrier(int,Runnable)*
 
@@ -98,9 +104,9 @@ Creates a new CyclicBarrier that will trip when the given number of parties
 when the barrier is tripped, performed by the last thread entering the barrier. 
 
     parties - the number of threads that must invoke {@link #await} before the barrier is 
-       tripped. 
-    barrierAction - the command to execute when the barrier is tripped, or null if there is no 
-       action. 
+       tripped 
+    barrierAction - the command to execute when the barrier is tripped, or {@code null} if there is 
+       no action 
 
 *java.util.concurrent.CyclicBarrier.await()*
 
@@ -112,7 +118,7 @@ Waits until all parties(|java.util.concurrent.CyclicBarrier|) have invoked
 await on this barrier. 
 
 If the current thread is not the last to arrive then it is disabled for thread 
-scheduling purposes and lies dormant until one of following things happens: 
+scheduling purposes and lies dormant until one of the following things happens: 
 
 The last thread arrives; or Some other thread interrupts(|java.lang.Thread|) 
 the current thread; or Some other thread interrupts(|java.lang.Thread|) one of 
@@ -144,9 +150,11 @@ the barrier action then that exception will be propagated in the current thread
 and the barrier is placed in the broken state. 
 
 
+
     Returns: the arrival index of the current thread, where index {@link #getParties()} - 1 
              indicates the first to arrive and zero indicates the last to 
-             arrive. 
+             arrive 
+
 *java.util.concurrent.CyclicBarrier.await(long,TimeUnit)*
 
 public int await(
@@ -157,7 +165,7 @@ public int await(
          |java.util.concurrent.TimeoutException|
          
 Waits until all parties(|java.util.concurrent.CyclicBarrier|) have invoked 
-await on this barrier. 
+await on this barrier, or the specified waiting time elapses. 
 
 If the current thread is not the last to arrive then it is disabled for thread 
 scheduling purposes and lies dormant until one of the following things happens: 
@@ -195,12 +203,14 @@ before allowing the other threads to continue. If an exception occurs during
 the barrier action then that exception will be propagated in the current thread 
 and the barrier is placed in the broken state. 
 
+
     timeout - the time to wait for the barrier 
     unit - the time unit of the timeout parameter 
 
     Returns: the arrival index of the current thread, where index {@link #getParties()} - 1 
              indicates the first to arrive and zero indicates the last to 
-             arrive. 
+             arrive 
+
 *java.util.concurrent.CyclicBarrier.getNumberWaiting()*
 
 public int getNumberWaiting()
@@ -209,7 +219,9 @@ Returns the number of parties currently waiting at the barrier. This method is
 primarily useful for debugging and assertions. 
 
 
+
     Returns: the number of parties currently blocked in {@link #await} 
+
 *java.util.concurrent.CyclicBarrier.getParties()*
 
 public int getParties()
@@ -217,7 +229,9 @@ public int getParties()
 Returns the number of parties required to trip this barrier. 
 
 
-    Returns: the number of parties required to trip this barrier. 
+
+    Returns: the number of parties required to trip this barrier 
+
 *java.util.concurrent.CyclicBarrier.isBroken()*
 
 public boolean isBroken()
@@ -225,9 +239,12 @@ public boolean isBroken()
 Queries if this barrier is in a broken state. 
 
 
-    Returns: true if one or more parties broke out of this barrier due to interruption or 
-             timeout since construction or the last reset, or a barrier action 
-             failed due to an exception; and false otherwise. 
+
+    Returns: {@code true} if one or more parties broke out of this barrier due to 
+             interruption or timeout since construction or the last reset, or a 
+             barrier action failed due to an exception; {@code false} 
+             otherwise. 
+
 *java.util.concurrent.CyclicBarrier.reset()*
 
 public void reset()
@@ -238,6 +255,7 @@ at the barrier, they will return with a
 breakage has occurred for other reasons can be complicated to carry out; 
 threads need to re-synchronize in some other way, and choose one to perform the 
 reset. It may be preferable to instead create a new barrier for subsequent use. 
+
 
 
 

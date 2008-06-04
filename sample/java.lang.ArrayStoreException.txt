@@ -23,6 +23,7 @@ ArrayStoreException:
 Object x[] = new String[3]; x[0] = new Integer(0); 
 
 
+
 *java.lang.ArrayStoreException()*
 
 public ArrayStoreException()

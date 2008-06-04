@@ -29,6 +29,7 @@ for reading an optional Manifest entry. The Manifest can be used to store
 meta-information about the JAR file and its entries. 
 
 
+
 *java.util.jar.JarInputStream(InputStream)*
 
 public JarInputStream(java.io.InputStream in)
@@ -62,9 +63,11 @@ Creates a new JarEntry (ZipEntry) for the specified JAR file entry name. The
 manifest attributes of the specified JAR file entry name will be copied to the 
 new JarEntry. 
 
+
     name - the name of the JAR/ZIP file entry 
 
     Returns: the JarEntry object just created 
+
 *java.util.jar.JarInputStream.getManifest()*
 
 public |java.util.jar.Manifest| getManifest()
@@ -72,7 +75,9 @@ public |java.util.jar.Manifest| getManifest()
 Returns the Manifest for this JAR file, or null if none. 
 
 
+
     Returns: the Manifest for this JAR file, or null if none. 
+
 *java.util.jar.JarInputStream.getNextEntry()*
 
 public |java.util.zip.ZipEntry| getNextEntry()
@@ -81,6 +86,7 @@ public |java.util.zip.ZipEntry| getNextEntry()
 Reads the next ZIP file entry and positions the stream at the beginning of the 
 entry data. If verification has been enabled, any invalid signature detected 
 while positioning the stream for the next entry will result in an exception. 
+
 
 
 *java.util.jar.JarInputStream.getNextJarEntry()*
@@ -93,7 +99,9 @@ entry data. If verification has been enabled, any invalid signature detected
 while positioning the stream for the next entry will result in an exception. 
 
 
+
     Returns: the next JAR file entry, or null if there are no more entries 
+
 *java.util.jar.JarInputStream.read(byte[],int,int)*
 
 public int read(
@@ -102,14 +110,17 @@ public int read(
   int len)
   throws |java.io.IOException|
          
-Reads from the current JAR file entry into an array of bytes. Blocks until some 
-input is available. If verification has been enabled, any invalid signature on 
-the current entry will be reported at some point before the end of the entry is 
-reached. 
+Reads from the current JAR file entry into an array of bytes. If len is not 
+zero, the method blocks until some input is available; otherwise, no bytes are 
+read and 0 is returned. If verification has been enabled, any invalid signature 
+on the current entry will be reported at some point before the end of the entry 
+is reached. 
+
 
     b - the buffer into which the data is read 
-    off - the start offset of the data 
+    off - the start offset in the destination array b 
     len - the maximum number of bytes to read 
 
     Returns: the actual number of bytes read, or -1 if the end of the entry is reached 
+
 

@@ -23,6 +23,7 @@ other words, the Java environment or Java application is not in an appropriate
 state for the requested operation. 
 
 
+
 *java.lang.IllegalStateException()*
 
 public IllegalStateException()

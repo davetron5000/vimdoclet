@@ -1,6 +1,6 @@
 *java.util.concurrent.ExecutorCompletionService* *ExecutorCompletionService* ACo
 
-public class ExecutorCompletionService
+public class ExecutorCompletionService<V>
   extends    |java.lang.Object|
   implements |java.util.concurrent.CompletionService|
 
@@ -13,12 +13,12 @@ public class ExecutorCompletionService
 
 *java.util.concurrent.ExecutorCompletionService_Constructors*
 |java.util.concurrent.ExecutorCompletionService(Executor)|Creates an ExecutorCo
-|java.util.concurrent.ExecutorCompletionService(Executor,BlockingQueue)|Creates
+|java.util.concurrent.ExecutorCompletionService(Executor,BlockingQueue<Future<V>>)|
 
 *java.util.concurrent.ExecutorCompletionService_Methods*
 |java.util.concurrent.ExecutorCompletionService.poll()|
 |java.util.concurrent.ExecutorCompletionService.poll(long,TimeUnit)|
-|java.util.concurrent.ExecutorCompletionService.submit(Callable)|
+|java.util.concurrent.ExecutorCompletionService.submit(Callable<V>)|
 |java.util.concurrent.ExecutorCompletionService.submit(Runnable,V)|
 |java.util.concurrent.ExecutorCompletionService.take()|
 
@@ -59,10 +59,11 @@ ExecutorCompletionService<Result>(e); int n = solvers.size();
 List<Future<Result>> futures = new ArrayList<Future<Result>>(n); Result result 
 = null; try { for (Callable<Result> s : solvers) futures.add(ecs.submit(s)); 
 for (int i = 0; i < n; ++i) { try { Result r = ecs.take().get(); if (r != null) 
-{ result = r; break; } } catch(ExecutionException ignore) {} } } finally { for 
+{ result = r; break; } } catch (ExecutionException ignore) {} } } finally { for 
 (Future<Result> f : futures) f.cancel(true); } 
 
 if (result != null) use(result); } 
+
 
 
 *java.util.concurrent.ExecutorCompletionService(Executor)*
@@ -75,11 +76,11 @@ queue.
 
     executor - the executor to use 
 
-*java.util.concurrent.ExecutorCompletionService(Executor,BlockingQueue)*
+*java.util.concurrent.ExecutorCompletionService(Executor,BlockingQueue<Future<V>>)*
 
 public ExecutorCompletionService(
   java.util.concurrent.Executor executor,
-  java.util.concurrent.BlockingQueue completionQueue)
+  java.util.concurrent.BlockingQueue<java.util.concurrent.Future<V>> completionQueue)
 
 Creates an ExecutorCompletionService using the supplied executor for base task 
 execution and the supplied queue as its completion queue. 
@@ -90,14 +91,15 @@ execution and the supplied queue as its completion queue.
 
 *java.util.concurrent.ExecutorCompletionService.poll()*
 
-public |java.util.concurrent.Future| poll()
+public |java.util.concurrent.Future|<V> poll()
+
 
 
 
 
 *java.util.concurrent.ExecutorCompletionService.poll(long,TimeUnit)*
 
-public |java.util.concurrent.Future| poll(
+public |java.util.concurrent.Future|<V> poll(
   long timeout,
   java.util.concurrent.TimeUnit unit)
   throws |java.lang.InterruptedException|
@@ -105,27 +107,31 @@ public |java.util.concurrent.Future| poll(
 
 
 
-*java.util.concurrent.ExecutorCompletionService.submit(Callable)*
 
-public |java.util.concurrent.Future| submit(java.util.concurrent.Callable task)
+*java.util.concurrent.ExecutorCompletionService.submit(Callable<V>)*
+
+public |java.util.concurrent.Future|<V> submit(java.util.concurrent.Callable<V> task)
+
 
 
 
 
 *java.util.concurrent.ExecutorCompletionService.submit(Runnable,V)*
 
-public |java.util.concurrent.Future| submit(
+public |java.util.concurrent.Future|<V> submit(
   java.lang.Runnable task,
-  java.lang.Object result)
+  V result)
+
 
 
 
 
 *java.util.concurrent.ExecutorCompletionService.take()*
 
-public |java.util.concurrent.Future| take()
+public |java.util.concurrent.Future|<V> take()
   throws |java.lang.InterruptedException|
          
+
 
 
 

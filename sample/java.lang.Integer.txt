@@ -15,7 +15,7 @@ public final class Integer
 |int_java.lang.Integer.MAX_VALUE|
 |int_java.lang.Integer.MIN_VALUE|
 |int_java.lang.Integer.SIZE|
-|java.lang.Class_java.lang.Integer.TYPE|
+|java.lang.Class<java.lang.Integer>_java.lang.Integer.TYPE|
 
 *java.lang.Integer_Constructors*
 |java.lang.Integer(int)|Constructs a newly allocated Integer object that  repre
@@ -74,72 +74,26 @@ numberOfTrailingZeros(|java.lang.Integer|) ) are based on material from Henry
 S. Warren, Jr.'s Hacker's Delight, (Addison Wesley, 2002). 
 
 
+
 *int_java.lang.Integer.MAX_VALUE*
 
-The Integer class wraps a value of the primitive type int in an object. An 
-object of type Integer contains a single field whose type is int. 
-
-
-
-In addition, this class provides several methods for converting an int to a 
-String and a String to an int, as well as other constants and methods useful 
-when dealing with an int. 
-
-Implementation note: The implementations of the "bit twiddling" methods (such 
-as highestOneBit(|java.lang.Integer|) and 
-numberOfTrailingZeros(|java.lang.Integer|) ) are based on material from Henry 
-S. Warren, Jr.'s Hacker's Delight, (Addison Wesley, 2002). 
+A constant holding the maximum value an int can have, 231-1. 
 
 
 *int_java.lang.Integer.MIN_VALUE*
 
-The Integer class wraps a value of the primitive type int in an object. An 
-object of type Integer contains a single field whose type is int. 
-
-
-
-In addition, this class provides several methods for converting an int to a 
-String and a String to an int, as well as other constants and methods useful 
-when dealing with an int. 
-
-Implementation note: The implementations of the "bit twiddling" methods (such 
-as highestOneBit(|java.lang.Integer|) and 
-numberOfTrailingZeros(|java.lang.Integer|) ) are based on material from Henry 
-S. Warren, Jr.'s Hacker's Delight, (Addison Wesley, 2002). 
+A constant holding the minimum value an int can have, -231. 
 
 
 *int_java.lang.Integer.SIZE*
 
-The Integer class wraps a value of the primitive type int in an object. An 
-object of type Integer contains a single field whose type is int. 
+The number of bits used to represent an int value in two's complement binary 
+form. 
 
 
+*java.lang.Class<java.lang.Integer>_java.lang.Integer.TYPE*
 
-In addition, this class provides several methods for converting an int to a 
-String and a String to an int, as well as other constants and methods useful 
-when dealing with an int. 
-
-Implementation note: The implementations of the "bit twiddling" methods (such 
-as highestOneBit(|java.lang.Integer|) and 
-numberOfTrailingZeros(|java.lang.Integer|) ) are based on material from Henry 
-S. Warren, Jr.'s Hacker's Delight, (Addison Wesley, 2002). 
-
-
-*java.lang.Class_java.lang.Integer.TYPE*
-
-The Integer class wraps a value of the primitive type int in an object. An 
-object of type Integer contains a single field whose type is int. 
-
-
-
-In addition, this class provides several methods for converting an int to a 
-String and a String to an int, as well as other constants and methods useful 
-when dealing with an int. 
-
-Implementation note: The implementations of the "bit twiddling" methods (such 
-as highestOneBit(|java.lang.Integer|) and 
-numberOfTrailingZeros(|java.lang.Integer|) ) are based on material from Henry 
-S. Warren, Jr.'s Hacker's Delight, (Addison Wesley, 2002). 
+The Class instance representing the primitive type int. 
 
 
 
@@ -172,13 +126,16 @@ the specified int value. This function is sometimes referred to as the
 population count. 
 
 
+
     Returns: the number of one-bits in the two's complement binary representation of the 
              specified int value. 
+
 *java.lang.Integer.byteValue()*
 
 public byte byteValue()
 
 Returns the value of this Integer as a byte. 
+
 
 
 *java.lang.Integer.compareTo(Integer)*
@@ -187,12 +144,14 @@ public int compareTo(java.lang.Integer anotherInteger)
 
 Compares two Integer objects numerically. 
 
+
     anotherInteger - the Integer to be compared. 
 
     Returns: the value 0 if this Integer is equal to the argument Integer; a value less than 
              0 if this Integer is numerically less than the argument Integer; 
              and a value greater than 0 if this Integer is numerically greater 
              than the argument Integer (signed comparison). 
+
 *java.lang.Integer.decode(String)*
 
 public static |java.lang.Integer| decode(java.lang.String nm)
@@ -220,14 +179,17 @@ must represent a positive value or a (|java.lang.NumberFormatException|) will
 be thrown. The result is negated if first character of the specified String is 
 the minus sign. No whitespace characters are permitted in the String. 
 
+
     nm - the String to decode. 
 
     Returns: a Integer object holding the int value represented by nm 
+
 *java.lang.Integer.doubleValue()*
 
 public double doubleValue()
 
 Returns the value of this Integer as a double. 
+
 
 
 *java.lang.Integer.equals(Object)*
@@ -238,14 +200,17 @@ Compares this object to the specified object. The result is true if and only if
 the argument is not null and is an Integer object that contains the same int 
 value as this object. 
 
+
     obj - the object to compare with. 
 
     Returns: true if the objects are the same; false otherwise. 
+
 *java.lang.Integer.floatValue()*
 
 public float floatValue()
 
 Returns the value of this Integer as a float. 
+
 
 
 *java.lang.Integer.getInteger(String)*
@@ -268,9 +233,11 @@ In other words, this method returns an Integer object equal to the value of:
 
 getInteger(nm, null) 
 
+
     nm - property name. 
 
     Returns: the Integer value of the property. 
+
 *java.lang.Integer.getInteger(String,int)*
 
 public static |java.lang.Integer| getInteger(
@@ -302,10 +269,12 @@ Integer(val) : result;
 to avoid the unnecessary allocation of an Integer object when the default value 
 is not needed. 
 
+
     nm - property name. 
     val - default value. 
 
     Returns: the Integer value of the property. 
+
 *java.lang.Integer.getInteger(String,Integer)*
 
 public static |java.lang.Integer| getInteger(
@@ -331,10 +300,12 @@ The second argument is the default value. The default value is returned if
 there is no property of the specified name, if the property does not have the 
 correct numeric format, or if the specified name is empty or null. 
 
+
     nm - property name. 
     val - default value. 
 
     Returns: the Integer value of the property. 
+
 *java.lang.Integer.hashCode()*
 
 public int hashCode()
@@ -342,8 +313,10 @@ public int hashCode()
 Returns a hash code for this Integer. 
 
 
+
     Returns: a hash code value for this object, equal to the primitive int value represented 
              by this Integer object. 
+
 *java.lang.Integer.highestOneBit(int)*
 
 public static int highestOneBit(int i)
@@ -354,9 +327,11 @@ the specified value has no one-bits in its two's complement binary
 representation, that is, if it is equal to zero. 
 
 
+
     Returns: an int value with a single one-bit, in the position of the highest-order 
              one-bit in the specified value, or zero if the specified value is 
              itself equal to zero. 
+
 *java.lang.Integer.intValue()*
 
 public int intValue()
@@ -364,11 +339,13 @@ public int intValue()
 Returns the value of this Integer as an int. 
 
 
+
 *java.lang.Integer.longValue()*
 
 public long longValue()
 
 Returns the value of this Integer as a long. 
+
 
 
 *java.lang.Integer.lowestOneBit(int)*
@@ -381,9 +358,11 @@ the specified value has no one-bits in its two's complement binary
 representation, that is, if it is equal to zero. 
 
 
+
     Returns: an int value with a single one-bit, in the position of the lowest-order one-bit 
              in the specified value, or zero if the specified value is itself 
              equal to zero. 
+
 *java.lang.Integer.numberOfLeadingZeros(int)*
 
 public static int numberOfLeadingZeros(int i)
@@ -400,9 +379,11 @@ floor(log2(x)) = 31 - numberOfLeadingZeros(x) ceil(log2(x)) = 32 -
 numberOfLeadingZeros(x - 1) 
 
 
+
     Returns: the number of zero bits preceding the highest-order ("leftmost") one-bit in the 
              two's complement binary representation of the specified int value, 
              or 32 if the value is equal to zero. 
+
 *java.lang.Integer.numberOfTrailingZeros(int)*
 
 public static int numberOfTrailingZeros(int i)
@@ -413,9 +394,11 @@ value. Returns 32 if the specified value has no one-bits in its two's
 complement representation, in other words if it is equal to zero. 
 
 
+
     Returns: the number of zero bits following the lowest-order ("rightmost") one-bit in the 
              two's complement binary representation of the specified int value, 
              or 32 if the value is equal to zero. 
+
 *java.lang.Integer.parseInt(String)*
 
 public static int parseInt(java.lang.String s)
@@ -427,9 +410,11 @@ ASCII minus sign '-' ('u002D') to indicate a negative value. The resulting
 integer value is returned, exactly as if the argument and the radix 10 were 
 given as arguments to the (|java.lang.Integer|) method. 
 
+
     s - a String containing the int representation to be parsed 
 
     Returns: the integer value represented by the argument in decimal. 
+
 *java.lang.Integer.parseInt(String,int)*
 
 public static int parseInt(
@@ -463,10 +448,12 @@ returns -2147483648 parseInt("2147483648", 10) throws a NumberFormatException
 parseInt("99", 8) throws a NumberFormatException parseInt("Kona", 10) throws a 
 NumberFormatException parseInt("Kona", 27) returns 411787 
 
+
     s - the String containing the integer representation to be parsed 
     radix - the radix to be used while parsing s. 
 
     Returns: the integer represented by the string argument in the specified radix. 
+
 *java.lang.Integer.reverse(int)*
 
 public static int reverse(int i)
@@ -475,7 +462,9 @@ Returns the value obtained by reversing the order of the bits in the two's
 complement binary representation of the specified int value. 
 
 
+
     Returns: the value obtained by reversing order of the bits in the specified int value. 
+
 *java.lang.Integer.reverseBytes(int)*
 
 public static int reverseBytes(int i)
@@ -484,7 +473,9 @@ Returns the value obtained by reversing the order of the bytes in the two's
 complement representation of the specified int value. 
 
 
+
     Returns: the value obtained by reversing the bytes in the specified int value. 
+
 *java.lang.Integer.rotateLeft(int,int)*
 
 public static int rotateLeft(
@@ -503,8 +494,10 @@ of the rotation distance can be ignored, even if the distance is negative:
 rotateLeft(val, distance) == rotateLeft(val, distance & 0x1F). 
 
 
+
     Returns: the value obtained by rotating the two's complement binary representation of 
              the specified int value left by the specified number of bits. 
+
 *java.lang.Integer.rotateRight(int,int)*
 
 public static int rotateRight(
@@ -523,13 +516,16 @@ of the rotation distance can be ignored, even if the distance is negative:
 rotateRight(val, distance) == rotateRight(val, distance & 0x1F). 
 
 
+
     Returns: the value obtained by rotating the two's complement binary representation of 
              the specified int value right by the specified number of bits. 
+
 *java.lang.Integer.shortValue()*
 
 public short shortValue()
 
 Returns the value of this Integer as a short. 
+
 
 
 *java.lang.Integer.signum(int)*
@@ -541,7 +537,9 @@ if the specified value is negative; 0 if the specified value is zero; and 1 if
 the specified value is positive.) 
 
 
+
     Returns: the signum function of the specified int value. 
+
 *java.lang.Integer.toBinaryString(int)*
 
 public static |java.lang.String| toBinaryString(int i)
@@ -557,10 +555,12 @@ unsigned magnitude is zero, it is represented by a single zero character '0'
 magnitude will not be the zero character. The characters '0' ('u0030') and '1' 
 ('u0031') are used as binary digits. 
 
+
     i - an integer to be converted to a string. 
 
     Returns: the string representation of the unsigned integer value represented by the 
              argument in binary (base2). 
+
 *java.lang.Integer.toHexString(int)*
 
 public static |java.lang.String| toHexString(int i)
@@ -584,10 +584,12 @@ on the result:
 
 Integer.toHexString(n).toUpperCase() 
 
+
     i - an integer to be converted to a string. 
 
     Returns: the string representation of the unsigned integer value represented by the 
              argument in hexadecimal (base16). 
+
 *java.lang.Integer.toOctalString(int)*
 
 public static |java.lang.String| toOctalString(int i)
@@ -608,10 +610,12 @@ used as octal digits:
 
 These are the characters 'u0030' through 'u0037'. 
 
+
     i - an integer to be converted to a string. 
 
     Returns: the string representation of the unsigned integer value represented by the 
              argument in octal (base8). 
+
 *java.lang.Integer.toString()*
 
 public |java.lang.String| toString()
@@ -622,7 +626,9 @@ if the integer value were given as an argument to the (|java.lang.Integer|)
 method. 
 
 
+
     Returns: a string representation of the value of this object in base10. 
+
 *java.lang.Integer.toString(int)*
 
 public static |java.lang.String| toString(int i)
@@ -632,9 +638,11 @@ converted to signed decimal representation and returned as a string, exactly as
 if the argument and radix 10 were given as arguments to the 
 (|java.lang.Integer|) method. 
 
+
     i - an integer to be converted. 
 
     Returns: a string representation of the argument in base10. 
+
 *java.lang.Integer.toString(int,int)*
 
 public static |java.lang.String| toString(
@@ -667,10 +675,12 @@ the result:
 
 Integer.toString(n, 16).toUpperCase() 
 
+
     i - an integer to be converted to a string. 
     radix - the radix to use in the string representation. 
 
     Returns: a string representation of the argument in the specified radix. 
+
 *java.lang.Integer.valueOf(int)*
 
 public static |java.lang.Integer| valueOf(int i)
@@ -681,9 +691,11 @@ preference to the constructor (|java.lang.Integer|) , as this method is likely
 to yield significantly better space and time performance by caching frequently 
 requested values. 
 
+
     i - an int value. 
 
     Returns: a Integer instance representing i. 
+
 *java.lang.Integer.valueOf(String)*
 
 public static |java.lang.Integer| valueOf(java.lang.String s)
@@ -698,9 +710,11 @@ In other words, this method returns an Integer object equal to the value of:
 
 new Integer(Integer.parseInt(s)) 
 
+
     s - the string to be parsed. 
 
     Returns: an Integer object holding the value represented by the string argument. 
+
 *java.lang.Integer.valueOf(String,int)*
 
 public static |java.lang.Integer| valueOf(
@@ -719,9 +733,11 @@ In other words, this method returns an Integer object equal to the value of:
 
 new Integer(Integer.parseInt(s, radix)) 
 
+
     s - the string to be parsed. 
     radix - the radix to be used in interpreting s 
 
     Returns: an Integer object holding the value represented by the string argument in the 
              specified radix. 
+
 

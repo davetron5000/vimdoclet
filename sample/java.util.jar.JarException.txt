@@ -20,6 +20,7 @@ Signals that an error of some sort has occurred while reading from or writing
 to a JAR file. 
 
 
+
 *java.util.jar.JarException()*
 
 public JarException()

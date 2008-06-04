@@ -11,16 +11,45 @@ public class Arrays
 ================================================================================
 
 *java.util.Arrays_Methods*
-|java.util.Arrays.asList(T[])|Returns a fixed-size list backed by the specified
+|java.util.Arrays.asList(T...)|Returns a fixed-size list backed by the specifie
 |java.util.Arrays.binarySearch(byte[],byte)|Searches the specified array of byt
+|java.util.Arrays.binarySearch(byte[],int,int,byte)|Searches a range of  the sp
 |java.util.Arrays.binarySearch(char[],char)|Searches the specified array of cha
+|java.util.Arrays.binarySearch(char[],int,int,char)|Searches a range of  the sp
 |java.util.Arrays.binarySearch(double[],double)|Searches the specified array of
+|java.util.Arrays.binarySearch(double[],int,int,double)|Searches a range of  th
 |java.util.Arrays.binarySearch(float[],float)|Searches the specified array of f
+|java.util.Arrays.binarySearch(float[],int,int,float)|Searches a range of  the 
 |java.util.Arrays.binarySearch(int[],int)|Searches the specified array of ints 
+|java.util.Arrays.binarySearch(int[],int,int,int)|Searches a range of  the spec
+|java.util.Arrays.binarySearch(long[],int,int,long)|Searches a range of  the sp
 |java.util.Arrays.binarySearch(long[],long)|Searches the specified array of lon
+|java.util.Arrays.binarySearch(Object[],int,int,Object)|Searches a range of  th
 |java.util.Arrays.binarySearch(Object[],Object)|Searches the specified array fo
+|java.util.Arrays.binarySearch(short[],int,int,short)|Searches a range of  the 
 |java.util.Arrays.binarySearch(short[],short)|Searches the specified array of s
-|java.util.Arrays.binarySearch(T[],T,Comparator)|Searches the specified array f
+|java.util.Arrays.binarySearch(T[],int,int,T,Comparator<?superT>)|Searches a ra
+|java.util.Arrays.binarySearch(T[],T,Comparator<?superT>)|Searches the specifie
+|java.util.Arrays.copyOf(boolean[],int)|Copies the specified array, truncating 
+|java.util.Arrays.copyOf(byte[],int)|Copies the specified array, truncating or 
+|java.util.Arrays.copyOf(char[],int)|Copies the specified array, truncating or 
+|java.util.Arrays.copyOf(double[],int)|Copies the specified array, truncating o
+|java.util.Arrays.copyOf(float[],int)|Copies the specified array, truncating or
+|java.util.Arrays.copyOf(int[],int)|Copies the specified array, truncating or p
+|java.util.Arrays.copyOf(long[],int)|Copies the specified array, truncating or 
+|java.util.Arrays.copyOf(short[],int)|Copies the specified array, truncating or
+|java.util.Arrays.copyOf(T[],int)|Copies the specified array, truncating or pad
+|java.util.Arrays.copyOf(U[],int,Class<?extendsT[]>)|Copies the specified array
+|java.util.Arrays.copyOfRange(boolean[],int,int)|Copies the specified range of 
+|java.util.Arrays.copyOfRange(byte[],int,int)|Copies the specified range of the
+|java.util.Arrays.copyOfRange(char[],int,int)|Copies the specified range of the
+|java.util.Arrays.copyOfRange(double[],int,int)|Copies the specified range of t
+|java.util.Arrays.copyOfRange(float[],int,int)|Copies the specified range of th
+|java.util.Arrays.copyOfRange(int[],int,int)|Copies the specified range of the 
+|java.util.Arrays.copyOfRange(long[],int,int)|Copies the specified range of the
+|java.util.Arrays.copyOfRange(short[],int,int)|Copies the specified range of th
+|java.util.Arrays.copyOfRange(T[],int,int)|Copies the specified range of the sp
+|java.util.Arrays.copyOfRange(U[],int,int,Class<?extendsT[]>)|Copies the specif
 |java.util.Arrays.deepEquals(Object[],Object[])|Returns true if the two specifi
 |java.util.Arrays.deepHashCode(Object[])|Returns a hash code based on the "deep
 |java.util.Arrays.deepToString(Object[])|Returns a string representation of the
@@ -76,8 +105,8 @@ public class Arrays
 |java.util.Arrays.sort(Object[],int,int)|Sorts the specified range of the speci
 |java.util.Arrays.sort(short[])|Sorts the specified array of shorts into ascend
 |java.util.Arrays.sort(short[],int,int)|Sorts the specified range of the specif
-|java.util.Arrays.sort(T[],Comparator)|Sorts the specified array of objects acc
-|java.util.Arrays.sort(T[],int,int,Comparator)|Sorts the specified range of the
+|java.util.Arrays.sort(T[],Comparator<?superT>)|Sorts the specified array of ob
+|java.util.Arrays.sort(T[],int,int,Comparator<?superT>)|Sorts the specified ran
 |java.util.Arrays.toString(boolean[])|Returns a string representation of the co
 |java.util.Arrays.toString(byte[])|Returns a string representation of the conte
 |java.util.Arrays.toString(char[])|Returns a string representation of the conte
@@ -104,27 +133,31 @@ should feel free to substitute other algorithms, so long as the specification
 itself is adhered to. (For example, the algorithm used by sort(Object[]) does 
 not have to be a mergesort, but it does have to be stable.) 
 
-This class is a member of the <a href="/../guide/collections/index.html"> Java 
-Collections Framework. 
+This class is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
 
 
-*java.util.Arrays.asList(T[])*
 
-public static |java.util.List| asList(java.lang.Object[] a)
+*java.util.Arrays.asList(T...)*
+
+public static |java.util.List|<T> asList(T[] a)
 
 Returns a fixed-size list backed by the specified array. (Changes to the 
 returned list "write through" to the array.) This method acts as bridge between 
-array-based and collection-based APIs, in combination with Collection.toArray. 
-The returned list is serializable and implements (|java.util.RandomAccess|) . 
+array-based and collection-based APIs, in combination with 
+(|java.util.Collection|) . The returned list is serializable and implements 
+(|java.util.RandomAccess|) . 
 
 This method also provides a convenient way to create a fixed-size list 
 initialized to contain several elements: 
 
-List stooges = Arrays.asList("Larry", "Moe", "Curly"); 
+List<String> stooges = Arrays.asList("Larry", "Moe", "Curly"); 
 
-    a - the array by which the list will be backed. 
 
-    Returns: a list view of the specified array. 
+    a - the array by which the list will be backed 
+
+    Returns: a list view of the specified array 
+
 *java.util.Arrays.binarySearch(byte[],byte)*
 
 public static int binarySearch(
@@ -132,21 +165,51 @@ public static int binarySearch(
   byte key)
 
 Searches the specified array of bytes for the specified value using the binary 
-search algorithm. The array must be sorted (as by the sort method, above) prior 
-to making this call. If it is not sorted, the results are undefined. If the 
-array contains multiple elements with the specified value, there is no 
-guarantee which one will be found. 
+search algorithm. The array must be sorted (as by the (|java.util.Arrays|) 
+method) prior to making this call. If it is not sorted, the results are 
+undefined. If the array contains multiple elements with the specified value, 
+there is no guarantee which one will be found. 
 
-    a - the array to be searched. 
-    key - the value to be searched for. 
 
-    Returns: index of the search key, if it is contained in the list; otherwise, 
+    a - the array to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array; otherwise, 
              (-(insertion point) - 1). The insertion point is defined as the 
-             point at which the key would be inserted into the list: the index 
-             of the first element greater than the key, or list.size(), if all 
-             elements in the list are less than the specified key. Note that 
+             point at which the key would be inserted into the array: the index 
+             of the first element greater than the key, or a.length if all 
+             elements in the array are less than the specified key. Note that 
              this guarantees that the return value will be >= 0 if and only if 
              the key is found. 
+
+*java.util.Arrays.binarySearch(byte[],int,int,byte)*
+
+public static int binarySearch(
+  byte[] a,
+  int fromIndex,
+  int toIndex,
+  byte key)
+
+Searches a range of the specified array of bytes for the specified value using 
+the binary search algorithm. The range must be sorted (as by the 
+(|java.util.Arrays|) method) prior to making this call. If it is not sorted, 
+the results are undefined. If the range contains multiple elements with the 
+specified value, there is no guarantee which one will be found. 
+
+
+    a - the array to be searched 
+    fromIndex - the index of the first element (inclusive) to be searched 
+    toIndex - the index of the last element (exclusive) to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array within the specified 
+             range; otherwise, (-(insertion point) - 1). The insertion point is 
+             defined as the point at which the key would be inserted into the 
+             array: the index of the first element in the range greater than 
+             the key, or toIndex if all elements in the range are less than the 
+             specified key. Note that this guarantees that the return value 
+             will be >= 0 if and only if the key is found. 
+
 *java.util.Arrays.binarySearch(char[],char)*
 
 public static int binarySearch(
@@ -154,21 +217,51 @@ public static int binarySearch(
   char key)
 
 Searches the specified array of chars for the specified value using the binary 
-search algorithm. The array must be sorted (as by the sort method, above) prior 
-to making this call. If it is not sorted, the results are undefined. If the 
-array contains multiple elements with the specified value, there is no 
-guarantee which one will be found. 
+search algorithm. The array must be sorted (as by the (|java.util.Arrays|) 
+method) prior to making this call. If it is not sorted, the results are 
+undefined. If the array contains multiple elements with the specified value, 
+there is no guarantee which one will be found. 
 
-    a - the array to be searched. 
-    key - the value to be searched for. 
 
-    Returns: index of the search key, if it is contained in the list; otherwise, 
+    a - the array to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array; otherwise, 
              (-(insertion point) - 1). The insertion point is defined as the 
-             point at which the key would be inserted into the list: the index 
-             of the first element greater than the key, or list.size(), if all 
-             elements in the list are less than the specified key. Note that 
+             point at which the key would be inserted into the array: the index 
+             of the first element greater than the key, or a.length if all 
+             elements in the array are less than the specified key. Note that 
              this guarantees that the return value will be >= 0 if and only if 
              the key is found. 
+
+*java.util.Arrays.binarySearch(char[],int,int,char)*
+
+public static int binarySearch(
+  char[] a,
+  int fromIndex,
+  int toIndex,
+  char key)
+
+Searches a range of the specified array of chars for the specified value using 
+the binary search algorithm. The range must be sorted (as by the 
+(|java.util.Arrays|) method) prior to making this call. If it is not sorted, 
+the results are undefined. If the range contains multiple elements with the 
+specified value, there is no guarantee which one will be found. 
+
+
+    a - the array to be searched 
+    fromIndex - the index of the first element (inclusive) to be searched 
+    toIndex - the index of the last element (exclusive) to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array within the specified 
+             range; otherwise, (-(insertion point) - 1). The insertion point is 
+             defined as the point at which the key would be inserted into the 
+             array: the index of the first element in the range greater than 
+             the key, or toIndex if all elements in the range are less than the 
+             specified key. Note that this guarantees that the return value 
+             will be >= 0 if and only if the key is found. 
+
 *java.util.Arrays.binarySearch(double[],double)*
 
 public static int binarySearch(
@@ -176,22 +269,53 @@ public static int binarySearch(
   double key)
 
 Searches the specified array of doubles for the specified value using the 
-binary search algorithm. The array must be sorted (as by the sort method, 
-above) prior to making this call. If it is not sorted, the results are 
-undefined. If the array contains multiple elements with the specified value, 
-there is no guarantee which one will be found. This method considers all NaN 
-values to be equivalent and equal. 
+binary search algorithm. The array must be sorted (as by the 
+(|java.util.Arrays|) method) prior to making this call. If it is not sorted, 
+the results are undefined. If the array contains multiple elements with the 
+specified value, there is no guarantee which one will be found. This method 
+considers all NaN values to be equivalent and equal. 
 
-    a - the array to be searched. 
-    key - the value to be searched for. 
 
-    Returns: index of the search key, if it is contained in the list; otherwise, 
+    a - the array to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array; otherwise, 
              (-(insertion point) - 1). The insertion point is defined as the 
-             point at which the key would be inserted into the list: the index 
-             of the first element greater than the key, or list.size(), if all 
-             elements in the list are less than the specified key. Note that 
+             point at which the key would be inserted into the array: the index 
+             of the first element greater than the key, or a.length if all 
+             elements in the array are less than the specified key. Note that 
              this guarantees that the return value will be >= 0 if and only if 
              the key is found. 
+
+*java.util.Arrays.binarySearch(double[],int,int,double)*
+
+public static int binarySearch(
+  double[] a,
+  int fromIndex,
+  int toIndex,
+  double key)
+
+Searches a range of the specified array of doubles for the specified value 
+using the binary search algorithm. The range must be sorted (as by the 
+(|java.util.Arrays|) method) prior to making this call. If it is not sorted, 
+the results are undefined. If the range contains multiple elements with the 
+specified value, there is no guarantee which one will be found. This method 
+considers all NaN values to be equivalent and equal. 
+
+
+    a - the array to be searched 
+    fromIndex - the index of the first element (inclusive) to be searched 
+    toIndex - the index of the last element (exclusive) to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array within the specified 
+             range; otherwise, (-(insertion point) - 1). The insertion point is 
+             defined as the point at which the key would be inserted into the 
+             array: the index of the first element in the range greater than 
+             the key, or toIndex if all elements in the range are less than the 
+             specified key. Note that this guarantees that the return value 
+             will be >= 0 if and only if the key is found. 
+
 *java.util.Arrays.binarySearch(float[],float)*
 
 public static int binarySearch(
@@ -199,22 +323,53 @@ public static int binarySearch(
   float key)
 
 Searches the specified array of floats for the specified value using the binary 
-search algorithm. The array must be sorted (as by the sort method, above) prior 
-to making this call. If it is not sorted, the results are undefined. If the 
-array contains multiple elements with the specified value, there is no 
-guarantee which one will be found. This method considers all NaN values to be 
-equivalent and equal. 
+search algorithm. The array must be sorted (as by the (|java.util.Arrays|) 
+method) prior to making this call. If it is not sorted, the results are 
+undefined. If the array contains multiple elements with the specified value, 
+there is no guarantee which one will be found. This method considers all NaN 
+values to be equivalent and equal. 
 
-    a - the array to be searched. 
-    key - the value to be searched for. 
 
-    Returns: index of the search key, if it is contained in the list; otherwise, 
+    a - the array to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array; otherwise, 
              (-(insertion point) - 1). The insertion point is defined as the 
-             point at which the key would be inserted into the list: the index 
-             of the first element greater than the key, or list.size(), if all 
-             elements in the list are less than the specified key. Note that 
+             point at which the key would be inserted into the array: the index 
+             of the first element greater than the key, or a.length if all 
+             elements in the array are less than the specified key. Note that 
              this guarantees that the return value will be >= 0 if and only if 
              the key is found. 
+
+*java.util.Arrays.binarySearch(float[],int,int,float)*
+
+public static int binarySearch(
+  float[] a,
+  int fromIndex,
+  int toIndex,
+  float key)
+
+Searches a range of the specified array of floats for the specified value using 
+the binary search algorithm. The range must be sorted (as by the 
+(|java.util.Arrays|) method) prior to making this call. If it is not sorted, 
+the results are undefined. If the range contains multiple elements with the 
+specified value, there is no guarantee which one will be found. This method 
+considers all NaN values to be equivalent and equal. 
+
+
+    a - the array to be searched 
+    fromIndex - the index of the first element (inclusive) to be searched 
+    toIndex - the index of the last element (exclusive) to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array within the specified 
+             range; otherwise, (-(insertion point) - 1). The insertion point is 
+             defined as the point at which the key would be inserted into the 
+             array: the index of the first element in the range greater than 
+             the key, or toIndex if all elements in the range are less than the 
+             specified key. Note that this guarantees that the return value 
+             will be >= 0 if and only if the key is found. 
+
 *java.util.Arrays.binarySearch(int[],int)*
 
 public static int binarySearch(
@@ -222,21 +377,79 @@ public static int binarySearch(
   int key)
 
 Searches the specified array of ints for the specified value using the binary 
-search algorithm. The array must be sorted (as by the sort method, above) prior 
-to making this call. If it is not sorted, the results are undefined. If the 
-array contains multiple elements with the specified value, there is no 
-guarantee which one will be found. 
+search algorithm. The array must be sorted (as by the (|java.util.Arrays|) 
+method) prior to making this call. If it is not sorted, the results are 
+undefined. If the array contains multiple elements with the specified value, 
+there is no guarantee which one will be found. 
 
-    a - the array to be searched. 
-    key - the value to be searched for. 
 
-    Returns: index of the search key, if it is contained in the list; otherwise, 
+    a - the array to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array; otherwise, 
              (-(insertion point) - 1). The insertion point is defined as the 
-             point at which the key would be inserted into the list: the index 
-             of the first element greater than the key, or list.size(), if all 
-             elements in the list are less than the specified key. Note that 
+             point at which the key would be inserted into the array: the index 
+             of the first element greater than the key, or a.length if all 
+             elements in the array are less than the specified key. Note that 
              this guarantees that the return value will be >= 0 if and only if 
              the key is found. 
+
+*java.util.Arrays.binarySearch(int[],int,int,int)*
+
+public static int binarySearch(
+  int[] a,
+  int fromIndex,
+  int toIndex,
+  int key)
+
+Searches a range of the specified array of ints for the specified value using 
+the binary search algorithm. The range must be sorted (as by the 
+(|java.util.Arrays|) method) prior to making this call. If it is not sorted, 
+the results are undefined. If the range contains multiple elements with the 
+specified value, there is no guarantee which one will be found. 
+
+
+    a - the array to be searched 
+    fromIndex - the index of the first element (inclusive) to be searched 
+    toIndex - the index of the last element (exclusive) to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array within the specified 
+             range; otherwise, (-(insertion point) - 1). The insertion point is 
+             defined as the point at which the key would be inserted into the 
+             array: the index of the first element in the range greater than 
+             the key, or toIndex if all elements in the range are less than the 
+             specified key. Note that this guarantees that the return value 
+             will be >= 0 if and only if the key is found. 
+
+*java.util.Arrays.binarySearch(long[],int,int,long)*
+
+public static int binarySearch(
+  long[] a,
+  int fromIndex,
+  int toIndex,
+  long key)
+
+Searches a range of the specified array of longs for the specified value using 
+the binary search algorithm. The range must be sorted (as by the 
+(|java.util.Arrays|) method) prior to making this call. If it is not sorted, 
+the results are undefined. If the range contains multiple elements with the 
+specified value, there is no guarantee which one will be found. 
+
+
+    a - the array to be searched 
+    fromIndex - the index of the first element (inclusive) to be searched 
+    toIndex - the index of the last element (exclusive) to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array within the specified 
+             range; otherwise, (-(insertion point) - 1). The insertion point is 
+             defined as the point at which the key would be inserted into the 
+             array: the index of the first element in the range greater than 
+             the key, or toIndex if all elements in the range are less than the 
+             specified key. Note that this guarantees that the return value 
+             will be >= 0 if and only if the key is found. 
+
 *java.util.Arrays.binarySearch(long[],long)*
 
 public static int binarySearch(
@@ -244,21 +457,55 @@ public static int binarySearch(
   long key)
 
 Searches the specified array of longs for the specified value using the binary 
-search algorithm. The array must be sorted (as by the sort method, above) prior 
-to making this call. If it is not sorted, the results are undefined. If the 
-array contains multiple elements with the specified value, there is no 
-guarantee which one will be found. 
+search algorithm. The array must be sorted (as by the (|java.util.Arrays|) 
+method) prior to making this call. If it is not sorted, the results are 
+undefined. If the array contains multiple elements with the specified value, 
+there is no guarantee which one will be found. 
 
-    a - the array to be searched. 
-    key - the value to be searched for. 
 
-    Returns: index of the search key, if it is contained in the list; otherwise, 
+    a - the array to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array; otherwise, 
              (-(insertion point) - 1). The insertion point is defined as the 
-             point at which the key would be inserted into the list: the index 
-             of the first element greater than the key, or list.size(), if all 
-             elements in the list are less than the specified key. Note that 
+             point at which the key would be inserted into the array: the index 
+             of the first element greater than the key, or a.length if all 
+             elements in the array are less than the specified key. Note that 
              this guarantees that the return value will be >= 0 if and only if 
              the key is found. 
+
+*java.util.Arrays.binarySearch(Object[],int,int,Object)*
+
+public static int binarySearch(
+  java.lang.Object[] a,
+  int fromIndex,
+  int toIndex,
+  java.lang.Object key)
+
+Searches a range of the specified array for the specified object using the 
+binary search algorithm. The range must be sorted into ascending order 
+according to the natural ordering(|java.lang.Comparable|) of its elements (as 
+by the (|java.util.Arrays|) method) prior to making this call. If it is not 
+sorted, the results are undefined. (If the range contains elements that are not 
+mutually comparable (for example, strings and integers), it cannot be sorted 
+according to the natural ordering of its elements, hence results are 
+undefined.) If the range contains multiple elements equal to the specified 
+object, there is no guarantee which one will be found. 
+
+
+    a - the array to be searched 
+    fromIndex - the index of the first element (inclusive) to be searched 
+    toIndex - the index of the last element (exclusive) to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array within the specified 
+             range; otherwise, (-(insertion point) - 1). The insertion point is 
+             defined as the point at which the key would be inserted into the 
+             array: the index of the first element in the range greater than 
+             the key, or toIndex if all elements in the range are less than the 
+             specified key. Note that this guarantees that the return value 
+             will be >= 0 if and only if the key is found. 
+
 *java.util.Arrays.binarySearch(Object[],Object)*
 
 public static int binarySearch(
@@ -267,23 +514,54 @@ public static int binarySearch(
 
 Searches the specified array for the specified object using the binary search 
 algorithm. The array must be sorted into ascending order according to the 
-natural ordering of its elements (as by Sort(Object[]), above) prior to making 
-this call. If it is not sorted, the results are undefined. (If the array 
-contains elements that are not mutually comparable (for example,strings and 
-integers), it cannot be sorted according to the natural order of its elements, 
-hence results are undefined.) If the array contains multiple elements equal to 
-the specified object, there is no guarantee which one will be found. 
+natural ordering(|java.lang.Comparable|) of its elements (as by the 
+(|java.util.Arrays|) method) prior to making this call. If it is not sorted, 
+the results are undefined. (If the array contains elements that are not 
+mutually comparable (for example, strings and integers), it cannot be sorted 
+according to the natural ordering of its elements, hence results are 
+undefined.) If the array contains multiple elements equal to the specified 
+object, there is no guarantee which one will be found. 
 
-    a - the array to be searched. 
-    key - the value to be searched for. 
 
-    Returns: index of the search key, if it is contained in the list; otherwise, 
+    a - the array to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array; otherwise, 
              (-(insertion point) - 1). The insertion point is defined as the 
-             point at which the key would be inserted into the list: the index 
-             of the first element greater than the key, or list.size(), if all 
-             elements in the list are less than the specified key. Note that 
+             point at which the key would be inserted into the array: the index 
+             of the first element greater than the key, or a.length if all 
+             elements in the array are less than the specified key. Note that 
              this guarantees that the return value will be >= 0 if and only if 
              the key is found. 
+
+*java.util.Arrays.binarySearch(short[],int,int,short)*
+
+public static int binarySearch(
+  short[] a,
+  int fromIndex,
+  int toIndex,
+  short key)
+
+Searches a range of the specified array of shorts for the specified value using 
+the binary search algorithm. The range must be sorted (as by the 
+(|java.util.Arrays|) method) prior to making this call. If it is not sorted, 
+the results are undefined. If the range contains multiple elements with the 
+specified value, there is no guarantee which one will be found. 
+
+
+    a - the array to be searched 
+    fromIndex - the index of the first element (inclusive) to be searched 
+    toIndex - the index of the last element (exclusive) to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array within the specified 
+             range; otherwise, (-(insertion point) - 1). The insertion point is 
+             defined as the point at which the key would be inserted into the 
+             array: the index of the first element in the range greater than 
+             the key, or toIndex if all elements in the range are less than the 
+             specified key. Note that this guarantees that the return value 
+             will be >= 0 if and only if the key is found. 
+
 *java.util.Arrays.binarySearch(short[],short)*
 
 public static int binarySearch(
@@ -291,47 +569,552 @@ public static int binarySearch(
   short key)
 
 Searches the specified array of shorts for the specified value using the binary 
-search algorithm. The array must be sorted (as by the sort method, above) prior 
-to making this call. If it is not sorted, the results are undefined. If the 
-array contains multiple elements with the specified value, there is no 
-guarantee which one will be found. 
+search algorithm. The array must be sorted (as by the (|java.util.Arrays|) 
+method) prior to making this call. If it is not sorted, the results are 
+undefined. If the array contains multiple elements with the specified value, 
+there is no guarantee which one will be found. 
 
-    a - the array to be searched. 
-    key - the value to be searched for. 
 
-    Returns: index of the search key, if it is contained in the list; otherwise, 
+    a - the array to be searched 
+    key - the value to be searched for 
+
+    Returns: index of the search key, if it is contained in the array; otherwise, 
              (-(insertion point) - 1). The insertion point is defined as the 
-             point at which the key would be inserted into the list: the index 
-             of the first element greater than the key, or list.size(), if all 
-             elements in the list are less than the specified key. Note that 
+             point at which the key would be inserted into the array: the index 
+             of the first element greater than the key, or a.length if all 
+             elements in the array are less than the specified key. Note that 
              this guarantees that the return value will be >= 0 if and only if 
              the key is found. 
-*java.util.Arrays.binarySearch(T[],T,Comparator)*
+
+*java.util.Arrays.binarySearch(T[],int,int,T,Comparator<?superT>)*
 
 public static int binarySearch(
-  java.lang.Object[] a,
-  java.lang.Object key,
-  java.util.Comparator c)
+  T[] a,
+  int fromIndex,
+  int toIndex,
+  T key,
+  java.util.Comparator<? super T> c)
+
+Searches a range of the specified array for the specified object using the 
+binary search algorithm. The range must be sorted into ascending order 
+according to the specified comparator (as by the sort(T[], int, int, 
+Comparator)(|java.util.Arrays|) method) prior to making this call. If it is not 
+sorted, the results are undefined. If the range contains multiple elements 
+equal to the specified object, there is no guarantee which one will be found. 
+
+
+    a - the array to be searched 
+    fromIndex - the index of the first element (inclusive) to be searched 
+    toIndex - the index of the last element (exclusive) to be searched 
+    key - the value to be searched for 
+    c - the comparator by which the array is ordered. A null value indicates that the 
+       elements' {@linkplain Comparable natural ordering} should be used. 
+
+    Returns: index of the search key, if it is contained in the array within the specified 
+             range; otherwise, (-(insertion point) - 1). The insertion point is 
+             defined as the point at which the key would be inserted into the 
+             array: the index of the first element in the range greater than 
+             the key, or toIndex if all elements in the range are less than the 
+             specified key. Note that this guarantees that the return value 
+             will be >= 0 if and only if the key is found. 
+
+*java.util.Arrays.binarySearch(T[],T,Comparator<?superT>)*
+
+public static int binarySearch(
+  T[] a,
+  T key,
+  java.util.Comparator<? super T> c)
 
 Searches the specified array for the specified object using the binary search 
 algorithm. The array must be sorted into ascending order according to the 
-specified comparator (as by the Sort(Object[], Comparator) method, above), 
-prior to making this call. If it is not sorted, the results are undefined. If 
-the array contains multiple elements equal to the specified object, there is no 
-guarantee which one will be found. 
+specified comparator (as by the sort(T[], Comparator)(|java.util.Arrays|) 
+method) prior to making this call. If it is not sorted, the results are 
+undefined. If the array contains multiple elements equal to the specified 
+object, there is no guarantee which one will be found. 
 
-    a - the array to be searched. 
-    key - the value to be searched for. 
+
+    a - the array to be searched 
+    key - the value to be searched for 
     c - the comparator by which the array is ordered. A null value indicates that the 
-       elements' natural ordering should be used. 
+       elements' {@linkplain Comparable natural ordering} should be used. 
 
-    Returns: index of the search key, if it is contained in the list; otherwise, 
+    Returns: index of the search key, if it is contained in the array; otherwise, 
              (-(insertion point) - 1). The insertion point is defined as the 
-             point at which the key would be inserted into the list: the index 
-             of the first element greater than the key, or list.size(), if all 
-             elements in the list are less than the specified key. Note that 
+             point at which the key would be inserted into the array: the index 
+             of the first element greater than the key, or a.length if all 
+             elements in the array are less than the specified key. Note that 
              this guarantees that the return value will be >= 0 if and only if 
              the key is found. 
+
+*java.util.Arrays.copyOf(boolean[],int)*
+
+public static boolean[] copyOf(
+  boolean[] original,
+  int newLength)
+
+Copies the specified array, truncating or padding with false (if necessary) so 
+the copy has the specified length. For all indices that are valid in both the 
+original array and the copy, the two arrays will contain identical values. For 
+any indices that are valid in the copy but not the original, the copy will 
+contain false. Such indices will exist if and only if the specified length is 
+greater than that of the original array. 
+
+
+    original - the array to be copied 
+    newLength - the length of the copy to be returned 
+
+    Returns: a copy of the original array, truncated or padded with false elements to obtain 
+             the specified length 
+
+*java.util.Arrays.copyOf(byte[],int)*
+
+public static byte[] copyOf(
+  byte[] original,
+  int newLength)
+
+Copies the specified array, truncating or padding with zeros (if necessary) so 
+the copy has the specified length. For all indices that are valid in both the 
+original array and the copy, the two arrays will contain identical values. For 
+any indices that are valid in the copy but not the original, the copy will 
+contain (byte)0. Such indices will exist if and only if the specified length is 
+greater than that of the original array. 
+
+
+    original - the array to be copied 
+    newLength - the length of the copy to be returned 
+
+    Returns: a copy of the original array, truncated or padded with zeros to obtain the 
+             specified length 
+
+*java.util.Arrays.copyOf(char[],int)*
+
+public static char[] copyOf(
+  char[] original,
+  int newLength)
+
+Copies the specified array, truncating or padding with null characters (if 
+necessary) so the copy has the specified length. For all indices that are valid 
+in both the original array and the copy, the two arrays will contain identical 
+values. For any indices that are valid in the copy but not the original, the 
+copy will contain '\\u000'. Such indices will exist if and only if the 
+specified length is greater than that of the original array. 
+
+
+    original - the array to be copied 
+    newLength - the length of the copy to be returned 
+
+    Returns: a copy of the original array, truncated or padded with null characters to 
+             obtain the specified length 
+
+*java.util.Arrays.copyOf(double[],int)*
+
+public static double[] copyOf(
+  double[] original,
+  int newLength)
+
+Copies the specified array, truncating or padding with zeros (if necessary) so 
+the copy has the specified length. For all indices that are valid in both the 
+original array and the copy, the two arrays will contain identical values. For 
+any indices that are valid in the copy but not the original, the copy will 
+contain 0d. Such indices will exist if and only if the specified length is 
+greater than that of the original array. 
+
+
+    original - the array to be copied 
+    newLength - the length of the copy to be returned 
+
+    Returns: a copy of the original array, truncated or padded with zeros to obtain the 
+             specified length 
+
+*java.util.Arrays.copyOf(float[],int)*
+
+public static float[] copyOf(
+  float[] original,
+  int newLength)
+
+Copies the specified array, truncating or padding with zeros (if necessary) so 
+the copy has the specified length. For all indices that are valid in both the 
+original array and the copy, the two arrays will contain identical values. For 
+any indices that are valid in the copy but not the original, the copy will 
+contain 0f. Such indices will exist if and only if the specified length is 
+greater than that of the original array. 
+
+
+    original - the array to be copied 
+    newLength - the length of the copy to be returned 
+
+    Returns: a copy of the original array, truncated or padded with zeros to obtain the 
+             specified length 
+
+*java.util.Arrays.copyOf(int[],int)*
+
+public static int[] copyOf(
+  int[] original,
+  int newLength)
+
+Copies the specified array, truncating or padding with zeros (if necessary) so 
+the copy has the specified length. For all indices that are valid in both the 
+original array and the copy, the two arrays will contain identical values. For 
+any indices that are valid in the copy but not the original, the copy will 
+contain 0. Such indices will exist if and only if the specified length is 
+greater than that of the original array. 
+
+
+    original - the array to be copied 
+    newLength - the length of the copy to be returned 
+
+    Returns: a copy of the original array, truncated or padded with zeros to obtain the 
+             specified length 
+
+*java.util.Arrays.copyOf(long[],int)*
+
+public static long[] copyOf(
+  long[] original,
+  int newLength)
+
+Copies the specified array, truncating or padding with zeros (if necessary) so 
+the copy has the specified length. For all indices that are valid in both the 
+original array and the copy, the two arrays will contain identical values. For 
+any indices that are valid in the copy but not the original, the copy will 
+contain 0L. Such indices will exist if and only if the specified length is 
+greater than that of the original array. 
+
+
+    original - the array to be copied 
+    newLength - the length of the copy to be returned 
+
+    Returns: a copy of the original array, truncated or padded with zeros to obtain the 
+             specified length 
+
+*java.util.Arrays.copyOf(short[],int)*
+
+public static short[] copyOf(
+  short[] original,
+  int newLength)
+
+Copies the specified array, truncating or padding with zeros (if necessary) so 
+the copy has the specified length. For all indices that are valid in both the 
+original array and the copy, the two arrays will contain identical values. For 
+any indices that are valid in the copy but not the original, the copy will 
+contain (short)0. Such indices will exist if and only if the specified length 
+is greater than that of the original array. 
+
+
+    original - the array to be copied 
+    newLength - the length of the copy to be returned 
+
+    Returns: a copy of the original array, truncated or padded with zeros to obtain the 
+             specified length 
+
+*java.util.Arrays.copyOf(T[],int)*
+
+public static |T|[] copyOf(
+  T[] original,
+  int newLength)
+
+Copies the specified array, truncating or padding with nulls (if necessary) so 
+the copy has the specified length. For all indices that are valid in both the 
+original array and the copy, the two arrays will contain identical values. For 
+any indices that are valid in the copy but not the original, the copy will 
+contain null. Such indices will exist if and only if the specified length is 
+greater than that of the original array. The resulting array is of exactly the 
+same class as the original array. 
+
+
+    original - the array to be copied 
+    newLength - the length of the copy to be returned 
+
+    Returns: a copy of the original array, truncated or padded with nulls to obtain the 
+             specified length 
+
+*java.util.Arrays.copyOf(U[],int,Class<?extendsT[]>)*
+
+public static |T|[] copyOf(
+  U[] original,
+  int newLength,
+  java.lang.Class<? extends T[]> newType)
+
+Copies the specified array, truncating or padding with nulls (if necessary) so 
+the copy has the specified length. For all indices that are valid in both the 
+original array and the copy, the two arrays will contain identical values. For 
+any indices that are valid in the copy but not the original, the copy will 
+contain null. Such indices will exist if and only if the specified length is 
+greater than that of the original array. The resulting array is of the class 
+newType. 
+
+
+    original - the array to be copied 
+    newLength - the length of the copy to be returned 
+    newType - the class of the copy to be returned 
+
+    Returns: a copy of the original array, truncated or padded with nulls to obtain the 
+             specified length 
+
+*java.util.Arrays.copyOfRange(boolean[],int,int)*
+
+public static boolean[] copyOfRange(
+  boolean[] original,
+  int from,
+  int to)
+
+Copies the specified range of the specified array into a new array. The initial 
+index of the range (from) must lie between zero and original.length, inclusive. 
+The value at original[from] is placed into the initial element of the copy 
+(unless from == original.length or from == to). Values from subsequent elements 
+in the original array are placed into subsequent elements in the copy. The 
+final index of the range (to), which must be greater than or equal to from, may 
+be greater than original.length, in which case false is placed in all elements 
+of the copy whose index is greater than or equal to original.length - from. The 
+length of the returned array will be to - from. 
+
+
+    original - the array from which a range is to be copied 
+    from - the initial index of the range to be copied, inclusive 
+    to - the final index of the range to be copied, exclusive. (This index may lie 
+       outside the array.) 
+
+    Returns: a new array containing the specified range from the original array, truncated 
+             or padded with false elements to obtain the required length 
+
+*java.util.Arrays.copyOfRange(byte[],int,int)*
+
+public static byte[] copyOfRange(
+  byte[] original,
+  int from,
+  int to)
+
+Copies the specified range of the specified array into a new array. The initial 
+index of the range (from) must lie between zero and original.length, inclusive. 
+The value at original[from] is placed into the initial element of the copy 
+(unless from == original.length or from == to). Values from subsequent elements 
+in the original array are placed into subsequent elements in the copy. The 
+final index of the range (to), which must be greater than or equal to from, may 
+be greater than original.length, in which case (byte)0 is placed in all 
+elements of the copy whose index is greater than or equal to original.length - 
+from. The length of the returned array will be to - from. 
+
+
+    original - the array from which a range is to be copied 
+    from - the initial index of the range to be copied, inclusive 
+    to - the final index of the range to be copied, exclusive. (This index may lie 
+       outside the array.) 
+
+    Returns: a new array containing the specified range from the original array, truncated 
+             or padded with zeros to obtain the required length 
+
+*java.util.Arrays.copyOfRange(char[],int,int)*
+
+public static char[] copyOfRange(
+  char[] original,
+  int from,
+  int to)
+
+Copies the specified range of the specified array into a new array. The initial 
+index of the range (from) must lie between zero and original.length, inclusive. 
+The value at original[from] is placed into the initial element of the copy 
+(unless from == original.length or from == to). Values from subsequent elements 
+in the original array are placed into subsequent elements in the copy. The 
+final index of the range (to), which must be greater than or equal to from, may 
+be greater than original.length, in which case '\\u000' is placed in all 
+elements of the copy whose index is greater than or equal to original.length - 
+from. The length of the returned array will be to - from. 
+
+
+    original - the array from which a range is to be copied 
+    from - the initial index of the range to be copied, inclusive 
+    to - the final index of the range to be copied, exclusive. (This index may lie 
+       outside the array.) 
+
+    Returns: a new array containing the specified range from the original array, truncated 
+             or padded with null characters to obtain the required length 
+
+*java.util.Arrays.copyOfRange(double[],int,int)*
+
+public static double[] copyOfRange(
+  double[] original,
+  int from,
+  int to)
+
+Copies the specified range of the specified array into a new array. The initial 
+index of the range (from) must lie between zero and original.length, inclusive. 
+The value at original[from] is placed into the initial element of the copy 
+(unless from == original.length or from == to). Values from subsequent elements 
+in the original array are placed into subsequent elements in the copy. The 
+final index of the range (to), which must be greater than or equal to from, may 
+be greater than original.length, in which case 0d is placed in all elements of 
+the copy whose index is greater than or equal to original.length - from. The 
+length of the returned array will be to - from. 
+
+
+    original - the array from which a range is to be copied 
+    from - the initial index of the range to be copied, inclusive 
+    to - the final index of the range to be copied, exclusive. (This index may lie 
+       outside the array.) 
+
+    Returns: a new array containing the specified range from the original array, truncated 
+             or padded with zeros to obtain the required length 
+
+*java.util.Arrays.copyOfRange(float[],int,int)*
+
+public static float[] copyOfRange(
+  float[] original,
+  int from,
+  int to)
+
+Copies the specified range of the specified array into a new array. The initial 
+index of the range (from) must lie between zero and original.length, inclusive. 
+The value at original[from] is placed into the initial element of the copy 
+(unless from == original.length or from == to). Values from subsequent elements 
+in the original array are placed into subsequent elements in the copy. The 
+final index of the range (to), which must be greater than or equal to from, may 
+be greater than original.length, in which case 0f is placed in all elements of 
+the copy whose index is greater than or equal to original.length - from. The 
+length of the returned array will be to - from. 
+
+
+    original - the array from which a range is to be copied 
+    from - the initial index of the range to be copied, inclusive 
+    to - the final index of the range to be copied, exclusive. (This index may lie 
+       outside the array.) 
+
+    Returns: a new array containing the specified range from the original array, truncated 
+             or padded with zeros to obtain the required length 
+
+*java.util.Arrays.copyOfRange(int[],int,int)*
+
+public static int[] copyOfRange(
+  int[] original,
+  int from,
+  int to)
+
+Copies the specified range of the specified array into a new array. The initial 
+index of the range (from) must lie between zero and original.length, inclusive. 
+The value at original[from] is placed into the initial element of the copy 
+(unless from == original.length or from == to). Values from subsequent elements 
+in the original array are placed into subsequent elements in the copy. The 
+final index of the range (to), which must be greater than or equal to from, may 
+be greater than original.length, in which case 0 is placed in all elements of 
+the copy whose index is greater than or equal to original.length - from. The 
+length of the returned array will be to - from. 
+
+
+    original - the array from which a range is to be copied 
+    from - the initial index of the range to be copied, inclusive 
+    to - the final index of the range to be copied, exclusive. (This index may lie 
+       outside the array.) 
+
+    Returns: a new array containing the specified range from the original array, truncated 
+             or padded with zeros to obtain the required length 
+
+*java.util.Arrays.copyOfRange(long[],int,int)*
+
+public static long[] copyOfRange(
+  long[] original,
+  int from,
+  int to)
+
+Copies the specified range of the specified array into a new array. The initial 
+index of the range (from) must lie between zero and original.length, inclusive. 
+The value at original[from] is placed into the initial element of the copy 
+(unless from == original.length or from == to). Values from subsequent elements 
+in the original array are placed into subsequent elements in the copy. The 
+final index of the range (to), which must be greater than or equal to from, may 
+be greater than original.length, in which case 0L is placed in all elements of 
+the copy whose index is greater than or equal to original.length - from. The 
+length of the returned array will be to - from. 
+
+
+    original - the array from which a range is to be copied 
+    from - the initial index of the range to be copied, inclusive 
+    to - the final index of the range to be copied, exclusive. (This index may lie 
+       outside the array.) 
+
+    Returns: a new array containing the specified range from the original array, truncated 
+             or padded with zeros to obtain the required length 
+
+*java.util.Arrays.copyOfRange(short[],int,int)*
+
+public static short[] copyOfRange(
+  short[] original,
+  int from,
+  int to)
+
+Copies the specified range of the specified array into a new array. The initial 
+index of the range (from) must lie between zero and original.length, inclusive. 
+The value at original[from] is placed into the initial element of the copy 
+(unless from == original.length or from == to). Values from subsequent elements 
+in the original array are placed into subsequent elements in the copy. The 
+final index of the range (to), which must be greater than or equal to from, may 
+be greater than original.length, in which case (short)0 is placed in all 
+elements of the copy whose index is greater than or equal to original.length - 
+from. The length of the returned array will be to - from. 
+
+
+    original - the array from which a range is to be copied 
+    from - the initial index of the range to be copied, inclusive 
+    to - the final index of the range to be copied, exclusive. (This index may lie 
+       outside the array.) 
+
+    Returns: a new array containing the specified range from the original array, truncated 
+             or padded with zeros to obtain the required length 
+
+*java.util.Arrays.copyOfRange(T[],int,int)*
+
+public static |T|[] copyOfRange(
+  T[] original,
+  int from,
+  int to)
+
+Copies the specified range of the specified array into a new array. The initial 
+index of the range (from) must lie between zero and original.length, inclusive. 
+The value at original[from] is placed into the initial element of the copy 
+(unless from == original.length or from == to). Values from subsequent elements 
+in the original array are placed into subsequent elements in the copy. The 
+final index of the range (to), which must be greater than or equal to from, may 
+be greater than original.length, in which case null is placed in all elements 
+of the copy whose index is greater than or equal to original.length - from. The 
+length of the returned array will be to - from. 
+
+The resulting array is of exactly the same class as the original array. 
+
+
+    original - the array from which a range is to be copied 
+    from - the initial index of the range to be copied, inclusive 
+    to - the final index of the range to be copied, exclusive. (This index may lie 
+       outside the array.) 
+
+    Returns: a new array containing the specified range from the original array, truncated 
+             or padded with nulls to obtain the required length 
+
+*java.util.Arrays.copyOfRange(U[],int,int,Class<?extendsT[]>)*
+
+public static |T|[] copyOfRange(
+  U[] original,
+  int from,
+  int to,
+  java.lang.Class<? extends T[]> newType)
+
+Copies the specified range of the specified array into a new array. The initial 
+index of the range (from) must lie between zero and original.length, inclusive. 
+The value at original[from] is placed into the initial element of the copy 
+(unless from == original.length or from == to). Values from subsequent elements 
+in the original array are placed into subsequent elements in the copy. The 
+final index of the range (to), which must be greater than or equal to from, may 
+be greater than original.length, in which case null is placed in all elements 
+of the copy whose index is greater than or equal to original.length - from. The 
+length of the returned array will be to - from. The resulting array is of the 
+class newType. 
+
+
+    original - the array from which a range is to be copied 
+    from - the initial index of the range to be copied, inclusive 
+    to - the final index of the range to be copied, exclusive. (This index may lie 
+       outside the array.) 
+    newType - the class of the copy to be returned 
+
+    Returns: a new array containing the specified range from the original array, truncated 
+             or padded with nulls to obtain the required length 
+
 *java.util.Arrays.deepEquals(Object[],Object[])*
 
 public static boolean deepEquals(
@@ -339,8 +1122,8 @@ public static boolean deepEquals(
   java.lang.Object[] a2)
 
 Returns true if the two specified arrays are deeply equal to one another. 
-Unlike the @link{#equals{Object[],Object[]) method, this method is appropriate 
-for use with nested arrays of arbitrary depth. 
+Unlike the (|java.util.Arrays|) method, this method is appropriate for use with 
+nested arrays of arbitrary depth. 
 
 Two array references are considered deeply equal if both are null, or if they 
 refer to arrays that contain the same number of elements and all corresponding 
@@ -360,10 +1143,12 @@ If either of the specified arrays contain themselves as elements either
 directly or indirectly through one or more levels of arrays, the behavior of 
 this method is undefined. 
 
+
     a1 - one array to be tested for equality 
     a2 - the other array to be tested for equality 
 
     Returns: true if the two arrays are equal 
+
 *java.util.Arrays.deepHashCode(Object[])*
 
 public static int deepHashCode(java.lang.Object[] a)
@@ -386,9 +1171,11 @@ the appropriate overloading of Arrays.hashCode(e) if e is an array of a
 primitive type, or as by calling Arrays.deepHashCode(e) recursively if e is an 
 array of a reference type. If a is null, this method returns 0. 
 
+
     a - the array whose deep-content-based hash code to compute 
 
     Returns: a deep-content-based hash code for a 
+
 *java.util.Arrays.deepToString(Object[])*
 
 public static |java.lang.String| deepToString(java.lang.Object[] a)
@@ -415,9 +1202,11 @@ an array containing only a reference to itself would be rendered as "[[...]]".
 
 This method returns "null" if the specified array is null. 
 
+
     a - the array whose string representation to return 
 
     Returns: a string representation of a 
+
 *java.util.Arrays.equals(boolean[],boolean[])*
 
 public static boolean equals(
@@ -430,10 +1219,12 @@ elements, and all corresponding pairs of elements in the two arrays are equal.
 In other words, two arrays are equal if they contain the same elements in the 
 same order. Also, two array references are considered equal if both are null. 
 
-    a - one array to be tested for equality. 
-    a2 - the other array to be tested for equality. 
 
-    Returns: true if the two arrays are equal. 
+    a - one array to be tested for equality 
+    a2 - the other array to be tested for equality 
+
+    Returns: true if the two arrays are equal 
+
 *java.util.Arrays.equals(byte[],byte[])*
 
 public static boolean equals(
@@ -446,10 +1237,12 @@ and all corresponding pairs of elements in the two arrays are equal. In other
 words, two arrays are equal if they contain the same elements in the same 
 order. Also, two array references are considered equal if both are null. 
 
-    a - one array to be tested for equality. 
-    a2 - the other array to be tested for equality. 
 
-    Returns: true if the two arrays are equal. 
+    a - one array to be tested for equality 
+    a2 - the other array to be tested for equality 
+
+    Returns: true if the two arrays are equal 
+
 *java.util.Arrays.equals(char[],char[])*
 
 public static boolean equals(
@@ -462,10 +1255,12 @@ and all corresponding pairs of elements in the two arrays are equal. In other
 words, two arrays are equal if they contain the same elements in the same 
 order. Also, two array references are considered equal if both are null. 
 
-    a - one array to be tested for equality. 
-    a2 - the other array to be tested for equality. 
 
-    Returns: true if the two arrays are equal. 
+    a - one array to be tested for equality 
+    a2 - the other array to be tested for equality 
+
+    Returns: true if the two arrays are equal 
+
 *java.util.Arrays.equals(double[],double[])*
 
 public static boolean equals(
@@ -485,10 +1280,12 @@ new Double(d1).equals(new Double(d2))
 (Unlike the == operator, this method considers NaN equals to itself, and 0.0d 
 unequal to -0.0d.) 
 
-    a - one array to be tested for equality. 
-    a2 - the other array to be tested for equality. 
 
-    Returns: true if the two arrays are equal. 
+    a - one array to be tested for equality 
+    a2 - the other array to be tested for equality 
+
+    Returns: true if the two arrays are equal 
+
 *java.util.Arrays.equals(float[],float[])*
 
 public static boolean equals(
@@ -508,10 +1305,12 @@ new Float(f1).equals(new Float(f2))
 (Unlike the == operator, this method considers NaN equals to itself, and 0.0f 
 unequal to -0.0f.) 
 
-    a - one array to be tested for equality. 
-    a2 - the other array to be tested for equality. 
 
-    Returns: true if the two arrays are equal. 
+    a - one array to be tested for equality 
+    a2 - the other array to be tested for equality 
+
+    Returns: true if the two arrays are equal 
+
 *java.util.Arrays.equals(int[],int[])*
 
 public static boolean equals(
@@ -524,10 +1323,12 @@ and all corresponding pairs of elements in the two arrays are equal. In other
 words, two arrays are equal if they contain the same elements in the same 
 order. Also, two array references are considered equal if both are null. 
 
-    a - one array to be tested for equality. 
-    a2 - the other array to be tested for equality. 
 
-    Returns: true if the two arrays are equal. 
+    a - one array to be tested for equality 
+    a2 - the other array to be tested for equality 
+
+    Returns: true if the two arrays are equal 
+
 *java.util.Arrays.equals(long[],long[])*
 
 public static boolean equals(
@@ -540,10 +1341,12 @@ and all corresponding pairs of elements in the two arrays are equal. In other
 words, two arrays are equal if they contain the same elements in the same 
 order. Also, two array references are considered equal if both are null. 
 
-    a - one array to be tested for equality. 
-    a2 - the other array to be tested for equality. 
 
-    Returns: true if the two arrays are equal. 
+    a - one array to be tested for equality 
+    a2 - the other array to be tested for equality 
+
+    Returns: true if the two arrays are equal 
+
 *java.util.Arrays.equals(Object[],Object[])*
 
 public static boolean equals(
@@ -558,10 +1361,12 @@ e1.equals(e2)). In other words, the two arrays are equal if they contain the
 same elements in the same order. Also, two array references are considered 
 equal if both are null. 
 
-    a - one array to be tested for equality. 
-    a2 - the other array to be tested for equality. 
 
-    Returns: true if the two arrays are equal. 
+    a - one array to be tested for equality 
+    a2 - the other array to be tested for equality 
+
+    Returns: true if the two arrays are equal 
+
 *java.util.Arrays.equals(short[],short[])*
 
 public static boolean equals(
@@ -574,10 +1379,12 @@ elements, and all corresponding pairs of elements in the two arrays are equal.
 In other words, two arrays are equal if they contain the same elements in the 
 same order. Also, two array references are considered equal if both are null. 
 
-    a - one array to be tested for equality. 
-    a2 - the other array to be tested for equality. 
 
-    Returns: true if the two arrays are equal. 
+    a - one array to be tested for equality 
+    a2 - the other array to be tested for equality 
+
+    Returns: true if the two arrays are equal 
+
 *java.util.Arrays.fill(boolean[],boolean)*
 
 public static void fill(
@@ -587,8 +1394,9 @@ public static void fill(
 Assigns the specified boolean value to each element of the specified array of 
 booleans. 
 
-    a - the array to be filled. 
-    val - the value to be stored in all elements of the array. 
+
+    a - the array to be filled 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(boolean[],int,int,boolean)*
 
@@ -603,12 +1411,12 @@ the specified array of booleans. The range to be filled extends from index
 fromIndex, inclusive, to index toIndex, exclusive. (If fromIndex==toIndex, the 
 range to be filled is empty.) 
 
-    a - the array to be filled. 
+
+    a - the array to be filled 
     fromIndex - the index of the first element (inclusive) to be filled with the specified 
-       value. 
-    toIndex - the index of the last element (exclusive) to be filled with the specified 
-       value. 
-    val - the value to be stored in all elements of the array. 
+       value 
+    toIndex - the index of the last element (exclusive) to be filled with the specified value 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(byte[],byte)*
 
@@ -619,8 +1427,9 @@ public static void fill(
 Assigns the specified byte value to each element of the specified array of 
 bytes. 
 
-    a - the array to be filled. 
-    val - the value to be stored in all elements of the array. 
+
+    a - the array to be filled 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(byte[],int,int,byte)*
 
@@ -635,12 +1444,12 @@ specified array of bytes. The range to be filled extends from index fromIndex,
 inclusive, to index toIndex, exclusive. (If fromIndex==toIndex, the range to be 
 filled is empty.) 
 
-    a - the array to be filled. 
+
+    a - the array to be filled 
     fromIndex - the index of the first element (inclusive) to be filled with the specified 
-       value. 
-    toIndex - the index of the last element (exclusive) to be filled with the specified 
-       value. 
-    val - the value to be stored in all elements of the array. 
+       value 
+    toIndex - the index of the last element (exclusive) to be filled with the specified value 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(char[],char)*
 
@@ -651,8 +1460,9 @@ public static void fill(
 Assigns the specified char value to each element of the specified array of 
 chars. 
 
-    a - the array to be filled. 
-    val - the value to be stored in all elements of the array. 
+
+    a - the array to be filled 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(char[],int,int,char)*
 
@@ -667,12 +1477,12 @@ specified array of chars. The range to be filled extends from index fromIndex,
 inclusive, to index toIndex, exclusive. (If fromIndex==toIndex, the range to be 
 filled is empty.) 
 
-    a - the array to be filled. 
+
+    a - the array to be filled 
     fromIndex - the index of the first element (inclusive) to be filled with the specified 
-       value. 
-    toIndex - the index of the last element (exclusive) to be filled with the specified 
-       value. 
-    val - the value to be stored in all elements of the array. 
+       value 
+    toIndex - the index of the last element (exclusive) to be filled with the specified value 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(double[],double)*
 
@@ -683,8 +1493,9 @@ public static void fill(
 Assigns the specified double value to each element of the specified array of 
 doubles. 
 
-    a - the array to be filled. 
-    val - the value to be stored in all elements of the array. 
+
+    a - the array to be filled 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(double[],int,int,double)*
 
@@ -699,12 +1510,12 @@ the specified array of doubles. The range to be filled extends from index
 fromIndex, inclusive, to index toIndex, exclusive. (If fromIndex==toIndex, the 
 range to be filled is empty.) 
 
-    a - the array to be filled. 
+
+    a - the array to be filled 
     fromIndex - the index of the first element (inclusive) to be filled with the specified 
-       value. 
-    toIndex - the index of the last element (exclusive) to be filled with the specified 
-       value. 
-    val - the value to be stored in all elements of the array. 
+       value 
+    toIndex - the index of the last element (exclusive) to be filled with the specified value 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(float[],float)*
 
@@ -715,8 +1526,9 @@ public static void fill(
 Assigns the specified float value to each element of the specified array of 
 floats. 
 
-    a - the array to be filled. 
-    val - the value to be stored in all elements of the array. 
+
+    a - the array to be filled 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(float[],int,int,float)*
 
@@ -731,12 +1543,12 @@ specified array of floats. The range to be filled extends from index fromIndex,
 inclusive, to index toIndex, exclusive. (If fromIndex==toIndex, the range to be 
 filled is empty.) 
 
-    a - the array to be filled. 
+
+    a - the array to be filled 
     fromIndex - the index of the first element (inclusive) to be filled with the specified 
-       value. 
-    toIndex - the index of the last element (exclusive) to be filled with the specified 
-       value. 
-    val - the value to be stored in all elements of the array. 
+       value 
+    toIndex - the index of the last element (exclusive) to be filled with the specified value 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(int[],int)*
 
@@ -746,8 +1558,9 @@ public static void fill(
 
 Assigns the specified int value to each element of the specified array of ints. 
 
-    a - the array to be filled. 
-    val - the value to be stored in all elements of the array. 
+
+    a - the array to be filled 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(int[],int,int,int)*
 
@@ -762,12 +1575,12 @@ specified array of ints. The range to be filled extends from index fromIndex,
 inclusive, to index toIndex, exclusive. (If fromIndex==toIndex, the range to be 
 filled is empty.) 
 
-    a - the array to be filled. 
+
+    a - the array to be filled 
     fromIndex - the index of the first element (inclusive) to be filled with the specified 
-       value. 
-    toIndex - the index of the last element (exclusive) to be filled with the specified 
-       value. 
-    val - the value to be stored in all elements of the array. 
+       value 
+    toIndex - the index of the last element (exclusive) to be filled with the specified value 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(long[],int,int,long)*
 
@@ -782,12 +1595,12 @@ specified array of longs. The range to be filled extends from index fromIndex,
 inclusive, to index toIndex, exclusive. (If fromIndex==toIndex, the range to be 
 filled is empty.) 
 
-    a - the array to be filled. 
+
+    a - the array to be filled 
     fromIndex - the index of the first element (inclusive) to be filled with the specified 
-       value. 
-    toIndex - the index of the last element (exclusive) to be filled with the specified 
-       value. 
-    val - the value to be stored in all elements of the array. 
+       value 
+    toIndex - the index of the last element (exclusive) to be filled with the specified value 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(long[],long)*
 
@@ -798,8 +1611,9 @@ public static void fill(
 Assigns the specified long value to each element of the specified array of 
 longs. 
 
-    a - the array to be filled. 
-    val - the value to be stored in all elements of the array. 
+
+    a - the array to be filled 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(Object[],int,int,Object)*
 
@@ -814,12 +1628,12 @@ of the specified array of Objects. The range to be filled extends from index
 fromIndex, inclusive, to index toIndex, exclusive. (If fromIndex==toIndex, the 
 range to be filled is empty.) 
 
-    a - the array to be filled. 
+
+    a - the array to be filled 
     fromIndex - the index of the first element (inclusive) to be filled with the specified 
-       value. 
-    toIndex - the index of the last element (exclusive) to be filled with the specified 
-       value. 
-    val - the value to be stored in all elements of the array. 
+       value 
+    toIndex - the index of the last element (exclusive) to be filled with the specified value 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(Object[],Object)*
 
@@ -830,8 +1644,9 @@ public static void fill(
 Assigns the specified Object reference to each element of the specified array 
 of Objects. 
 
-    a - the array to be filled. 
-    val - the value to be stored in all elements of the array. 
+
+    a - the array to be filled 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(short[],int,int,short)*
 
@@ -846,12 +1661,12 @@ specified array of shorts. The range to be filled extends from index fromIndex,
 inclusive, to index toIndex, exclusive. (If fromIndex==toIndex, the range to be 
 filled is empty.) 
 
-    a - the array to be filled. 
+
+    a - the array to be filled 
     fromIndex - the index of the first element (inclusive) to be filled with the specified 
-       value. 
-    toIndex - the index of the last element (exclusive) to be filled with the specified 
-       value. 
-    val - the value to be stored in all elements of the array. 
+       value 
+    toIndex - the index of the last element (exclusive) to be filled with the specified value 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.fill(short[],short)*
 
@@ -862,8 +1677,9 @@ public static void fill(
 Assigns the specified short value to each element of the specified array of 
 shorts. 
 
-    a - the array to be filled. 
-    val - the value to be stored in all elements of the array. 
+
+    a - the array to be filled 
+    val - the value to be stored in all elements of the array 
 
 *java.util.Arrays.hashCode(boolean[])*
 
@@ -878,9 +1694,11 @@ invoking the <tt>hashCode</tt>(|java.util.List|) method on a (|java.util.List|)
 containing a sequence of (|java.lang.Boolean|) instances representing the 
 elements of a in the same order. If a is null, this method returns 0. 
 
+
     a - the array whose hash value to compute 
 
     Returns: a content-based hash code for a 
+
 *java.util.Arrays.hashCode(byte[])*
 
 public static int hashCode(byte[] a)
@@ -894,9 +1712,11 @@ invoking the <tt>hashCode</tt>(|java.util.List|) method on a (|java.util.List|)
 containing a sequence of (|java.lang.Byte|) instances representing the elements 
 of a in the same order. If a is null, this method returns 0. 
 
+
     a - the array whose hash value to compute 
 
     Returns: a content-based hash code for a 
+
 *java.util.Arrays.hashCode(char[])*
 
 public static int hashCode(char[] a)
@@ -910,9 +1730,11 @@ invoking the <tt>hashCode</tt>(|java.util.List|) method on a (|java.util.List|)
 containing a sequence of (|java.lang.Character|) instances representing the 
 elements of a in the same order. If a is null, this method returns 0. 
 
+
     a - the array whose hash value to compute 
 
     Returns: a content-based hash code for a 
+
 *java.util.Arrays.hashCode(double[])*
 
 public static int hashCode(double[] a)
@@ -926,9 +1748,11 @@ invoking the <tt>hashCode</tt>(|java.util.List|) method on a (|java.util.List|)
 containing a sequence of (|java.lang.Double|) instances representing the 
 elements of a in the same order. If a is null, this method returns 0. 
 
+
     a - the array whose hash value to compute 
 
     Returns: a content-based hash code for a 
+
 *java.util.Arrays.hashCode(float[])*
 
 public static int hashCode(float[] a)
@@ -942,9 +1766,11 @@ invoking the <tt>hashCode</tt>(|java.util.List|) method on a (|java.util.List|)
 containing a sequence of (|java.lang.Float|) instances representing the 
 elements of a in the same order. If a is null, this method returns 0. 
 
+
     a - the array whose hash value to compute 
 
     Returns: a content-based hash code for a 
+
 *java.util.Arrays.hashCode(int[])*
 
 public static int hashCode(int[] a)
@@ -958,9 +1784,11 @@ invoking the <tt>hashCode</tt>(|java.util.List|) method on a (|java.util.List|)
 containing a sequence of (|java.lang.Integer|) instances representing the 
 elements of a in the same order. If a is null, this method returns 0. 
 
+
     a - the array whose hash value to compute 
 
     Returns: a content-based hash code for a 
+
 *java.util.Arrays.hashCode(long[])*
 
 public static int hashCode(long[] a)
@@ -974,9 +1802,11 @@ invoking the <tt>hashCode</tt>(|java.util.List|) method on a (|java.util.List|)
 containing a sequence of (|java.lang.Long|) instances representing the elements 
 of a in the same order. If a is null, this method returns 0. 
 
+
     a - the array whose hash value to compute 
 
     Returns: a content-based hash code for a 
+
 *java.util.Arrays.hashCode(Object[])*
 
 public static int hashCode(java.lang.Object[] a)
@@ -993,9 +1823,11 @@ that Arrays.hashCode(a) == Arrays.hashCode(b).
 The value returned by this method is equal to the value that would be returned 
 by Arrays.asList(a).hashCode(), unless a is null, in which case 0 is returned. 
 
+
     a - the array whose content-based hash code to compute 
 
     Returns: a content-based hash code for a 
+
 *java.util.Arrays.hashCode(short[])*
 
 public static int hashCode(short[] a)
@@ -1009,9 +1841,11 @@ invoking the <tt>hashCode</tt>(|java.util.List|) method on a (|java.util.List|)
 containing a sequence of (|java.lang.Short|) instances representing the 
 elements of a in the same order. If a is null, this method returns 0. 
 
+
     a - the array whose hash value to compute 
 
     Returns: a content-based hash code for a 
+
 *java.util.Arrays.sort(byte[])*
 
 public static void sort(byte[] a)
@@ -1023,7 +1857,8 @@ McIlroy's "Engineering a Sort Function", Software-Practice and Experience, Vol.
 on many data sets that cause other quicksorts to degrade to quadratic 
 performance. 
 
-    a - the array to be sorted. 
+
+    a - the array to be sorted 
 
 *java.util.Arrays.sort(byte[],int,int)*
 
@@ -1043,9 +1878,10 @@ Experience, Vol. 23(11) P. 1249-1265 (November 1993). This algorithm offers
 n*log(n) performance on many data sets that cause other quicksorts to degrade 
 to quadratic performance. 
 
-    a - the array to be sorted. 
-    fromIndex - the index of the first element (inclusive) to be sorted. 
-    toIndex - the index of the last element (exclusive) to be sorted. 
+
+    a - the array to be sorted 
+    fromIndex - the index of the first element (inclusive) to be sorted 
+    toIndex - the index of the last element (exclusive) to be sorted 
 
 *java.util.Arrays.sort(char[])*
 
@@ -1058,7 +1894,8 @@ McIlroy's "Engineering a Sort Function", Software-Practice and Experience, Vol.
 on many data sets that cause other quicksorts to degrade to quadratic 
 performance. 
 
-    a - the array to be sorted. 
+
+    a - the array to be sorted 
 
 *java.util.Arrays.sort(char[],int,int)*
 
@@ -1078,9 +1915,10 @@ Experience, Vol. 23(11) P. 1249-1265 (November 1993). This algorithm offers
 n*log(n) performance on many data sets that cause other quicksorts to degrade 
 to quadratic performance. 
 
-    a - the array to be sorted. 
-    fromIndex - the index of the first element (inclusive) to be sorted. 
-    toIndex - the index of the last element (exclusive) to be sorted. 
+
+    a - the array to be sorted 
+    fromIndex - the index of the first element (inclusive) to be sorted 
+    toIndex - the index of the last element (exclusive) to be sorted 
 
 *java.util.Arrays.sort(double[])*
 
@@ -1104,7 +1942,8 @@ Experience, Vol. 23(11) P. 1249-1265 (November 1993). This algorithm offers
 n*log(n) performance on many data sets that cause other quicksorts to degrade 
 to quadratic performance. 
 
-    a - the array to be sorted. 
+
+    a - the array to be sorted 
 
 *java.util.Arrays.sort(double[],int,int)*
 
@@ -1134,9 +1973,10 @@ Experience, Vol. 23(11) P. 1249-1265 (November 1993). This algorithm offers
 n*log(n) performance on many data sets that cause other quicksorts to degrade 
 to quadratic performance. 
 
-    a - the array to be sorted. 
-    fromIndex - the index of the first element (inclusive) to be sorted. 
-    toIndex - the index of the last element (exclusive) to be sorted. 
+
+    a - the array to be sorted 
+    fromIndex - the index of the first element (inclusive) to be sorted 
+    toIndex - the index of the last element (exclusive) to be sorted 
 
 *java.util.Arrays.sort(float[])*
 
@@ -1160,7 +2000,8 @@ Experience, Vol. 23(11) P. 1249-1265 (November 1993). This algorithm offers
 n*log(n) performance on many data sets that cause other quicksorts to degrade 
 to quadratic performance. 
 
-    a - the array to be sorted. 
+
+    a - the array to be sorted 
 
 *java.util.Arrays.sort(float[],int,int)*
 
@@ -1190,9 +2031,10 @@ Experience, Vol. 23(11) P. 1249-1265 (November 1993). This algorithm offers
 n*log(n) performance on many data sets that cause other quicksorts to degrade 
 to quadratic performance. 
 
-    a - the array to be sorted. 
-    fromIndex - the index of the first element (inclusive) to be sorted. 
-    toIndex - the index of the last element (exclusive) to be sorted. 
+
+    a - the array to be sorted 
+    fromIndex - the index of the first element (inclusive) to be sorted 
+    toIndex - the index of the last element (exclusive) to be sorted 
 
 *java.util.Arrays.sort(int[])*
 
@@ -1205,7 +2047,8 @@ McIlroy's "Engineering a Sort Function", Software-Practice and Experience, Vol.
 on many data sets that cause other quicksorts to degrade to quadratic 
 performance. 
 
-    a - the array to be sorted. 
+
+    a - the array to be sorted 
 
 *java.util.Arrays.sort(int[],int,int)*
 
@@ -1225,9 +2068,10 @@ Experience, Vol. 23(11) P. 1249-1265 (November 1993). This algorithm offers
 n*log(n) performance on many data sets that cause other quicksorts to degrade 
 to quadratic performance. 
 
-    a - the array to be sorted. 
-    fromIndex - the index of the first element (inclusive) to be sorted. 
-    toIndex - the index of the last element (exclusive) to be sorted. 
+
+    a - the array to be sorted 
+    fromIndex - the index of the first element (inclusive) to be sorted 
+    toIndex - the index of the last element (exclusive) to be sorted 
 
 *java.util.Arrays.sort(long[])*
 
@@ -1240,7 +2084,8 @@ McIlroy's "Engineering a Sort Function", Software-Practice and Experience, Vol.
 on many data sets that cause other quicksorts to degrade to quadratic 
 performance. 
 
-    a - the array to be sorted. 
+
+    a - the array to be sorted 
 
 *java.util.Arrays.sort(long[],int,int)*
 
@@ -1260,19 +2105,20 @@ Experience, Vol. 23(11) P. 1249-1265 (November 1993). This algorithm offers
 n*log(n) performance on many data sets that cause other quicksorts to degrade 
 to quadratic performance. 
 
-    a - the array to be sorted. 
-    fromIndex - the index of the first element (inclusive) to be sorted. 
-    toIndex - the index of the last element (exclusive) to be sorted. 
+
+    a - the array to be sorted 
+    fromIndex - the index of the first element (inclusive) to be sorted 
+    toIndex - the index of the last element (exclusive) to be sorted 
 
 *java.util.Arrays.sort(Object[])*
 
 public static void sort(java.lang.Object[] a)
 
 Sorts the specified array of objects into ascending order, according to the 
-natural ordering of its elements. All elements in the array must implement the 
-Comparable interface. Furthermore, all elements in the array must be mutually 
-comparable (that is, e1.compareTo(e2) must not throw a ClassCastException for 
-any elements e1 and e2 in the array). 
+natural ordering(|java.lang.Comparable|) of its elements. All elements in the 
+array must implement the (|java.lang.Comparable|) interface. Furthermore, all 
+elements in the array must be mutually comparable (that is, e1.compareTo(e2) 
+must not throw a ClassCastException for any elements e1 and e2 in the array). 
 
 This sort is guaranteed to be stable: equal elements will not be reordered as a 
 result of the sort. 
@@ -1281,7 +2127,8 @@ The sorting algorithm is a modified mergesort (in which the merge is omitted if
 the highest element in the low sublist is less than the lowest element in the 
 high sublist). This algorithm offers guaranteed n*log(n) performance. 
 
-    a - the array to be sorted. 
+
+    a - the array to be sorted 
 
 *java.util.Arrays.sort(Object[],int,int)*
 
@@ -1291,12 +2138,13 @@ public static void sort(
   int toIndex)
 
 Sorts the specified range of the specified array of objects into ascending 
-order, according to the natural ordering of its elements. The range to be 
-sorted extends from index fromIndex, inclusive, to index toIndex, exclusive. 
-(If fromIndex==toIndex, the range to be sorted is empty.) All elements in this 
-range must implement the Comparable interface. Furthermore, all elements in 
-this range must be mutually comparable (that is, e1.compareTo(e2) must not 
-throw a ClassCastException for any elements e1 and e2 in the array). 
+order, according to the natural ordering(|java.lang.Comparable|) of its 
+elements. The range to be sorted extends from index fromIndex, inclusive, to 
+index toIndex, exclusive. (If fromIndex==toIndex, the range to be sorted is 
+empty.) All elements in this range must implement the (|java.lang.Comparable|) 
+interface. Furthermore, all elements in this range must be mutually comparable 
+(that is, e1.compareTo(e2) must not throw a ClassCastException for any elements 
+e1 and e2 in the array). 
 
 This sort is guaranteed to be stable: equal elements will not be reordered as a 
 result of the sort. 
@@ -1305,9 +2153,10 @@ The sorting algorithm is a modified mergesort (in which the merge is omitted if
 the highest element in the low sublist is less than the lowest element in the 
 high sublist). This algorithm offers guaranteed n*log(n) performance. 
 
-    a - the array to be sorted. 
-    fromIndex - the index of the first element (inclusive) to be sorted. 
-    toIndex - the index of the last element (exclusive) to be sorted. 
+
+    a - the array to be sorted 
+    fromIndex - the index of the first element (inclusive) to be sorted 
+    toIndex - the index of the last element (exclusive) to be sorted 
 
 *java.util.Arrays.sort(short[])*
 
@@ -1320,7 +2169,8 @@ McIlroy's "Engineering a Sort Function", Software-Practice and Experience, Vol.
 on many data sets that cause other quicksorts to degrade to quadratic 
 performance. 
 
-    a - the array to be sorted. 
+
+    a - the array to be sorted 
 
 *java.util.Arrays.sort(short[],int,int)*
 
@@ -1340,15 +2190,16 @@ Experience, Vol. 23(11) P. 1249-1265 (November 1993). This algorithm offers
 n*log(n) performance on many data sets that cause other quicksorts to degrade 
 to quadratic performance. 
 
-    a - the array to be sorted. 
-    fromIndex - the index of the first element (inclusive) to be sorted. 
-    toIndex - the index of the last element (exclusive) to be sorted. 
 
-*java.util.Arrays.sort(T[],Comparator)*
+    a - the array to be sorted 
+    fromIndex - the index of the first element (inclusive) to be sorted 
+    toIndex - the index of the last element (exclusive) to be sorted 
+
+*java.util.Arrays.sort(T[],Comparator<?superT>)*
 
 public static void sort(
-  java.lang.Object[] a,
-  java.util.Comparator c)
+  T[] a,
+  java.util.Comparator<? super T> c)
 
 Sorts the specified array of objects according to the order induced by the 
 specified comparator. All elements in the array must be mutually comparable by 
@@ -1362,17 +2213,18 @@ The sorting algorithm is a modified mergesort (in which the merge is omitted if
 the highest element in the low sublist is less than the lowest element in the 
 high sublist). This algorithm offers guaranteed n*log(n) performance. 
 
-    a - the array to be sorted. 
-    c - the comparator to determine the order of the array. A null value indicates that 
-       the elements' natural ordering should be used. 
 
-*java.util.Arrays.sort(T[],int,int,Comparator)*
+    a - the array to be sorted 
+    c - the comparator to determine the order of the array. A null value indicates that 
+       the elements' {@linkplain Comparable natural ordering} should be used. 
+
+*java.util.Arrays.sort(T[],int,int,Comparator<?superT>)*
 
 public static void sort(
-  java.lang.Object[] a,
+  T[] a,
   int fromIndex,
   int toIndex,
-  java.util.Comparator c)
+  java.util.Comparator<? super T> c)
 
 Sorts the specified range of the specified array of objects according to the 
 order induced by the specified comparator. The range to be sorted extends from 
@@ -1389,11 +2241,12 @@ The sorting algorithm is a modified mergesort (in which the merge is omitted if
 the highest element in the low sublist is less than the lowest element in the 
 high sublist). This algorithm offers guaranteed n*log(n) performance. 
 
-    a - the array to be sorted. 
-    fromIndex - the index of the first element (inclusive) to be sorted. 
-    toIndex - the index of the last element (exclusive) to be sorted. 
+
+    a - the array to be sorted 
+    fromIndex - the index of the first element (inclusive) to be sorted 
+    toIndex - the index of the last element (exclusive) to be sorted 
     c - the comparator to determine the order of the array. A null value indicates that 
-       the elements' natural ordering should be used. 
+       the elements' {@linkplain Comparable natural ordering} should be used. 
 
 *java.util.Arrays.toString(boolean[])*
 
@@ -1405,9 +2258,11 @@ square brackets ("[]"). Adjacent elements are separated by the characters ", "
 (a comma followed by a space). Elements are converted to strings as by 
 String.valueOf(boolean). Returns "null" if a is null. 
 
+
     a - the array whose string representation to return 
 
     Returns: a string representation of a 
+
 *java.util.Arrays.toString(byte[])*
 
 public static |java.lang.String| toString(byte[] a)
@@ -1418,9 +2273,11 @@ square brackets ("[]"). Adjacent elements are separated by the characters ", "
 (a comma followed by a space). Elements are converted to strings as by 
 String.valueOf(byte). Returns "null" if a is null. 
 
+
     a - the array whose string representation to return 
 
     Returns: a string representation of a 
+
 *java.util.Arrays.toString(char[])*
 
 public static |java.lang.String| toString(char[] a)
@@ -1431,9 +2288,11 @@ square brackets ("[]"). Adjacent elements are separated by the characters ", "
 (a comma followed by a space). Elements are converted to strings as by 
 String.valueOf(char). Returns "null" if a is null. 
 
+
     a - the array whose string representation to return 
 
     Returns: a string representation of a 
+
 *java.util.Arrays.toString(double[])*
 
 public static |java.lang.String| toString(double[] a)
@@ -1444,9 +2303,11 @@ square brackets ("[]"). Adjacent elements are separated by the characters ", "
 (a comma followed by a space). Elements are converted to strings as by 
 String.valueOf(double). Returns "null" if a is null. 
 
+
     a - the array whose string representation to return 
 
     Returns: a string representation of a 
+
 *java.util.Arrays.toString(float[])*
 
 public static |java.lang.String| toString(float[] a)
@@ -1457,9 +2318,11 @@ square brackets ("[]"). Adjacent elements are separated by the characters ", "
 (a comma followed by a space). Elements are converted to strings as by 
 String.valueOf(float). Returns "null" if a is null. 
 
+
     a - the array whose string representation to return 
 
     Returns: a string representation of a 
+
 *java.util.Arrays.toString(int[])*
 
 public static |java.lang.String| toString(int[] a)
@@ -1470,9 +2333,11 @@ square brackets ("[]"). Adjacent elements are separated by the characters ", "
 (a comma followed by a space). Elements are converted to strings as by 
 String.valueOf(int). Returns "null" if a is null. 
 
+
     a - the array whose string representation to return 
 
     Returns: a string representation of a 
+
 *java.util.Arrays.toString(long[])*
 
 public static |java.lang.String| toString(long[] a)
@@ -1483,9 +2348,11 @@ square brackets ("[]"). Adjacent elements are separated by the characters ", "
 (a comma followed by a space). Elements are converted to strings as by 
 String.valueOf(long). Returns "null" if a is null. 
 
+
     a - the array whose string representation to return 
 
     Returns: a string representation of a 
+
 *java.util.Arrays.toString(Object[])*
 
 public static |java.lang.String| toString(java.lang.Object[] a)
@@ -1499,9 +2366,11 @@ The value returned by this method is equal to the value that would be returned
 by Arrays.asList(a).toString(), unless a is null, in which case "null" is 
 returned. 
 
+
     a - the array whose string representation to return 
 
     Returns: a string representation of a 
+
 *java.util.Arrays.toString(short[])*
 
 public static |java.lang.String| toString(short[] a)
@@ -1512,7 +2381,9 @@ square brackets ("[]"). Adjacent elements are separated by the characters ", "
 (a comma followed by a space). Elements are converted to strings as by 
 String.valueOf(short). Returns "null" if a is null. 
 
+
     a - the array whose string representation to return 
 
     Returns: a string representation of a 
+
 

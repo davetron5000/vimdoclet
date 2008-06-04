@@ -1,0 +1,508 @@
+*java.util.ArrayDeque* *ArrayDeque* Resizable-array implementation of theDequein
+
+public class ArrayDeque<E>
+  extends    |java.util.AbstractCollection|
+  implements |java.util.Deque|
+             |java.lang.Cloneable|
+             |java.io.Serializable|
+
+|java.util.ArrayDeque_Description|
+|java.util.ArrayDeque_Fields|
+|java.util.ArrayDeque_Constructors|
+|java.util.ArrayDeque_Methods|
+
+================================================================================
+
+*java.util.ArrayDeque_Constructors*
+|java.util.ArrayDeque()|Constructs an empty array deque with an initial capacit
+|java.util.ArrayDeque(Collection<?extendsE>)|Constructs a deque containing the 
+|java.util.ArrayDeque(int)|Constructs an empty array deque with an initial capa
+
+*java.util.ArrayDeque_Methods*
+|java.util.ArrayDeque.add(E)|Inserts the specified element at the end of this d
+|java.util.ArrayDeque.addFirst(E)|Inserts the specified element at the front of
+|java.util.ArrayDeque.addLast(E)|Inserts the specified element at the end of th
+|java.util.ArrayDeque.clear()|Removes all of the elements from this deque.
+|java.util.ArrayDeque.clone()|Returns a copy of this deque.
+|java.util.ArrayDeque.contains(Object)|Returns true if this deque contains the 
+|java.util.ArrayDeque.descendingIterator()|
+|java.util.ArrayDeque.element()|Retrieves, but does not remove, the head of the
+|java.util.ArrayDeque.getFirst()|
+|java.util.ArrayDeque.getLast()|
+|java.util.ArrayDeque.isEmpty()|Returns true if this deque contains no elements
+|java.util.ArrayDeque.iterator()|Returns an iterator over the elements in this 
+|java.util.ArrayDeque.offer(E)|Inserts the specified element at the end of this
+|java.util.ArrayDeque.offerFirst(E)|Inserts the specified element at the front 
+|java.util.ArrayDeque.offerLast(E)|Inserts the specified element at the end of 
+|java.util.ArrayDeque.peek()|Retrieves, but does not remove, the head of the qu
+|java.util.ArrayDeque.peekFirst()|
+|java.util.ArrayDeque.peekLast()|
+|java.util.ArrayDeque.poll()|Retrieves and removes the head of the queue repres
+|java.util.ArrayDeque.pollFirst()|
+|java.util.ArrayDeque.pollLast()|
+|java.util.ArrayDeque.pop()|Pops an element from the stack represented by this 
+|java.util.ArrayDeque.push(E)|Pushes an element onto the stack represented by t
+|java.util.ArrayDeque.remove()|Retrieves and removes the head of the queue repr
+|java.util.ArrayDeque.remove(Object)|Removes a single instance of the specified
+|java.util.ArrayDeque.removeFirst()|
+|java.util.ArrayDeque.removeFirstOccurrence(Object)|Removes the first occurrenc
+|java.util.ArrayDeque.removeLast()|
+|java.util.ArrayDeque.removeLastOccurrence(Object)|Removes the last occurrence 
+|java.util.ArrayDeque.size()|Returns the number of elements in this deque.
+|java.util.ArrayDeque.toArray()|Returns an array containing all of the elements
+|java.util.ArrayDeque.toArray(T[])|Returns an array containing all of the eleme
+
+*java.util.ArrayDeque_Description*
+
+Resizable-array implementation of the (|java.util.Deque|) interface. Array 
+deques have no capacity restrictions; they grow as necessary to support usage. 
+They are not thread-safe; in the absence of external synchronization, they do 
+not support concurrent access by multiple threads. Null elements are 
+prohibited. This class is likely to be faster than (|java.util.Stack|) when 
+used as a stack, and faster than (|java.util.LinkedList|) when used as a queue. 
+
+Most ArrayDeque operations run in amortized constant time. Exceptions include 
+remove(|java.util.ArrayDeque|) , removeFirstOccurrence(|java.util.ArrayDeque|) 
+, removeLastOccurrence(|java.util.ArrayDeque|) , 
+contains(|java.util.ArrayDeque|) , iterator.remove()(|java.util.ArrayDeque|) , 
+and the bulk operations, all of which run in linear time. 
+
+The iterators returned by this class's iterator method are fail-fast: If the 
+deque is modified at any time after the iterator is created, in any way except 
+through the iterator's own remove method, the iterator will generally throw a 
+(|java.util.ConcurrentModificationException|) . Thus, in the face of concurrent 
+modification, the iterator fails quickly and cleanly, rather than risking 
+arbitrary, non-deterministic behavior at an undetermined time in the future. 
+
+Note that the fail-fast behavior of an iterator cannot be guaranteed as it is, 
+generally speaking, impossible to make any hard guarantees in the presence of 
+unsynchronized concurrent modification. Fail-fast iterators throw 
+ConcurrentModificationException on a best-effort basis. Therefore, it would be 
+wrong to write a program that depended on this exception for its correctness: 
+the fail-fast behavior of iterators should be used only to detect bugs. 
+
+This class and its iterator implement all of the optional methods of the 
+(|java.util.Collection|) and (|java.util.Iterator|) interfaces. 
+
+This class is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
+
+
+*java.util.ArrayDeque()*
+
+public ArrayDeque()
+
+Constructs an empty array deque with an initial capacity sufficient to hold 16 
+elements. 
+
+
+*java.util.ArrayDeque(Collection<?extendsE>)*
+
+public ArrayDeque(java.util.Collection<? extends E> c)
+
+Constructs a deque containing the elements of the specified collection, in the 
+order they are returned by the collection's iterator. (The first element 
+returned by the collection's iterator becomes the first element, or front of 
+the deque.) 
+
+    c - the collection whose elements are to be placed into the deque 
+
+*java.util.ArrayDeque(int)*
+
+public ArrayDeque(int numElements)
+
+Constructs an empty array deque with an initial capacity sufficient to hold the 
+specified number of elements. 
+
+    numElements - lower bound on initial capacity of the deque 
+
+*java.util.ArrayDeque.add(E)*
+
+public boolean add(E e)
+
+Inserts the specified element at the end of this deque. 
+
+This method is equivalent to (|java.util.ArrayDeque|) . 
+
+
+    e - the element to add 
+
+    Returns: true (as specified by {@link Collection#add}) 
+
+*java.util.ArrayDeque.addFirst(E)*
+
+public void addFirst(E e)
+
+Inserts the specified element at the front of this deque. 
+
+
+    e - the element to add 
+
+*java.util.ArrayDeque.addLast(E)*
+
+public void addLast(E e)
+
+Inserts the specified element at the end of this deque. 
+
+This method is equivalent to (|java.util.ArrayDeque|) . 
+
+
+    e - the element to add 
+
+*java.util.ArrayDeque.clear()*
+
+public void clear()
+
+Removes all of the elements from this deque. The deque will be empty after this 
+call returns. 
+
+
+
+*java.util.ArrayDeque.clone()*
+
+public |java.util.ArrayDeque|<E> clone()
+
+Returns a copy of this deque. 
+
+
+
+    Returns: a copy of this deque 
+
+*java.util.ArrayDeque.contains(Object)*
+
+public boolean contains(java.lang.Object o)
+
+Returns true if this deque contains the specified element. More formally, 
+returns true if and only if this deque contains at least one element e such 
+that o.equals(e). 
+
+
+    o - object to be checked for containment in this deque 
+
+    Returns: true if this deque contains the specified element 
+
+*java.util.ArrayDeque.descendingIterator()*
+
+public |java.util.Iterator|<E> descendingIterator()
+
+
+
+
+
+*java.util.ArrayDeque.element()*
+
+public |E| element()
+
+Retrieves, but does not remove, the head of the queue represented by this 
+deque. This method differs from peek(|java.util.ArrayDeque|) only in that it 
+throws an exception if this deque is empty. 
+
+This method is equivalent to (|java.util.ArrayDeque|) . 
+
+
+
+    Returns: the head of the queue represented by this deque 
+
+*java.util.ArrayDeque.getFirst()*
+
+public |E| getFirst()
+
+
+
+
+
+*java.util.ArrayDeque.getLast()*
+
+public |E| getLast()
+
+
+
+
+
+*java.util.ArrayDeque.isEmpty()*
+
+public boolean isEmpty()
+
+Returns true if this deque contains no elements. 
+
+
+
+    Returns: true if this deque contains no elements 
+
+*java.util.ArrayDeque.iterator()*
+
+public |java.util.Iterator|<E> iterator()
+
+Returns an iterator over the elements in this deque. The elements will be 
+ordered from first (head) to last (tail). This is the same order that elements 
+would be dequeued (via successive calls to (|java.util.ArrayDeque|) or popped 
+(via successive calls to (|java.util.ArrayDeque|) ). 
+
+
+
+    Returns: an iterator over the elements in this deque 
+
+*java.util.ArrayDeque.offer(E)*
+
+public boolean offer(E e)
+
+Inserts the specified element at the end of this deque. 
+
+This method is equivalent to (|java.util.ArrayDeque|) . 
+
+
+    e - the element to add 
+
+    Returns: true (as specified by {@link Queue#offer}) 
+
+*java.util.ArrayDeque.offerFirst(E)*
+
+public boolean offerFirst(E e)
+
+Inserts the specified element at the front of this deque. 
+
+
+    e - the element to add 
+
+    Returns: true (as specified by {@link Deque#offerFirst}) 
+
+*java.util.ArrayDeque.offerLast(E)*
+
+public boolean offerLast(E e)
+
+Inserts the specified element at the end of this deque. 
+
+
+    e - the element to add 
+
+    Returns: true (as specified by {@link Deque#offerLast}) 
+
+*java.util.ArrayDeque.peek()*
+
+public |E| peek()
+
+Retrieves, but does not remove, the head of the queue represented by this 
+deque, or returns null if this deque is empty. 
+
+This method is equivalent to (|java.util.ArrayDeque|) . 
+
+
+
+    Returns: the head of the queue represented by this deque, or null if this deque is empty 
+
+*java.util.ArrayDeque.peekFirst()*
+
+public |E| peekFirst()
+
+
+
+
+
+*java.util.ArrayDeque.peekLast()*
+
+public |E| peekLast()
+
+
+
+
+
+*java.util.ArrayDeque.poll()*
+
+public |E| poll()
+
+Retrieves and removes the head of the queue represented by this deque (in other 
+words, the first element of this deque), or returns null if this deque is 
+empty. 
+
+This method is equivalent to (|java.util.ArrayDeque|) . 
+
+
+
+    Returns: the head of the queue represented by this deque, or null if this deque is empty 
+
+*java.util.ArrayDeque.pollFirst()*
+
+public |E| pollFirst()
+
+
+
+
+
+*java.util.ArrayDeque.pollLast()*
+
+public |E| pollLast()
+
+
+
+
+
+*java.util.ArrayDeque.pop()*
+
+public |E| pop()
+
+Pops an element from the stack represented by this deque. In other words, 
+removes and returns the first element of this deque. 
+
+This method is equivalent to (|java.util.ArrayDeque|) . 
+
+
+
+    Returns: the element at the front of this deque (which is the top of the stack 
+             represented by this deque) 
+
+*java.util.ArrayDeque.push(E)*
+
+public void push(E e)
+
+Pushes an element onto the stack represented by this deque. In other words, 
+inserts the element at the front of this deque. 
+
+This method is equivalent to (|java.util.ArrayDeque|) . 
+
+
+    e - the element to push 
+
+*java.util.ArrayDeque.remove()*
+
+public |E| remove()
+
+Retrieves and removes the head of the queue represented by this deque. 
+
+This method differs from poll(|java.util.ArrayDeque|) only in that it throws an 
+exception if this deque is empty. 
+
+This method is equivalent to (|java.util.ArrayDeque|) . 
+
+
+
+    Returns: the head of the queue represented by this deque 
+
+*java.util.ArrayDeque.remove(Object)*
+
+public boolean remove(java.lang.Object o)
+
+Removes a single instance of the specified element from this deque. If the 
+deque does not contain the element, it is unchanged. More formally, removes the 
+first element e such that o.equals(e) (if such an element exists). Returns true 
+if this deque contained the specified element (or equivalently, if this deque 
+changed as a result of the call). 
+
+This method is equivalent to (|java.util.ArrayDeque|) . 
+
+
+    o - element to be removed from this deque, if present 
+
+    Returns: true if this deque contained the specified element 
+
+*java.util.ArrayDeque.removeFirst()*
+
+public |E| removeFirst()
+
+
+
+
+
+*java.util.ArrayDeque.removeFirstOccurrence(Object)*
+
+public boolean removeFirstOccurrence(java.lang.Object o)
+
+Removes the first occurrence of the specified element in this deque (when 
+traversing the deque from head to tail). If the deque does not contain the 
+element, it is unchanged. More formally, removes the first element e such that 
+o.equals(e) (if such an element exists). Returns true if this deque contained 
+the specified element (or equivalently, if this deque changed as a result of 
+the call). 
+
+
+    o - element to be removed from this deque, if present 
+
+    Returns: true if the deque contained the specified element 
+
+*java.util.ArrayDeque.removeLast()*
+
+public |E| removeLast()
+
+
+
+
+
+*java.util.ArrayDeque.removeLastOccurrence(Object)*
+
+public boolean removeLastOccurrence(java.lang.Object o)
+
+Removes the last occurrence of the specified element in this deque (when 
+traversing the deque from head to tail). If the deque does not contain the 
+element, it is unchanged. More formally, removes the last element e such that 
+o.equals(e) (if such an element exists). Returns true if this deque contained 
+the specified element (or equivalently, if this deque changed as a result of 
+the call). 
+
+
+    o - element to be removed from this deque, if present 
+
+    Returns: true if the deque contained the specified element 
+
+*java.util.ArrayDeque.size()*
+
+public int size()
+
+Returns the number of elements in this deque. 
+
+
+
+    Returns: the number of elements in this deque 
+
+*java.util.ArrayDeque.toArray()*
+
+public |java.lang.Object|[] toArray()
+
+Returns an array containing all of the elements in this deque in proper 
+sequence (from first to last element). 
+
+The returned array will be "safe" in that no references to it are maintained by 
+this deque. (In other words, this method must allocate a new array). The caller 
+is thus free to modify the returned array. 
+
+This method acts as bridge between array-based and collection-based APIs. 
+
+
+
+    Returns: an array containing all of the elements in this deque 
+
+*java.util.ArrayDeque.toArray(T[])*
+
+public |T|[] toArray(T[] a)
+
+Returns an array containing all of the elements in this deque in proper 
+sequence (from first to last element); the runtime type of the returned array 
+is that of the specified array. If the deque fits in the specified array, it is 
+returned therein. Otherwise, a new array is allocated with the runtime type of 
+the specified array and the size of this deque. 
+
+If this deque fits in the specified array with room to spare (i.e., the array 
+has more elements than this deque), the element in the array immediately 
+following the end of the deque is set to null. 
+
+Like the (|java.util.ArrayDeque|) method, this method acts as bridge between 
+array-based and collection-based APIs. Further, this method allows precise 
+control over the runtime type of the output array, and may, under certain 
+circumstances, be used to save allocation costs. 
+
+Suppose x is a deque known to contain only strings. The following code can be 
+used to dump the deque into a newly allocated array of String: 
+
+
+
+String[] y = x.toArray(new String[0]); 
+
+Note that toArray(new Object[0]) is identical in function to toArray(). 
+
+
+    a - the array into which the elements of the deque are to be stored, if it is big 
+       enough; otherwise, a new array of the same runtime type is allocated for 
+       this purpose 
+
+    Returns: an array containing all of the elements in this deque 
+
+

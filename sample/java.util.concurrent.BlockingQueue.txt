@@ -1,6 +1,6 @@
 *java.util.concurrent.BlockingQueue* *BlockingQueue* Ajava.util.Queuethat additi
 
-public interface interface BlockingQueue
+public interface interface BlockingQueue<E>
 
   implements |java.util.Queue|
 
@@ -12,14 +12,16 @@ public interface interface BlockingQueue
 ================================================================================
 
 *java.util.concurrent.BlockingQueue_Methods*
-|java.util.concurrent.BlockingQueue.add(E)|Adds the specified element to this q
-|java.util.concurrent.BlockingQueue.drainTo(Collection)|Removes all available e
-|java.util.concurrent.BlockingQueue.drainTo(Collection,int)|Removes at most the
+|java.util.concurrent.BlockingQueue.add(E)|Inserts the specified element into t
+|java.util.concurrent.BlockingQueue.contains(Object)|Returns true if this queue
+|java.util.concurrent.BlockingQueue.drainTo(Collection<?superE>)|Removes all av
+|java.util.concurrent.BlockingQueue.drainTo(Collection<?superE>,int)|Removes at
 |java.util.concurrent.BlockingQueue.offer(E)|Inserts the specified element into
 |java.util.concurrent.BlockingQueue.offer(E,long,TimeUnit)|Inserts the specifie
 |java.util.concurrent.BlockingQueue.poll(long,TimeUnit)|Retrieves and removes t
-|java.util.concurrent.BlockingQueue.put(E)|Adds the specified element to this q
-|java.util.concurrent.BlockingQueue.remainingCapacity()|Returns the number of e
+|java.util.concurrent.BlockingQueue.put(E)|Inserts the specified element into t
+|java.util.concurrent.BlockingQueue.remainingCapacity()|Returns the number of a
+|java.util.concurrent.BlockingQueue.remove(Object)|Removes a single instance of
 |java.util.concurrent.BlockingQueue.take()|Retrieves and removes the head of th
 
 *java.util.concurrent.BlockingQueue_Description*
@@ -27,6 +29,35 @@ public interface interface BlockingQueue
 A (|java.util.Queue|) that additionally supports operations that wait for the 
 queue to become non-empty when retrieving an element, and wait for space to 
 become available in the queue when storing an element. 
+
+BlockingQueue methods come in four forms, with different ways of handling 
+operations that cannot be satisfied immediately, but may be satisfied at some 
+point in the future: one throws an exception, the second returns a special 
+value (either null or false, depending on the operation), the third blocks the 
+current thread indefinitely until the operation can succeed, and the fourth 
+blocks for only a given maximum time limit before giving up. These methods are 
+summarized in the following table: 
+
+
+
+
+
+Throws exception Special value Blocks Times out 
+
+Insert add(e)(|java.util.concurrent.BlockingQueue|) 
+offer(e)(|java.util.concurrent.BlockingQueue|) 
+put(e)(|java.util.concurrent.BlockingQueue|) offer(e, time, 
+unit)(|java.util.concurrent.BlockingQueue|) 
+
+Remove remove()(|java.util.concurrent.BlockingQueue|) 
+poll()(|java.util.concurrent.BlockingQueue|) 
+take()(|java.util.concurrent.BlockingQueue|) poll(time, 
+unit)(|java.util.concurrent.BlockingQueue|) 
+
+Examine element()(|java.util.concurrent.BlockingQueue|) 
+peek()(|java.util.concurrent.BlockingQueue|) not applicable not applicable 
+
+
 
 A BlockingQueue does not accept null elements. Implementations throw 
 NullPointerException on attempts to add, put or offer a null. A null is used as 
@@ -62,12 +93,12 @@ BlockingQueue can safely be used with multiple producers and multiple
 consumers. 
 
 class Producer implements Runnable { private final BlockingQueue queue; 
-Producer(BlockingQueue q) { queue = q; } public void run() { try { while(true) 
+Producer(BlockingQueue q) { queue = q; } public void run() { try { while (true) 
 { queue.put(produce()); } } catch (InterruptedException ex) { ... handle ...} } 
 Object produce() { ... } } 
 
 class Consumer implements Runnable { private final BlockingQueue queue; 
-Consumer(BlockingQueue q) { queue = q; } public void run() { try { while(true) 
+Consumer(BlockingQueue q) { queue = q; } public void run() { try { while (true) 
 { consume(queue.take()); } } catch (InterruptedException ex) { ... handle ...} 
 } void consume(Object x) { ... } } 
 
@@ -76,26 +107,49 @@ Producer p = new Producer(q); Consumer c1 = new Consumer(q); Consumer c2 = new
 Consumer(q); new Thread(p).start(); new Thread(c1).start(); new 
 Thread(c2).start(); } } 
 
-This interface is a member of the <a href="/../guide/collections/index.html"> 
-Java Collections Framework. 
+Memory consistency effects: As with other concurrent collections, actions in a 
+thread prior to placing an object into aBlockingQueuehappen-before actions 
+subsequent to the access or removal of that element from theBlockingQueuein 
+another thread. 
+
+This interface is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
 
 
 *java.util.concurrent.BlockingQueue.add(E)*
 
-public boolean add(java.lang.Object o)
+public boolean add(E e)
 
-Adds the specified element to this queue if it is possible to do so 
-immediately, returning true upon success, else throwing an 
-IllegalStateException. 
+Inserts the specified element into this queue if it is possible to do so 
+immediately without violating capacity restrictions, returning true upon 
+success and throwing an IllegalStateException if no space is currently 
+available. When using a capacity-restricted queue, it is generally preferable 
+to use offer(|java.util.concurrent.BlockingQueue|) . 
 
-    o - the element 
 
-    Returns: true (as per the general contract of Collection.add). 
-*java.util.concurrent.BlockingQueue.drainTo(Collection)*
+    e - the element to add 
 
-public int drainTo(java.util.Collection c)
+    Returns: true (as specified by {@link Collection#add}) 
 
-Removes all available elements from this queue and adds them into the given 
+*java.util.concurrent.BlockingQueue.contains(Object)*
+
+public boolean contains(java.lang.Object o)
+
+Returns true if this queue contains the specified element. More formally, 
+returns true if and only if this queue contains at least one element e such 
+that o.equals(e). 
+
+
+    o - object to be checked for containment in this queue 
+
+    Returns: true if this queue contains the specified element 
+
+*java.util.concurrent.BlockingQueue.drainTo(Collection<?superE>)*
+
+public int drainTo(java.util.Collection<? super E> c)
+
+Removes all available elements from this queue and adds them to the given 
 collection. This operation may be more efficient than repeatedly polling this 
 queue. A failure encountered while attempting to add elements to collection c 
 may result in elements being in neither, either or both collections when the 
@@ -103,101 +157,135 @@ associated exception is thrown. Attempts to drain a queue to itself result in
 IllegalArgumentException. Further, the behavior of this operation is undefined 
 if the specified collection is modified while the operation is in progress. 
 
+
     c - the collection to transfer elements into 
 
-    Returns: the number of elements transferred. 
-*java.util.concurrent.BlockingQueue.drainTo(Collection,int)*
+    Returns: the number of elements transferred 
+
+*java.util.concurrent.BlockingQueue.drainTo(Collection<?superE>,int)*
 
 public int drainTo(
-  java.util.Collection c,
+  java.util.Collection<? super E> c,
   int maxElements)
 
 Removes at most the given number of available elements from this queue and adds 
-them into the given collection. A failure encountered while attempting to add 
+them to the given collection. A failure encountered while attempting to add 
 elements to collection c may result in elements being in neither, either or 
 both collections when the associated exception is thrown. Attempts to drain a 
 queue to itself result in IllegalArgumentException. Further, the behavior of 
 this operation is undefined if the specified collection is modified while the 
 operation is in progress. 
 
+
     c - the collection to transfer elements into 
     maxElements - the maximum number of elements to transfer 
 
-    Returns: the number of elements transferred. 
+    Returns: the number of elements transferred 
+
 *java.util.concurrent.BlockingQueue.offer(E)*
 
-public boolean offer(java.lang.Object o)
+public boolean offer(E e)
 
-Inserts the specified element into this queue, if possible. When using queues 
-that may impose insertion restrictions (for example capacity bounds), method 
-offer is generally preferable to method (|java.util.Collection|) , which can 
-fail to insert an element only by throwing an exception. 
+Inserts the specified element into this queue if it is possible to do so 
+immediately without violating capacity restrictions, returning true upon 
+success and false if no space is currently available. When using a 
+capacity-restricted queue, this method is generally preferable to 
+(|java.util.concurrent.BlockingQueue|) , which can fail to insert an element 
+only by throwing an exception. 
 
-    o - the element to add. 
 
-    Returns: true if it was possible to add the element to this queue, else false 
+    e - the element to add 
+
+    Returns: true if the element was added to this queue, else false 
+
 *java.util.concurrent.BlockingQueue.offer(E,long,TimeUnit)*
 
 public boolean offer(
-  java.lang.Object o,
+  E e,
   long timeout,
   java.util.concurrent.TimeUnit unit)
   throws |java.lang.InterruptedException|
          
-Inserts the specified element into this queue, waiting if necessary up to the 
-specified wait time for space to become available. 
+Inserts the specified element into this queue, waiting up to the specified wait 
+time if necessary for space to become available. 
 
-    o - the element to add 
+
+    e - the element to add 
     timeout - how long to wait before giving up, in units of unit 
     unit - a TimeUnit determining how to interpret the timeout parameter 
 
     Returns: true if successful, or false if the specified waiting time elapses before space 
-             is available. 
+             is available 
+
 *java.util.concurrent.BlockingQueue.poll(long,TimeUnit)*
 
-public |java.lang.Object| poll(
+public |E| poll(
   long timeout,
   java.util.concurrent.TimeUnit unit)
   throws |java.lang.InterruptedException|
          
-Retrieves and removes the head of this queue, waiting if necessary up to the 
-specified wait time if no elements are present on this queue. 
+Retrieves and removes the head of this queue, waiting up to the specified wait 
+time if necessary for an element to become available. 
+
 
     timeout - how long to wait before giving up, in units of unit 
     unit - a TimeUnit determining how to interpret the timeout parameter 
 
     Returns: the head of this queue, or null if the specified waiting time elapses before an 
-             element is present. 
+             element is available 
+
 *java.util.concurrent.BlockingQueue.put(E)*
 
-public void put(java.lang.Object o)
+public void put(E e)
   throws |java.lang.InterruptedException|
          
-Adds the specified element to this queue, waiting if necessary for space to 
-become available. 
+Inserts the specified element into this queue, waiting if necessary for space 
+to become available. 
 
-    o - the element to add 
+
+    e - the element to add 
 
 *java.util.concurrent.BlockingQueue.remainingCapacity()*
 
 public int remainingCapacity()
 
-Returns the number of elements that this queue can ideally (in the absence of 
-memory or resource constraints) accept without blocking, or Integer.MAX_VALUE 
-if there is no intrinsic limit. Note that you cannot always tell if an attempt 
-to add an element will succeed by inspecting remainingCapacity because it may 
-be the case that another thread is about to put or take an element. 
+Returns the number of additional elements that this queue can ideally (in the 
+absence of memory or resource constraints) accept without blocking, or 
+Integer.MAX_VALUE if there is no intrinsic limit. 
+
+Note that you cannot always tell if an attempt to insert an element will 
+succeed by inspecting remainingCapacity because it may be the case that another 
+thread is about to insert or remove an element. 
+
 
 
     Returns: the remaining capacity 
+
+*java.util.concurrent.BlockingQueue.remove(Object)*
+
+public boolean remove(java.lang.Object o)
+
+Removes a single instance of the specified element from this queue, if it is 
+present. More formally, removes an element e such that o.equals(e), if this 
+queue contains one or more such elements. Returns true if this queue contained 
+the specified element (or equivalently, if this queue changed as a result of 
+the call). 
+
+
+    o - element to be removed from this queue, if present 
+
+    Returns: true if this queue changed as a result of the call 
+
 *java.util.concurrent.BlockingQueue.take()*
 
-public |java.lang.Object| take()
+public |E| take()
   throws |java.lang.InterruptedException|
          
-Retrieves and removes the head of this queue, waiting if no elements are 
-present on this queue. 
+Retrieves and removes the head of this queue, waiting if necessary until an 
+element becomes available. 
+
 
 
     Returns: the head of this queue 
+
 

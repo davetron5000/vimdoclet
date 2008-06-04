@@ -1,8 +1,7 @@
 <project name="vimdoclet-run" default="run" basedir=".">
 
     <path id="javadoc.classpath">
-        <fileset dir="bin"> <include name="*.jar"/> </fileset>
-        <fileset dir="lib"> <include name="*.jar"/> </fileset>
+        <fileset dir="build"> <include name="vimdoclet.jar"/> </fileset>
     </path>
 
     <target name="run" depends="check.run.properties"
@@ -10,7 +9,7 @@
         <delete dir="${vimdoclet.outputDir}" />
         <mkdir dir="${vimdoclet.outputDir}" />
         <javadoc maxmemory="512M" classpathref="javadoc.classpath">
-            <packageset dir="${vimdoclet.source.root}" excludes="com/**, sun/**, sunw/**, org/ietf/**, org/jcp/**, org/relaxng/**" />
+            <packageset dir="${vimdoclet.source.root}" excludes="com/**, sun/**, sunw/**, org/**" />
             <doclet 
                 name="com.naildrivin5.applications.vimdoclet.Main"
                 pathref="javadoc.classpath">

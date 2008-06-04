@@ -1,0 +1,276 @@
+*java.util.NavigableSet* *NavigableSet* ASortedSetextended with navigation metho
+
+public interface interface NavigableSet<E>
+
+  implements |java.util.SortedSet|
+
+|java.util.NavigableSet_Description|
+|java.util.NavigableSet_Fields|
+|java.util.NavigableSet_Constructors|
+|java.util.NavigableSet_Methods|
+
+================================================================================
+
+*java.util.NavigableSet_Methods*
+|java.util.NavigableSet.ceiling(E)|Returns the least element in this set greate
+|java.util.NavigableSet.descendingIterator()|Returns an iterator over the eleme
+|java.util.NavigableSet.descendingSet()|Returns a reverse order view of the ele
+|java.util.NavigableSet.floor(E)|Returns the greatest element in this set less 
+|java.util.NavigableSet.headSet(E)|
+|java.util.NavigableSet.headSet(E,boolean)|Returns a view of the portion of thi
+|java.util.NavigableSet.higher(E)|Returns the least element in this set strictl
+|java.util.NavigableSet.iterator()|Returns an iterator over the elements in thi
+|java.util.NavigableSet.lower(E)|Returns the greatest element in this set stric
+|java.util.NavigableSet.pollFirst()|Retrieves and removes the first (lowest) el
+|java.util.NavigableSet.pollLast()|Retrieves and removes the last (highest) ele
+|java.util.NavigableSet.subSet(E,boolean,E,boolean)|Returns a view of the porti
+|java.util.NavigableSet.subSet(E,E)|
+|java.util.NavigableSet.tailSet(E)|
+|java.util.NavigableSet.tailSet(E,boolean)|Returns a view of the portion of thi
+
+*java.util.NavigableSet_Description*
+
+A (|java.util.SortedSet|) extended with navigation methods reporting closest 
+matches for given search targets. Methodslower,floor,ceiling, andhigherreturn 
+elements respectively less than, less than or equal, greater than or equal, and 
+greater than a given element, returningnullif there is no such element. 
+ANavigableSetmay be accessed and traversed in either ascending or descending 
+order. ThedescendingSetmethod returns a view of the set with the senses of all 
+relational and directional methods inverted. The performance of ascending 
+operations and views is likely to be faster than that of descending ones. This 
+interface additionally defines methodspollFirstandpollLastthat return and 
+remove the lowest and highest element, if one exists, else returningnull. 
+MethodssubSet,headSet, andtailSetdiffer from the like-namedSortedSetmethods in 
+accepting additional arguments describing whether lower and upper bounds are 
+inclusive versus exclusive. Subsets of anyNavigableSetmust implement 
+theNavigableSetinterface. 
+
+The return values of navigation methods may be ambiguous in implementations 
+that permitnullelements. However, even in this case the result can be 
+disambiguated by checkingcontains(null). To avoid such issues, implementations 
+of this interface are encouraged to not permit insertion ofnullelements. (Note 
+that sorted sets of (|java.lang.Comparable|) elements intrinsically do not 
+permitnull.) 
+
+Methods subSet(E, E)(|java.util.NavigableSet|) , 
+headSet(E)(|java.util.NavigableSet|) , and tailSet(E)(|java.util.NavigableSet|) 
+are specified to returnSortedSetto allow existing implementations ofSortedSetto 
+be compatibly retrofitted to implementNavigableSet, but extensions and 
+implementations of this interface are encouraged to override these methods to 
+returnNavigableSet. 
+
+This interface is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
+
+
+*java.util.NavigableSet.ceiling(E)*
+
+public |E| ceiling(E e)
+
+Returns the least element in this set greater than or equal to the given 
+element, ornullif there is no such element. 
+
+
+    e - the value to match 
+
+    Returns: the least element greater than or equal to {@code e}, or {@code null} if there 
+             is no such element 
+
+*java.util.NavigableSet.descendingIterator()*
+
+public |java.util.Iterator|<E> descendingIterator()
+
+Returns an iterator over the elements in this set, in descending order. 
+Equivalent in effect todescendingSet().iterator(). 
+
+
+
+    Returns: an iterator over the elements in this set, in descending order 
+
+*java.util.NavigableSet.descendingSet()*
+
+public |java.util.NavigableSet|<E> descendingSet()
+
+Returns a reverse order view of the elements contained in this set. The 
+descending set is backed by this set, so changes to the set are reflected in 
+the descending set, and vice-versa. If either set is modified while an 
+iteration over either set is in progress (except through the iterator's 
+ownremoveoperation), the results of the iteration are undefined. 
+
+The returned set has an ordering equivalent to 
+Collections.reverseOrder(|java.util.Collections|) (comparator()). The 
+expressions.descendingSet().descendingSet()returns a view ofsessentially 
+equivalent tos. 
+
+
+
+    Returns: a reverse order view of this set 
+
+*java.util.NavigableSet.floor(E)*
+
+public |E| floor(E e)
+
+Returns the greatest element in this set less than or equal to the given 
+element, ornullif there is no such element. 
+
+
+    e - the value to match 
+
+    Returns: the greatest element less than or equal to {@code e}, or {@code null} if there 
+             is no such element 
+
+*java.util.NavigableSet.headSet(E)*
+
+public |java.util.SortedSet|<E> headSet(E toElement)
+
+Equivalent toheadSet(toElement, false). 
+
+
+
+*java.util.NavigableSet.headSet(E,boolean)*
+
+public |java.util.NavigableSet|<E> headSet(
+  E toElement,
+  boolean inclusive)
+
+Returns a view of the portion of this set whose elements are less than (or 
+equal to, ifinclusiveis true)toElement. The returned set is backed by this set, 
+so changes in the returned set are reflected in this set, and vice-versa. The 
+returned set supports all optional set operations that this set supports. 
+
+The returned set will throw anIllegalArgumentExceptionon an attempt to insert 
+an element outside its range. 
+
+
+    toElement - high endpoint of the returned set 
+    inclusive - {@code true} if the high endpoint is to be included in the returned view 
+
+    Returns: a view of the portion of this set whose elements are less than (or equal to, if 
+             {@code inclusive} is true) {@code toElement} 
+
+*java.util.NavigableSet.higher(E)*
+
+public |E| higher(E e)
+
+Returns the least element in this set strictly greater than the given element, 
+ornullif there is no such element. 
+
+
+    e - the value to match 
+
+    Returns: the least element greater than {@code e}, or {@code null} if there is no such 
+             element 
+
+*java.util.NavigableSet.iterator()*
+
+public |java.util.Iterator|<E> iterator()
+
+Returns an iterator over the elements in this set, in ascending order. 
+
+
+
+    Returns: an iterator over the elements in this set, in ascending order 
+
+*java.util.NavigableSet.lower(E)*
+
+public |E| lower(E e)
+
+Returns the greatest element in this set strictly less than the given element, 
+ornullif there is no such element. 
+
+
+    e - the value to match 
+
+    Returns: the greatest element less than {@code e}, or {@code null} if there is no such 
+             element 
+
+*java.util.NavigableSet.pollFirst()*
+
+public |E| pollFirst()
+
+Retrieves and removes the first (lowest) element, or returnsnullif this set is 
+empty. 
+
+
+
+    Returns: the first element, or {@code null} if this set is empty 
+
+*java.util.NavigableSet.pollLast()*
+
+public |E| pollLast()
+
+Retrieves and removes the last (highest) element, or returnsnullif this set is 
+empty. 
+
+
+
+    Returns: the last element, or {@code null} if this set is empty 
+
+*java.util.NavigableSet.subSet(E,boolean,E,boolean)*
+
+public |java.util.NavigableSet|<E> subSet(
+  E fromElement,
+  boolean fromInclusive,
+  E toElement,
+  boolean toInclusive)
+
+Returns a view of the portion of this set whose elements range 
+fromfromElementtotoElement. IffromElementandtoElementare equal, the returned 
+set is empty unlessfromExclusiveandtoExclusiveare both true. The returned set 
+is backed by this set, so changes in the returned set are reflected in this 
+set, and vice-versa. The returned set supports all optional set operations that 
+this set supports. 
+
+The returned set will throw anIllegalArgumentExceptionon an attempt to insert 
+an element outside its range. 
+
+
+    fromElement - low endpoint of the returned set 
+    fromInclusive - {@code true} if the low endpoint is to be included in the returned view 
+    toElement - high endpoint of the returned set 
+    toInclusive - {@code true} if the high endpoint is to be included in the returned view 
+
+    Returns: a view of the portion of this set whose elements range from {@code 
+             fromElement}, inclusive, to {@code toElement}, exclusive 
+
+*java.util.NavigableSet.subSet(E,E)*
+
+public |java.util.SortedSet|<E> subSet(
+  E fromElement,
+  E toElement)
+
+Equivalent tosubSet(fromElement, true, toElement, false). 
+
+
+
+*java.util.NavigableSet.tailSet(E)*
+
+public |java.util.SortedSet|<E> tailSet(E fromElement)
+
+Equivalent totailSet(fromElement, true). 
+
+
+
+*java.util.NavigableSet.tailSet(E,boolean)*
+
+public |java.util.NavigableSet|<E> tailSet(
+  E fromElement,
+  boolean inclusive)
+
+Returns a view of the portion of this set whose elements are greater than (or 
+equal to, ifinclusiveis true)fromElement. The returned set is backed by this 
+set, so changes in the returned set are reflected in this set, and vice-versa. 
+The returned set supports all optional set operations that this set supports. 
+
+The returned set will throw anIllegalArgumentExceptionon an attempt to insert 
+an element outside its range. 
+
+
+    fromElement - low endpoint of the returned set 
+    inclusive - {@code true} if the low endpoint is to be included in the returned view 
+
+    Returns: a view of the portion of this set whose elements are greater than or equal to 
+             {@code fromElement} 
+
+

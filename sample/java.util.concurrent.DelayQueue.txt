@@ -1,6 +1,6 @@
 *java.util.concurrent.DelayQueue* *DelayQueue* An unboundedBlockingQueue blockin
 
-public class DelayQueue
+public class DelayQueue<E extends java.util.concurrent.Delayed>
   extends    |java.util.AbstractQueue|
   implements |java.util.concurrent.BlockingQueue|
 
@@ -13,26 +13,26 @@ public class DelayQueue
 
 *java.util.concurrent.DelayQueue_Constructors*
 |java.util.concurrent.DelayQueue()|Creates a new DelayQueue that is initially e
-|java.util.concurrent.DelayQueue(Collection)|Creates a DelayQueue initially con
+|java.util.concurrent.DelayQueue(Collection<?extendsE>)|Creates a DelayQueue in
 
 *java.util.concurrent.DelayQueue_Methods*
-|java.util.concurrent.DelayQueue.add(E)|Adds the specified element to this queu
+|java.util.concurrent.DelayQueue.add(E)|Inserts the specified element into this
 |java.util.concurrent.DelayQueue.clear()|Atomically removes all of the elements
-|java.util.concurrent.DelayQueue.drainTo(Collection)|
-|java.util.concurrent.DelayQueue.drainTo(Collection,int)|
-|java.util.concurrent.DelayQueue.iterator()|Returns an iterator over the elemen
+|java.util.concurrent.DelayQueue.drainTo(Collection<?superE>)|
+|java.util.concurrent.DelayQueue.drainTo(Collection<?superE>,int)|
+|java.util.concurrent.DelayQueue.iterator()|Returns an iterator over all the el
 |java.util.concurrent.DelayQueue.offer(E)|Inserts the specified element into th
 |java.util.concurrent.DelayQueue.offer(E,long,TimeUnit)|Inserts the specified e
 |java.util.concurrent.DelayQueue.peek()|Retrieves, but does not remove, the hea
 |java.util.concurrent.DelayQueue.poll()|Retrieves and removes the head of this 
 |java.util.concurrent.DelayQueue.poll(long,TimeUnit)|Retrieves and removes the 
-|java.util.concurrent.DelayQueue.put(E)|Adds the specified element to this dela
+|java.util.concurrent.DelayQueue.put(E)|Inserts the specified element into this
 |java.util.concurrent.DelayQueue.remainingCapacity()|Always returns Integer.MAX
 |java.util.concurrent.DelayQueue.remove(Object)|Removes a single instance of th
 |java.util.concurrent.DelayQueue.size()|
 |java.util.concurrent.DelayQueue.take()|Retrieves and removes the head of this 
-|java.util.concurrent.DelayQueue.toArray()|
-|java.util.concurrent.DelayQueue.toArray(T[])|
+|java.util.concurrent.DelayQueue.toArray()|Returns an array containing all of t
+|java.util.concurrent.DelayQueue.toArray(T[])|Returns an array containing all o
 
 *java.util.concurrent.DelayQueue_Description*
 
@@ -41,14 +41,17 @@ elements, in which an element can only be taken when its delay has expired. The
 head of the queue is that Delayed element whose delay expired furthest in the 
 past. If no delay has expired there is no head and poll will return null. 
 Expiration occurs when an element's getDelay(TimeUnit.NANOSECONDS) method 
-returns a value less than or equal to zero. This queue does not permit null 
-elements. 
+returns a value less than or equal to zero. Even though unexpired elements 
+cannot be removed using take or poll, they are otherwise treated as normal 
+elements. For example, the size method returns the count of both expired and 
+unexpired elements. This queue does not permit null elements. 
 
 This class and its iterator implement all of the optional methods of the 
 (|java.util.Collection|) and (|java.util.Iterator|) interfaces. 
 
-This class is a member of the <a href="/../guide/collections/index.html"> Java 
-Collections Framework. 
+This class is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
 
 
 *java.util.concurrent.DelayQueue()*
@@ -58,127 +61,146 @@ public DelayQueue()
 Creates a new DelayQueue that is initially empty. 
 
 
-*java.util.concurrent.DelayQueue(Collection)*
+*java.util.concurrent.DelayQueue(Collection<?extendsE>)*
 
-public DelayQueue(java.util.Collection c)
+public DelayQueue(java.util.Collection<? extends E> c)
 
 Creates a DelayQueue initially containing the elements of the given collection 
 of (|java.util.concurrent.Delayed|) instances. 
 
-    c - the collection 
+    c - the collection of elements to initially contain 
 
 *java.util.concurrent.DelayQueue.add(E)*
 
-public boolean add(java.util.concurrent.Delayed o)
+public boolean add(E extends java.util.concurrent.Delayed e)
 
-Adds the specified element to this queue. 
+Inserts the specified element into this delay queue. 
 
-    o - the element to add 
 
-    Returns: true (as per the general contract of Collection.add). 
+    e - the element to add 
+
+    Returns: true (as specified by {@link Collection#add}) 
+
 *java.util.concurrent.DelayQueue.clear()*
 
 public void clear()
 
 Atomically removes all of the elements from this delay queue. The queue will be 
-empty after this call returns. 
-
-
-*java.util.concurrent.DelayQueue.drainTo(Collection)*
-
-public int drainTo(java.util.Collection c)
+empty after this call returns. Elements with an unexpired delay are not waited 
+for; they are simply discarded from the queue. 
 
 
 
+*java.util.concurrent.DelayQueue.drainTo(Collection<?superE>)*
 
-*java.util.concurrent.DelayQueue.drainTo(Collection,int)*
+public int drainTo(java.util.Collection<? super E> c)
+
+
+
+
+
+*java.util.concurrent.DelayQueue.drainTo(Collection<?superE>,int)*
 
 public int drainTo(
-  java.util.Collection c,
+  java.util.Collection<? super E> c,
   int maxElements)
+
 
 
 
 
 *java.util.concurrent.DelayQueue.iterator()*
 
-public |java.util.Iterator| iterator()
+public |java.util.Iterator|<E extends java.util.concurrent.Delayed> iterator()
 
-Returns an iterator over the elements in this queue. The iterator does not 
-return the elements in any particular order. The returned iterator is a 
-thread-safe "fast-fail" iterator that will throw 
-(|java.util.ConcurrentModificationException|) upon detected interference. 
+Returns an iterator over all the elements (both expired and unexpired) in this 
+queue. The iterator does not return the elements in any particular order. The 
+returned Iterator is a "weakly consistent" iterator that will never throw 
+(|java.util.ConcurrentModificationException|) , and guarantees to traverse 
+elements as they existed upon construction of the iterator, and may (but is not 
+guaranteed to) reflect any modifications subsequent to construction. 
 
 
-    Returns: an iterator over the elements in this queue. 
+
+    Returns: an iterator over the elements in this queue 
+
 *java.util.concurrent.DelayQueue.offer(E)*
 
-public boolean offer(java.util.concurrent.Delayed o)
+public boolean offer(E extends java.util.concurrent.Delayed e)
 
 Inserts the specified element into this delay queue. 
 
-    o - the element to add 
+
+    e - the element to add 
 
     Returns: 
+
 *java.util.concurrent.DelayQueue.offer(E,long,TimeUnit)*
 
 public boolean offer(
-  java.util.concurrent.Delayed o,
+  E extends java.util.concurrent.Delayed e,
   long timeout,
   java.util.concurrent.TimeUnit unit)
 
 Inserts the specified element into this delay queue. As the queue is unbounded 
 this method will never block. 
 
-    o - the element to add 
+
+    e - the element to add 
     timeout - This parameter is ignored as the method never blocks 
     unit - This parameter is ignored as the method never blocks 
 
     Returns: 
+
 *java.util.concurrent.DelayQueue.peek()*
 
-public |java.util.concurrent.Delayed| peek()
+public |E| peek()
 
-Retrieves, but does not remove, the head of this queue, returning null if this 
-queue has no elements with an unexpired delay. 
+Retrieves, but does not remove, the head of this queue, or returns null if this 
+queue is empty. Unlike poll, if no expired elements are available in the queue, 
+this method returns the element that will expire next, if one exists. 
 
 
-    Returns: the head of this queue, or null if this queue has no elements with an unexpired 
-             delay. 
+
+    Returns: the head of this queue, or null if this queue is empty. 
+
 *java.util.concurrent.DelayQueue.poll()*
 
-public |java.util.concurrent.Delayed| poll()
+public |E| poll()
 
-Retrieves and removes the head of this queue, or null if this queue has no 
-elements with an unexpired delay. 
+Retrieves and removes the head of this queue, or returns null if this queue has 
+no elements with an expired delay. 
 
 
-    Returns: the head of this queue, or null if this queue has no elements with an unexpired 
-             delay. 
+
+    Returns: the head of this queue, or null if this queue has no elements with an expired 
+             delay 
+
 *java.util.concurrent.DelayQueue.poll(long,TimeUnit)*
 
-public |java.util.concurrent.Delayed| poll(
+public |E| poll(
   long timeout,
   java.util.concurrent.TimeUnit unit)
   throws |java.lang.InterruptedException|
          
-Retrieves and removes the head of this queue, waiting if necessary up to the 
-specified wait time if no elements with an unexpired delay are present on this 
-queue. 
+Retrieves and removes the head of this queue, waiting if necessary until an 
+element with an expired delay is available on this queue, or the specified wait 
+time expires. 
 
-    timeout - how long to wait before giving up, in units of unit 
-    unit - a TimeUnit determining how to interpret the timeout parameter 
+
 
     Returns: the head of this queue, or null if the specified waiting time elapses before an 
-             element with an unexpired delay is present. 
+             element with an expired delay becomes available 
+
 *java.util.concurrent.DelayQueue.put(E)*
 
-public void put(java.util.concurrent.Delayed o)
+public void put(E extends java.util.concurrent.Delayed e)
 
-Adds the specified element to this delay queue. As the queue is unbounded this 
-method will never block. 
+Inserts the specified element into this delay queue. As the queue is unbounded 
+this method will never block. 
 
-    o - the element to add 
+
+    e - the element to add 
 
 *java.util.concurrent.DelayQueue.remainingCapacity()*
 
@@ -188,13 +210,16 @@ Always returns Integer.MAX_VALUE because a DelayQueue is not capacity
 constrained. 
 
 
+
     Returns: Integer.MAX_VALUE 
+
 *java.util.concurrent.DelayQueue.remove(Object)*
 
 public boolean remove(java.lang.Object o)
 
 Removes a single instance of the specified element from this queue, if it is 
-present. 
+present, whether or not it has expired. 
+
 
 
 *java.util.concurrent.DelayQueue.size()*
@@ -204,28 +229,69 @@ public int size()
 
 
 
+
 *java.util.concurrent.DelayQueue.take()*
 
-public |java.util.concurrent.Delayed| take()
+public |E| take()
   throws |java.lang.InterruptedException|
          
-Retrieves and removes the head of this queue, waiting if no elements with an 
-unexpired delay are present on this queue. 
+Retrieves and removes the head of this queue, waiting if necessary until an 
+element with an expired delay is available on this queue. 
+
 
 
     Returns: the head of this queue 
+
 *java.util.concurrent.DelayQueue.toArray()*
 
-public |java.lang.Object| toArray()
+public |java.lang.Object|[] toArray()
+
+Returns an array containing all of the elements in this queue. The returned 
+array elements are in no particular order. 
+
+The returned array will be "safe" in that no references to it are maintained by 
+this queue. (In other words, this method must allocate a new array). The caller 
+is thus free to modify the returned array. 
+
+This method acts as bridge between array-based and collection-based APIs. 
 
 
 
+    Returns: an array containing all of the elements in this queue 
 
 *java.util.concurrent.DelayQueue.toArray(T[])*
 
-public |java.lang.Object| toArray(java.lang.Object[] array)
+public |T|[] toArray(T[] a)
+
+Returns an array containing all of the elements in this queue; the runtime type 
+of the returned array is that of the specified array. The returned array 
+elements are in no particular order. If the queue fits in the specified array, 
+it is returned therein. Otherwise, a new array is allocated with the runtime 
+type of the specified array and the size of this queue. 
+
+If this queue fits in the specified array with room to spare (i.e., the array 
+has more elements than this queue), the element in the array immediately 
+following the end of the queue is set to null. 
+
+Like the (|java.util.concurrent.DelayQueue|) method, this method acts as bridge 
+between array-based and collection-based APIs. Further, this method allows 
+precise control over the runtime type of the output array, and may, under 
+certain circumstances, be used to save allocation costs. 
+
+The following code can be used to dump a delay queue into a newly allocated 
+array of Delayed: 
 
 
 
+Delayed[] a = q.toArray(new Delayed[0]); 
+
+Note that toArray(new Object[0]) is identical in function to toArray(). 
+
+
+    a - the array into which the elements of the queue are to be stored, if it is big 
+       enough; otherwise, a new array of the same runtime type is allocated for 
+       this purpose 
+
+    Returns: an array containing all of the elements in this queue 
 
 

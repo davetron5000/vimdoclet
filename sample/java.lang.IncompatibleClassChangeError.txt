@@ -21,6 +21,7 @@ The definition of some class, on which the currently executing method depends,
 has since changed. 
 
 
+
 *java.lang.IncompatibleClassChangeError()*
 
 public IncompatibleClassChangeError()

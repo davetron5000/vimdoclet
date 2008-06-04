@@ -20,6 +20,7 @@ Thrown when an exceptional arithmetic condition has occurred. For example, an
 integer "divide by zero" throws an instance of this class. 
 
 
+
 *java.lang.ArithmeticException()*
 
 public ArithmeticException()

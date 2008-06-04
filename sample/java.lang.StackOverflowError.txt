@@ -19,6 +19,7 @@ public class StackOverflowError
 Thrown when a stack overflow occurs because an application recurses too deeply. 
 
 
+
 *java.lang.StackOverflowError()*
 
 public StackOverflowError()

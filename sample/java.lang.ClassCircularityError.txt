@@ -19,6 +19,7 @@ public class ClassCircularityError
 Thrown when a circularity has been detected while initializing a class. 
 
 
+
 *java.lang.ClassCircularityError()*
 
 public ClassCircularityError()

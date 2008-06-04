@@ -1,0 +1,66 @@
+*java.util.spi.TimeZoneNameProvider* *TimeZoneNameProvider* An abstract class fo
+
+public abstract class TimeZoneNameProvider
+  extends    |java.util.spi.LocaleServiceProvider|
+
+|java.util.spi.TimeZoneNameProvider_Description|
+|java.util.spi.TimeZoneNameProvider_Fields|
+|java.util.spi.TimeZoneNameProvider_Constructors|
+|java.util.spi.TimeZoneNameProvider_Methods|
+
+================================================================================
+
+*java.util.spi.TimeZoneNameProvider_Constructors*
+|java.util.spi.TimeZoneNameProvider()|Sole constructor.
+
+*java.util.spi.TimeZoneNameProvider_Methods*
+|java.util.spi.TimeZoneNameProvider.getDisplayName(String,boolean,int,Locale)|R
+
+*java.util.spi.TimeZoneNameProvider_Description*
+
+An abstract class for service providers that provide localized time zone names 
+for the TimeZone(|java.util.TimeZone|) class. The localized time zone names 
+available from the implementations of this class are also the source for the 
+DateFormatSymbols.getZoneStrings()(|java.text.DateFormatSymbols|) method. 
+
+
+
+*java.util.spi.TimeZoneNameProvider()*
+
+protected TimeZoneNameProvider()
+
+Sole constructor. (For invocation by subclass constructors, typically 
+implicit.) 
+
+
+*java.util.spi.TimeZoneNameProvider.getDisplayName(String,boolean,int,Locale)*
+
+public abstract |java.lang.String| getDisplayName(
+  java.lang.String ID,
+  boolean daylight,
+  int style,
+  java.util.Locale locale)
+
+Returns a name for the given time zone ID that's suitable for presentation to 
+the user in the specified locale. The given time zone ID is "GMT" or one of the 
+names defined using "Zone" entries in the "tz database", a public domain time 
+zone database at ftp://elsie.nci.nih.gov/pub/. The data of this database is 
+contained in a file whose name starts with "tzdata", and the specification of 
+the data format is part of the zic.8 man page, which is contained in a file 
+whose name starts with "tzcode". 
+
+If daylight is true, the method should return a name appropriate for daylight 
+saving time even if the specified time zone has not observed daylight saving 
+time in the past. 
+
+
+    ID - a time zone ID string 
+    daylight - if true, return the daylight saving name. 
+    style - either {@link java.util.TimeZone#LONG TimeZone.LONG} or {@link 
+       java.util.TimeZone#SHORT TimeZone.SHORT} 
+    locale - the desired locale 
+
+    Returns: the human-readable name of the given time zone in the given locale, or null if 
+             it's not available. 
+
+

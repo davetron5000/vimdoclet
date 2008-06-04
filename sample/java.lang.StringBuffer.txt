@@ -113,6 +113,7 @@ supports all of the same operations but it is faster, as it performs no
 synchronization. 
 
 
+
 *java.lang.StringBuffer()*
 
 public StringBuffer()
@@ -160,9 +161,11 @@ public synchronized |java.lang.StringBuffer| append(boolean b)
 
 
 
+
 *java.lang.StringBuffer.append(char)*
 
 public synchronized |java.lang.StringBuffer| append(char c)
+
 
 
 
@@ -174,12 +177,14 @@ public synchronized |java.lang.StringBuffer| append(char[] str)
 
 
 
+
 *java.lang.StringBuffer.append(char[],int,int)*
 
 public synchronized |java.lang.StringBuffer| append(
   char[] str,
   int offset,
   int len)
+
 
 
 
@@ -201,15 +206,18 @@ synchronize on the source (s).
 
 If s is null, then the four characters "null" are appended. 
 
+
     s - the CharSequence to append. 
 
     Returns: a reference to this object. 
+
 *java.lang.StringBuffer.append(CharSequence,int,int)*
 
 public synchronized |java.lang.StringBuffer| append(
   java.lang.CharSequence s,
   int start,
   int end)
+
 
 
 
@@ -221,9 +229,11 @@ public synchronized |java.lang.StringBuffer| append(double d)
 
 
 
+
 *java.lang.StringBuffer.append(float)*
 
 public synchronized |java.lang.StringBuffer| append(float f)
+
 
 
 
@@ -235,9 +245,11 @@ public synchronized |java.lang.StringBuffer| append(int i)
 
 
 
+
 *java.lang.StringBuffer.append(long)*
 
 public synchronized |java.lang.StringBuffer| append(long lng)
+
 
 
 
@@ -249,9 +261,11 @@ public synchronized |java.lang.StringBuffer| append(java.lang.Object obj)
 
 
 
+
 *java.lang.StringBuffer.append(String)*
 
 public synchronized |java.lang.StringBuffer| append(java.lang.String str)
+
 
 
 
@@ -276,12 +290,15 @@ the character at index k-n in the argument sb.
 This method synchronizes on this (the destination) object but does not 
 synchronize on the source (sb). 
 
+
     sb - the StringBuffer to append. 
 
     Returns: a reference to this object. 
+
 *java.lang.StringBuffer.appendCodePoint(int)*
 
 public synchronized |java.lang.StringBuffer| appendCodePoint(int codePoint)
+
 
 
 
@@ -293,9 +310,11 @@ public synchronized int capacity()
 
 
 
+
 *java.lang.StringBuffer.charAt(int)*
 
 public synchronized char charAt(int index)
+
 
 
 
@@ -307,9 +326,11 @@ public synchronized int codePointAt(int index)
 
 
 
+
 *java.lang.StringBuffer.codePointBefore(int)*
 
 public synchronized int codePointBefore(int index)
+
 
 
 
@@ -323,11 +344,13 @@ public synchronized int codePointCount(
 
 
 
+
 *java.lang.StringBuffer.delete(int,int)*
 
 public synchronized |java.lang.StringBuffer| delete(
   int start,
   int end)
+
 
 
 
@@ -339,9 +362,11 @@ public synchronized |java.lang.StringBuffer| deleteCharAt(int index)
 
 
 
+
 *java.lang.StringBuffer.ensureCapacity(int)*
 
 public synchronized void ensureCapacity(int minimumCapacity)
+
 
 
 
@@ -357,9 +382,11 @@ public synchronized void getChars(
 
 
 
+
 *java.lang.StringBuffer.indexOf(String)*
 
 public int indexOf(java.lang.String str)
+
 
 
 
@@ -373,11 +400,13 @@ public synchronized int indexOf(
 
 
 
+
 *java.lang.StringBuffer.insert(int,boolean)*
 
 public |java.lang.StringBuffer| insert(
   int offset,
   boolean b)
+
 
 
 
@@ -391,11 +420,13 @@ public synchronized |java.lang.StringBuffer| insert(
 
 
 
+
 *java.lang.StringBuffer.insert(int,char[])*
 
 public synchronized |java.lang.StringBuffer| insert(
   int offset,
   char[] str)
+
 
 
 
@@ -411,11 +442,13 @@ public synchronized |java.lang.StringBuffer| insert(
 
 
 
+
 *java.lang.StringBuffer.insert(int,CharSequence)*
 
 public |java.lang.StringBuffer| insert(
   int dstOffset,
   java.lang.CharSequence s)
+
 
 
 
@@ -431,11 +464,13 @@ public synchronized |java.lang.StringBuffer| insert(
 
 
 
+
 *java.lang.StringBuffer.insert(int,double)*
 
 public |java.lang.StringBuffer| insert(
   int offset,
   double d)
+
 
 
 
@@ -449,11 +484,13 @@ public |java.lang.StringBuffer| insert(
 
 
 
+
 *java.lang.StringBuffer.insert(int,int)*
 
 public |java.lang.StringBuffer| insert(
   int offset,
   int i)
+
 
 
 
@@ -467,11 +504,13 @@ public |java.lang.StringBuffer| insert(
 
 
 
+
 *java.lang.StringBuffer.insert(int,Object)*
 
 public synchronized |java.lang.StringBuffer| insert(
   int offset,
   java.lang.Object obj)
+
 
 
 
@@ -485,9 +524,11 @@ public synchronized |java.lang.StringBuffer| insert(
 
 
 
+
 *java.lang.StringBuffer.lastIndexOf(String)*
 
 public int lastIndexOf(java.lang.String str)
+
 
 
 
@@ -501,9 +542,11 @@ public synchronized int lastIndexOf(
 
 
 
+
 *java.lang.StringBuffer.length()*
 
 public synchronized int length()
+
 
 
 
@@ -513,6 +556,7 @@ public synchronized int length()
 public synchronized int offsetByCodePoints(
   int index,
   int codePointOffset)
+
 
 
 
@@ -527,9 +571,11 @@ public synchronized |java.lang.StringBuffer| replace(
 
 
 
+
 *java.lang.StringBuffer.reverse()*
 
 public synchronized |java.lang.StringBuffer| reverse()
+
 
 
 
@@ -543,9 +589,11 @@ public synchronized void setCharAt(
 
 
 
+
 *java.lang.StringBuffer.setLength(int)*
 
 public synchronized void setLength(int newLength)
+
 
 
 
@@ -559,9 +607,11 @@ public synchronized |java.lang.CharSequence| subSequence(
 
 
 
+
 *java.lang.StringBuffer.substring(int)*
 
 public synchronized |java.lang.String| substring(int start)
+
 
 
 
@@ -575,6 +625,7 @@ public synchronized |java.lang.String| substring(
 
 
 
+
 *java.lang.StringBuffer.toString()*
 
 public synchronized |java.lang.String| toString()
@@ -582,9 +633,11 @@ public synchronized |java.lang.String| toString()
 
 
 
+
 *java.lang.StringBuffer.trimToSize()*
 
 public synchronized void trimToSize()
+
 
 
 

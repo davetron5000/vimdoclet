@@ -48,6 +48,7 @@ malevolent code sensitive information about the user environment (the user's
 account name and home directory). 
 
 
+
 *java.util.PropertyPermission(String,String)*
 
 public PropertyPermission(
@@ -69,10 +70,12 @@ public boolean equals(java.lang.Object obj)
 Checks two PropertyPermission objects for equality. Checks that obj is a 
 PropertyPermission, and has the same name and actions as this object. 
 
+
     obj - the object we are testing for equality with this object. 
 
     Returns: true if obj is a PropertyPermission, and has the same name and actions as this 
              PropertyPermission object. 
+
 *java.util.PropertyPermission.getActions()*
 
 public |java.lang.String| getActions()
@@ -83,7 +86,9 @@ example, if this PropertyPermission object allows both write and read actions,
 a call to getActions will return the string "read,write". 
 
 
+
     Returns: the canonical string representation of the actions. 
+
 *java.util.PropertyPermission.hashCode()*
 
 public int hashCode()
@@ -93,7 +98,9 @@ code of this permissions name, that is, getName().hashCode(), where getName is
 from the Permission superclass. 
 
 
+
     Returns: a hash code value for this object. 
+
 *java.util.PropertyPermission.implies(Permission)*
 
 public boolean implies(java.security.Permission p)
@@ -106,9 +113,11 @@ p is an instanceof PropertyPermission, p's actions are a subset of this
 object's actions, and p's name is implied by this object's name. For example, 
 "java.*" implies "java.home". 
 
+
     p - the permission to check against. 
 
     Returns: true if the specified permission is implied by this object, false if not. 
+
 *java.util.PropertyPermission.newPermissionCollection()*
 
 public |java.security.PermissionCollection| newPermissionCollection()
@@ -117,5 +126,7 @@ Returns a new PermissionCollection object for storing PropertyPermission
 objects. 
 
 
+
     Returns: a new PermissionCollection object suitable for storing PropertyPermissions. 
+
 

@@ -1,6 +1,6 @@
-*java.util.SortedMap* *SortedMap* A map that further guarantees that it will be 
+*java.util.SortedMap* *SortedMap* AMapthat further provides a total ordering on 
 
-public interface interface SortedMap
+public interface interface SortedMap<K,V>
 
   implements |java.util.Map|
 
@@ -12,29 +12,32 @@ public interface interface SortedMap
 ================================================================================
 
 *java.util.SortedMap_Methods*
-|java.util.SortedMap.comparator()|Returns the comparator associated with this s
+|java.util.SortedMap.comparator()|Returns the comparator used to order the keys
+|java.util.SortedMap.entrySet()|Returns aSetview of the mappings contained in t
 |java.util.SortedMap.firstKey()|Returns the first (lowest) key currently in thi
-|java.util.SortedMap.headMap(K)|Returns a view of the portion of this sorted ma
+|java.util.SortedMap.headMap(K)|Returns a view of the portion of this map whose
+|java.util.SortedMap.keySet()|Returns aSetview of the keys contained in this ma
 |java.util.SortedMap.lastKey()|Returns the last (highest) key currently in this
-|java.util.SortedMap.subMap(K,K)|Returns a view of the portion of this sorted m
-|java.util.SortedMap.tailMap(K)|Returns a view of the portion of this sorted ma
+|java.util.SortedMap.subMap(K,K)|Returns a view of the portion of this map whos
+|java.util.SortedMap.tailMap(K)|Returns a view of the portion of this map whose
+|java.util.SortedMap.values()|Returns aCollectionview of the values contained i
 
 *java.util.SortedMap_Description*
 
-A map that further guarantees that it will be in ascending key order, sorted 
-according to the natural ordering of its keys (see the Comparable interface), 
-or by a comparator provided at sorted map creation time. This order is 
-reflected when iterating over the sorted map's collection views (returned by 
-the entrySet, keySet and values methods). Several additional operations are 
-provided to take advantage of the ordering. (This interface is the map analogue 
-of the SortedSet interface.) 
+A (|java.util.Map|) that further provides a total ordering on its keys. The map 
+is ordered according to the natural ordering(|java.lang.Comparable|) of its 
+keys, or by a (|java.util.Comparator|) typically provided at sorted map 
+creation time. This order is reflected when iterating over the sorted map's 
+collection views (returned by the entrySet, keySet and values methods). Several 
+additional operations are provided to take advantage of the ordering. (This 
+interface is the map analogue of (|java.util.SortedSet|) .) 
 
 All keys inserted into a sorted map must implement the Comparable interface (or 
 be accepted by the specified comparator). Furthermore, all such keys must be 
 mutually comparable: k1.compareTo(k2) (or comparator.compare(k1, k2)) must not 
-throw a ClassCastException for any elements k1 and k2 in the sorted map. 
-Attempts to violate this restriction will cause the offending method or 
-constructor invocation to throw a ClassCastException. 
+throw a ClassCastException for any keys k1 and k2 in the sorted map. Attempts 
+to violate this restriction will cause the offending method or constructor 
+invocation to throw a ClassCastException. 
 
 Note that the ordering maintained by a sorted map (whether or not an explicit 
 comparator is provided) must be consistent with equals if the sorted map is to 
@@ -49,130 +52,179 @@ general contract of the Map interface.
 
 All general-purpose sorted map implementation classes should provide four 
 "standard" constructors: 1) A void (no arguments) constructor, which creates an 
-empty sorted map sorted according to the natural order of its keys. 2) A 
+empty sorted map sorted according to the natural ordering of its keys. 2) A 
 constructor with a single argument of type Comparator, which creates an empty 
 sorted map sorted according to the specified comparator. 3) A constructor with 
 a single argument of type Map, which creates a new map with the same key-value 
 mappings as its argument, sorted according to the keys' natural ordering. 4) A 
-constructor with a single argument of type sorted map, which creates a new 
+constructor with a single argument of type SortedMap, which creates a new 
 sorted map with the same key-value mappings and the same ordering as the input 
-sorted map. There is no way to enforce this recommendation (as interfaces 
-cannot contain constructors) but the JDK implementation (TreeMap) complies. 
+sorted map. There is no way to enforce this recommendation, as interfaces 
+cannot contain constructors. 
 
-This interface is a member of the <a href="/../guide/collections/index.html"> 
-Java Collections Framework. 
+Note: several methods return submaps with restricted key ranges. Such ranges 
+are half-open, that is, they include their low endpoint but not their high 
+endpoint (where applicable). If you need a closed range (which includes both 
+endpoints), and the key type allows for calculation of the successor of a given 
+key, merely request the subrange from lowEndpoint to successor(highEndpoint). 
+For example, suppose that m is a map whose keys are strings. The following 
+idiom obtains a view containing all of the key-value mappings in m whose keys 
+are between low and high, inclusive: 
+
+SortedMap<String, V> sub = m.subMap(low, high+"\0"); 
+
+A similar technique can be used to generate an open range (which contains 
+neither endpoint). The following idiom obtains a view containing all of the 
+key-value mappings in m whose keys are between low and high, exclusive: 
+
+SortedMap<String, V> sub = m.subMap(low+"\0", high); 
+
+This interface is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
 
 
 *java.util.SortedMap.comparator()*
 
-public |java.util.Comparator| comparator()
+public |java.util.Comparator|<? super K> comparator()
 
-Returns the comparator associated with this sorted map, or null if it uses its 
-keys' natural ordering. 
+Returns the comparator used to order the keys in this map, or null if this map 
+uses the natural ordering(|java.lang.Comparable|) of its keys. 
 
 
-    Returns: the comparator associated with this sorted map, or null if it uses its keys' 
-             natural ordering. 
+
+    Returns: the comparator used to order the keys in this map, or null if this map uses the 
+             natural ordering of its keys 
+
+*java.util.SortedMap.entrySet()*
+
+public |java.util.Set|<Entry<K,V>> entrySet()
+
+Returns a (|java.util.Set|) view of the mappings contained in this map. The 
+set's iterator returns the entries in ascending key order. The set is backed by 
+the map, so changes to the map are reflected in the set, and vice-versa. If the 
+map is modified while an iteration over the set is in progress (except through 
+the iterator's own remove operation, or through the setValue operation on a map 
+entry returned by the iterator) the results of the iteration are undefined. The 
+set supports element removal, which removes the corresponding mapping from the 
+map, via the Iterator.remove, Set.remove, removeAll, retainAll and clear 
+operations. It does not support the add or addAll operations. 
+
+
+
+    Returns: a set view of the mappings contained in this map, sorted in ascending key order 
+
 *java.util.SortedMap.firstKey()*
 
-public |java.lang.Object| firstKey()
+public |K| firstKey()
 
-Returns the first (lowest) key currently in this sorted map. 
+Returns the first (lowest) key currently in this map. 
 
 
-    Returns: the first (lowest) key currently in this sorted map. 
+
+    Returns: the first (lowest) key currently in this map 
+
 *java.util.SortedMap.headMap(K)*
 
-public |java.util.SortedMap| headMap(java.lang.Object toKey)
+public |java.util.SortedMap|<K,V> headMap(K toKey)
 
-Returns a view of the portion of this sorted map whose keys are strictly less 
-than toKey. The returned sorted map is backed by this sorted map, so changes in 
-the returned sorted map are reflected in this sorted map, and vice-versa. The 
-returned map supports all optional map operations that this sorted map 
-supports. 
+Returns a view of the portion of this map whose keys are strictly less than 
+toKey. The returned map is backed by this map, so changes in the returned map 
+are reflected in this map, and vice-versa. The returned map supports all 
+optional map operations that this map supports. 
 
-The map returned by this method will throw an IllegalArgumentException if the 
-user attempts to insert a key outside the specified range. 
+The returned map will throw an IllegalArgumentException on an attempt to insert 
+a key outside its range. 
 
-Note: this method always returns a view that does not contain its (high) 
-endpoint. If you need a view that does contain this endpoint, and the key type 
-allows for calculation of the successor a given key, merely request a headMap 
-bounded by successor(highEndpoint). For example, suppose that suppose that m is 
-a map whose keys are strings. The following idiom obtains a view containing all 
-of the key-value mappings in m whose keys are less than or equal to high: 
 
-Map head = m.headMap(high+"\0"); 
+    toKey - high endpoint (exclusive) of the keys in the returned map 
 
-    toKey - high endpoint (exclusive) of the subMap. 
+    Returns: a view of the portion of this map whose keys are strictly less than toKey 
 
-    Returns: a view of the specified initial range of this sorted map. 
+*java.util.SortedMap.keySet()*
+
+public |java.util.Set|<K> keySet()
+
+Returns a (|java.util.Set|) view of the keys contained in this map. The set's 
+iterator returns the keys in ascending order. The set is backed by the map, so 
+changes to the map are reflected in the set, and vice-versa. If the map is 
+modified while an iteration over the set is in progress (except through the 
+iterator's own remove operation), the results of the iteration are undefined. 
+The set supports element removal, which removes the corresponding mapping from 
+the map, via the Iterator.remove, Set.remove, removeAll, retainAll, and clear 
+operations. It does not support the add or addAll operations. 
+
+
+
+    Returns: a set view of the keys contained in this map, sorted in ascending order 
+
 *java.util.SortedMap.lastKey()*
 
-public |java.lang.Object| lastKey()
+public |K| lastKey()
 
-Returns the last (highest) key currently in this sorted map. 
+Returns the last (highest) key currently in this map. 
 
 
-    Returns: the last (highest) key currently in this sorted map. 
+
+    Returns: the last (highest) key currently in this map 
+
 *java.util.SortedMap.subMap(K,K)*
 
-public |java.util.SortedMap| subMap(
-  java.lang.Object fromKey,
-  java.lang.Object toKey)
+public |java.util.SortedMap|<K,V> subMap(
+  K fromKey,
+  K toKey)
 
-Returns a view of the portion of this sorted map whose keys range from fromKey, 
+Returns a view of the portion of this map whose keys range from fromKey, 
 inclusive, to toKey, exclusive. (If fromKey and toKey are equal, the returned 
-sorted map is empty.) The returned sorted map is backed by this sorted map, so 
-changes in the returned sorted map are reflected in this sorted map, and 
-vice-versa. The returned Map supports all optional map operations that this 
-sorted map supports. 
+map is empty.) The returned map is backed by this map, so changes in the 
+returned map are reflected in this map, and vice-versa. The returned map 
+supports all optional map operations that this map supports. 
 
-The map returned by this method will throw an IllegalArgumentException if the 
-user attempts to insert a key outside the specified range. 
+The returned map will throw an IllegalArgumentException on an attempt to insert 
+a key outside its range. 
 
-Note: this method always returns a half-open range (which includes its low 
-endpoint but not its high endpoint). If you need a closed range (which includes 
-both endpoints), and the key type allows for calculation of the successor a 
-given key, merely request the subrange from lowEndpoint to 
-successor(highEndpoint). For example, suppose that m is a map whose keys are 
-strings. The following idiom obtains a view containing all of the key-value 
-mappings in m whose keys are between low and high, inclusive: 
 
-Map sub = m.subMap(low, high+"\0"); 
+    fromKey - low endpoint (inclusive) of the keys in the returned map 
+    toKey - high endpoint (exclusive) of the keys in the returned map 
 
-A similarly technique can be used to generate an open range (which contains 
-neither endpoint). The following idiom obtains a view containing all of the 
-key-value mappings in m whose keys are between low and high, exclusive: 
+    Returns: a view of the portion of this map whose keys range from fromKey, inclusive, to 
+             toKey, exclusive 
 
-Map sub = m.subMap(low+"\0", high); 
-
-    fromKey - low endpoint (inclusive) of the subMap. 
-    toKey - high endpoint (exclusive) of the subMap. 
-
-    Returns: a view of the specified range within this sorted map. 
 *java.util.SortedMap.tailMap(K)*
 
-public |java.util.SortedMap| tailMap(java.lang.Object fromKey)
+public |java.util.SortedMap|<K,V> tailMap(K fromKey)
 
-Returns a view of the portion of this sorted map whose keys are greater than or 
-equal to fromKey. The returned sorted map is backed by this sorted map, so 
-changes in the returned sorted map are reflected in this sorted map, and 
-vice-versa. The returned map supports all optional map operations that this 
-sorted map supports. 
+Returns a view of the portion of this map whose keys are greater than or equal 
+to fromKey. The returned map is backed by this map, so changes in the returned 
+map are reflected in this map, and vice-versa. The returned map supports all 
+optional map operations that this map supports. 
 
-The map returned by this method will throw an IllegalArgumentException if the 
-user attempts to insert a key outside the specified range. 
+The returned map will throw an IllegalArgumentException on an attempt to insert 
+a key outside its range. 
 
-Note: this method always returns a view that contains its (low) endpoint. If 
-you need a view that does not contain this endpoint, and the element type 
-allows for calculation of the successor a given value, merely request a tailMap 
-bounded by successor(lowEndpoint). For example, suppose that suppose that m is 
-a map whose keys are strings. The following idiom obtains a view containing all 
-of the key-value mappings in m whose keys are strictly greater than low: 
 
-Map tail = m.tailMap(low+"\0"); 
+    fromKey - low endpoint (inclusive) of the keys in the returned map 
 
-    fromKey - low endpoint (inclusive) of the tailMap. 
+    Returns: a view of the portion of this map whose keys are greater than or equal to 
+             fromKey 
 
-    Returns: a view of the specified final range of this sorted map. 
+*java.util.SortedMap.values()*
+
+public |java.util.Collection|<V> values()
+
+Returns a (|java.util.Collection|) view of the values contained in this map. 
+The collection's iterator returns the values in ascending order of the 
+corresponding keys. The collection is backed by the map, so changes to the map 
+are reflected in the collection, and vice-versa. If the map is modified while 
+an iteration over the collection is in progress (except through the iterator's 
+own remove operation), the results of the iteration are undefined. The 
+collection supports element removal, which removes the corresponding mapping 
+from the map, via the Iterator.remove, Collection.remove, removeAll, retainAll 
+and clear operations. It does not support the add or addAll operations. 
+
+
+
+    Returns: a collection view of the values contained in this map, sorted in ascending key 
+             order 
+
 

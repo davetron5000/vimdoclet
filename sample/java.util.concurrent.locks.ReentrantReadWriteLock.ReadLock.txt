@@ -30,6 +30,7 @@ The lock returned by method
 (|java.util.concurrent.locks.ReentrantReadWriteLock|) . 
 
 
+
 *java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock(ReentrantReadWriteLock)*
 
 protected ReentrantReadWriteLock.ReadLock(java.util.concurrent.locks.ReentrantReadWriteLock lock)
@@ -50,6 +51,7 @@ returns immediately.
 If the write lock is held by another thread then the current thread becomes 
 disabled for thread scheduling purposes and lies dormant until the read lock 
 has been acquired. 
+
 
 
 *java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock.lockInterruptibly()*
@@ -93,12 +95,13 @@ preference is given to responding to the interrupt over normal or reentrant
 acquisition of the lock. 
 
 
+
 *java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock.newCondition()*
 
 public |java.util.concurrent.locks.Condition| newCondition()
 
-Throws UnsupportedOperationException because ReadLocks do not support 
-conditions. 
+ThrowsUnsupportedOperationExceptionbecauseReadLocksdo not support conditions. 
+
 
 
 *java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock.toString()*
@@ -106,11 +109,13 @@ conditions.
 public |java.lang.String| toString()
 
 Returns a string identifying this lock, as well as its lock state. The state, 
-in brackets, includes the String Read locks = followed by the number of held 
+in brackets, includes the String"Read locks ="followed by the number of held 
 read locks. 
 
 
-    Returns: a string identifying this lock, as well as its lock state. 
+
+    Returns: a string identifying this lock, as well as its lock state 
+
 *java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock.tryLock()*
 
 public boolean tryLock()
@@ -119,20 +124,22 @@ Acquires the read lock only if the write lock is not held by another thread at
 the time of invocation. 
 
 Acquires the read lock if the write lock is not held by another thread and 
-returns immediately with the value true. Even when this lock has been set to 
-use a fair ordering policy, a call to tryLock() will immediately acquire the 
-read lock if it is available, whether or not other threads are currently 
-waiting for the read lock. This barging behavior can be useful in certain 
-circumstances, even though it breaks fairness. If you want to honor the 
-fairness setting for this lock, then use tryLock(0, TimeUnit.SECONDS) 
+returns immediately with the valuetrue. Even when this lock has been set to use 
+a fair ordering policy, a call totryLock()will immediately acquire the read 
+lock if it is available, whether or not other threads are currently waiting for 
+the read lock. This barging behavior can be useful in certain circumstances, 
+even though it breaks fairness. If you want to honor the fairness setting for 
+this lock, then use tryLock(0, TimeUnit.SECONDS) 
 (|java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock|) which is almost 
 equivalent (it also detects interruption). 
 
 If the write lock is held by another thread then this method will return 
-immediately with the value false. 
+immediately with the valuefalse. 
 
 
-    Returns: true if the read lock was acquired. 
+
+    Returns: {@code true} if the read lock was acquired 
+
 *java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock.tryLock(long,TimeUnit)*
 
 public boolean tryLock(
@@ -145,11 +152,11 @@ the given waiting time and the current thread has not been
 interrupted(|java.lang.Thread|) . 
 
 Acquires the read lock if the write lock is not held by another thread and 
-returns immediately with the value true. If this lock has been set to use a 
-fair ordering policy then an available lock will not be acquired if any other 
+returns immediately with the valuetrue. If this lock has been set to use a fair 
+ordering policy then an available lock will not be acquired if any other 
 threads are waiting for the lock. This is in contrast to the 
 (|java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock|) method. If you 
-want a timed tryLock that does permit barging on a fair lock then combine the 
+want a timedtryLockthat does permit barging on a fair lock then combine the 
 timed and un-timed forms together: 
 
 if (lock.tryLock() || lock.tryLock(timeout, unit) ) { ... } 
@@ -164,11 +171,11 @@ The read lock is acquired by the current thread; or
 
 Some other thread interrupts(|java.lang.Thread|) the current thread; or 
 
-The specified waiting time elapses 
+The specified waiting time elapses. 
 
 
 
-If the read lock is acquired then the value true is returned. 
+If the read lock is acquired then the valuetrueis returned. 
 
 If the current thread: 
 
@@ -181,17 +188,19 @@ is interrupted(|java.lang.Thread|) while acquiring the read lock,
 then (|java.lang.InterruptedException|) is thrown and the current thread's 
 interrupted status is cleared. 
 
-If the specified waiting time elapses then the value false is returned. If the 
+If the specified waiting time elapses then the valuefalseis returned. If the 
 time is less than or equal to zero, the method will not wait at all. 
 
 In this implementation, as this method is an explicit interruption point, 
 preference is given to responding to the interrupt over normal or reentrant 
 acquisition of the lock, and over reporting the elapse of the waiting time. 
 
+
     timeout - the time to wait for the read lock 
     unit - the time unit of the timeout argument 
 
-    Returns: true if the read lock was acquired. 
+    Returns: {@code true} if the read lock was acquired 
+
 *java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock.unlock()*
 
 public void unlock()
@@ -200,6 +209,7 @@ Attempts to release this lock.
 
 If the number of readers is now zero then the lock is made available for write 
 lock attempts. 
+
 
 
 

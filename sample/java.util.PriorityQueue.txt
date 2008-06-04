@@ -1,6 +1,6 @@
 *java.util.PriorityQueue* *PriorityQueue* An unbounded priorityQueue queuebased 
 
-public class PriorityQueue
+public class PriorityQueue<E>
   extends    |java.util.AbstractQueue|
   implements |java.io.Serializable|
 
@@ -12,39 +12,42 @@ public class PriorityQueue
 ================================================================================
 
 *java.util.PriorityQueue_Constructors*
-|java.util.PriorityQueue()|Creates a PriorityQueue with the default initial cap
-|java.util.PriorityQueue(Collection)|Creates a PriorityQueue containing the ele
-|java.util.PriorityQueue(int)|Creates a PriorityQueue with the specified initia
-|java.util.PriorityQueue(int,Comparator)|Creates a PriorityQueue with the speci
-|java.util.PriorityQueue(PriorityQueue)|Creates a PriorityQueue containing the 
-|java.util.PriorityQueue(SortedSet)|Creates a PriorityQueue containing the elem
+|java.util.PriorityQueue()|Creates aPriorityQueuewith the default initial  capa
+|java.util.PriorityQueue(Collection<?extendsE>)|Creates aPriorityQueuecontainin
+|java.util.PriorityQueue(int)|Creates aPriorityQueuewith the specified initial 
+|java.util.PriorityQueue(int,Comparator<?superE>)|Creates aPriorityQueuewith th
+|java.util.PriorityQueue(PriorityQueue<?extendsE>)|Creates aPriorityQueuecontai
+|java.util.PriorityQueue(SortedSet<?extendsE>)|Creates aPriorityQueuecontaining
 
 *java.util.PriorityQueue_Methods*
-|java.util.PriorityQueue.add(E)|Adds the specified element to this queue.
-|java.util.PriorityQueue.clear()|Removes all elements from the priority queue.
-|java.util.PriorityQueue.comparator()|Returns the comparator used to order this
+|java.util.PriorityQueue.add(E)|Inserts the specified element into this priorit
+|java.util.PriorityQueue.clear()|Removes all of the elements from this priority
+|java.util.PriorityQueue.comparator()|Returns the comparator used to order the 
+|java.util.PriorityQueue.contains(Object)|Returnstrueif this queue contains the
 |java.util.PriorityQueue.iterator()|Returns an iterator over the elements in th
 |java.util.PriorityQueue.offer(E)|Inserts the specified element into this prior
 |java.util.PriorityQueue.peek()|
 |java.util.PriorityQueue.poll()|
 |java.util.PriorityQueue.remove(Object)|Removes a single instance of the specif
 |java.util.PriorityQueue.size()|
+|java.util.PriorityQueue.toArray()|Returns an array containing all of the eleme
+|java.util.PriorityQueue.toArray(T[])|Returns an array containing all of the el
 
 *java.util.PriorityQueue_Description*
 
-An unbounded priority queue(|java.util.Queue|) based on a priority heap. This 
-queue orders elements according to an order specified at construction time, 
-which is specified either according to their natural order (see 
-(|java.lang.Comparable|) ), or according to a (|java.util.Comparator|) , 
-depending on which constructor is used. A priority queue does not permit null 
-elements. A priority queue relying on natural ordering also does not permit 
-insertion of non-comparable objects (doing so may result in 
-ClassCastException). 
+An unbounded priority queue(|java.util.Queue|) based on a priority heap. The 
+elements of the priority queue are ordered according to their natural 
+ordering(|java.lang.Comparable|) , or by a (|java.util.Comparator|) provided at 
+queue construction time, depending on which constructor is used. A priority 
+queue does not permitnullelements. A priority queue relying on natural ordering 
+also does not permit insertion of non-comparable objects (doing so may result 
+inClassCastException). 
 
 The head of this queue is the least element with respect to the specified 
 ordering. If multiple elements are tied for least value, the head is one of 
-those elements -- ties are broken arbitrarily. The queue retrieval operations 
-poll, remove, peek, and element access the element at the head of the queue. 
+those elements -- ties are broken arbitrarily. The queue retrieval 
+operationspoll,remove,peek, andelementaccess the element at the head of the 
+queue. 
 
 A priority queue is unbounded, but has an internal capacity governing the size 
 of an array used to store the elements on the queue. It is always at least as 
@@ -55,148 +58,165 @@ specified.
 This class and its iterator implement all of the optional methods of the 
 (|java.util.Collection|) and (|java.util.Iterator|) interfaces. The Iterator 
 provided in method (|java.util.PriorityQueue|) is not guaranteed to traverse 
-the elements of the PriorityQueue in any particular order. If you need ordered 
-traversal, consider using Arrays.sort(pq.toArray()). 
+the elements of the priority queue in any particular order. If you need ordered 
+traversal, consider usingArrays.sort(pq.toArray()). 
 
 Note that this implementation is not synchronized. Multiple threads should not 
-access a PriorityQueue instance concurrently if any of the threads modifies the 
-list structurally. Instead, use the thread-safe 
+access aPriorityQueueinstance concurrently if any of the threads modifies the 
+queue. Instead, use the thread-safe 
 (|java.util.concurrent.PriorityBlockingQueue|) class. 
 
 Implementation note: this implementation provides O(log(n)) time for the 
-insertion methods (offer, poll, remove() and add) methods; linear time for the 
-remove(Object) and contains(Object) methods; and constant time for the 
-retrieval methods (peek, element, and size). 
+enqueing and dequeing methods (offer,poll,remove()andadd); linear time for 
+theremove(Object)andcontains(Object)methods; and constant time for the 
+retrieval methods (peek,element, andsize). 
 
-This class is a member of the <a href="/../guide/collections/index.html"> Java 
-Collections Framework. 
+This class is a member of the <a 
+href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
 
 
 *java.util.PriorityQueue()*
 
 public PriorityQueue()
 
-Creates a PriorityQueue with the default initial capacity (11) that orders its 
-elements according to their natural ordering (using Comparable). 
+Creates aPriorityQueuewith the default initial capacity (11) that orders its 
+elements according to their natural ordering(|java.lang.Comparable|) . 
 
 
-*java.util.PriorityQueue(Collection)*
+*java.util.PriorityQueue(Collection<?extendsE>)*
 
-public PriorityQueue(java.util.Collection c)
+public PriorityQueue(java.util.Collection<? extends E> c)
 
-Creates a PriorityQueue containing the elements in the specified collection. 
-The priority queue has an initial capacity of 110% of the size of the specified 
-collection or 1 if the collection is empty. If the specified collection is an 
-instance of a (|java.util.SortedSet|) or is another PriorityQueue, the priority 
-queue will be sorted according to the same comparator, or according to its 
-elements' natural order if the collection is sorted according to its elements' 
-natural order. Otherwise, the priority queue is ordered according to its 
-elements' natural order. 
+Creates aPriorityQueuecontaining the elements in the specified collection. If 
+the specified collection is an instance of a (|java.util.SortedSet|) or is 
+anotherPriorityQueue, this priority queue will be ordered according to the same 
+ordering. Otherwise, this priority queue will be ordered according to the 
+natural ordering(|java.lang.Comparable|) of its elements. 
 
-    c - the collection whose elements are to be placed into this priority queue. 
+    c - the collection whose elements are to be placed into this priority queue 
 
 *java.util.PriorityQueue(int)*
 
 public PriorityQueue(int initialCapacity)
 
-Creates a PriorityQueue with the specified initial capacity that orders its 
-elements according to their natural ordering (using Comparable). 
+Creates aPriorityQueuewith the specified initial capacity that orders its 
+elements according to their natural ordering(|java.lang.Comparable|) . 
 
-    initialCapacity - the initial capacity for this priority queue. 
+    initialCapacity - the initial capacity for this priority queue 
 
-*java.util.PriorityQueue(int,Comparator)*
+*java.util.PriorityQueue(int,Comparator<?superE>)*
 
 public PriorityQueue(
   int initialCapacity,
-  java.util.Comparator comparator)
+  java.util.Comparator<? super E> comparator)
 
-Creates a PriorityQueue with the specified initial capacity that orders its 
+Creates aPriorityQueuewith the specified initial capacity that orders its 
 elements according to the specified comparator. 
 
-    initialCapacity - the initial capacity for this priority queue. 
-    comparator - the comparator used to order this priority queue. If null then the order 
-       depends on the elements' natural ordering. 
+    initialCapacity - the initial capacity for this priority queue 
+    comparator - the comparator that will be used to order this priority queue. If {@code null}, 
+       the {@linkplain Comparable natural ordering} of the elements will be 
+       used. 
 
-*java.util.PriorityQueue(PriorityQueue)*
+*java.util.PriorityQueue(PriorityQueue<?extendsE>)*
 
-public PriorityQueue(java.util.PriorityQueue c)
+public PriorityQueue(java.util.PriorityQueue<? extends E> c)
 
-Creates a PriorityQueue containing the elements in the specified collection. 
-The priority queue has an initial capacity of 110% of the size of the specified 
-collection or 1 if the collection is empty. This priority queue will be sorted 
-according to the same comparator as the given collection, or according to its 
-elements' natural order if the collection is sorted according to its elements' 
-natural order. 
+Creates aPriorityQueuecontaining the elements in the specified priority queue. 
+This priority queue will be ordered according to the same ordering as the given 
+priority queue. 
 
-    c - the collection whose elements are to be placed into this priority queue. 
+    c - the priority queue whose elements are to be placed into this priority queue 
 
-*java.util.PriorityQueue(SortedSet)*
+*java.util.PriorityQueue(SortedSet<?extendsE>)*
 
-public PriorityQueue(java.util.SortedSet c)
+public PriorityQueue(java.util.SortedSet<? extends E> c)
 
-Creates a PriorityQueue containing the elements in the specified collection. 
-The priority queue has an initial capacity of 110% of the size of the specified 
-collection or 1 if the collection is empty. This priority queue will be sorted 
-according to the same comparator as the given collection, or according to its 
-elements' natural order if the collection is sorted according to its elements' 
-natural order. 
+Creates aPriorityQueuecontaining the elements in the specified sorted set. This 
+priority queue will be ordered according to the same ordering as the given 
+sorted set. 
 
-    c - the collection whose elements are to be placed into this priority queue. 
+    c - the sorted set whose elements are to be placed into this priority queue 
 
 *java.util.PriorityQueue.add(E)*
 
-public boolean add(java.lang.Object o)
+public boolean add(E e)
 
-Adds the specified element to this queue. 
+Inserts the specified element into this priority queue. 
 
 
-    Returns: true (as per the general contract of Collection.add). 
+
+    Returns: {@code true} (as specified by {@link Collection#add}) 
+
 *java.util.PriorityQueue.clear()*
 
 public void clear()
 
-Removes all elements from the priority queue. The queue will be empty after 
-this call returns. 
+Removes all of the elements from this priority queue. The queue will be empty 
+after this call returns. 
+
 
 
 *java.util.PriorityQueue.comparator()*
 
-public |java.util.Comparator| comparator()
+public |java.util.Comparator|<? super E> comparator()
 
-Returns the comparator used to order this collection, or null if this 
-collection is sorted according to its elements natural ordering (using 
-Comparable). 
+Returns the comparator used to order the elements in this queue, ornullif this 
+queue is sorted according to the natural ordering(|java.lang.Comparable|) of 
+its elements. 
 
 
-    Returns: the comparator used to order this collection, or null if this collection is 
-             sorted according to its elements natural ordering. 
+
+    Returns: the comparator used to order this queue, or {@code null} if this queue is 
+             sorted according to the natural ordering of its elements 
+
+*java.util.PriorityQueue.contains(Object)*
+
+public boolean contains(java.lang.Object o)
+
+Returnstrueif this queue contains the specified element. More formally, 
+returnstrueif and only if this queue contains at least one elementesuch 
+thato.equals(e). 
+
+
+    o - object to be checked for containment in this queue 
+
+    Returns: {@code true} if this queue contains the specified element 
+
 *java.util.PriorityQueue.iterator()*
 
-public |java.util.Iterator| iterator()
+public |java.util.Iterator|<E> iterator()
 
 Returns an iterator over the elements in this queue. The iterator does not 
 return the elements in any particular order. 
 
 
-    Returns: an iterator over the elements in this queue. 
+
+    Returns: an iterator over the elements in this queue 
+
 *java.util.PriorityQueue.offer(E)*
 
-public boolean offer(java.lang.Object o)
+public boolean offer(E e)
 
 Inserts the specified element into this priority queue. 
 
 
-    Returns: 
+
+    Returns: {@code true} (as specified by {@link Queue#offer}) 
+
 *java.util.PriorityQueue.peek()*
 
-public |java.lang.Object| peek()
+public |E| peek()
+
 
 
 
 
 *java.util.PriorityQueue.poll()*
 
-public |java.lang.Object| poll()
+public |E| poll()
+
 
 
 
@@ -206,8 +226,15 @@ public |java.lang.Object| poll()
 public boolean remove(java.lang.Object o)
 
 Removes a single instance of the specified element from this queue, if it is 
-present. 
+present. More formally, removes an elementesuch thato.equals(e), if this queue 
+contains one or more such elements. Returnstrueif and only if this queue 
+contained the specified element (or equivalently, if this queue changed as a 
+result of the call). 
 
+
+    o - element to be removed from this queue, if present 
+
+    Returns: {@code true} if this queue changed as a result of the call 
 
 *java.util.PriorityQueue.size()*
 
@@ -215,5 +242,58 @@ public int size()
 
 
 
+
+
+*java.util.PriorityQueue.toArray()*
+
+public |java.lang.Object|[] toArray()
+
+Returns an array containing all of the elements in this queue. The elements are 
+in no particular order. 
+
+The returned array will be "safe" in that no references to it are maintained by 
+this queue. (In other words, this method must allocate a new array). The caller 
+is thus free to modify the returned array. 
+
+This method acts as bridge between array-based and collection-based APIs. 
+
+
+
+    Returns: an array containing all of the elements in this queue 
+
+*java.util.PriorityQueue.toArray(T[])*
+
+public |T|[] toArray(T[] a)
+
+Returns an array containing all of the elements in this queue; the runtime type 
+of the returned array is that of the specified array. The returned array 
+elements are in no particular order. If the queue fits in the specified array, 
+it is returned therein. Otherwise, a new array is allocated with the runtime 
+type of the specified array and the size of this queue. 
+
+If the queue fits in the specified array with room to spare (i.e., the array 
+has more elements than the queue), the element in the array immediately 
+following the end of the collection is set tonull. 
+
+Like the (|java.util.PriorityQueue|) method, this method acts as bridge between 
+array-based and collection-based APIs. Further, this method allows precise 
+control over the runtime type of the output array, and may, under certain 
+circumstances, be used to save allocation costs. 
+
+Suppose x is a queue known to contain only strings. The following code can be 
+used to dump the queue into a newly allocated array of String: 
+
+
+
+String[] y = x.toArray(new String[0]); 
+
+Note that toArray(new Object[0]) is identical in function to toArray(). 
+
+
+    a - the array into which the elements of the queue are to be stored, if it is big 
+       enough; otherwise, a new array of the same runtime type is allocated for 
+       this purpose. 
+
+    Returns: an array containing all of the elements in this queue 
 
 

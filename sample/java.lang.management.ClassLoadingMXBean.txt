@@ -33,6 +33,7 @@ within an MBeanServer is:
 <tt>java.lang:type=ClassLoading</tt>(|java.lang.management.ManagementFactory|) 
 
 
+
 *java.lang.management.ClassLoadingMXBean.getLoadedClassCount()*
 
 public int getLoadedClassCount()
@@ -41,7 +42,9 @@ Returns the number of classes that are currently loaded in the Java virtual
 machine. 
 
 
+
     Returns: the number of currently loaded classes. 
+
 *java.lang.management.ClassLoadingMXBean.getTotalLoadedClassCount()*
 
 public long getTotalLoadedClassCount()
@@ -50,7 +53,9 @@ Returns the total number of classes that have been loaded since the Java
 virtual machine has started execution. 
 
 
+
     Returns: the total number of classes loaded. 
+
 *java.lang.management.ClassLoadingMXBean.getUnloadedClassCount()*
 
 public long getUnloadedClassCount()
@@ -59,7 +64,9 @@ Returns the total number of classes unloaded since the Java virtual machine has
 started execution. 
 
 
+
     Returns: the total number of unloaded classes. 
+
 *java.lang.management.ClassLoadingMXBean.isVerbose()*
 
 public boolean isVerbose()
@@ -67,8 +74,10 @@ public boolean isVerbose()
 Tests if the verbose output for the class loading system is enabled. 
 
 
+
     Returns: true if the verbose output for the class loading system is enabled; false 
              otherwise. 
+
 *java.lang.management.ClassLoadingMXBean.setVerbose(boolean)*
 
 public void setVerbose(boolean value)
@@ -80,6 +89,7 @@ machine implementation prints a message each time a class file is loaded.
 
 This method can be called by multiple threads concurrently. Each invocation of 
 this method enables or disables the verbose output globally. 
+
 
     value - true to enable the verbose output; false to disable. 
 

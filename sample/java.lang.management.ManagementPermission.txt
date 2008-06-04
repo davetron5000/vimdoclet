@@ -50,6 +50,7 @@ Instead they are created by the security policy code based on reading the
 security policy file. 
 
 
+
 *java.lang.management.ManagementPermission(String)*
 
 public ManagementPermission(java.lang.String name)

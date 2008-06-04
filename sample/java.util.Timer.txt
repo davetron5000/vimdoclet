@@ -66,6 +66,7 @@ O(log n), where n is the number of concurrently scheduled tasks.
 Implementation note: All constructors start a timer thread. 
 
 
+
 *java.util.Timer()*
 
 public Timer()
@@ -122,6 +123,7 @@ This method may be called repeatedly; the second and subsequent calls have no
 effect. 
 
 
+
 *java.util.Timer.purge()*
 
 public int purge()
@@ -141,7 +143,9 @@ Note that it is permissible to call this method from within a a task scheduled
 on this timer. 
 
 
+
     Returns: the number of tasks removed from the queue. 
+
 *java.util.Timer.schedule(TimerTask,Date)*
 
 public void schedule(
@@ -150,6 +154,7 @@ public void schedule(
 
 Schedules the specified task for execution at the specified time. If the time 
 is in the past, the task is scheduled for immediate execution. 
+
 
     task - task to be scheduled. 
     time - time at which task is to be executed. 
@@ -180,6 +185,7 @@ intervals. It also includes tasks wherein regular activity is performed in
 response to human input, such as automatically repeating a character as long as 
 a key is held down. 
 
+
     task - task to be scheduled. 
     firstTime - First time at which task is to be executed. 
     period - time in milliseconds between successive task executions. 
@@ -191,6 +197,7 @@ public void schedule(
   long delay)
 
 Schedules the specified task for execution after the specified delay. 
+
 
     task - task to be scheduled. 
     delay - delay in milliseconds before task is to be executed. 
@@ -220,6 +227,7 @@ This includes most animation tasks, such as blinking a cursor at regular
 intervals. It also includes tasks wherein regular activity is performed in 
 response to human input, such as automatically repeating a character as long as 
 a key is held down. 
+
 
     task - task to be scheduled. 
     delay - delay in milliseconds before task is to be executed. 
@@ -252,6 +260,7 @@ for ten seconds. Finally, fixed-rate execution is appropriate for scheduling
 multiple repeating timer tasks that must remain synchronized with respect to 
 one another. 
 
+
     task - task to be scheduled. 
     firstTime - First time at which task is to be executed. 
     period - time in milliseconds between successive task executions. 
@@ -282,6 +291,7 @@ executions is important, such as a countdown timer that ticks once every second
 for ten seconds. Finally, fixed-rate execution is appropriate for scheduling 
 multiple repeating timer tasks that must remain synchronized with respect to 
 one another. 
+
 
     task - task to be scheduled. 
     delay - delay in milliseconds before task is to be executed. 

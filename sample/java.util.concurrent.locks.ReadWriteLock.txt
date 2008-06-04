@@ -23,6 +23,12 @@ held simultaneously by multiple reader threads, so long as there are no
 writers. The write lock(|java.util.concurrent.locks.ReadWriteLock|) is 
 exclusive. 
 
+All ReadWriteLock implementations must guarantee that the memory 
+synchronization effects of writeLock operations (as specified in the 
+(|java.util.concurrent.locks.Lock|) interface) also hold with respect to the 
+associated readLock. That is, a thread successfully acquiring the read lock 
+will see all updates made upon previous release of the write lock. 
+
 A read-write lock allows for a greater level of concurrency in accessing shared 
 data than that permitted by a mutual exclusion lock. It exploits the fact that 
 while only a single thread at a time (a writer thread) can modify the shared 
@@ -79,6 +85,7 @@ You should consider all of these things when evaluating the suitability of a
 given implementation for your application. 
 
 
+
 *java.util.concurrent.locks.ReadWriteLock.readLock()*
 
 public |java.util.concurrent.locks.Lock| readLock()
@@ -86,7 +93,9 @@ public |java.util.concurrent.locks.Lock| readLock()
 Returns the lock used for reading. 
 
 
+
     Returns: the lock used for reading. 
+
 *java.util.concurrent.locks.ReadWriteLock.writeLock()*
 
 public |java.util.concurrent.locks.Lock| writeLock()
@@ -94,5 +103,7 @@ public |java.util.concurrent.locks.Lock| writeLock()
 Returns the lock used for writing. 
 
 
+
     Returns: the lock used for writing. 
+
 

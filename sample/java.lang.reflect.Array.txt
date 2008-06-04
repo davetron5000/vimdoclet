@@ -21,8 +21,8 @@ public final class Array
 |java.lang.reflect.Array.getLength(Object)|Returns the length of the specified 
 |java.lang.reflect.Array.getLong(Object,int)|Returns the value of the indexed c
 |java.lang.reflect.Array.getShort(Object,int)|Returns the value of the indexed 
-|java.lang.reflect.Array.newInstance(Class,int)|Creates a new array with the sp
-|java.lang.reflect.Array.newInstance(Class,int[])|Creates a new array  with the
+|java.lang.reflect.Array.newInstance(Class<?>,int...)|Creates a new array  with
+|java.lang.reflect.Array.newInstance(Class<?>,int)|Creates a new array with the
 |java.lang.reflect.Array.set(Object,int,Object)|Sets the value of the indexed c
 |java.lang.reflect.Array.setBoolean(Object,int,boolean)|Sets the value of the i
 |java.lang.reflect.Array.setByte(Object,int,byte)|Sets the value of the indexed
@@ -42,6 +42,7 @@ Array permits widening conversions to occur during a get or set operation, but
 throws an IllegalArgumentException if a narrowing conversion would occur. 
 
 
+
 *java.lang.reflect.Array.get(Object,int)*
 
 public static native |java.lang.Object| get(
@@ -53,10 +54,12 @@ public static native |java.lang.Object| get(
 Returns the value of the indexed component in the specified array object. The 
 value is automatically wrapped in an object if it has a primitive type. 
 
+
     array - the array 
     index - the index 
 
     Returns: the (possibly wrapped) value of the indexed component in the specified array 
+
 *java.lang.reflect.Array.getBoolean(Object,int)*
 
 public static native boolean getBoolean(
@@ -68,10 +71,12 @@ public static native boolean getBoolean(
 Returns the value of the indexed component in the specified array object, as a 
 boolean. 
 
+
     array - the array 
     index - the index 
 
     Returns: the value of the indexed component in the specified array 
+
 *java.lang.reflect.Array.getByte(Object,int)*
 
 public static native byte getByte(
@@ -83,10 +88,12 @@ public static native byte getByte(
 Returns the value of the indexed component in the specified array object, as a 
 byte. 
 
+
     array - the array 
     index - the index 
 
     Returns: the value of the indexed component in the specified array 
+
 *java.lang.reflect.Array.getChar(Object,int)*
 
 public static native char getChar(
@@ -98,10 +105,12 @@ public static native char getChar(
 Returns the value of the indexed component in the specified array object, as a 
 char. 
 
+
     array - the array 
     index - the index 
 
     Returns: the value of the indexed component in the specified array 
+
 *java.lang.reflect.Array.getDouble(Object,int)*
 
 public static native double getDouble(
@@ -113,10 +122,12 @@ public static native double getDouble(
 Returns the value of the indexed component in the specified array object, as a 
 double. 
 
+
     array - the array 
     index - the index 
 
     Returns: the value of the indexed component in the specified array 
+
 *java.lang.reflect.Array.getFloat(Object,int)*
 
 public static native float getFloat(
@@ -128,10 +139,12 @@ public static native float getFloat(
 Returns the value of the indexed component in the specified array object, as a 
 float. 
 
+
     array - the array 
     index - the index 
 
     Returns: the value of the indexed component in the specified array 
+
 *java.lang.reflect.Array.getInt(Object,int)*
 
 public static native int getInt(
@@ -143,10 +156,12 @@ public static native int getInt(
 Returns the value of the indexed component in the specified array object, as an 
 int. 
 
+
     array - the array 
     index - the index 
 
     Returns: the value of the indexed component in the specified array 
+
 *java.lang.reflect.Array.getLength(Object)*
 
 public static native int getLength(java.lang.Object array)
@@ -154,9 +169,11 @@ public static native int getLength(java.lang.Object array)
          
 Returns the length of the specified array object, as an int. 
 
+
     array - the array 
 
     Returns: the length of the array 
+
 *java.lang.reflect.Array.getLong(Object,int)*
 
 public static native long getLong(
@@ -168,10 +185,12 @@ public static native long getLong(
 Returns the value of the indexed component in the specified array object, as a 
 long. 
 
+
     array - the array 
     index - the index 
 
     Returns: the value of the indexed component in the specified array 
+
 *java.lang.reflect.Array.getShort(Object,int)*
 
 public static native short getShort(
@@ -183,34 +202,16 @@ public static native short getShort(
 Returns the value of the indexed component in the specified array object, as a 
 short. 
 
+
     array - the array 
     index - the index 
 
     Returns: the value of the indexed component in the specified array 
-*java.lang.reflect.Array.newInstance(Class,int)*
+
+*java.lang.reflect.Array.newInstance(Class<?>,int...)*
 
 public static |java.lang.Object| newInstance(
-  java.lang.Class componentType,
-  int length)
-  throws |java.lang.NegativeArraySizeException|
-         
-Creates a new array with the specified component type and length. Invoking this 
-method is equivalent to creating an array as follows: 
-
-
-
-int[] x = {length}; Array.newInstance(componentType, x); 
-
-
-
-    componentType - the Class object representing the component type of the new array 
-    length - the length of the new array 
-
-    Returns: the new array 
-*java.lang.reflect.Array.newInstance(Class,int[])*
-
-public static |java.lang.Object| newInstance(
-  java.lang.Class componentType,
+  java.lang.Class<?> componentType,
   int[] dimensions)
   throws |java.lang.IllegalArgumentException|
          |java.lang.NegativeArraySizeException|
@@ -226,10 +227,34 @@ component type of componentType.
 The number of dimensions of the new array must not exceed the number of array 
 dimensions supported by the implementation (typically 255). 
 
+
     componentType - the Class object representing the component type of the new array 
-    dimensions - an array of int types representing the dimensions of the new array 
+    dimensions - an array of int representing the dimensions of the new array 
 
     Returns: the new array 
+
+*java.lang.reflect.Array.newInstance(Class<?>,int)*
+
+public static |java.lang.Object| newInstance(
+  java.lang.Class<?> componentType,
+  int length)
+  throws |java.lang.NegativeArraySizeException|
+         
+Creates a new array with the specified component type and length. Invoking this 
+method is equivalent to creating an array as follows: 
+
+
+
+int[] x = {length}; Array.newInstance(componentType, x); 
+
+
+
+
+    componentType - the Class object representing the component type of the new array 
+    length - the length of the new array 
+
+    Returns: the new array 
+
 *java.lang.reflect.Array.set(Object,int,Object)*
 
 public static native void set(
@@ -242,6 +267,7 @@ public static native void set(
 Sets the value of the indexed component of the specified array object to the 
 specified new value. The new value is first automatically unwrapped if the 
 array has a primitive component type. 
+
 
     array - the array 
     index - the index into the array 
@@ -259,6 +285,7 @@ public static native void setBoolean(
 Sets the value of the indexed component of the specified array object to the 
 specified boolean value. 
 
+
     array - the array 
     index - the index into the array 
     z - the new value of the indexed component 
@@ -274,6 +301,7 @@ public static native void setByte(
          
 Sets the value of the indexed component of the specified array object to the 
 specified byte value. 
+
 
     array - the array 
     index - the index into the array 
@@ -291,6 +319,7 @@ public static native void setChar(
 Sets the value of the indexed component of the specified array object to the 
 specified char value. 
 
+
     array - the array 
     index - the index into the array 
     c - the new value of the indexed component 
@@ -306,6 +335,7 @@ public static native void setDouble(
          
 Sets the value of the indexed component of the specified array object to the 
 specified double value. 
+
 
     array - the array 
     index - the index into the array 
@@ -323,6 +353,7 @@ public static native void setFloat(
 Sets the value of the indexed component of the specified array object to the 
 specified float value. 
 
+
     array - the array 
     index - the index into the array 
     f - the new value of the indexed component 
@@ -338,6 +369,7 @@ public static native void setInt(
          
 Sets the value of the indexed component of the specified array object to the 
 specified int value. 
+
 
     array - the array 
     index - the index into the array 
@@ -355,6 +387,7 @@ public static native void setLong(
 Sets the value of the indexed component of the specified array object to the 
 specified long value. 
 
+
     array - the array 
     index - the index into the array 
     l - the new value of the indexed component 
@@ -370,6 +403,7 @@ public static native void setShort(
          
 Sets the value of the indexed component of the specified array object to the 
 specified short value. 
+
 
     array - the array 
     index - the index into the array 

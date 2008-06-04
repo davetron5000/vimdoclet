@@ -60,9 +60,10 @@ four different basic types of UUIDs: time-based, DCE security, name-based, and
 randomly generated UUIDs. These types have a version value of 1, 2, 3 and 4, 
 respectively. 
 
-For more information including algorithms used to create UUIDs, see the 
-Internet-Draft UUIDs and GUIDs or the standards body definition at ISO/IEC 
-11578:1996. 
+For more information including algorithms used to create UUIDs, see RFC4122: A 
+Universally Unique IDentifier (UUID) URN Namespace, section 4.2 Algorithms for 
+Creating a Time-Based UUID. 
+
 
 
 *java.util.UUID(long,long)*
@@ -93,7 +94,9 @@ version type 1. If this UUID is not a time-based UUID then this method throws
 UnsupportedOperationException. 
 
 
+
     Returns: the clock sequence of this UUID. 
+
 *java.util.UUID.compareTo(UUID)*
 
 public int compareTo(java.util.UUID val)
@@ -103,9 +106,11 @@ Compares this UUID with the specified UUID.
 The first of two UUIDs follows the second if the most significant field in 
 which the UUIDs differ is greater for the first UUID. 
 
+
     val - UUID to which this UUID is to be compared. 
 
     Returns: -1, 0 or 1 as this UUID is less than, equal to, or greater than val. 
+
 *java.util.UUID.equals(Object)*
 
 public boolean equals(java.lang.Object obj)
@@ -114,9 +119,11 @@ Compares this object to the specified object. The result is true if and only if
 the argument is not null, is a UUID object, has the same variant, and contains 
 the same value, bit for bit, as this UUID. 
 
+
     obj - the object to compare with. 
 
     Returns: true if the objects are the same; false otherwise. 
+
 *java.util.UUID.fromString(String)*
 
 public static |java.util.UUID| fromString(java.lang.String name)
@@ -124,9 +131,11 @@ public static |java.util.UUID| fromString(java.lang.String name)
 Creates a UUID from the string standard representation as described in the 
 (|java.util.UUID|) method. 
 
+
     name - a string that specifies a UUID. 
 
     Returns: a UUID with the specified value. 
+
 *java.util.UUID.getLeastSignificantBits()*
 
 public long getLeastSignificantBits()
@@ -134,7 +143,9 @@ public long getLeastSignificantBits()
 Returns the least significant 64 bits of this UUID's 128 bit value. 
 
 
+
     Returns: the least significant 64 bits of this UUID's 128 bit value. 
+
 *java.util.UUID.getMostSignificantBits()*
 
 public long getMostSignificantBits()
@@ -142,7 +153,9 @@ public long getMostSignificantBits()
 Returns the most significant 64 bits of this UUID's 128 bit value. 
 
 
+
     Returns: the most significant 64 bits of this UUID's 128 bit value. 
+
 *java.util.UUID.hashCode()*
 
 public int hashCode()
@@ -150,7 +163,9 @@ public int hashCode()
 Returns a hash code for this UUID. 
 
 
+
     Returns: a hash code value for this UUID. 
+
 *java.util.UUID.nameUUIDFromBytes(byte[])*
 
 public static |java.util.UUID| nameUUIDFromBytes(byte[] name)
@@ -158,9 +173,11 @@ public static |java.util.UUID| nameUUIDFromBytes(byte[] name)
 Static factory to retrieve a type 3 (name based) UUID based on the specified 
 byte array. 
 
+
     name - a byte array to be used to construct a UUID. 
 
     Returns: a UUID generated from the specified array. 
+
 *java.util.UUID.node()*
 
 public long node()
@@ -176,7 +193,9 @@ The node value is only meaningful in a time-based UUID, which has version type
 UnsupportedOperationException. 
 
 
+
     Returns: the node value of this UUID. 
+
 *java.util.UUID.randomUUID()*
 
 public static |java.util.UUID| randomUUID()
@@ -187,7 +206,9 @@ The UUID is generated using a cryptographically strong pseudo random number
 generator. 
 
 
+
     Returns: a randomly generated UUID. 
+
 *java.util.UUID.timestamp()*
 
 public long timestamp()
@@ -201,6 +222,7 @@ time_hi fields of this UUID. The resulting timestamp is measured in
 The timestamp value is only meaningful in a time-based UUID, which has version 
 type 1. If this UUID is not a time-based UUID then this method throws 
 UnsupportedOperationException. 
+
 
 
 *java.util.UUID.toString()*
@@ -219,7 +241,9 @@ time_low = 4* time_mid = 2* time_high_and_version = 2* variant_and_sequence =
 "E" | "F" 
 
 
+
     Returns: a string representation of this UUID. 
+
 *java.util.UUID.variant()*
 
 public int variant()
@@ -234,7 +258,9 @@ this class) 6 Reserved, Microsoft Corporation backward compatibility 7 Reserved
 for future definition 
 
 
+
     Returns: the variant number of this UUID. 
+
 *java.util.UUID.version()*
 
 public int version()
@@ -248,5 +274,7 @@ The version number has the following meaning:
 UUID 
 
 
+
     Returns: the version number of this UUID. 
+
 
