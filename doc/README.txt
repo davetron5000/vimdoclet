@@ -6,7 +6,7 @@ The Vim Doclet is a Doclet for Java 1.4 and above that generates documentation i
 
 == Trying it Out ==
 
-Before installing and running, go to link:http://sourceforge.net/project/showfiles.php?group_id=210533[the files section] and download the sample zip. Unzip this in `+++~/.vim/doc+++`, run vim and type `:helptags +++~.vim/doc+++`. Then do `help String`. This will bring up the documentation for `java.lang.String`. The sample includes the JDK5 version of the `java.lang` and `java.util` packages.
+Before installing and running, go to link:http://sourceforge.net/project/showfiles.php?group_id=210533[the files section] and download the sample zip. Unzip this and follow the instructions in README.txt.  Once you've done that, you can try out the javadoc in vim via `:help String`. This will bring up the documentation for `java.lang.String`. The sample includes the JDK6 version of the `java.lang` and `java.util` packages.
 
 image:vimdoclet1.png[Screenshot of what the documentation looks like]
 
@@ -46,6 +46,10 @@ See the vim documentation for further ways in which you can streamline your expe
 The main issue you may find with this documentation is in the way Vim handles classes with the same name (e.g. `java.util.Date` vs `java.sql.Date`). Basically, it doesn't. If you do `:help Date` you will always go to `java.sql.Date`. You can to `help java.util.Date`, however vim doesn't know which Date you need to lookup without the entire package.
 
 I find it useful to remove the documentation for `java.awt.List` because I almost never need it and find the documentation for `java.util.List` much more useful.
+
+== Source ==
+
+The source is freely available via the Gnu GPL and can be retrieved via link:http://git.or.cz[Git] at link:http://repo.or.cz/w/vimdoclet.git[the repo.or.cz site]
 
 == Links ==
 
