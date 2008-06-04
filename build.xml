@@ -25,7 +25,7 @@
     <property name="release.base.dir" value="${build.dir}/dist" />
     <property name="release.dir.name" value="${release.name}" />
     <property name="release.build.dir" value="${release.base.dir}/${release.dir.name}" />
-    <property name="samples.build.dir" value="${build.dir}/vimdoclet-samples" />
+    <property name="samples.build.dir" value="${build.dir}/vimdoclet-${release.number}-samples" />
 
     <path id="javadoc.classpath">
         <fileset dir="${build.dir}"> <include name="*.jar"/> </fileset>
