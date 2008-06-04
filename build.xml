@@ -1,3 +1,10 @@
+<!-- 
+      o -projecthelp is useful to find out what to do
+
+      o If you do not have asciidoc installed (and dont' want
+        to install it), set no.asciidoc on the command line or 
+        in here.
+-->
 <project name="vimdoclet" default="jar" basedir=".">
 
     <property environment="env" />
