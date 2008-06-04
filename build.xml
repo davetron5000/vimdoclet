@@ -20,6 +20,9 @@
     <target name="clean"
         description="Removes all build artifacts">
         <delete dir="${build.dir}" />
+        <delete>
+            <fileset dir="." includes="vimdoclet*.tar.gz,vimdoclet*.zip" />
+        </delete>
     </target>
 
     <target name="jar" depends="compile"
