@@ -6,6 +6,22 @@
     <property name="java.src.dir" value="${src.dir}/java"/>
     <property name="build.dir" value="${basedir}/build"/>
     <property name="jar" value="${build.dir}/${ant.project.name}.jar"/>
+    <property name="doc.dir" value="${basedir}/doc" />
+
+    <loadfile property="release.number" srcFile="${src.dir}/release.txt">
+        <filterchain>
+            <striplinebreaks />
+        </filterchain>
+    </loadfile>
+
+    <property name="release.name" value="vimdoclet-${release.number}" />
+    <property name="release.base.dir" value="${build.dir}/dist" />
+    <property name="release.dir.name" value="${release.name}" />
+    <property name="release.build.dir" value="${release.base.dir}/${release.dir.name}" />
+
+    <path id="javadoc.classpath">
+        <fileset dir="${build.dir}"> <include name="*.jar"/> </fileset>
+    </path>
 
     <target name="compile" 
         description="Compiles all code">
@@ -20,26 +36,23 @@
     <target name="clean"
         description="Removes all build artifacts">
         <delete dir="${build.dir}" />
-        <delete>
-            <fileset dir="." includes="vimdoclet*.tar.gz,vimdoclet*.zip" />
-        </delete>
+        <delete file="doc/index.html" />
     </target>
 
     <target name="jar" depends="compile"
-        description="packages code in a jar file">
+        description="Packages code in a jar file">
         <jar destfile="${jar}"
             basedir="${build.dir}/classes">
         </jar>
     </target>
 
-    <path id="javadoc.classpath">
-        <fileset dir="${build.dir}"> <include name="*.jar"/> </fileset>
-    </path>
-    <target name="test.run" depends="jar">
+    <target name="test.run" depends="jar"
+        description="Runs the doclet on the test classes"
+        >
         <delete dir="${build.dir}/test-output" />
         <mkdir dir="${build.dir}/test-output" />
         <javadoc maxmemory="512M" classpathref="javadoc.classpath">
-            <packageset dir="${basedir}/src/java" />
+            <packageset dir="${java.src.dir}" />
             <doclet 
                 name="com.naildrivin5.applications.vimdoclet.Main"
                 pathref="javadoc.classpath">
@@ -47,4 +60,33 @@
             </doclet>
         </javadoc>
     </target>
+
+    <target name="doc" unless="no.asciidoc">
+        <exec executable="asciidoc" dir="${doc.dir}">
+            <arg line="-a toc -a numbered -o index.html README.txt" />
+        </exec>
+    </target>
+
+    <target name="dist" depends="clean,jar,doc"
+        description="Creates a release tarball and zip in build/">
+        <mkdir dir="${release.build.dir}" />
+        <mkdir dir="${release.build.dir}/bin" />
+
+        <copy tofile="${release.build.dir}/bin/vimdoclet-${release.number}.jar" file="${jar}" />
+        <copy todir="${release.build.dir}/src">
+            <fileset dir="${src.dir}" excludes="release.txt" />
+        </copy> 
+        <copy todir="${release.build.dir}" file="build.xml" />
+        <copy todir="${release.build.dir}" file="run.xml" />
+        <mkdir dir="${release.build.dir}/doc" />
+        <copy todir="${release.build.dir}/doc">
+            <fileset dir="${doc.dir}" />
+        </copy>
+        <tar destfile="${build.dir}/${release.name}.tar.gz" basedir="${release.base.dir}"
+            includes="${release.dir.name}/**" 
+            compression="gzip" />
+        <zip destfile="${build.dir}/${release.name}.zip" basedir="${release.base.dir}"
+            includes="${release.dir.name}/**" /> 
+    </target>
+
 </project>
