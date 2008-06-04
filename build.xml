@@ -25,6 +25,7 @@
     <property name="release.base.dir" value="${build.dir}/dist" />
     <property name="release.dir.name" value="${release.name}" />
     <property name="release.build.dir" value="${release.base.dir}/${release.dir.name}" />
+    <property name="samples.build.dir" value="${build.dir}/vimdoclet-samples" />
 
     <path id="javadoc.classpath">
         <fileset dir="${build.dir}"> <include name="*.jar"/> </fileset>
@@ -94,6 +95,18 @@
             compression="gzip" />
         <zip destfile="${build.dir}/${release.name}.zip" basedir="${release.base.dir}"
             includes="${release.dir.name}/**" /> 
+    </target>
+
+    <target name="dist-samples" 
+        description="Creates the samples distribution">
+        <mkdir dir="${samples.build.dir}/vimdoclet-samples/samples" />
+        <copy todir="${samples.build.dir}/vimdoclet-samples/samples">
+            <fileset dir="${basedir}/sample" />
+        </copy>
+        <move 
+            file="${samples.build.dir}/vimdoclet-samples/samples/README.txt" 
+            tofile="${samples.build.dir}/vimdoclet-samples/README.txt" />
+        <zip destfile="${samples.build.dir}.zip" basedir="${samples.build.dir}" />
     </target>
 
 </project>
