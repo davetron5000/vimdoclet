@@ -53,7 +53,7 @@ The source is freely available via the Gnu GPL and can be retrieved via link:htt
 
 == Links ==
 
-* link:http://repo.or.cz/w/vimdoclet.git[Git Repo/Source for Vimdoclet]
+* link:http://github.com/davetron5000/vimdoclet/tree/master[Source for Vimdoclet (Git Repository)]
 * link:http://sourceforge.net/project/showfiles.php?group_id=210533[Download]
 * link:http://sourceforge.net/tracker/?group_id=210533[Tracker, report bugs, request features]
 * link:https://jdk6.dev.java.net/[JDK6 Dev page (source available here)]
