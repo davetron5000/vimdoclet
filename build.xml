@@ -69,7 +69,15 @@
         </javadoc>
     </target>
 
-    <target name="doc" unless="no.asciidoc">
+    <target name="doc.push" depends="doc">
+        <scp todir="davetron5000@shell.sf.net:/home/groups/v/vi/vimdoclet/htdocs/" keyfile="/Users/davec/.ssh/id_dsa" passphrase="">
+            <fileset dir="${doc.dir}" excludes="README.txt"/>
+        </scp>
+    </target>
+
+    <target name="doc" unless="no.asciidoc"
+        description="Generate HTML from asciidoc"
+        >
         <exec executable="asciidoc" dir="${doc.dir}">
             <arg line="-a toc -a numbered -o index.html README.txt" />
         </exec>
