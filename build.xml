@@ -70,7 +70,8 @@
     </target>
 
     <target name="doc.push" depends="doc">
-        <scp todir="davetron5000@shell.sf.net:/home/groups/v/vi/vimdoclet/htdocs/" keyfile="/Users/davec/.ssh/id_dsa" passphrase="">
+        <scp verbose="true" sftp="true" 
+            todir="davetron5000@shell.sourceforge.net:/home/groups/v/vi/vimdoclet/htdocs/" keyfile="/Users/davec/.ssh/id_dsa" passphrase="">
             <fileset dir="${doc.dir}" excludes="README.txt"/>
         </scp>
     </target>

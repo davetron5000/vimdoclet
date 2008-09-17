@@ -55,7 +55,7 @@ The source is freely available via the Gnu GPL and can be retrieved via link:htt
 
 * link:http://github.com/davetron5000/vimdoclet/tree/master[Source for Vimdoclet (Git Repository)]
 * link:http://sourceforge.net/project/showfiles.php?group_id=210533[Download]
-* link:http://sourceforge.net/tracker/?group_id=210533[Tracker, report bugs, request features]
+* link:http://davetron5000.lighthouseapp.com/projects/17091-vimdoclet/tickets[Tracker, report bugs, request features]
 * link:https://jdk6.dev.java.net/[JDK6 Dev page (source available here)]
 * link:http://www.vim.org[VIM Homepage]
 * link:http://java.sun.com/j2se/javadoc/[Javadoc homepage]
