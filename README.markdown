@@ -16,11 +16,9 @@ Download the latest distribution at [the SourceForge project page](http://source
 
 The doclet takes two parameters, one of which is required:
 
-outputDir:: 
-    This is the location of a directory that should contain the generated documentation. You may want to put this to a temp directory first, however if you set this to `~/.vim/doc` this would be the easiest way to make the documentation available to vim
+* **`outputDir`** - This is the location of a directory that should contain the generated documentation. You may want to put this to a temp directory first, however if you set this to `~/.vim/doc` this would be the easiest way to make the documentation available to vim
 
-lineLength:: 
-    This defaults to 80 and specifies the number of characters per line for the documentation. You can use this to increase the size of your documentation if you know you will be using vim in a particular size.
+* **`lineLength`** - This defaults to 80 and specifies the number of characters per line for the documentation. You can use this to increase the size of your documentation if you know you will be using vim in a particular size.
 
 Aside from simply configuration `javadoc` to use this doclet, you also need source to run it on. The most useful source is the source code for Java itself. Fortunately, this is available from Sun [here (click on "Latest JDK 6 Source Snapshots")](https://jdk6.dev.java.net/). Once you download this, extract it somewhere and have your javadoc point to that (though you will need to point it to `j2se/src/share/classes` unless you want a ton of superfluous classes documented).
 
@@ -28,8 +26,8 @@ Aside from simply configuration `javadoc` to use this doclet, you also need sour
 
 The `run.xml` file included in the distribution has a target called `run` that will run the doclet on java source code. It is set up assuming you are running on the JDK source, as it will skip certain superfluous classes and delete the documentation for `java.awt.List` (see below). To use it, specify two parameters on the command line to ant as properties:
 
-* *vimdoclet.source.root* - This is the root of the source, presumably the JDK. If you downloaded the JDK source, you should point this to `$JDK_SOURCE_ROOT/j2se/src/share/classes` as the JDK source package contains a lot more than what you probably want to document
-* *vimdoclet.outputDir* - This is the *outputDir* command line to the doclet and is where the generated source will go
+* **`vimdoclet.source.root`** - This is the root of the source, presumably the JDK. If you downloaded the JDK source, you should point this to `$JDK_SOURCE_ROOT/j2se/src/share/classes` as the JDK source package contains a lot more than what you probably want to document
+* **`vimdoclet.outputDir`** - This is the *outputDir* command line to the doclet and is where the generated source will go
 
 ## Using the Documentation
 
