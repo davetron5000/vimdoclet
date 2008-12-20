@@ -1,1 +1,69 @@
-Vimdoclet
+<h1>Vim Helpfile Doclet</h1>
+
+<p>The Vim Doclet is a Doclet for Java 1.4 and above that generates documentation in the VIM Help File format. This format is a very rudimentary form of hypertext and allows a vim user to call up the documentation on a Java class in the same manner as searching the VIM help. This allows the developer to read documentation without exiting VIM.</p>
+
+<h2>Trying it Out</h2>
+
+<p>Before installing and running, go to <a href="http://sourceforge.net/project/showfiles.php?group_id#210533">the files section</a> and download the sample zip. Unzip this and follow the instructions in README.txt.  Once you've done that, you can try out the javadoc in vim via <code>:help String</code>. This will bring up the documentation for <code>java.lang.String</code>. The sample includes the JDK6 version of the <code>java.lang</code> and <code>java.util</code> packages.</p>
+
+<p><img src="vimdoclet1.png" alt="Screenshot" title="Screenshot of what the documentation looks like" /></p>
+
+<h2>Installation</h2>
+
+<p>Download the latest distribution at <a href="http://sourceforge.net/projects/vimdoclet/">the SourceForge project page</a>. The distribution contains both source and binary (it's only one source file).  As this is a custom doclet, installation is largely just putting the <code>vimdoclet.jar</code> into your classpath before running javadoc. How you do this depends highly on your development environment.</p>
+
+<h2>Running</h2>
+
+<p>The doclet takes two parameters, one of which is required:</p>
+
+<ul>
+<li><p><strong><code>outputDir</code></strong> - This is the location of a directory that should contain the generated documentation. You may want to put this to a temp directory first, however if you set this to <code>~/.vim/doc</code> this would be the easiest way to make the documentation available to vim</p></li>
+<li><p><strong><code>lineLength</code></strong> - This defaults to 80 and specifies the number of characters per line for the documentation. You can use this to increase the size of your documentation if you know you will be using vim in a particular size.</p></li>
+</ul>
+
+<p>Aside from simply configuration <code>javadoc</code> to use this doclet, you also need source to run it on. The most useful source is the source code for Java itself. Fortunately, this is available from Sun <a href="https://jdk6.dev.java.net/">here (click on "Latest JDK 6 Source Snapshots")</a>. Once you download this, extract it somewhere and have your javadoc point to that (though you will need to point it to <code>j2se/src/share/classes</code> unless you want a ton of superfluous classes documented).</p>
+
+<h3>Running from Ant</h3>
+
+<p>The <code>run.xml</code> file included in the distribution has a target called <code>run</code> that will run the doclet on java source code. It is set up assuming you are running on the JDK source, as it will skip certain superfluous classes and delete the documentation for <code>java.awt.List</code> (see below). To use it, specify two parameters on the command line to ant as properties:</p>
+
+<ul>
+<li><strong><code>vimdoclet.source.root</code></strong> - This is the root of the source, presumably the JDK. If you downloaded the JDK source, you should point this to <code>$JDK_SOURCE_ROOT/j2se/src/share/classes</code> as the JDK source package contains a lot more than what you probably want to document</li>
+<li><strong><code>vimdoclet.outputDir</code></strong> - This is the <em>outputDir</em> command line to the doclet and is where the generated source will go</li>
+</ul>
+
+<h2>Using the Documentation</h2>
+
+<p>Once you've generated the documentation, you need to generate Vim's tag index. If you've put your documents in <code>~/.vim/doc</code>, you can just do <code>:helptags ~/.vim/doc</code> from within vim and, after a very long time of indexing your documentation is ready for use. Try it by doing <code>:help String</code> in vim.</p>
+
+<p>If you've never used the vim help browser, highlighted text typically represents hyperlinks that can be followed by ^] (control and right bracket). You can navigate "back" via ^T (control and T).</p>
+
+<p>See the vim documentation for further ways in which you can streamline your experience.</p>
+
+<h3>Possible Issues</h3>
+
+<p>The main issue you may find with this documentation is in the way Vim handles classes with the same name (e.g. <code>java.util.Date</code> vs <code>java.sql.Date</code>). Basically, it doesn't. If you do <code>:help Date</code> you will always go to <code>java.sql.Date</code>. You can to <code>help java.util.Date</code>, however vim doesn't know which Date you need to lookup without the entire package.</p>
+
+<p>I find it useful to remove the documentation for <code>java.awt.List</code> because I almost never need it and find the documentation for <code>java.util.List</code> much more useful.</p>
+
+<h2>Source</h2>
+
+<p>The source is freely available via the Gnu GPL and can be retrieved via <a href="http://git.or.cz">Git</a> at <a href="http://github.com/davetron5000/vimdoclet/tree/master">GitHub</a></p>
+
+<h2>Links</h2>
+
+<ul>
+<li><a href="http://github.com/davetron5000/vimdoclet/tree/master">Source for Vimdoclet (Git Repository)</a></li>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id#210533">Download</a></li>
+<li><a href="http://davetron5000.lighthouseapp.com/projects/17091-vimdoclet/tickets">Tracker, report bugs, request features</a></li>
+<li><a href="https://jdk6.dev.java.net/">JDK6 Dev page (source available here)</a></li>
+<li><a href="http://www.vim.org">VIM Homepage</a></li>
+<li><a href="http://java.sun.com/j2se/javadoc/">Javadoc homepage</a></li>
+<li><a href="http://vim.wikia.com/wiki/Vim_Doclet">Vimdoclet Vim wikia entry</a></li>
+</ul>
+
+<h2>Screenshots</h2>
+
+<p><img src="vimdoclet1.png" alt="Screenshot" title="Screenshot of what the documentation looks like" />
+<img src="vimdoclet2.png" alt="Screenshot" title="Screenshot of the method list" />
+<img src="vimdoclet3.png" alt="Screenshot" title="Screenshot a method's javadoc" /></p>
