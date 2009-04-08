@@ -25,11 +25,12 @@
 
 <h3>Running from Ant</h3>
 
-<p>The <code>run.xml</code> file included in the distribution has a target called <code>run</code> that will run the doclet on java source code. It is set up assuming you are running on the JDK source, as it will skip certain superfluous classes and delete the documentation for <code>java.awt.List</code> (see below). To use it, specify two parameters on the command line to ant as properties:</p>
+<p>The <code>run.xml</code> file included in the distribution has a target called <code>run</code> that will run the doclet on java source code. It is set up assuming you are running on the JDK source, as it will skip certain superfluous classes and delete the documentation for <code>java.awt.List</code> (see below). To use it, modify <code>run.properties</code> to suit your setup:</p>
 
 <ul>
 <li><strong><code>vimdoclet.source.root</code></strong> - This is the root of the source, presumably the JDK. If you downloaded the JDK source, you should point this to <code>$JDK_SOURCE_ROOT/j2se/src/share/classes</code> as the JDK source package contains a lot more than what you probably want to document</li>
 <li><strong><code>vimdoclet.outputDir</code></strong> - This is the <em>outputDir</em> command line to the doclet and is where the generated source will go</li>
+<li><strong><code>vimdoclet.lineLength</code></strong> - This is the <em>lineLength</em> command line to the doclet and is the lenght of lines before wrapping</li>
 </ul>
 
 <h2>Using the Documentation</h2>
