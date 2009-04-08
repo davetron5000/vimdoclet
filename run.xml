@@ -1,5 +1,7 @@
 <project name="vimdoclet-run" default="run" basedir=".">
 
+    <property file="run.properties"/>
+    <property name="vimdoclet.lineLength" value="80" />
     <path id="javadoc.classpath">
         <fileset dir="build"> <include name="vimdoclet.jar"/> </fileset>
     </path>
@@ -14,6 +16,7 @@
                 name="com.naildrivin5.applications.vimdoclet.Main"
                 pathref="javadoc.classpath">
                 <param name="-outputDir" value="${vimdoclet.outputDir}" />
+                <param name="-lineLength" value="${vimdoclet.lineLength}" />
             </doclet>
         </javadoc>
         <delete>
